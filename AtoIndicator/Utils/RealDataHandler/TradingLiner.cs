@@ -180,12 +180,12 @@ namespace AtoIndicator
 
             }
 
-            if (ea[nCurIdx].fPower >= 0.29)
-            {
-                isSell = true;
-                sSharedSellDescription.Append($"상한가 도달!{NEW_LINE}");
-                PrintLog($"상한가 도달! : {checkSellIterIdx}번째 매매슬롯 {nSharedTime} {ea[nCurIdx].sCode} {ea[nCurIdx].sCodeName}", nCurIdx, checkSellIterIdx);
-            }
+            //if (ea[nCurIdx].fPower >= 0.29)
+            //{
+            //    isSell = true;
+            //    sSharedSellDescription.Append($"상한가 도달!{NEW_LINE}");
+            //    PrintLog($"상한가 도달! : {checkSellIterIdx}번째 매매슬롯 {nSharedTime} {ea[nCurIdx].sCode} {ea[nCurIdx].sCodeName}", nCurIdx, checkSellIterIdx);
+            //}
 
             if (isSell)
                 RequestThisSell();

@@ -772,10 +772,32 @@ namespace AtoIndicator
                         ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].sBuyDescription = $"미처분 매매블록{NEW_LINE}";
                         ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].sBuyScrNo = null;
                         ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].sSellScrNo = null;
-                        ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].eTradeMethod = TradeMethodCategory.RisingMethod;
+                        ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].eTradeMethod = ea[nCurIdx].myTradeManager.eDefaultTradeCategory;
                         ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nCurLineIdx = 0;
-                        ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fTargetPer = GetNextCeiling(ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nCurLineIdx);
-                        ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fBottomPer = GetNextFloor(ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nCurLineIdx, ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].eTradeMethod);
+
+
+                        switch (ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].eTradeMethod)
+                        {
+                            case TradeMethodCategory.RisingMethod:
+                                ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fTargetPer = GetNextCeiling(ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nCurLineIdx);
+                                ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fBottomPer = GetNextFloor(ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nCurLineIdx, TradeMethodCategory.RisingMethod);
+                                break;
+                            case TradeMethodCategory.ScalpingMethod:
+                                ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fTargetPer = GetNextCeiling(ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nCurLineIdx);
+                                ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fBottomPer = GetNextFloor(ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nCurLineIdx, TradeMethodCategory.ScalpingMethod);
+                                break;
+                            case TradeMethodCategory.BottomUpMethod:
+                                ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fTargetPer = GetNextCeiling(ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nCurLineIdx);
+                                ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fBottomPer = GetNextFloor(ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nCurLineIdx, TradeMethodCategory.BottomUpMethod);
+                                break;
+                            case TradeMethodCategory.FixedMethod:
+                                ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fTargetPer = DEFAULT_FIXED_CEILING;
+                                ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fBottomPer = DEFAULT_FIXED_BOTTOM;
+                                break;
+                            default:
+                                break;
+                        }
+
                         PrintLog($"미처분 매매블록화 성공  체결가 : {holdingsArray[nUndisposalIdx].nBuyedPrice}  체결량 : {holdingsArray[nUndisposalIdx].nHoldingQty}  매매가능 : { holdingsArray[nUndisposalIdx].nNumPossibleToSell}", nCurIdx, nSlotIdx, false);
 
                         ea[nCurIdx].myTradeManager.nTotalBuyed += ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nCurVolume;
