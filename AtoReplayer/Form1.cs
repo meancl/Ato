@@ -14,7 +14,6 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 /*
  todo
-- y축 값이 다 안보임 (테스트를 위해 sleep 주석 처리해놓음)
 - 뒤로 가기, 앞으로 가기 (-5분, -1분, +1 분, +5분)
 - 시간 플레이 바 (호가플레이 ui 참조)
  */
@@ -82,6 +81,9 @@ namespace AtoReplayer
             // 선 색상 설정
             historyChart.ChartAreas[0].AxisX.MajorGrid.LineColor = Color.LightGray;
             historyChart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+
+            // Y축 간격 모드
+            historyChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.FixedCount;
         }
 
         // DateTimePicker format 초기 셋팅하기
@@ -267,13 +269,14 @@ namespace AtoReplayer
                         int maxY = displayedTimelines.Max(timeline => timeline.nMaxFs);
                         int minY = displayedTimelines.Min(timeline => timeline.nMaxFs);
 
+                        Console.WriteLine("Max/Min: " + maxY + "," + minY);
+
                         // 차트 스케일 조정
                         double padding = GetIntegratedMarketGap(displayedTimelines[0].nStartFs); // 여백
                         historyChart.ChartAreas[0].AxisY.Maximum = maxY + padding;
                         historyChart.ChartAreas[0].AxisY.Minimum = minY - padding;
 
                         // Y축의 눈금 조정
-                        historyChart.ChartAreas[0].AxisY.IntervalAutoMode = IntervalAutoMode.FixedCount;
                         historyChart.ChartAreas[0].AxisY.Interval = YIntervalGap(maxY - minY); // Y축 간격
 
 
@@ -285,7 +288,7 @@ namespace AtoReplayer
                         historyChart.Series["MinuteStick"].Points[i].YValues[3] = displayedTimelines[i].nLastFs;
 
                         currentDrawIdx = i+1;
-                        //await Task.Delay(delayInterval);
+                        await Task.Delay(delayInterval);
                     }
                 }
             }            
@@ -313,26 +316,42 @@ namespace AtoReplayer
 
         public int YIntervalGap(int yValueRange)
         {
+            int yIntervalGap = -1;
+            int closesetGap = -1;
+            int closesetDiff = int.MaxValue;
+
             // 원하는 눈금 개수 범위 설정
             int intervalCntMin = 10;
             int intervalCntMax = 15;
 
-            // 가능한 간격 값들
+            // 가격 간격 값 후보
             int[] possibleIntervals = new int[] { 1000, 500, 250, 100, 50, 20, 10 };
 
             // 간격 값 설정
-            int selectedInterval = possibleIntervals[0];
             foreach (int interval in possibleIntervals)
             {
                 int intervalCnt = (int)Math.Ceiling((double)yValueRange / interval) + 1;
                 if (intervalCnt >= intervalCntMin && intervalCnt <= intervalCntMax)
                 {
-                    selectedInterval = interval;
+                    yIntervalGap = interval;
                     break;
+                }
+
+                // 원하는 범위에 없는 경우, 가장 조건에 가까운 값
+                int diff = Math.Abs(intervalCnt - intervalCntMin);
+                if (diff < closesetDiff)
+                {
+                    closesetDiff = diff;
+                    closesetGap = interval;
                 }
             }
 
-            return selectedInterval;
+            if (yIntervalGap == -1)
+            {
+                yIntervalGap = closesetGap;
+            }
+
+            return yIntervalGap;
         }
 
         public static bool IsFirstCharDigit(string input)
