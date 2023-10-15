@@ -131,7 +131,7 @@ namespace AtoChoicer
 
                 int nShortTerm = 600;
                 int nLongTerm = 3600;
-                int nTargetTerm = nLongTerm;
+                int nTargetTerm = nShortTerm;
 
                 int nTotalMonitored = 0;
                 int nTotalMonitorStockNum = codeKospiArr.Length + codeKosdaqArr.Length;

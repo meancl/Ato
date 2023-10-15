@@ -33,19 +33,29 @@ namespace AtoIndicator.View
             listView1.Columns.Add(new ColumnHeader { Name = sString, Text = "종목명" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "현재파워" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "초기갭" });
+            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "맥스차" });
+            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "민차" });
 
             listView1.Columns.Add(new ColumnHeader { Name = sString, Text = "RV" });
             listView1.Columns.Add(new ColumnHeader { Name = sString, Text = "VI" });
 
+            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "체결속도" });
+            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "대금정도" });
+            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "매수정도" });
+
+            listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "페매수" });
+            listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "페보조" });
+            listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "페매보" });
+            listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "실매수" });
+
+
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "이전분봉" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "현재분봉" });
 
-            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "호가차이" });
-            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "체결속도" });
-            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "호가비" });
-            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "가격속도" });
-            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "대금정도" });
-            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "매수정도" });
+            listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "분당순위" });
+            listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "총순위" });
+            listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "순위변경" });
+
 
             listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "타겟 T" });
             
@@ -54,8 +64,6 @@ namespace AtoIndicator.View
 
             
 
-            listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "실매수" });
-            listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "페매수" });
             listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "에브리" });
 
             listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "총 페이크" });
@@ -406,12 +414,12 @@ namespace AtoIndicator.View
                         tTMIN2.Text = "";
                         tTMD1.Text = "";
                         tTMD2.Text = "";
-                        tAI5T1.Text = "";
-                        tAI5T2.Text = "";
-                        tAI10T1.Text = "";
-                        tAI10T2.Text = "";
-                        tAI15T1.Text = "";
-                        tAI15T2.Text = "";
+                        tMR1.Text = "";
+                        tMR2.Text = "";
+                        tTR1.Text = "";
+                        tTR2.Text = "";
+                        tRDIF1.Text = "";
+                        tRDIF2.Text = "";
                         tAI20T1.Text = "";
                         tAI20T2.Text = "";
                         tAI30T1.Text = "";
@@ -766,12 +774,12 @@ namespace AtoIndicator.View
                 string sTMIN2 = "";
                 string sTMD1 = "";
                 string sTMD2 = "";
-                string sAI5T1 = "";
-                string sAI5T2 = "";
-                string sAI10T1 = "";
-                string sAI10T2 = "";
-                string sAI15T1 = "";
-                string sAI15T2 = "";
+                string sMR1 = "";
+                string sMR2 = "";
+                string sTR1 = "";
+                string sTR2 = "";
+                string sRDIF1 = "";
+                string sRDIF2 = "";
                 string sAI20T1 = "";
                 string sAI20T2 = "";
                 string sAI30T1 = "";
@@ -921,12 +929,12 @@ namespace AtoIndicator.View
                 bool isTMIN2 = false;
                 bool isTMD1 = false;
                 bool isTMD2 = false;
-                bool isAI5T1 = false;
-                bool isAI5T2 = false;
-                bool isAI10T1 = false;
-                bool isAI10T2 = false;
-                bool isAI15T1 = false;
-                bool isAI15T2 = false;
+                bool isMR1 = false;
+                bool isMR2 = false;
+                bool isTR1 = false;
+                bool isTR2 = false;
+                bool isRDIF1 = false;
+                bool isRDIF2 = false;
                 bool isAI20T1 = false;
                 bool isAI20T2 = false;
                 bool isAI30T1 = false;
@@ -1086,12 +1094,12 @@ namespace AtoIndicator.View
                     sTMIN2 = tTMIN2.Text.Trim();
                     sTMD1 = tTMD1.Text.Trim();
                     sTMD2 = tTMD2.Text.Trim();
-                    sAI5T1 = tAI5T1.Text.Trim();
-                    sAI5T2 = tAI5T2.Text.Trim();
-                    sAI10T1 = tAI10T1.Text.Trim();
-                    sAI10T2 = tAI10T2.Text.Trim();
-                    sAI15T1 = tAI15T1.Text.Trim();
-                    sAI15T2 = tAI15T2.Text.Trim();
+                    sMR1 = tMR1.Text.Trim();
+                    sMR2 = tMR2.Text.Trim();
+                    sTR1 = tTR1.Text.Trim();
+                    sTR2 = tTR2.Text.Trim();
+                    sRDIF1 = tRDIF1.Text.Trim();
+                    sRDIF2 = tRDIF2.Text.Trim();
                     sAI20T1 = tAI20T1.Text.Trim();
                     sAI20T2 = tAI20T2.Text.Trim();
                     sAI30T1 = tAI30T1.Text.Trim();
@@ -1242,12 +1250,12 @@ namespace AtoIndicator.View
                     isTMIN2 = !sTMIN2.Equals("");
                     isTMD1 = !sTMD1.Equals("");
                     isTMD2 = !sTMD2.Equals("");
-                    isAI5T1 = !sAI5T1.Equals("");
-                    isAI5T2 = !sAI5T2.Equals("");
-                    isAI10T1 = !sAI10T1.Equals("");
-                    isAI10T2 = !sAI10T2.Equals("");
-                    isAI15T1 = !sAI15T1.Equals("");
-                    isAI15T2 = !sAI15T2.Equals("");
+                    isMR1 = !sMR1.Equals("");
+                    isMR2 = !sMR2.Equals("");
+                    isTR1 = !sTR1.Equals("");
+                    isTR2 = !sTR2.Equals("");
+                    isRDIF1 = !sRDIF1.Equals("");
+                    isRDIF2 = !sRDIF2.Equals("");
                     isAI20T1 = !sAI20T1.Equals("");
                     isAI20T2 = !sAI20T2.Equals("");
                     isAI30T1 = !sAI30T1.Equals("");
@@ -1356,9 +1364,9 @@ namespace AtoIndicator.View
                                         isTMAX1 || isTMAX2,
                                         isTMIN1 || isTMIN2,
                                         isTMD1 || isTMD2,
-                                        isAI5T1 || isAI5T2 ,
-                                        isAI10T1 || isAI10T2 ,
-                                        isAI15T1 || isAI15T2 ,
+                                        isMR1 || isMR2 ,
+                                        isTR1 || isTR2 ,
+                                        isRDIF1 || isRDIF2 ,
                                         isAI20T1 || isAI20T2 ,
                                         isAI30T1 || isAI30T2 ,
                                         isAI50T1 || isAI50T2 ,
@@ -1561,15 +1569,15 @@ namespace AtoIndicator.View
                             if (isTMD1 || isTMD2)
                                 nPass += ((isTMD1 ? double.Parse(sTMD1) <= mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fTodayBottomPower : true) &&
                                     (isTMD2 ? mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fTodayBottomPower <= double.Parse(sTMD2) : true)) ? 1 : 0;
-                            if (isAI5T1 || isAI5T2)
-                                nPass += ((isAI5T1 ? int.Parse(sAI5T1) <= mainForm.ea[i].fakeStrategyMgr.nAI5Time : true) &&
-                                  (isAI5T2 ? mainForm.ea[i].fakeStrategyMgr.nAI5Time <= int.Parse(sAI5T2) : true)) ? 1 : 0;
-                            if (isAI10T1 || isAI10T2)
-                                nPass += ((isAI10T1 ? int.Parse(sAI10T1) <= mainForm.ea[i].fakeStrategyMgr.nAI10Time : true) &&
-                                  (isAI10T2 ? mainForm.ea[i].fakeStrategyMgr.nAI10Time <= int.Parse(sAI10T2) : true)) ? 1 : 0;
-                            if (isAI15T1 || isAI15T2)
-                                nPass += ((isAI15T1 ? int.Parse(sAI15T1) <= mainForm.ea[i].fakeStrategyMgr.nAI15Time : true) &&
-                                  (isAI15T2 ? mainForm.ea[i].fakeStrategyMgr.nAI15Time <= int.Parse(sAI15T2) : true)) ? 1 : 0;
+                            if (isMR1 || isMR2)
+                                nPass += ((isMR1 ? int.Parse(sMR1) <= mainForm.ea[i].rankSystem.nMinuteSummationRanking : true) &&
+                                  (isMR2 ? mainForm.ea[i].rankSystem.nMinuteSummationRanking <= int.Parse(sMR2) : true)) ? 1 : 0;
+                            if (isTR1 || isTR2)
+                                nPass += ((isTR1 ? int.Parse(sTR1) <= mainForm.ea[i].rankSystem.nSummationRanking : true) &&
+                                  (isTR2 ? mainForm.ea[i].rankSystem.nSummationRanking <= int.Parse(sTR2) : true)) ? 1 : 0;
+                            if (isRDIF1 || isRDIF2)
+                                nPass += ((isRDIF1 ? int.Parse(sRDIF1) <= mainForm.ea[i].rankSystem.nSummationMove : true) &&
+                                  (isRDIF2 ? mainForm.ea[i].rankSystem.nSummationMove <= int.Parse(sRDIF2) : true)) ? 1 : 0;
                             if (isAI20T1 || isAI20T2)
                                 nPass += ((isAI20T1 ? int.Parse(sAI20T1) <= mainForm.ea[i].fakeStrategyMgr.nAI20Time : true) &&
                                   (isAI20T2 ? mainForm.ea[i].fakeStrategyMgr.nAI20Time <= int.Parse(sAI20T2) : true)) ? 1 : 0;
@@ -1735,26 +1743,32 @@ namespace AtoIndicator.View
                                 mainForm.ea[i].sCodeName,
                                 Math.Round(mainForm.ea[i].fPower, 3).ToString(),
                                 Math.Round(mainForm.ea[i].fStartGap, 3).ToString(),
+                                Math.Round(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower, 3).ToString(),
+                                Math.Round(mainForm.ea[i].fPower - mainForm.ea[i].fTodayBottomPower, 3).ToString(),
                                 "", // 매수예약
                                 mainForm.ea[i].isViMode.ToString(),
+
+                                Math.Round(mainForm.ea[i].speedStatus.fCur, 2).ToString(),
+                                Math.Round(mainForm.ea[i].tradeStatus.fCur , 2).ToString(),
+                                Math.Round(mainForm.ea[i].pureTradeStatus.fCur , 2).ToString(),
+
+                                mainForm.ea[i].fakeBuyStrategy.nStrategyNum.ToString(),
+                                mainForm.ea[i].fakeAssistantStrategy.nStrategyNum.ToString(),
+                                (mainForm.ea[i].fakeBuyStrategy.nStrategyNum + mainForm.ea[i].fakeAssistantStrategy.nStrategyNum).ToString(),
+                                mainForm.ea[i].paperBuyStrategy.nStrategyNum.ToString(),
 
                                 Math.Round((double)(mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nRealDataIdx].nLastFs - mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nRealDataIdx].nStartFs) / mainForm.ea[i].nYesterdayEndPrice, 3).ToString(),
                                 Math.Round((double)(mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nPrevTimeLineIdx].nLastFs - mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nPrevTimeLineIdx].nStartFs) / mainForm.ea[i].nYesterdayEndPrice, 3).ToString(),
 
-                                Math.Abs(Math.Round((double)(mainForm.ea[i].nTotalSellHogaVolume - mainForm.ea[i].nTotalBuyHogaVolume)  * mainForm.ea[i].nCurHogaPrice / MainForm.HUNDRED_MILLION, 2)).ToString(),
-                                Math.Round(mainForm.ea[i].speedStatus.fCur, 2).ToString(),
-                                Math.Round(mainForm.ea[i].fHogaRatio, 2).ToString(),
-                                Math.Round(mainForm.ea[i].priceMoveStatus.fCur, 2).ToString(),
-                                Math.Round(mainForm.ea[i].tradeStatus.fCur , 2).ToString(),
-                                Math.Round(mainForm.ea[i].pureTradeStatus.fCur , 2).ToString(),
+                                mainForm.ea[i].rankSystem.nMinuteSummationRanking.ToString(),
+                                mainForm.ea[i].rankSystem.nSummationRanking.ToString(),
+                                mainForm.ea[i].rankSystem.nSummationMove.ToString(),
 
-                                targetTimeArr[i].ToString(), 
+                                
+                                targetTimeArr[i].ToString(),
 
                                 mainForm.ea[i].fakeStrategyMgr.nCurHitNum.ToString(),
                                 mainForm.ea[i].fakeStrategyMgr.nCurHitType.ToString(),
-
-                                mainForm.ea[i].paperBuyStrategy.nStrategyNum.ToString(),
-                                mainForm.ea[i].fakeBuyStrategy.nStrategyNum.ToString(),
 
                                 mainForm.ea[i].fakeStrategyMgr.nEveryAICount.ToString(),
                                 mainForm.ea[i].fakeStrategyMgr.nTotalFakeCount.ToString(),
@@ -1793,32 +1807,36 @@ namespace AtoIndicator.View
                                 for (int restIdx = 0; restIdx < listViewItem.SubItems.Count; restIdx++)
                                 {
                                     if (mainForm.ea[i].manualReserve.isChosenQ && restIdx == 0)
-                                        listViewItem.SubItems[restIdx].BackColor = Color.Green;
+                                        listViewItem.SubItems[restIdx].BackColor = Color.Green; // Green
                                     else if (mainForm.ea[i].manualReserve.isChosenW && restIdx == 1)
-                                        listViewItem.SubItems[restIdx].BackColor = Color.Orange;
+                                        listViewItem.SubItems[restIdx].BackColor = Color.Orange; // Orange 
                                     else if (mainForm.ea[i].manualReserve.isChosenE && restIdx == 2)
-                                        listViewItem.SubItems[restIdx].BackColor = Color.SkyBlue;
+                                        listViewItem.SubItems[restIdx].BackColor = Color.SkyBlue; // SkyBlue
                                     else if (mainForm.ea[i].manualReserve.isChosenR && restIdx == 3)
-                                        listViewItem.SubItems[restIdx].BackColor = Color.GreenYellow;
+                                        listViewItem.SubItems[restIdx].BackColor = Color.GreenYellow; // GreenYellow
+                                    else if(mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx  && restIdx == 4)
+                                        listViewItem.SubItems[restIdx].BackColor = Color.DarkGray;
+                                    else if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx && restIdx == 5)
+                                        listViewItem.SubItems[restIdx].BackColor = Color.LightSlateGray;
                                     else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isBuyReserved ||
                                               mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isBuyReserved ||
                                               mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isBuyReserved ||
-                                              mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isBuyReserved) && restIdx == 4)
+                                              mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isBuyReserved) && restIdx == 6)
                                         listViewItem.SubItems[restIdx].BackColor = Color.Black;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isSelected && restIdx == 5) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isChosen1 && restIdx == 6))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isSelected && restIdx == 7) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isChosen1 && restIdx == 8))
                                         listViewItem.SubItems[restIdx].BackColor = Color.BlueViolet;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isSelected && restIdx == 7) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isChosen1 && restIdx == 8))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isSelected && restIdx == 9) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isChosen1 && restIdx == 10))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Gold;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isSelected && restIdx == 9) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isChosen1 && restIdx == 10))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isSelected && restIdx == 11) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isChosen1 && restIdx == 12))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Turquoise;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isSelected && restIdx == 11) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isChosen1 && restIdx == 12))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isSelected && restIdx == 13) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isChosen1 && restIdx == 14))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Olive;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isSelected && restIdx == 13) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isChosen1 && restIdx == 14))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isSelected && restIdx == 15) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isChosen1 && restIdx == 16))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Teal;
                                     else
                                         listViewItem.SubItems[restIdx].BackColor = myColor;

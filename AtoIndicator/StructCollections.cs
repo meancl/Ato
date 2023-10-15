@@ -628,7 +628,7 @@ namespace AtoIndicator
 
             public BuyedManager()
             {
-                eDefaultTradeCategory = TradeMethodCategory.FixedMethod;
+                eDefaultTradeCategory = TradeMethodCategory.None;
                 arrBuyedSlots = new List<BuyedSlot>();
                 sTotalLog = new StringBuilder();
                 posRecordList = new List<(double, double)>();
@@ -1092,6 +1092,7 @@ namespace AtoIndicator
             public int nDownCnt;
             public int nSpecialDownCnt;
             public bool isCrushCheck;
+            public int nCrushTimeLineIdx;
 
             public int nCrushRealTimePrev; // 이전 실시간 전고점 
             public int nCrushRealTimeCount; // 실시간 전고점 누적횟수

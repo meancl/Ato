@@ -399,7 +399,7 @@ namespace AtoIndicator.View.EachStockHistory
                     totalClockLabel.Text = "현재시간 : " + mainForm.nSharedTime;
                     depositLabel.Text = $"예수금 : {mainForm.nCurDepositCalc}";
                 }
-
+                
                 if (historyChart.InvokeRequired)
                     historyChart.Invoke(new MethodInvoker(delegate { historyChart.Annotations.Clear(); }));
                 else

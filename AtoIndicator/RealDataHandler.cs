@@ -1102,6 +1102,7 @@ namespace AtoIndicator
                                 int nCrushUpperCnt = 0;
                                 int nBadPoint = 0;
                                 ea[i].crushMinuteManager.isCrushCheck = true;
+                                ea[i].crushMinuteManager.nCrushTimeLineIdx = nTimeLineIdx + 1;
                                 ea[i].crushMinuteManager.nUpCnt = 0;
                                 ea[i].crushMinuteManager.nDownCnt = 0;
                                 ea[i].crushMinuteManager.nSpecialDownCnt = 0;
@@ -3329,6 +3330,7 @@ namespace AtoIndicator
                                 if (ea[nCurIdx].crushMinuteManager.isCrushRealTimeCheck)
                                 {
                                     SetThisFake(ea[nCurIdx].fakeAssistantStrategy, nCurIdx, nFakeAssistantStrategyPointer);
+
                                 }
                             }
                             FakeAssistantPointerMove();
