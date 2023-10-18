@@ -43,7 +43,7 @@ namespace AtoIndicator
 
 
         public MMF mmf = null;
-
+        public SoundManager soundMgr = new SoundManager();
 
         // ============================================
         // 마지막 편집일 : 2023-04-20

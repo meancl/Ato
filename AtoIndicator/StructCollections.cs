@@ -14,8 +14,7 @@ namespace AtoIndicator
         public struct EachStock
         {
             public ManualReservation manualReserve;
-
-
+            public SoundReservation soundReserve;
 
             // ----------------------------------
             // 공용 변수
@@ -222,6 +221,7 @@ namespace AtoIndicator
 
                 eventMgr = new EventManager();
                 manualReserve = new ManualReservation();
+                soundReserve = new SoundReservation();
 
                 unhandledBuyOrderIdList = new List<string>();
                 unhandledSellOrderIdList = new List<string>();
@@ -2310,6 +2310,34 @@ namespace AtoIndicator
             public int nFakeStrategyNum;
             public int nSharedTime;
             public int nTimeLineIdx;
+        }
+
+        public class SoundReservation
+        {
+            public DateTime dCrushCheckLastTime;
+
+            public SoundReservation()
+            {
+                dCrushCheckLastTime = DateTime.UtcNow;
+            }
+        }
+        
+        public class SoundManager
+        {
+            public bool isUsing = false; // fastInfo에서 하나만 가능하게 하는거
+
+
+            public bool isSoundDelayed = false; // 지연 있음
+            public bool isSoundCompleted = true; // 음악재생 완료
+            public bool isSystemAlarm = false; // 음악 재생 필요
+
+            public void Clear()
+            {
+                isUsing = false;
+                isSoundCompleted = true;
+                isSoundDelayed = false;
+                isSystemAlarm = false;
+            }
         }
 
     }

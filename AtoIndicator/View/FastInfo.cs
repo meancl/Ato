@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,11 +20,17 @@ namespace AtoIndicator.View
     {
         public MainForm mainForm;
         public int[] targetTimeArr;
+        public SoundPlayer soundPlayer;
+      
 
         public FastInfo(MainForm mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
+
+            soundPlayer = new SoundPlayer(@"..\..\..\Sounds\alarm1.wav");
+
+            soundCheckBox.Click += SoundCheckBoxClicked;
 
             string sString = "STRING";
             string sInt = "INT";
@@ -58,11 +65,11 @@ namespace AtoIndicator.View
 
 
             listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "타겟 T" });
-            
+
             listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "히트갯수" });
             listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "히트종류" });
 
-            
+
 
             listView1.Columns.Add(new ColumnHeader { Name = sInt, Text = "에브리" });
 
@@ -84,7 +91,7 @@ namespace AtoIndicator.View
             listView1.KeyUp += ListViewKeyUpHandller;
 
             targetTimeArr = new int[mainForm.nStockLength];
-            for (int i = 0; i< mainForm.nStockLength; i++)
+            for (int i = 0; i < mainForm.nStockLength; i++)
                 targetTimeArr[i] = 0;
 
             this.KeyPreview = true;
@@ -157,6 +164,7 @@ namespace AtoIndicator.View
         public void FormClosedHandler(Object sender, FormClosedEventArgs e)
         {
             timer.Enabled = false;
+            mainForm.soundMgr.Clear();
             this.Dispose();
         }
 
@@ -285,7 +293,7 @@ namespace AtoIndicator.View
                 timer.Enabled = false;
                 this.Close();
             }
-               
+
 
 
             if (cUp == 16) // shift
@@ -665,6 +673,7 @@ namespace AtoIndicator.View
             void Func()
             {
                 DateTime startTime = DateTime.Now;
+
                 if (isUsing)
                     return;
 
@@ -1656,7 +1665,7 @@ namespace AtoIndicator.View
                             if (isCURFC1 || isCURFC2)
                                 nPass += ((isCURFC1 ? int.Parse(sCURFC1) <= mainForm.ea[i].fakeStrategyMgr.nCurHitNum : true) &&
                                   (isCURFC2 ? mainForm.ea[i].fakeStrategyMgr.nCurHitNum <= int.Parse(sCURFC2) : true)) ? 1 : 0;
-                            if(isFABNum1 || isFABNum2)
+                            if (isFABNum1 || isFABNum2)
                                 nPass += ((isFABNum1 ? int.Parse(sFABNum1) <= mainForm.ea[i].fakeAssistantStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum : true) &&
                                   (isFABNum2 ? mainForm.ea[i].fakeAssistantStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum <= int.Parse(sFABNum2) : true)) ? 1 : 0;
                             if (isFABPlusNum1 || isFABPlusNum2)
@@ -1764,7 +1773,7 @@ namespace AtoIndicator.View
                                 mainForm.ea[i].rankSystem.nSummationRanking.ToString(),
                                 mainForm.ea[i].rankSystem.nSummationMove.ToString(),
 
-                                
+
                                 targetTimeArr[i].ToString(),
 
                                 mainForm.ea[i].fakeStrategyMgr.nCurHitNum.ToString(),
@@ -1814,7 +1823,7 @@ namespace AtoIndicator.View
                                         listViewItem.SubItems[restIdx].BackColor = Color.SkyBlue; // SkyBlue
                                     else if (mainForm.ea[i].manualReserve.isChosenR && restIdx == 3)
                                         listViewItem.SubItems[restIdx].BackColor = Color.GreenYellow; // GreenYellow
-                                    else if(mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx  && restIdx == 4)
+                                    else if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx && restIdx == 4)
                                         listViewItem.SubItems[restIdx].BackColor = Color.DarkGray;
                                     else if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx && restIdx == 5)
                                         listViewItem.SubItems[restIdx].BackColor = Color.LightSlateGray;
@@ -1844,6 +1853,21 @@ namespace AtoIndicator.View
 
 
                                 listViewItemList.Add(listViewItem);
+
+                                // sound alarm 
+                                if(mainForm.soundMgr.isUsing && soundCheckBox.Checked) // 내 fastInfo 꺼임을 증명
+                                {
+                                    if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx ||
+                                        mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx 
+                                        )
+                                    {
+                                        if ((DateTime.UtcNow - mainForm.ea[i].soundReserve.dCrushCheckLastTime).TotalSeconds > 15)
+                                        {
+                                            mainForm.ea[i].soundReserve.dCrushCheckLastTime = DateTime.UtcNow;
+                                            mainForm.soundMgr.isSystemAlarm = true;
+                                        }
+                                    }
+                                }
                             }
                         }
                         catch
@@ -1862,6 +1886,48 @@ namespace AtoIndicator.View
                         listView1.Items.AddRange(listViewItemList.ToArray());
                         listViewItemList.Clear();
                     }
+
+                    try // sound 없는 기계에 soundPlayer.Play()로 문제가 생길까봐... 말이 안되기는 하지만 조심
+                    {
+                        if (mainForm.soundMgr.isUsing && soundCheckBox.Checked)
+                        {
+                            if (mainForm.soundMgr.isSystemAlarm || mainForm.soundMgr.isSoundDelayed)
+                            {
+                                mainForm.soundMgr.isSystemAlarm = false;
+
+                                // 딜레이 확인 
+                                if (mainForm.soundMgr.isSoundCompleted) // 재생이 끝남 
+                                {
+                                    mainForm.soundMgr.isSoundDelayed = false;
+                                    
+                                    Task.Run(() =>
+                                    {
+                                        mainForm.soundMgr.isSoundCompleted = false;
+                                        try
+                                        {
+                                            soundPlayer.Play();
+                                        }
+                                        catch
+                                        {
+                                        }
+                                        finally
+                                        {
+                                            mainForm.soundMgr.isSoundCompleted = true;
+                                        }
+                                    });
+                                }
+                                else // 아직 음악이 재생중임
+                                {
+                                    mainForm.soundMgr.isSoundDelayed = true;
+                                }
+
+                            }
+                        }
+                    }
+                    catch
+                    {
+                    }
+
 
                     doneLabel.Text = $"done..{++nDoneCnt}";
                     passLenLabel.Text = $"pass {nPassLen}";
@@ -2189,6 +2255,36 @@ namespace AtoIndicator.View
         {
             for (int i = 0; i < mainForm.nStockLength; i++)
                 targetTimeArr[i] = 0;
+        }
+
+        public void SoundCheckBoxClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                if (soundCheckBox.Checked)
+                {
+                    if (mainForm.soundMgr.isUsing)
+                    {
+                        soundCheckBox.Checked = false;
+                    }
+                    else
+                    {
+                        mainForm.soundMgr.isUsing = true;
+                    }
+                }
+                else
+                {
+                    if (mainForm.soundMgr.isUsing)
+                    {
+                        mainForm.soundMgr.isUsing = false;
+                        mainForm.soundMgr.Clear();
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }

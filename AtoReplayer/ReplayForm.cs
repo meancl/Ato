@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace AtoReplayer
 {
-    public partial class Form1 : Form
+    public partial class ReplayForm : Form
     {
-        public Form1()
+        public ReplayForm()
         {
             InitializeComponent();
+
         }
     }
+
 }

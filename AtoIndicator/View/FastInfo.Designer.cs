@@ -294,6 +294,7 @@ namespace AtoIndicator.View
             this.tTF2 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tTF1 = new System.Windows.Forms.TextBox();
+            this.soundCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -369,6 +370,7 @@ namespace AtoIndicator.View
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.soundCheckBox);
             this.groupBox1.Controls.Add(this.InitTargetButton);
             this.groupBox1.Controls.Add(this.label66);
             this.groupBox1.Controls.Add(this.tTradeStrength2);
@@ -2809,6 +2811,16 @@ namespace AtoIndicator.View
             this.tTF1.Size = new System.Drawing.Size(54, 25);
             this.tTF1.TabIndex = 199;
             // 
+            // soundCheckBox
+            // 
+            this.soundCheckBox.AutoSize = true;
+            this.soundCheckBox.Location = new System.Drawing.Point(385, 39);
+            this.soundCheckBox.Name = "soundCheckBox";
+            this.soundCheckBox.Size = new System.Drawing.Size(70, 19);
+            this.soundCheckBox.TabIndex = 548;
+            this.soundCheckBox.Text = "sound";
+            this.soundCheckBox.UseVisualStyleBackColor = true;
+            // 
             // FastInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -3092,5 +3104,6 @@ namespace AtoIndicator.View
         private System.Windows.Forms.TextBox tTradeCompared1;
         private System.Windows.Forms.Button InitTargetButton;
         private System.Windows.Forms.Label label66;
+        private System.Windows.Forms.CheckBox soundCheckBox;
     }
 }
