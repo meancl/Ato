@@ -20,17 +20,18 @@ namespace AtoIndicator.View
     {
         public MainForm mainForm;
         public int[] targetTimeArr;
-        public SoundPlayer soundPlayer;
-      
+        public SoundPlayer crushSoundPlayer;
+        public SoundPlayer viSoundPlayer;
+
 
         public FastInfo(MainForm mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
 
-            soundPlayer = new SoundPlayer(@"..\..\..\Sounds\alarm1.wav");
+            crushSoundPlayer = new SoundPlayer(@"..\..\..\Sounds\alarm1.wav");
+            viSoundPlayer = new SoundPlayer(@"..\..\..\Sounds\alarm2.wav");
 
-            soundCheckBox.Click += SoundCheckBoxClicked;
 
             string sString = "STRING";
             string sInt = "INT";
@@ -129,16 +130,16 @@ namespace AtoIndicator.View
             this.confirmButton.Click += ReserveButtonClickHandler;
 
             tooltip1.SetToolTip(reserve1Btn, "vi모드");
-            tooltip2.SetToolTip(reserve2Btn, "페이크보조갯수 10 w지정 No");
-            tooltip3.SetToolTip(reserve3Btn, "페이크매수갯수 10 W지정 No");
+            tooltip2.SetToolTip(reserve2Btn, "실시간 전고돌파");
+            tooltip3.SetToolTip(reserve3Btn, "분봉상 전고돌파 확정");
             tooltip4.SetToolTip(reserve4Btn, "페이크매수분포2 페이크갯수 50 맥스파워 0.1");
 
 
-            tooltip7.SetToolTip(write1Btn, "실매수 10 실매수분포 2 공유분포 5");
-            tooltip8.SetToolTip(write2Btn, "실매수분포 2 페이크매수분포3 공유분포 5");
-            tooltip9.SetToolTip(write3Btn, "페이크매수분포2 페이크갯수 50 맥스파워 0.1");
-            tooltip10.SetToolTip(write4Btn, "페이크 매수 30");
-            tooltip11.SetToolTip(write5Btn, "AI 점수 10점");
+            tooltip7.SetToolTip(write1Btn, "현재 0.02퍼 이상");
+            tooltip8.SetToolTip(write2Btn, "이전 0.02퍼 이상");
+            tooltip9.SetToolTip(write3Btn, "속도 100 이상");
+            tooltip10.SetToolTip(write4Btn, "페매수 10개 이상");
+            tooltip11.SetToolTip(write5Btn, "갭 0.02퍼 이상");
 
             this.FormClosed += FormClosedHandler;
 
@@ -164,7 +165,6 @@ namespace AtoIndicator.View
         public void FormClosedHandler(Object sender, FormClosedEventArgs e)
         {
             timer.Enabled = false;
-            mainForm.soundMgr.Clear();
             this.Dispose();
         }
 
@@ -1434,6 +1434,9 @@ namespace AtoIndicator.View
                         nFinalPassNum = nFullMinusNum;
 
 
+                    bool isViAlarm = false;
+                    bool isCrushAlarm = false;
+
                     bool isShow;
                     bool isReserveShow;
 
@@ -1691,11 +1694,11 @@ namespace AtoIndicator.View
                                 }
                                 else if (isR2) // r2 조건
                                 {
-                                    isReserveShow = mainForm.ea[i].fakeAssistantStrategy.nStrategyNum >= 10 && !mainForm.ea[i].manualReserve.isChosenW;
+                                    isReserveShow = mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx;
                                 }
                                 else if (isR3) // r3 조건
                                 {
-                                    isReserveShow = mainForm.ea[i].fakeBuyStrategy.nStrategyNum >= 10 && !mainForm.ea[i].manualReserve.isChosenW;
+                                    isReserveShow = mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx;
                                 }
                                 else if (isR4) // r4 조건
                                 {
@@ -1854,20 +1857,43 @@ namespace AtoIndicator.View
 
                                 listViewItemList.Add(listViewItem);
 
-                                // sound alarm 
-                                if(mainForm.soundMgr.isUsing && soundCheckBox.Checked) // 내 fastInfo 꺼임을 증명
+                                // crush sound alarm 
+                                if (crushSoundCheckBox.Checked)
                                 {
-                                    if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx ||
-                                        mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx 
+                                    if ( ( mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx ||
+                                        mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx )
                                         )
                                     {
-                                        if ((DateTime.UtcNow - mainForm.ea[i].soundReserve.dCrushCheckLastTime).TotalSeconds > 15)
+                                        if (!mainForm.ea[i].soundReserve.isCrushCheck) 
                                         {
-                                            mainForm.ea[i].soundReserve.dCrushCheckLastTime = DateTime.UtcNow;
-                                            mainForm.soundMgr.isSystemAlarm = true;
+                                            mainForm.ea[i].soundReserve.isCrushCheck = true;
+                                            isCrushAlarm = true;
                                         }
                                     }
+                                    else
+                                    {
+                                        mainForm.ea[i].soundReserve.isCrushCheck = false;
+                                    }
                                 }
+
+                                // vi sound alarm
+                                if (viSoundCheckBox.Checked)
+                                {
+                                    if (( mainForm.ea[i].isViMode && mainForm.ea[i].speedStatus.fCur >= 100 )
+                                        )
+                                    {
+                                        if (!mainForm.ea[i].soundReserve.isViCheck) // 언제 끝나지 
+                                        {
+                                            mainForm.ea[i].soundReserve.isViCheck = true;
+                                            isViAlarm = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        mainForm.ea[i].soundReserve.isViCheck = false;
+                                    }
+                                }
+
                             }
                         }
                         catch
@@ -1887,41 +1913,45 @@ namespace AtoIndicator.View
                         listViewItemList.Clear();
                     }
 
+
+                    // 알람 확인 및 예약 
+                    if(isCrushAlarm)
+                        mainForm.soundMgr.soundReserveQueue.Enqueue(MainForm.SoundTrack.Crush);
+
+                    if(isViAlarm)
+                        mainForm.soundMgr.soundReserveQueue.Enqueue(MainForm.SoundTrack.VI);
+
                     try // sound 없는 기계에 soundPlayer.Play()로 문제가 생길까봐... 말이 안되기는 하지만 조심
                     {
-                        if (mainForm.soundMgr.isUsing && soundCheckBox.Checked)
+                        if (crushSoundCheckBox.Checked || viSoundCheckBox.Checked)
                         {
-                            if (mainForm.soundMgr.isSystemAlarm || mainForm.soundMgr.isSoundDelayed)
+
+                            // 딜레이 확인 
+                            if (mainForm.soundMgr.isSoundCompleted && 
+                                mainForm.soundMgr.soundReserveQueue.Count > 0) // 재생이 끝남 
                             {
-                                mainForm.soundMgr.isSystemAlarm = false;
-
-                                // 딜레이 확인 
-                                if (mainForm.soundMgr.isSoundCompleted) // 재생이 끝남 
+                                MainForm.SoundTrack sound = mainForm.soundMgr.soundReserveQueue.Dequeue();
+                                Task.Run(() =>
                                 {
-                                    mainForm.soundMgr.isSoundDelayed = false;
-                                    
-                                    Task.Run(() =>
+                                    mainForm.soundMgr.isSoundCompleted = false;
+                                    try
                                     {
-                                        mainForm.soundMgr.isSoundCompleted = false;
-                                        try
-                                        {
-                                            soundPlayer.Play();
-                                        }
-                                        catch
-                                        {
-                                        }
-                                        finally
-                                        {
-                                            mainForm.soundMgr.isSoundCompleted = true;
-                                        }
-                                    });
-                                }
-                                else // 아직 음악이 재생중임
-                                {
-                                    mainForm.soundMgr.isSoundDelayed = true;
-                                }
-
+                                        if (sound == MainForm.SoundTrack.Crush)
+                                            crushSoundPlayer.Play();
+                                        else if (sound == MainForm.SoundTrack.VI)
+                                            viSoundPlayer.Play();
+                                    }
+                                    catch
+                                    {
+                                    }
+                                    finally
+                                    {
+                                        mainForm.soundMgr.isSoundCompleted = true;
+                                    }
+                                });
                             }
+
+
                         }
                     }
                     catch
@@ -2001,29 +2031,23 @@ namespace AtoIndicator.View
         {
             if (sender.Equals(write1Btn))
             {
-                tRBA1.Text = "10";
-                tRBD1.Text = "2";
-                tSFD1.Text = "5";
+                tCM1.Text = "0.02";
             }
             else if (sender.Equals(write2Btn))
             {
-                tRBD1.Text = "2";
-                tFBD1.Text = "3";
-                tSFD1.Text = "5";
+                tPM1.Text = "0.02";
             }
             else if (sender.Equals(write3Btn))
             {
-                tTF1.Text = "50";
-                tFBD1.Text = "2";
-                tTMAX1.Text = "0.1";
+                tCS1.Text = "100";
             }
             else if (sender.Equals(write4Btn))
             {
-                tFBA1.Text = "30";
+                tFBA1.Text = "10";
             }
             else if (sender.Equals(write5Btn))
             {
-                tAIS1.Text = "10";
+                tSG1.Text = "0.02";
             }
         }
 
@@ -2257,34 +2281,5 @@ namespace AtoIndicator.View
                 targetTimeArr[i] = 0;
         }
 
-        public void SoundCheckBoxClicked(object sender, EventArgs e)
-        {
-            try
-            {
-                if (soundCheckBox.Checked)
-                {
-                    if (mainForm.soundMgr.isUsing)
-                    {
-                        soundCheckBox.Checked = false;
-                    }
-                    else
-                    {
-                        mainForm.soundMgr.isUsing = true;
-                    }
-                }
-                else
-                {
-                    if (mainForm.soundMgr.isUsing)
-                    {
-                        mainForm.soundMgr.isUsing = false;
-                        mainForm.soundMgr.Clear();
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-        }
     }
 }

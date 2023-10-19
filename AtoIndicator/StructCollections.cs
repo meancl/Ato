@@ -2314,30 +2314,35 @@ namespace AtoIndicator
 
         public class SoundReservation
         {
-            public DateTime dCrushCheckLastTime;
+            public bool isViCheck;
+            public bool isCrushCheck;
 
             public SoundReservation()
             {
-                dCrushCheckLastTime = DateTime.UtcNow;
+                isViCheck = false;
+                isCrushCheck = false;
             }
         }
         
         public class SoundManager
         {
-            public bool isUsing = false; // fastInfo에서 하나만 가능하게 하는거
+            public Queue<SoundTrack> soundReserveQueue;
+            public bool isSoundCompleted; // 음악재생 완료
+            public SoundTrack eSystemAlarm; // 음악 재생 필요
 
-
-            public bool isSoundDelayed = false; // 지연 있음
-            public bool isSoundCompleted = true; // 음악재생 완료
-            public bool isSystemAlarm = false; // 음악 재생 필요
-
-            public void Clear()
+            public SoundManager()
             {
-                isUsing = false;
                 isSoundCompleted = true;
-                isSoundDelayed = false;
-                isSystemAlarm = false;
+                soundReserveQueue = new Queue<SoundTrack>();
+                eSystemAlarm = SoundTrack.None;
             }
+        }
+
+        public enum SoundTrack
+        {
+            None,
+            Crush,
+            VI
         }
 
     }
