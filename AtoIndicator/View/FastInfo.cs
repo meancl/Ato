@@ -42,7 +42,7 @@ namespace AtoIndicator.View
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "현재파워" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "초기갭" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "맥스차" });
-            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "민차" });
+            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "당일탑" });
 
             listView1.Columns.Add(new ColumnHeader { Name = sString, Text = "RV" });
             listView1.Columns.Add(new ColumnHeader { Name = sString, Text = "VI" });
@@ -1756,7 +1756,7 @@ namespace AtoIndicator.View
                                 Math.Round(mainForm.ea[i].fPower, 3).ToString(),
                                 Math.Round(mainForm.ea[i].fStartGap, 3).ToString(),
                                 Math.Round(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower, 3).ToString(),
-                                Math.Round(mainForm.ea[i].fPower - mainForm.ea[i].fTodayBottomPower, 3).ToString(),
+                                Math.Round(mainForm.ea[i].fTodayMaxPower, 3).ToString(),
                                 "", // 매수예약
                                 mainForm.ea[i].isViMode.ToString(),
 
