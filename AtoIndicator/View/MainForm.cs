@@ -52,6 +52,10 @@ namespace AtoIndicator
             fixedToolStripMenuItem.Click += ToolTipItemClickHandler;
             noneToolStripMenuItem.Click += ToolTipItemClickHandler;
 
+            ceilingDownButton.Click += FixedChangeClickHandler;
+            ceilingUpButton.Click += FixedChangeClickHandler;
+            floorDownButton.Click += FixedChangeClickHandler;
+            floorUpButton.Click += FixedChangeClickHandler;
 
             checkChartButton.Click += Button_Click;
 
@@ -74,5 +78,6 @@ namespace AtoIndicator
             this.Dispose();
         }
 
+       
     }
 }

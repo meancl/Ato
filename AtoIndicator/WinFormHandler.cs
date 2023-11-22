@@ -204,8 +204,6 @@ namespace AtoIndicator
 
                 if (isCtrlPushed)
                 {
-
-
                     if (cUp == 'F') // 강제장시작
                     {
                         if (isShiftPushed)
@@ -223,6 +221,13 @@ namespace AtoIndicator
                     }
 
                 }
+                else
+                {
+                    if (cUp == 'F') // 강제장시작
+                    {
+                        fixedGroupBox.Visible = !fixedGroupBox.Visible;
+                    }
+                }
             }
             else // 수동매수창 출력상태
             {
@@ -230,6 +235,40 @@ namespace AtoIndicator
                     ViewManualEachStock();
             }
         }
+
+        public void FixedChangeClickHandler(object sender, EventArgs e)
+        {
+            try
+            {
+                double fOneMove = 0.001;
+
+                if (sender.Equals(ceilingDownButton))
+                {
+                    DEFAULT_FIXED_CEILING -= fOneMove;
+                    ceilingLabel.Text = Math.Round(DEFAULT_FIXED_CEILING, 3).ToString();
+                }
+                else if (sender.Equals(ceilingUpButton))
+                {
+                    DEFAULT_FIXED_CEILING += fOneMove;
+                    ceilingLabel.Text = Math.Round(DEFAULT_FIXED_CEILING, 3).ToString();
+                }
+                else if (sender.Equals(floorDownButton))
+                {
+                    DEFAULT_FIXED_BOTTOM -= fOneMove;
+                    floorLabel.Text = Math.Round(DEFAULT_FIXED_BOTTOM, 3).ToString();
+                }
+                else if (sender.Equals(floorUpButton))
+                {
+                    DEFAULT_FIXED_BOTTOM += fOneMove;
+                    floorLabel.Text = Math.Round(DEFAULT_FIXED_BOTTOM, 3).ToString();
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
         public void KeyDownHandler(Object sender, KeyEventArgs e)
         {
             char cPressed = (char)e.KeyValue; // 대문자로 준다.

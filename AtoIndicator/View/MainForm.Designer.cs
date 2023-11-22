@@ -75,11 +75,21 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.isMarketLabel = new System.Windows.Forms.Label();
             this.isHoldingsLabel = new System.Windows.Forms.Label();
+            this.fixedGroupBox = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.floorLabel = new System.Windows.Forms.Label();
+            this.floorUpButton = new System.Windows.Forms.Button();
+            this.floorDownButton = new System.Windows.Forms.Button();
+            this.ceilingLabel = new System.Windows.Forms.Label();
+            this.ceilingUpButton = new System.Windows.Forms.Button();
+            this.ceilingDownButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axKHOpenAPI1)).BeginInit();
             this.manualGroupBox.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.fixedGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -441,7 +451,7 @@
             // 
             this.라스트업데이트ToolStripMenuItem.Name = "라스트업데이트ToolStripMenuItem";
             this.라스트업데이트ToolStripMenuItem.Size = new System.Drawing.Size(284, 26);
-            this.라스트업데이트ToolStripMenuItem.Text = "Latest Updated : 2023-10-19";
+            this.라스트업데이트ToolStripMenuItem.Text = "Latest Updated : 2023-11-22";
             // 
             // logTxtBx
             // 
@@ -487,11 +497,106 @@
             this.isHoldingsLabel.TabIndex = 26;
             this.isHoldingsLabel.Text = "잔고확인 : false";
             // 
+            // fixedGroupBox
+            // 
+            this.fixedGroupBox.Controls.Add(this.label10);
+            this.fixedGroupBox.Controls.Add(this.label9);
+            this.fixedGroupBox.Controls.Add(this.floorLabel);
+            this.fixedGroupBox.Controls.Add(this.floorUpButton);
+            this.fixedGroupBox.Controls.Add(this.floorDownButton);
+            this.fixedGroupBox.Controls.Add(this.ceilingLabel);
+            this.fixedGroupBox.Controls.Add(this.ceilingUpButton);
+            this.fixedGroupBox.Controls.Add(this.ceilingDownButton);
+            this.fixedGroupBox.Location = new System.Drawing.Point(10, 385);
+            this.fixedGroupBox.Name = "fixedGroupBox";
+            this.fixedGroupBox.Size = new System.Drawing.Size(359, 103);
+            this.fixedGroupBox.TabIndex = 27;
+            this.fixedGroupBox.TabStop = false;
+            this.fixedGroupBox.Text = "고정식 조정";
+            this.fixedGroupBox.Visible = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(19, 69);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(52, 15);
+            this.label10.TabIndex = 544;
+            this.label10.Text = "하한선";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(19, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(52, 15);
+            this.label9.TabIndex = 543;
+            this.label9.Text = "상한선";
+            // 
+            // floorLabel
+            // 
+            this.floorLabel.AutoSize = true;
+            this.floorLabel.Location = new System.Drawing.Point(205, 66);
+            this.floorLabel.Name = "floorLabel";
+            this.floorLabel.Size = new System.Drawing.Size(52, 15);
+            this.floorLabel.TabIndex = 542;
+            this.floorLabel.Text = "-0.015";
+            // 
+            // floorUpButton
+            // 
+            this.floorUpButton.Location = new System.Drawing.Point(264, 62);
+            this.floorUpButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.floorUpButton.Name = "floorUpButton";
+            this.floorUpButton.Size = new System.Drawing.Size(25, 22);
+            this.floorUpButton.TabIndex = 541;
+            this.floorUpButton.Text = "▶";
+            this.floorUpButton.UseVisualStyleBackColor = true;
+            // 
+            // floorDownButton
+            // 
+            this.floorDownButton.Location = new System.Drawing.Point(163, 62);
+            this.floorDownButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.floorDownButton.Name = "floorDownButton";
+            this.floorDownButton.Size = new System.Drawing.Size(25, 22);
+            this.floorDownButton.TabIndex = 540;
+            this.floorDownButton.Text = "◀";
+            this.floorDownButton.UseVisualStyleBackColor = true;
+            // 
+            // ceilingLabel
+            // 
+            this.ceilingLabel.AutoSize = true;
+            this.ceilingLabel.Location = new System.Drawing.Point(205, 30);
+            this.ceilingLabel.Name = "ceilingLabel";
+            this.ceilingLabel.Size = new System.Drawing.Size(36, 15);
+            this.ceilingLabel.TabIndex = 539;
+            this.ceilingLabel.Text = "0.08";
+            // 
+            // ceilingUpButton
+            // 
+            this.ceilingUpButton.Location = new System.Drawing.Point(264, 23);
+            this.ceilingUpButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ceilingUpButton.Name = "ceilingUpButton";
+            this.ceilingUpButton.Size = new System.Drawing.Size(25, 22);
+            this.ceilingUpButton.TabIndex = 538;
+            this.ceilingUpButton.Text = "▶";
+            this.ceilingUpButton.UseVisualStyleBackColor = true;
+            // 
+            // ceilingDownButton
+            // 
+            this.ceilingDownButton.Location = new System.Drawing.Point(163, 26);
+            this.ceilingDownButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ceilingDownButton.Name = "ceilingDownButton";
+            this.ceilingDownButton.Size = new System.Drawing.Size(25, 22);
+            this.ceilingDownButton.TabIndex = 537;
+            this.ceilingDownButton.Text = "◀";
+            this.ceilingDownButton.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1312, 666);
+            this.Controls.Add(this.fixedGroupBox);
             this.Controls.Add(this.isHoldingsLabel);
             this.Controls.Add(this.isMarketLabel);
             this.Controls.Add(this.panel1);
@@ -515,6 +620,8 @@
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.fixedGroupBox.ResumeLayout(false);
+            this.fixedGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -567,6 +674,15 @@
         private System.Windows.Forms.ToolStripMenuItem fixedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem indicatorToolStripMenuItem;
+        private System.Windows.Forms.GroupBox fixedGroupBox;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label floorLabel;
+        private System.Windows.Forms.Button floorUpButton;
+        private System.Windows.Forms.Button floorDownButton;
+        private System.Windows.Forms.Label ceilingLabel;
+        private System.Windows.Forms.Button ceilingUpButton;
+        private System.Windows.Forms.Button ceilingDownButton;
     }
 }
 

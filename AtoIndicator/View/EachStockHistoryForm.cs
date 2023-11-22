@@ -2964,8 +2964,8 @@ namespace AtoIndicator.View.EachStockHistory
                                 }
                                 else
                                 {
-                                    curEa.myTradeManager.arrBuyedSlots[i].fTargetPer = MainForm.DEFAULT_FIXED_CEILING;
-                                    curEa.myTradeManager.arrBuyedSlots[i].fBottomPer = MainForm.DEFAULT_FIXED_BOTTOM;
+                                    curEa.myTradeManager.arrBuyedSlots[i].fTargetPer = mainForm.DEFAULT_FIXED_CEILING;
+                                    curEa.myTradeManager.arrBuyedSlots[i].fBottomPer = mainForm.DEFAULT_FIXED_BOTTOM;
                                 }
 
                             }
