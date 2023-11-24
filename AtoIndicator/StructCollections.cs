@@ -208,6 +208,9 @@ namespace AtoIndicator
             public int nTodayBottomTime;
             public double fTodayBottomPower;
 
+            public Dictionary<string, int> sChangeOrderDict;
+            public int nBuyChangeOrderNum;
+            public int nSellChangeOrderNum;
 
             public void Init()
             {
@@ -227,6 +230,7 @@ namespace AtoIndicator
                 unhandledSellOrderIdList = new List<string>();
 
                 myTradeManager = new BuyedManager(); // 개인구조체 매매관리자 초기화
+                sChangeOrderDict = new Dictionary<string, int>();
             }
 
 
@@ -672,6 +676,7 @@ namespace AtoIndicator
             public string sCurOrgOrderId; // 원주문번호   default:""
             public bool isBuying; // 매수 중 시그널
             public bool isSelling; // 매도 중 시그널
+            public string sSellingOrderId;
             public bool isAllSelled; // 매도 종료(모두 팔림)
             public bool isAllBuyed; // 매수완료 시그널 ( 같은 매매블럭에 추매를 했을때 다 사졌나를 확인하기 위한 변수 ) 
             public bool isResponsed; // 응답을 받았는 지

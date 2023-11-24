@@ -21,12 +21,12 @@ namespace AtoIndicator
         internal const int SCREEN_NUM_START = 1000;
         internal const int SCREEN_NUM_LIMIT = 190;
         internal const int SCREEN_NUM_PADDING = 10;
+
         internal const int SCREEN_NUM_LAST = SCREEN_NUM_START + SCREEN_NUM_LIMIT;
 
         internal const int REACCESSIBLE_SCREEN_TIME = 30;
 
         internal ScreenStruct[] arrScreen = new ScreenStruct[SCREEN_NUM_LIMIT];
-
         internal int nUsingScreenNum = 0;
 
         internal struct ScreenStruct
@@ -105,6 +105,7 @@ namespace AtoIndicator
             try
             {
                 int nScrNoIdx = int.Parse(sScrNo) - SCREEN_NUM_START;
+
                 if (arrScreen[nScrNoIdx].isUsing)
                 {
                     nUsingScreenNum--;
@@ -120,6 +121,7 @@ namespace AtoIndicator
             }
             catch
             {
+                int nScrNoIdx = int.Parse(sScrNo);
                 PrintLog($"{nSharedTime} : 화면번호 처분오류가 발생했어..!  {sScrNo}");
             }
             finally
