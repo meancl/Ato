@@ -121,7 +121,6 @@ namespace AtoIndicator
             }
             catch
             {
-                int nScrNoIdx = int.Parse(sScrNo);
                 PrintLog($"{nSharedTime} : 화면번호 처분오류가 발생했어..!  {sScrNo}");
             }
             finally
