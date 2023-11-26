@@ -131,11 +131,18 @@ namespace AtoIndicator
             if (e.sRQName.Equals("예수금상세현황요청"))
             {
                 nCurDeposit = Math.Abs(int.Parse(axKHOpenAPI1.GetCommData(e.sTrCode, e.sRecordName, 0, "d+2출금가능금액")));
-                if (nCurDepositCalc == 0)
+                if (nCurDepositCalc == 0 || isDepositChange)
                 {
                     nCurDepositCalc = nCurDeposit;
                     depositCalcLabel.Text = $"{nCurDepositCalc}(원)";
-                    PrintLog("계산용예수금 세팅 완료"); //++
+
+                    if (isDepositChange)
+                    {
+                        isDepositChange = false;
+                        PrintLog("계산용예수금 강제 조정"); 
+                    }
+                    else
+                        PrintLog("계산용예수금 세팅 완료"); //++
                 }
                 this.Enabled = true;
 

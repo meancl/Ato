@@ -115,7 +115,6 @@ namespace AtoIndicator
                             else // 매수 취소인지
                             {
                                 PrintLog($"{nSharedTime} 주문번호 : {sOrderId} {ea[nCurIdx].sCode} {ea[nCurIdx].sCodeName} {nOrderVolume}주 {nOrderPrice}가 전량매수취소 완료");
-                                ShutOffScreen(sScrNo);
                             }
 
 
@@ -129,7 +128,8 @@ namespace AtoIndicator
                             buySlotByOrderIdDict.Remove(sOrderId);
                             buyCancelingByOrderIdDict.Remove(sOrderId);
                             ea[nCurIdx].unhandledBuyOrderIdList.Remove(sOrderId);
-
+                            
+                            ShutOffScreen(sScrNo);
                             CallReceiptConfirm(nCurIdx);
                         }
 
@@ -249,10 +249,9 @@ namespace AtoIndicator
                                 }
                                 else // 취소인지
                                 {
-                                    ShutOffScreen(sScrNo);
                                     PrintLog($"시간 : {sTradeTime} {sCode} {ea[nCurIdx].sCodeName} 화면번호 : {sScrNo} {slot.nBuyVolume}(주) 매수취소 후 일부 체결완료, 총 주문수량 : {slot.nOrderVolume} 매수가 : {slot.nBuyPrice}", nCurIdx);
                                 }
-
+                                ShutOffScreen(sScrNo);
                                 CallReceiptConfirm(nCurIdx);
                             }
 
@@ -329,8 +328,7 @@ namespace AtoIndicator
                             }
                             else // 매수정정의 취소인지
                             {
-                                PrintLog($"{nSharedTime} 주문번호 : {sOrderId} {ea[nCurIdx].sCode} {ea[nCurIdx].sCodeName} {nOrderVolume}주 {nOrderPrice}가 매수정정 취소 미체결 클리어");
-                                ShutOffScreen(sScrNo);
+                                PrintLog($"{nSharedTime} 주문번호 : {sOrderId} {ea[nCurIdx].sCode} {ea[nCurIdx].sCodeName} {nOrderVolume}주 {nOrderPrice}가 매수정정 취소 미체결 클리어");   
                             }
 
                             if (buySlotByOrderIdDict.ContainsKey(sOrderId))
@@ -351,7 +349,6 @@ namespace AtoIndicator
                             PrintLog($"{nSharedTime} {ea[nCurIdx].sCode} {ea[nCurIdx].sCodeName} {nOrderVolume}주 {nOrderPrice}가 매수정정 완료");
 
                             BuyedSlot slot = buySlotByOrderIdDict[sOrderId] = new BuyedSlot(nCurIdx);
-                            SetSlotInScreen(sScrNo, slot); // 다시 재설정
 
                             slot.nRequestTime = nSharedTime;
                             slot.nOriginOrderPrice = nOrderPrice; // 주문요청금액 설정
@@ -458,13 +455,11 @@ namespace AtoIndicator
                                 }
                                 else // 취소인지
                                 {
-                                    ShutOffScreen(sScrNo);
                                     PrintLog($"시간 : {sTradeTime} {sCode} {ea[nCurIdx].sCodeName} 화면번호 : {sScrNo} {slot.nBuyVolume}(주) 매수정정 취소 전 일부 체결완료, 총 주문수량 : {slot.nOrderVolume} 매수가 : {slot.nBuyPrice}", nCurIdx);
                                 }
 
 
                                 CallReceiptConfirm(nCurIdx);
-
 
                             }
 
@@ -512,7 +507,6 @@ namespace AtoIndicator
 
                             ea[nCurIdx].myTradeManager.arrBuyedSlots.Add(slot);
 
-                            ShutOffScreen(sScrNo); // 매수체결완료 해당화면번호 꺼줍니다.
                             buySlotByOrderIdDict.Remove(sOrderId);
                             buyCancelingByOrderIdDict.Remove(sOrderId);
                             ea[nCurIdx].unhandledBuyOrderIdList.Remove(sOrderId);
@@ -553,7 +547,6 @@ namespace AtoIndicator
                             }
                             else // 매도취소의 경우
                             {
-                                ShutOffScreen(sScrNo);
                                 PrintLog($"{nSharedTime} {ea[nCurIdx].sCode} {ea[nCurIdx].sCodeName} {nOrderVolume}주 {nOrderPrice}원 전량매도취소 완료");
                             }
 
@@ -568,7 +561,8 @@ namespace AtoIndicator
                             sellRemainCheckByOrderIdDict.Remove(sOrderId);
                             sellCancelingByOrderIdDict.Remove(sOrderId);
                             ea[nCurIdx].unhandledSellOrderIdList.Remove(sOrderId);
-
+                            
+                            ShutOffScreen(sScrNo);
                             CallReceiptConfirm(nCurIdx);
                         }
                         #endregion
@@ -687,9 +681,10 @@ namespace AtoIndicator
                             }
                             else
                             {
-                                ShutOffScreen(sScrNo);
+                                
                             }
 
+                            ShutOffScreen(sScrNo);
                             CallReceiptConfirm(nCurIdx);
                             return; // 매도취소에 대한 확인용 메시지는 스킵한다.
                         }
@@ -790,7 +785,6 @@ namespace AtoIndicator
                                 ea[nCurIdx].myTradeManager.nTotalSelling -= sellRemainCheckByOrderIdDict[sOrderId];
 
                             virtualSellBlockByOrderIdDict.Remove(sOrderId);
-                            virtualSellBlockByScrNoDict.Remove(sScrNo);
                             sellRemainCheckByOrderIdDict.Remove(sOrderId);
                             sellCancelingByOrderIdDict.Remove(sOrderId);
                             ea[nCurIdx].unhandledSellOrderIdList.Remove(sOrderId);
@@ -801,7 +795,6 @@ namespace AtoIndicator
                             }
                             else // 매도정정 취소의 미체결 클리어
                             {
-                                ShutOffScreen(sScrNo);
                             }
 
                         }
@@ -809,7 +802,7 @@ namespace AtoIndicator
                         {
                             cancelOrChangeDict[sOriginOrderId] = CHANGE_CHECK;
 
-                            VirtualSellBlock virtualSellBlock = virtualSellBlockByScrNoDict[sScrNo] = virtualSellBlockByOrderIdDict[sOrderId] = virtualSellBlockByOrderIdDict[sOriginOrderId];
+                            VirtualSellBlock virtualSellBlock = virtualSellBlockByOrderIdDict[sOrderId] = virtualSellBlockByOrderIdDict[sOriginOrderId];
 
 
                             PrintLog($"[매도정정-확인] {nSharedTime} : {ea[nCurIdx].sCode}  {ea[nCurIdx].sCodeName} 매도가 : {nOrderPrice}, 매도수량 : {nOrderVolume}", nCurIdx);
@@ -850,7 +843,6 @@ namespace AtoIndicator
                                 ea[nCurIdx].myTradeManager.nTotalSelling -= sellRemainCheckByOrderIdDict[sOrderId];
 
                             virtualSellBlockByOrderIdDict.Remove(sOrderId);
-                            virtualSellBlockByScrNoDict.Remove(sScrNo);
                             sellRemainCheckByOrderIdDict.Remove(sOrderId);
                             sellCancelingByOrderIdDict.Remove(sOrderId);
                             ea[nCurIdx].unhandledSellOrderIdList.Remove(sOrderId);
@@ -861,7 +853,6 @@ namespace AtoIndicator
                             }
                             else
                             {
-                                ShutOffScreen(sScrNo);
                             }
 
                             CallReceiptConfirm(nCurIdx);
@@ -929,12 +920,11 @@ namespace AtoIndicator
                             ea[nCurIdx].feeMgr.SetDoneSellOneSet();
 
                             virtualSellBlockByOrderIdDict.Remove(sOrderId);
-                            virtualSellBlockByScrNoDict.Remove(sScrNo);
                             sellRemainCheckByOrderIdDict.Remove(sOrderId);
                             sellCancelingByOrderIdDict.Remove(sOrderId);
                             ea[nCurIdx].unhandledSellOrderIdList.Remove(sOrderId);
-                            ShutOffScreen(sScrNo);
                         }
+
                         CallReceiptConfirm(nCurIdx);
                     }
 

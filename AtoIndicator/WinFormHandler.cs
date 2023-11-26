@@ -67,6 +67,8 @@ namespace AtoIndicator
         public bool isCtrlPushed = false;
         public bool isShiftPushed = false;
         public bool isTradeEnd = false;
+        public bool isDepositChange = false;
+
         public void KeyUpHandler(Object sender, KeyEventArgs e)
         {
 
@@ -101,6 +103,8 @@ namespace AtoIndicator
                 }
                 if (cUp == 'D') // 예수금확인
                 {
+                    if (isCtrlPushed)
+                        isDepositChange = true;
                     RequestDeposit();
                 }
                 if (cUp == 'H') // 보유종목확인
@@ -223,7 +227,7 @@ namespace AtoIndicator
                 }
                 else
                 {
-                    if (cUp == 'F') // 강제장시작
+                    if (isShiftPushed && cUp == 'F') // 고정치 변경
                     {
                         fixedGroupBox.Visible = !fixedGroupBox.Visible;
                     }
