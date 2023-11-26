@@ -1677,7 +1677,6 @@ namespace AtoIndicator
                                                     newSlot.nOrderVolume = nNumToBuy;
                                                     newSlot.fTradeRatio = curSlot.fRequestRatio;
                                                     newSlot.sBuyDescription = curSlot.sDescription;
-                                                    newSlot.fTradeRatio = curSlot.fRequestRatio;
                                                     newSlot.isBuying = true;
 
                                                     switch (newSlot.eTradeMethod)
