@@ -27,7 +27,7 @@ namespace AtoReplayer
 
         private string searchCode = ""; // 주식 코드 or 주식명
         private string searchDate = DateTime.Today.ToString(DATEFORMAT);
-        private int searchCompLoc = 1;
+        private int searchCompLoc = 0;
 
         private bool isPlaying = true;
         TimeLine[] timelines = new TimeLine[0];

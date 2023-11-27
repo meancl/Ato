@@ -543,15 +543,15 @@ namespace AtoIndicator
                             if (cancelOrChangeDict.ContainsKey(sOrderId) && cancelOrChangeDict[sOrderId] == CHANGE_CHECK) // 매도정정인 경우
                             {
                                 PrintLog($"{nSharedTime} {ea[nCurIdx].sCode} {ea[nCurIdx].sCodeName} {nOrderVolume}주 {nOrderPrice}원 매도접수 - 매도정정 완료");
-                                // 매도정정은 화면을 끄면 안돼
                             }
                             else // 매도취소의 경우
                             {
+                                // 취소때만 그룹종료해야해
+                                if (virtualSellBlockByOrderIdDict.ContainsKey(sOrderId))
+                                    ResetGroupSellingBack(virtualSellBlockByOrderIdDict[sOrderId]);
                                 PrintLog($"{nSharedTime} {ea[nCurIdx].sCode} {ea[nCurIdx].sCodeName} {nOrderVolume}주 {nOrderPrice}원 전량매도취소 완료");
                             }
 
-                            if (virtualSellBlockByOrderIdDict.ContainsKey(sOrderId))
-                                ResetGroupSellingBack(virtualSellBlockByOrderIdDict[sOrderId]);
 
                             if (sellRemainCheckByOrderIdDict.ContainsKey(sOrderId))
                                 ea[nCurIdx].myTradeManager.nTotalSelling -= sellRemainCheckByOrderIdDict[sOrderId];
@@ -665,24 +665,25 @@ namespace AtoIndicator
                         }
                         catch
                         {
-                            if (virtualSellBlockByOrderIdDict.ContainsKey(sOrderId))
-                                ResetGroupSellingBack(virtualSellBlockByOrderIdDict[sOrderId]);
                             if (sellRemainCheckByOrderIdDict.ContainsKey(sOrderId))
                                 ea[nCurIdx].myTradeManager.nTotalSelling -= sellRemainCheckByOrderIdDict[sOrderId];
 
-                            virtualSellBlockByOrderIdDict.Remove(sOrderId);
-                            virtualSellBlockByScrNoDict.Remove(sScrNo);
-                            sellRemainCheckByOrderIdDict.Remove(sOrderId);
-                            sellCancelingByOrderIdDict.Remove(sOrderId);
-                            ea[nCurIdx].unhandledSellOrderIdList.Remove(sOrderId);
                             if (cancelOrChangeDict.ContainsKey(sOrderId) && cancelOrChangeDict[sOrderId] == CHANGE_CHECK)
                             {
 
                             }
                             else
                             {
-                                
+                                // 취소때만 그룹종료해야해
+                                if (virtualSellBlockByOrderIdDict.ContainsKey(sOrderId))
+                                    ResetGroupSellingBack(virtualSellBlockByOrderIdDict[sOrderId]);
                             }
+
+                            virtualSellBlockByOrderIdDict.Remove(sOrderId);
+                            virtualSellBlockByScrNoDict.Remove(sScrNo);
+                            sellRemainCheckByOrderIdDict.Remove(sOrderId);
+                            sellCancelingByOrderIdDict.Remove(sOrderId);
+                            ea[nCurIdx].unhandledSellOrderIdList.Remove(sOrderId);
 
                             ShutOffScreen(sScrNo);
                             CallReceiptConfirm(nCurIdx);
@@ -779,15 +780,8 @@ namespace AtoIndicator
                         if (nNoTradeVolume == 0) // 미체결 클리어
                         { // sOrderId가 미체결클리어 즉 취소나 정정주문의 원주문번호가 된다.
 
-                            if (virtualSellBlockByOrderIdDict.ContainsKey(sOrderId))
-                                ResetGroupSellingBack(virtualSellBlockByOrderIdDict[sOrderId]);
                             if (sellRemainCheckByOrderIdDict.ContainsKey(sOrderId))
                                 ea[nCurIdx].myTradeManager.nTotalSelling -= sellRemainCheckByOrderIdDict[sOrderId];
-
-                            virtualSellBlockByOrderIdDict.Remove(sOrderId);
-                            sellRemainCheckByOrderIdDict.Remove(sOrderId);
-                            sellCancelingByOrderIdDict.Remove(sOrderId);
-                            ea[nCurIdx].unhandledSellOrderIdList.Remove(sOrderId);
 
                             if (cancelOrChangeDict.ContainsKey(sOrderId) && cancelOrChangeDict[sOrderId] == CHANGE_CHECK) // 매도정정의 미체결 클리어
                             {
@@ -795,7 +789,15 @@ namespace AtoIndicator
                             }
                             else // 매도정정 취소의 미체결 클리어
                             {
+                                // 취소때만 그룹종료해야해
+                                if (virtualSellBlockByOrderIdDict.ContainsKey(sOrderId))
+                                    ResetGroupSellingBack(virtualSellBlockByOrderIdDict[sOrderId]);
                             }
+
+                            virtualSellBlockByOrderIdDict.Remove(sOrderId);
+                            sellRemainCheckByOrderIdDict.Remove(sOrderId);
+                            sellCancelingByOrderIdDict.Remove(sOrderId);
+                            ea[nCurIdx].unhandledSellOrderIdList.Remove(sOrderId);
 
                         }
                         else // 정상 매도정정 
@@ -837,15 +839,8 @@ namespace AtoIndicator
                         catch
                         {
 
-                            if (virtualSellBlockByOrderIdDict.ContainsKey(sOrderId))
-                                ResetGroupSellingBack(virtualSellBlockByOrderIdDict[sOrderId]);
                             if (sellRemainCheckByOrderIdDict.ContainsKey(sOrderId))
                                 ea[nCurIdx].myTradeManager.nTotalSelling -= sellRemainCheckByOrderIdDict[sOrderId];
-
-                            virtualSellBlockByOrderIdDict.Remove(sOrderId);
-                            sellRemainCheckByOrderIdDict.Remove(sOrderId);
-                            sellCancelingByOrderIdDict.Remove(sOrderId);
-                            ea[nCurIdx].unhandledSellOrderIdList.Remove(sOrderId);
 
                             if (cancelOrChangeDict.ContainsKey(sOrderId) && cancelOrChangeDict[sOrderId] == CHANGE_CHECK)
                             {
@@ -853,7 +848,15 @@ namespace AtoIndicator
                             }
                             else
                             {
+                                // 취소때만 그룹종료해야해
+                                if (virtualSellBlockByOrderIdDict.ContainsKey(sOrderId))
+                                    ResetGroupSellingBack(virtualSellBlockByOrderIdDict[sOrderId]);
                             }
+
+                            virtualSellBlockByOrderIdDict.Remove(sOrderId);
+                            sellRemainCheckByOrderIdDict.Remove(sOrderId);
+                            sellCancelingByOrderIdDict.Remove(sOrderId);
+                            ea[nCurIdx].unhandledSellOrderIdList.Remove(sOrderId);
 
                             CallReceiptConfirm(nCurIdx);
                             return; // 매도취소에 대한 확인용 메시지는 스킵한다.
