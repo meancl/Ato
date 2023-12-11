@@ -296,6 +296,7 @@ namespace AtoIndicator.View
             this.tTF2 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tTF1 = new System.Windows.Forms.TextBox();
+            this.upSoundCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -326,10 +327,10 @@ namespace AtoIndicator.View
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(207, 79);
+            this.confirmButton.Location = new System.Drawing.Point(176, 78);
             this.confirmButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.confirmButton.Name = "confirmButton";
-            this.confirmButton.Size = new System.Drawing.Size(190, 49);
+            this.confirmButton.Size = new System.Drawing.Size(197, 49);
             this.confirmButton.TabIndex = 35;
             this.confirmButton.Text = "확정";
             this.confirmButton.UseVisualStyleBackColor = true;
@@ -371,6 +372,7 @@ namespace AtoIndicator.View
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.upSoundCheckBox);
             this.groupBox1.Controls.Add(this.viSoundCheckBox);
             this.groupBox1.Controls.Add(this.crushSoundCheckBox);
             this.groupBox1.Controls.Add(this.InitTargetButton);
@@ -2833,6 +2835,16 @@ namespace AtoIndicator.View
             this.tTF1.Size = new System.Drawing.Size(54, 25);
             this.tTF1.TabIndex = 199;
             // 
+            // upSoundCheckBox
+            // 
+            this.upSoundCheckBox.AutoSize = true;
+            this.upSoundCheckBox.Location = new System.Drawing.Point(385, 75);
+            this.upSoundCheckBox.Name = "upSoundCheckBox";
+            this.upSoundCheckBox.Size = new System.Drawing.Size(45, 19);
+            this.upSoundCheckBox.TabIndex = 550;
+            this.upSoundCheckBox.Text = "up";
+            this.upSoundCheckBox.UseVisualStyleBackColor = true;
+            // 
             // FastInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -3118,5 +3130,6 @@ namespace AtoIndicator.View
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.CheckBox crushSoundCheckBox;
         private System.Windows.Forms.CheckBox viSoundCheckBox;
+        private System.Windows.Forms.CheckBox upSoundCheckBox;
     }
 }

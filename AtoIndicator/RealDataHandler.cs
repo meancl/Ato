@@ -1187,6 +1187,7 @@ namespace AtoIndicator
                                 {
                                     ea[i].manualReserve.reserveArr[MA_RESERVE_POSITION_RESERVE].isChosen1 = true;
                                     ea[i].manualReserve.reserveArr[MA_RESERVE_POSITION_RESERVE].nChosenTime = nSharedTime;
+                                    ea[i].manualReserve.reserveArr[MA_RESERVE_POSITION_RESERVE].dChosenTime = DateTime.UtcNow;
                                 }
                             }
 
@@ -1205,6 +1206,7 @@ namespace AtoIndicator
                                     }
                                     ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].isChosen1 = true;
                                     ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].nChosenTime = nSharedTime;
+                                    ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].dChosenTime = DateTime.UtcNow;
                                 }
                             }
 
@@ -1223,6 +1225,7 @@ namespace AtoIndicator
                                     }
                                     ea[i].manualReserve.reserveArr[MA_UP_RESERVE].isChosen1 = true;
                                     ea[i].manualReserve.reserveArr[MA_UP_RESERVE].nChosenTime = nSharedTime;
+                                    ea[i].manualReserve.reserveArr[MA_UP_RESERVE].dChosenTime = DateTime.UtcNow;
                                 }
                             }
 
@@ -2623,6 +2626,7 @@ namespace AtoIndicator
                                 }
                                 ea[nCurIdx].manualReserve.reserveArr[UP_RESERVE].isChosen1 = true;
                                 ea[nCurIdx].manualReserve.reserveArr[UP_RESERVE].nChosenTime = nSharedTime;
+                                ea[nCurIdx].manualReserve.reserveArr[UP_RESERVE].dChosenTime = DateTime.UtcNow;
                             }
                         }
                         if (ea[nCurIdx].manualReserve.reserveArr[DOWN_RESERVE].isSelected && !ea[nCurIdx].manualReserve.reserveArr[DOWN_RESERVE].isChosen1)
@@ -2636,6 +2640,7 @@ namespace AtoIndicator
                                 }
                                 ea[nCurIdx].manualReserve.reserveArr[DOWN_RESERVE].isChosen1 = true;
                                 ea[nCurIdx].manualReserve.reserveArr[DOWN_RESERVE].nChosenTime = nSharedTime;
+                                ea[nCurIdx].manualReserve.reserveArr[DOWN_RESERVE].dChosenTime = DateTime.UtcNow;
                             }
                         }
                     }

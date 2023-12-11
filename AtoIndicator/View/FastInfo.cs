@@ -22,6 +22,7 @@ namespace AtoIndicator.View
         public int[] targetTimeArr;
         public SoundPlayer crushSoundPlayer;
         public SoundPlayer viSoundPlayer;
+        public SoundPlayer upSoundPlayer;
 
 
         public FastInfo(MainForm mainForm)
@@ -29,8 +30,9 @@ namespace AtoIndicator.View
             InitializeComponent();
             this.mainForm = mainForm;
 
-            crushSoundPlayer = new SoundPlayer(@"..\..\..\Sounds\alarm1.wav");
-            viSoundPlayer = new SoundPlayer(@"..\..\..\Sounds\alarm2.wav");
+            crushSoundPlayer = new SoundPlayer(@"..\..\..\Sounds\crushAlarm.wav");
+            viSoundPlayer = new SoundPlayer(@"..\..\..\Sounds\viAlarm.wav");
+            upSoundPlayer = new SoundPlayer(@"..\..\..\Sounds\upAlarm.wav");
 
 
             string sString = "STRING";
@@ -1436,6 +1438,7 @@ namespace AtoIndicator.View
 
                     bool isViAlarm = false;
                     bool isCrushAlarm = false;
+                    bool isUpAlarm = false;
 
                     bool isShow;
                     bool isReserveShow;
@@ -1894,6 +1897,15 @@ namespace AtoIndicator.View
                                     }
                                 }
 
+                                if(upSoundCheckBox.Checked)
+                                {
+                                    if(mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].dChosenTime != mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].dPrevChosenTime)
+                                    {
+                                        mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].dPrevChosenTime = mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].dChosenTime;
+                                        isUpAlarm = true;
+                                    }
+                                }
+
                             }
                         }
                         catch
@@ -1915,15 +1927,20 @@ namespace AtoIndicator.View
 
 
                     // 알람 확인 및 예약 
-                    if(isCrushAlarm)
+                    if (isUpAlarm)
+                        mainForm.soundMgr.soundReserveQueue.Enqueue(MainForm.SoundTrack.Up);
+
+                    if (isCrushAlarm)
                         mainForm.soundMgr.soundReserveQueue.Enqueue(MainForm.SoundTrack.Crush);
 
                     if(isViAlarm)
                         mainForm.soundMgr.soundReserveQueue.Enqueue(MainForm.SoundTrack.VI);
 
+                    
+
                     try // sound 없는 기계에 soundPlayer.Play()로 문제가 생길까봐... 말이 안되기는 하지만 조심
                     {
-                        if (crushSoundCheckBox.Checked || viSoundCheckBox.Checked)
+                        if (crushSoundCheckBox.Checked || viSoundCheckBox.Checked || upSoundCheckBox.Checked)
                         {
 
                             // 딜레이 확인 
@@ -1940,6 +1957,8 @@ namespace AtoIndicator.View
                                             crushSoundPlayer.Play();
                                         else if (sound == MainForm.SoundTrack.VI)
                                             viSoundPlayer.Play();
+                                        else if (sound == MainForm.SoundTrack.Up)
+                                            upSoundPlayer.Play();
                                     }
                                     catch
                                     {

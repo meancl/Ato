@@ -971,6 +971,8 @@ namespace AtoIndicator
             public int nSelectedTime;
             public double fCritLine1;
             public int nChosenTime;
+            public DateTime dChosenTime; // 한번 알림소리를 내기 위한 소리
+            public DateTime dPrevChosenTime;
 
             public void Clear()
             {
@@ -981,6 +983,8 @@ namespace AtoIndicator
                 nSelectedTime = 0;
                 fCritLine1 = 0;
                 nChosenTime = 0;
+                dChosenTime = DateTime.UtcNow;
+                dPrevChosenTime = dChosenTime;
             }
         }
         // ============================================
@@ -2341,7 +2345,8 @@ namespace AtoIndicator
         {
             None,
             Crush,
-            VI
+            VI,
+            Up
         }
 
     }
