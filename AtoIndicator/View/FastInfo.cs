@@ -1954,11 +1954,27 @@ namespace AtoIndicator.View
                                     try
                                     {
                                         if (sound == MainForm.SoundTrack.Crush)
-                                            crushSoundPlayer.Play();
+                                        {
+                                            if (crushSoundCheckBox.Checked)
+                                                crushSoundPlayer.Play();
+                                            else
+                                                mainForm.soundMgr.soundReserveQueue.Enqueue(sound);
+                                        }
                                         else if (sound == MainForm.SoundTrack.VI)
-                                            viSoundPlayer.Play();
+                                        {
+                                            if(viSoundCheckBox.Checked)
+                                                viSoundPlayer.Play();
+                                            else
+                                                mainForm.soundMgr.soundReserveQueue.Enqueue(sound);
+                                        }
+
                                         else if (sound == MainForm.SoundTrack.Up)
-                                            upSoundPlayer.Play();
+                                        {
+                                            if(upSoundCheckBox.Checked)
+                                                upSoundPlayer.Play();
+                                            else
+                                                mainForm.soundMgr.soundReserveQueue.Enqueue(sound);
+                                        }
                                     }
                                     catch
                                     {
