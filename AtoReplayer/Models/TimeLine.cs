@@ -23,11 +23,10 @@ namespace AtoReplayer.Models
         public int nUpFs;
         public int nDownFs;
         public int nTotalVolume;
-        public int nBuyVolume;
-        public int nSellVolume;
-        public long lTotalPrice;
-        public long lBuyPrice;
-        public long lSellPrice;
+        public double fVolumeRatio;
+        public double fTotalPrice;
+        public double fBuyPrice;
+        public double fSellPrice;
         public int nCount;
         public double fAccumUpPower;
         public double fAccumDownPower;
@@ -53,9 +52,13 @@ namespace AtoReplayer.Models
         public int nDownTimeOverMa1;
         public int nDownTimeOverMa2;
 
+        public int nSummationRanking;
+        public int nSummationMove;
+        public int nMinuteRanking;
 
 
-        public double fTradeCompared;
-        public double fTradeStrength;
+
+        //public double fTradeCompared;
+        //public double fTradeStrength;
     }
 }

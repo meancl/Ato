@@ -1882,7 +1882,7 @@ namespace AtoIndicator.View
                                 // vi sound alarm
                                 if (viSoundCheckBox.Checked)
                                 {
-                                    if (( mainForm.ea[i].isViMode && mainForm.ea[i].speedStatus.fCur >= 100 )
+                                    if (( mainForm.ea[i].isViMode && mainForm.ea[i].speedStatus.fCur >= 30 )
                                         )
                                     {
                                         if (!mainForm.ea[i].soundReserve.isViCheck) // 언제 끝나지 
