@@ -29,14 +29,11 @@ namespace AtoReplayer
         private string searchDate = DateTime.Today.ToString(DATEFORMAT);
         private int searchCompLoc = 0;
 
-        private bool isPlaying = true;
         TimeLine[] timelines = new TimeLine[0];
         FakeReport[] fakereports = new FakeReport[0];
         TimeLine[] displayedTimelines = new TimeLine[0];
         int delayInterval = 1000;
-
-        private CancellationTokenSource tokenSource = new CancellationTokenSource();
-        private CancellationToken token;
+        
         int currentDrawIdx = 0;
 
         StrategyNames strategyNames = new StrategyNames();
@@ -56,6 +53,7 @@ namespace AtoReplayer
         // ---------------------------------------------
         // ---------------------------------------------
         // ---------------------------------------------
+        public System.Timers.Timer timer;
 
         public bool isViewGapMa = true;
 
@@ -87,6 +85,13 @@ namespace AtoReplayer
             this.KeyDown += KeyDownHandler;
 
 
+            timer = new System.Timers.Timer(delayInterval);
+            timer.Elapsed += delegate (Object sender, System.Timers.ElapsedEventArgs e)
+            {
+                DrawChartUntilIdx();
+            };
+            timer.Enabled = false; // false로 만들거라
+
             //처음 공백 Placeholder 지정
             sCodeTextBox.ForeColor = Color.DarkGray;
             sCodeTextBox.Text = "종목명/종목코드";
@@ -94,14 +99,15 @@ namespace AtoReplayer
             historyChart.MouseMove += ChartMouseMoveHandler;
 
             // 컴포넌트 이벤트 핸들러
-            this.KeyUp += KeyUpHandler;
+            historyChart.KeyUp += ChartControlKeyUpHandler;
+            historyChart.Click += ChartClickHandler;
             dateTimePicker1.CloseUp += dateTimePicker1_ValueChanged;
             dateTimePicker1.KeyDown += dateTimePicker1_KeyDown;
             sCodeTextBox.GotFocus += RemovePlaceholder;
             sCodeTextBox.Leave += SetPlaceholder;
             sCodeTextBox.Leave += sCodeTextBox_Leave;
             sCodeTextBox.KeyPress += sCodeTextBox_KeyPress;
-            playButton.Click += playButton_Click;
+            playButton.Click += ViewCurTimerSet;
             compLocButton.Click += compLocButton_ClickAsync;
             back5.Click += back5_Click;
             back10.Click += back10_Click;
@@ -258,7 +264,6 @@ namespace AtoReplayer
                 if (searchCode != "")
                 {
                     await InitDrawAsync();
-                    DrawChartPerSecondAsync();
                 }
             }
         }
@@ -297,28 +302,26 @@ namespace AtoReplayer
             {
                 searchCode = sCodeTextBox.Text;
                 await InitDrawAsync();
-                DrawChartPerSecondAsync();
             }
         }
-
-        private void playButton_Click(object sender, EventArgs e)
+        
+        private void ViewCurTimerSet(object sender, EventArgs e)
         {
-            isPlaying = !isPlaying;
-
-            if (isPlaying)
+            if (!timer.Enabled)
             {
+                timer.Enabled = true;
                 Console.WriteLine("재생");
                 ((Button)sender).Text = "❚❚";
                 ((Button)sender).Font = new Font(((Button)sender).Font.FontFamily, 14);
-                DrawChartPerSecondAsync();
             }
             else
             {
+                timer.Enabled = false;
                 Console.WriteLine("일시정지");
                 ((Button)sender).Text = "▶";
                 ((Button)sender).Font = new Font(((Button)sender).Font.FontFamily, 11);
-                tokenSource.Cancel();
             }
+            DrawChartUntilIdx();
         }
 
         private async void compLocButton_ClickAsync(object sender, EventArgs e)
@@ -333,7 +336,6 @@ namespace AtoReplayer
             }
             compLocButton.Text = searchCompLoc.ToString();
             await InitDrawAsync();
-            DrawChartPerSecondAsync();
         }
 
         private void back10_Click(object sender, EventArgs e)
@@ -344,7 +346,7 @@ namespace AtoReplayer
                 currentDrawIdx = 0;
             }
 
-            DrawChartUntilIdx();
+            DrawChartUntilIdx(true);
         }
         private void back5_Click(object sender, EventArgs e)
         {
@@ -354,7 +356,7 @@ namespace AtoReplayer
                 currentDrawIdx = 0;
             }
 
-            DrawChartUntilIdx();
+            DrawChartUntilIdx(true);
         }
         private void back60_Click(object sender, EventArgs e)
         {
@@ -364,7 +366,7 @@ namespace AtoReplayer
                 currentDrawIdx = 0;
             }
 
-            DrawChartUntilIdx();
+            DrawChartUntilIdx(true);
         }
 
         private void forward5_Click(object sender, EventArgs e)
@@ -375,7 +377,7 @@ namespace AtoReplayer
                 currentDrawIdx = timelines.Length - 1;
             }
 
-            DrawChartUntilIdx();
+            DrawChartUntilIdx(true);
         }
 
         private void forward10_Click(object sender, EventArgs e)
@@ -386,7 +388,7 @@ namespace AtoReplayer
                 currentDrawIdx = timelines.Length - 1;
             }
 
-            DrawChartUntilIdx();
+            DrawChartUntilIdx(true);
         }
 
         private void forward60_Click(object sender, EventArgs e)
@@ -397,7 +399,7 @@ namespace AtoReplayer
                 currentDrawIdx = timelines.Length - 1;
             }
 
-            DrawChartUntilIdx();
+            DrawChartUntilIdx(true);
         }
 
         private void nDelaySecondTextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -416,29 +418,40 @@ namespace AtoReplayer
 
             if (e.KeyChar == (char)Keys.Enter)
             {
-                delayInterval = (int)(double.Parse(nDelaySecondTextBox.Text) * 1000);
+                timer.Interval = (int)(double.Parse(nDelaySecondTextBox.Text) * 1000);
             }
         }
 
         public void ClearChart()
         {
-            historyChart.Series[0].Points.Clear();
-            historyChart.Annotations.Clear();
+            void Func()
+            {
+                historyChart.Series[0].Points.Clear();
+                historyChart.Annotations.Clear();
 
-            historyChart.Series["Ma20m"].Points.Clear();
-            historyChart.Series["Ma1h"].Points.Clear();
-            historyChart.Series["Ma2h"].Points.Clear();
+                historyChart.Series["Ma20m"].Points.Clear();
+                historyChart.Series["Ma1h"].Points.Clear();
+                historyChart.Series["Ma2h"].Points.Clear();
 
-            historyChart.Series["Ma20mGap"].Points.Clear();
-            historyChart.Series["Ma1hGap"].Points.Clear();
-            historyChart.Series["Ma2hGap"].Points.Clear();
+                historyChart.Series["Ma20mGap"].Points.Clear();
+                historyChart.Series["Ma1hGap"].Points.Clear();
+                historyChart.Series["Ma2hGap"].Points.Clear();
+            }
+
+            if (historyChart.InvokeRequired)
+            {
+                historyChart.Invoke(new MethodInvoker(Func));
+            }
+            else
+                Func();
+
         }
 
         // 초기화 함수
         private async Task InitDrawAsync()
         {
-            Boolean oldPlayingFlag = isPlaying;
-            isPlaying = false;
+
+            timer.Enabled = false;
 
             // -------------- 차트 초기화 -----------------
             ClearChart();
@@ -473,6 +486,8 @@ namespace AtoReplayer
             loadingPanel.Visible = false;
             EnableControls(this);
 
+            ViewCurTimerSet(playButton, EventArgs.Empty);
+
             try
             {
                 fYesterdayPrice = timelines[0].fOverMa0Gap;
@@ -489,7 +504,6 @@ namespace AtoReplayer
             }
 
             currentDrawIdx = 0;
-            isPlaying = oldPlayingFlag;
         }
 
         private void DisableControls(Control control)
@@ -511,491 +525,472 @@ namespace AtoReplayer
             }
         }
 
-        private void createTokenSource()
-        {
-            tokenSource = new CancellationTokenSource();
-            token = tokenSource.Token;
-            Console.WriteLine("Create CancollationToken");
-        }
-
-        public void DrawChartPerSecondAsync()
-        {
-            Console.WriteLine("Call DrawChartPerSecondAsync()");
-            Console.WriteLine("timelines: " + timelines.Length);
-
-            if (timelines.Length == 0)
-            {
-                ClearChart();
-                MessageBox.Show("No Data", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                Console.WriteLine("분봉그리기 시작");
-                createTokenSource();
-
-                while (isPlaying & token.IsCancellationRequested == false)
-                {
-                    Console.WriteLine("currentDrawIdx: " + currentDrawIdx);
-                    Console.WriteLine("currentDrawTime : " + timelines[currentDrawIdx].nTime);
-                    currentDrawIdx += 1;
-                    //nFirstPrice = 0;
-                    DrawChartUntilIdx();
-
-
-                    if (currentDrawIdx > timelines.Length)
-                    {
-                        Console.WriteLine("끝");
-
-                        object senderObject = playButton; // yourButton은 playButton의 이름 또는 인스턴스
-                        EventArgs eventArgs = EventArgs.Empty; // 또는 적절한 이벤트 인수
-
-                        // 메소드 호출
-                        playButton_Click(senderObject, eventArgs);
-                        return;
-                    }
-                     Thread.Sleep(delayInterval);
-                }
-            }
-        }
 
         public double fFirstPrice;
-        public double fYesterdayPrice; 
+        public double fYesterdayPrice;
 
-        public void DrawChartUntilIdx()
+        public void DrawChartUntilIdx(bool isForceDraw = false)
         {
-            if (currentDrawIdx >= timelines.Length)
+            void Func()
             {
-                return;
-            }
-
-            ClearChart();
-
-            int nArrowCnt = 0;
-            int nFakeBuyArrowTotCnt = 0;
-            int nFakeResistArrowTotCnt = 0;
-            int nFakeAssistantArrowTotCnt = 0;
-            int nFakeVolatilityArrowTotCnt = 0;
-            int nFakeDownArrowTotCnt = 0;
-            int nPaperBuyArrowTotCnt = 0;
-            int nPaperSellArrowTotCnt = 0;
-
-
-
-            for (int i = 0; i < currentDrawIdx; i++)
-            {
-                displayedTimelines = new TimeLine[currentDrawIdx];
-                Array.Copy(timelines, displayedTimelines, currentDrawIdx);
-
-                //if (nFirstPrice == 0)
-                //    nFirstPrice = displayedTimelines[i].fOverMa0Gap;
-
-                int displayTime = displayedTimelines[i].nTime;
-
-                // 차트 스케일 조정
-                int maxY = displayedTimelines.Max(timeline => timeline.nMaxFs);
-                int minY = displayedTimelines.Min(timeline => timeline.nMinFs);
-
-                if (isViewGapMa)
+                if (timer.Enabled || isForceDraw)
                 {
-                    int maxYGap = (int)displayedTimelines.Max(timeLine => timeLine.fOverMa0Gap);
-                    maxYGap = (int)displayedTimelines.Max(timeLine => timeLine.fOverMa1Gap);
-                    maxYGap = (int)displayedTimelines.Max(timeLine => timeLine.fOverMa2Gap);
-
-
-                    int minYGap = (int)displayedTimelines.Min(timeLine => timeLine.fOverMa0Gap);
-                    minYGap = (int)displayedTimelines.Min(timeLine => timeLine.fOverMa1Gap);
-                    minYGap = (int)displayedTimelines.Min(timeLine => timeLine.fOverMa2Gap);
-
-                    maxY = maxY > maxYGap ? maxY : maxYGap;
-                    minY = minY < minYGap ? minY : minYGap;
-
-                }
-
-                double padding = GetIntegratedMarketGap(displayedTimelines[0].nStartFs); // 여백
-                historyChart.ChartAreas[0].AxisY.Maximum = maxY + padding;
-                historyChart.ChartAreas[0].AxisY.Minimum = minY - padding;
-
-                // Y축의 눈금 조정
-                historyChart.ChartAreas[0].AxisY.Interval = YIntervalGap(maxY - minY); // Y축 간격
-
-                // 현재 값들 설정
-                nCurTime = displayedTimelines[i].nTime;
-                nCurHighPrice = displayedTimelines[i].nMaxFs;
-                nCurLowPrice = displayedTimelines[i].nMinFs;
-                nCurStartPrice = displayedTimelines[i].nStartFs;
-                nCurLastPrice = displayedTimelines[i].nLastFs;
-
-                // 그래프 그리기
-                // Console.WriteLine($"sDate: {displayedTimelines[i].sDate}, sCodeName: {displayedTimelines[i].sCodeName}, nIdx: {displayedTimelines[i].nIdx}");
-                historyChart.Series["MinuteStick"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].nMaxFs);
-                historyChart.Series["MinuteStick"].Points[i].YValues[1] = displayedTimelines[i].nMinFs;
-                historyChart.Series["MinuteStick"].Points[i].YValues[2] = displayedTimelines[i].nStartFs;
-                historyChart.Series["MinuteStick"].Points[i].YValues[3] = displayedTimelines[i].nLastFs;
-                historyChart.Series["MinuteStick"].Points[i].ToolTip = 
-                        $"해당시각 : {nCurTime},  인덱스 : {displayedTimelines[i].nIdx}{NEW_LINE}" +
-                                    $"종가 : {displayedTimelines[i].nLastFs}{NEW_LINE}" +
-                                    $"시가 : {displayedTimelines[i].nStartFs}{NEW_LINE}" +
-                                    $"고가 : {displayedTimelines[i].nMaxFs}{NEW_LINE}" +
-                                    $"저가 : {displayedTimelines[i].nMinFs}{NEW_LINE}" +
-                                    $"거래량 : {displayedTimelines[i].nTotalVolume}, 매수/매도비율 : {Math.Round(displayedTimelines[i].fVolumeRatio, 2)}(%){NEW_LINE}" +
-                                    $"속도 : {displayedTimelines[i].nCount}{NEW_LINE}" +
-                                    $"*거래대금22 : {displayedTimelines[i].fTotalPrice}(백만원){NEW_LINE}" +
-                                    $"*거래대금 : {Math.Round((double)(displayedTimelines[i].fTotalPrice ), 2)}(백만원){NEW_LINE}" +
-                                    $"매수대금 : {Math.Round((double)(displayedTimelines[i].fBuyPrice ), 2)}(백만원){NEW_LINE}" +
-                                    $"매도대금 : {Math.Round((double)(displayedTimelines[i].fSellPrice ), 2)}(백만원){NEW_LINE}" +
-                                    $"누적상승 : {Math.Round(displayedTimelines[i].fAccumUpPower , 2)}(%),  누적하락 : {Math.Round(displayedTimelines[i].fAccumDownPower , 2)}(%){NEW_LINE}" +
-                                    $"손익률 : {Math.Round(((double)(displayedTimelines[i].nLastFs - displayedTimelines[i].nStartFs) / fYesterdayPrice) * 100, 2)}(%){NEW_LINE}" +
-                                    $"T각도 : {Math.Round(displayedTimelines[i].fMedianAngle, 2)}{NEW_LINE}" +
-                                    $"*H각도 : {Math.Round(displayedTimelines[i].fHourAngle, 2)}{NEW_LINE}" +
-                                    $"*R각도 : {Math.Round(displayedTimelines[i].fRecentAngle, 2)}{NEW_LINE}" +
-                                    $"*D각도 : {Math.Round(displayedTimelines[i].fDAngle, 2)}{NEW_LINE}" +
-                                    $"*Ma20m > Ma1h: {(displayedTimelines[i].fOverMa0 > displayedTimelines[i].fOverMa1)}{NEW_LINE}" +
-                                    $"*Ma1h > Ma2h: {(displayedTimelines[i].fOverMa1 > displayedTimelines[i].fOverMa2)}{NEW_LINE}" +
-                                    $"Ma20m > Ma2h: {(displayedTimelines[i].fOverMa0 > displayedTimelines[i].fOverMa2)}{NEW_LINE}" +
-                                    $"*Ma20m-- : {displayedTimelines[i].nDownTimeOverMa0}{NEW_LINE}" +
-                                    $"*Ma1h-- : {displayedTimelines[i].nDownTimeOverMa1}{NEW_LINE}" +
-                                    $"*Ma2h-- : {displayedTimelines[i].nDownTimeOverMa2}{NEW_LINE}" +
-                                    $"Ma20m++ : {displayedTimelines[i].nUpTimeOverMa0}{NEW_LINE}" +
-                                    $"Ma1h++ : {displayedTimelines[i].nUpTimeOverMa1}{NEW_LINE}" +
-                                    $"Ma2h++ : {displayedTimelines[i].nUpTimeOverMa2}{NEW_LINE}" +
-                                    $"*총순위 : {displayedTimelines[i].nSummationRanking}위( {displayedTimelines[i].nSummationMove} ){NEW_LINE}" +
-                                    $"*분당순위 : {displayedTimelines[i].nMinuteRanking} 위";
-
-                // 이평선 그리기
-
-                historyChart.Series["Ma20m"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa0);
-                historyChart.Series["Ma1h"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa1);
-                historyChart.Series["Ma2h"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa2);
-
-                if (isViewGapMa)
-                {
-                    historyChart.Series["Ma20mGap"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa0Gap);
-                    historyChart.Series["Ma1hGap"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa1Gap);
-                    historyChart.Series["Ma2hGap"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa2Gap);
-                }
-
-                // 화살표 그리기
-                Console.WriteLine("displayTime: " + displayTime);
-                List<FakeReport> fakereportList = GetFakeReportsByMin(displayTime);
-
-                int nFakeBuyArrowCnt = 0;
-                int nFakeResistArrowCnt = 0;
-                int nFakeAssistantArrowCnt = 0;
-                int nFakeVolatilityArrowCnt = 0;
-                int nFakeDownArrowCnt = 0;
-                int nPaperBuyArrowCnt = 0;
-
-                string sFakeBuyArrowToolTip = "";
-                string sFakeResistArrowToolTip = "";
-                string sFakeAssistantArrowToolTip = "";
-                string sFakeVolatilityArrowToolTip = "";
-                string sFakeDownArrowToolTip = "";
-                string sPaperBuyArrowToolTip = "";
-                string sPaperSellArrowToolTip = "";
-
-                for (int j = 0; j < fakereportList.Count; j++)
-                {
-                    FakeReport fakereport = fakereportList[j];
-                    ArrowAnnotation arrowAnnotation = new ArrowAnnotation();
-                    nArrowCnt += 1;
-
-                   
-
-                    switch (fakereport.nBuyStrategyGroupNum)
+                    if (timelines.Length == 0)
                     {
-                        case ArrowColors.FAKE_BUY_SIGNAL:
-                            if (isFakeBuyArrowVisible)
-                            {
-                                nFakeBuyArrowTotCnt += 1;
-                                nFakeBuyArrowCnt += 1;
-
-                                if (!isArrowGrouping)
-                                {
-                                    arrowAnnotation.Width = -2; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-                                else
-                                {
-                                    arrowAnnotation.Width = -0.7; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-
-                                if (nFakeBuyArrowCnt == 1)
-                                {
-                                    arrowAnnotation.Height = -4;
-                                }
-                                else
-                                {
-                                    for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
-                                    {
-                                        if (historyChart.Annotations[k].Name.Equals("FB" + i + "."  + (nFakeBuyArrowCnt - 1)))  // F + 해당분봉의 최근삽입정보
-                                        {
-                                            historyChart.Annotations.RemoveAt(k);
-                                        }
-                                    }
-                                    arrowAnnotation.Height = -7;
-                                }
-
-                                arrowAnnotation.AnchorOffsetY = -1.5;
-
-                                sFakeBuyArrowToolTip +=
-                                    $"*중첩 : {nFakeBuyArrowCnt}( {nFakeBuyArrowTotCnt} )  가짜전략 : {fakereport.nBuyStrategyIdx}  주문시간 : {fakereport.nRqTime}  페이크매수가격 : {fakereport.nOverPrice}(원){NEW_LINE}" +
-                                  //$"페이크명 : {strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx]}{NEW_LINE}{NEW_LINE}";
-                                  $"{NEW_LINE}{NEW_LINE}";
-                                arrowAnnotation.ToolTip = $"*페이크매수 총 갯수 : {nFakeBuyArrowCnt}개\n" +
-                                       $"=====================================================\n" + sFakeBuyArrowToolTip;
-
-                                arrowAnnotation.BackColor = Color.Orange;
-                                arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
-                                arrowAnnotation.Name = "FB" + i + "." + nFakeBuyArrowCnt;
-                                arrowAnnotation.LineColor = Color.Black;
-
-                                historyChart.Annotations.Add(arrowAnnotation);
-
-                            }
-                            break;
-                        case ArrowColors.FAKE_RESIST_SIGNAL:
-                            if (isFakeResistArrowVisible)
-                            {
-                                nFakeResistArrowTotCnt += 1;
-                                nFakeResistArrowCnt += 1;
-
-                                if (!isArrowGrouping)
-                                {
-                                    arrowAnnotation.Width = 0; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-                                else
-                                {
-                                    arrowAnnotation.Width = -0.1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세\
-                                }
-                                arrowAnnotation.Height = -4;// -면 아래쪽방향, + 면 위쪽방향
-                                arrowAnnotation.AnchorOffsetY = -1.5;
-
-                                sFakeResistArrowToolTip +=
-                                  $"*중첩 : {nFakeResistArrowCnt}( {nFakeResistArrowTotCnt} )  가짜전략 : {fakereport.nBuyStrategyIdx}  주문시간 : {fakereport.nRqTime}  페이크저항가격 : {fakereport.nOverPrice}(원){NEW_LINE}" +
-                                  $"{NEW_LINE}{NEW_LINE}";  // $"페이크명 : {strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx]}{NEW_LINE}{NEW_LINE}";
-
-                                arrowAnnotation.ToolTip = $"주문인덱스 : {i}\n" +
-                                    $"*페이크저항 총 갯수 : {nFakeResistArrowCnt}개\n" +
-                                   $"=====================================================\n" + sFakeResistArrowToolTip;
-                                if (nFakeResistArrowCnt == 1)
-                                    arrowAnnotation.Height = -4;
-                                else
-                                {
-                                    for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
-                                    {
-                                        if (historyChart.Annotations[k].Name.Equals("FR" + i + "."  + (nFakeResistArrowCnt - 1)))  // F + 해당분봉의 최근삽입정보
-                                        {
-                                            historyChart.Annotations.RemoveAt(k);
-                                        }
-                                    }
-                                    arrowAnnotation.Height = -7;
-                                }
-                                arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
-                                arrowAnnotation.Name = "FR" + i + "." + nFakeResistArrowCnt;
-                                arrowAnnotation.BackColor = Color.Green;
-                                arrowAnnotation.LineColor = Color.Black;
-
-                                historyChart.Annotations.Add(arrowAnnotation);
-                            }
-                            break;
-                        case ArrowColors.FAKE_ASSISTANT_SIGNAL:
-                            if (isFakeAssistantArrowVisible)
-                            {
-                                nFakeAssistantArrowTotCnt += 1;
-                                nFakeAssistantArrowCnt += 1;
-
-                                if (!isArrowGrouping)
-                                {
-                                    arrowAnnotation.Width = -1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-                                else
-                                {
-                                    arrowAnnotation.Width = -0.4; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-
-                                arrowAnnotation.Height = -4;// -면 아래쪽방향, + 면 위쪽방향
-                                arrowAnnotation.AnchorOffsetY = -1.5;
-
-                                sFakeAssistantArrowToolTip +=
-                                  $"*중첩 : {nFakeAssistantArrowCnt}( {nFakeAssistantArrowTotCnt} )  가짜전략 : {fakereport.nBuyStrategyIdx}  주문시간 : {fakereport.nRqTime}  페이크보조가격 : {fakereport.nOverPrice}(원){NEW_LINE}" +
-                                  $"{NEW_LINE}{NEW_LINE}";  // $"페이크명 : {strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx]}{NEW_LINE}{NEW_LINE}";
-
-                                arrowAnnotation.ToolTip =
-                                $"*페이크보조 총 갯수 : {nFakeAssistantArrowCnt}개\n" +
-                                $"주문인덱스 : {i}\n" +
-                                   $"=====================================================\n" + sFakeAssistantArrowToolTip;
-                                if (nFakeAssistantArrowCnt == 1)
-                                    arrowAnnotation.Height = -4;
-                                else
-                                {
-                                    for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
-                                    {
-                                        if (historyChart.Annotations[k].Name.Equals("FA" + i + "." + (nFakeAssistantArrowCnt - 1)))  // F + 해당분봉의 최근삽입정보
-                                        {
-                                            historyChart.Annotations.RemoveAt(k);
-                                        }
-                                    }
-                                    arrowAnnotation.Height = -7;
-                                }
-                                arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
-                                arrowAnnotation.Name = "FA" + i + "." + nFakeAssistantArrowCnt;
-                                arrowAnnotation.BackColor = Color.Yellow;
-                                arrowAnnotation.LineColor = Color.Black;
-
-                                historyChart.Annotations.Add(arrowAnnotation);
-                            }
-                            break;
-
-                        case ArrowColors.FAKE_VOLATILE_SIGNAL:
-                            if (isFakeVolatilityArrowVisible)
-                            {
-                                nFakeVolatilityArrowTotCnt += 1;
-                                nFakeVolatilityArrowCnt += 1;
-
-                                if (!isArrowGrouping)
-                                {
-                                    arrowAnnotation.Width = 2; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-                                else
-                                {
-                                    arrowAnnotation.Width = 0.5; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-
-                                }
-                                arrowAnnotation.Height = -4;// -면 아래쪽방향, + 면 위쪽방향
-                                arrowAnnotation.AnchorOffsetY = -1.5;
-                                sFakeVolatilityArrowToolTip +=
-                                $"*중첩 : {nFakeVolatilityArrowCnt}( {nFakeVolatilityArrowTotCnt} )  변동성전략 : {fakereport.nBuyStrategyIdx}  주문시간 : {fakereport.nRqTime}  변동성가격 : {fakereport.nOverPrice}(원){NEW_LINE}" +
-                                $"{NEW_LINE}{NEW_LINE}";  // $"변동성명 : {strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx]}{NEW_LINE}{NEW_LINE}";
-
-                                arrowAnnotation.ToolTip = $"*변동성 총 갯수 : {nFakeVolatilityArrowCnt}개\n" +
-                                   $"=====================================================\n" + sFakeVolatilityArrowToolTip;
-                                if (nFakeVolatilityArrowCnt == 1)
-                                    arrowAnnotation.Height = -4;
-                                else
-                                {
-                                    for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
-                                    {
-                                        if (historyChart.Annotations[k].Name.Equals("FV" + i + "." + (nFakeVolatilityArrowCnt - 1)))  // F + 해당분봉의 최근삽입정보
-                                        {
-                                            historyChart.Annotations.RemoveAt(k);
-                                        }
-                                    }
-                                    arrowAnnotation.Height = -7;
-                                }
-                                arrowAnnotation.BackColor = Color.Navy;
-                                arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
-
-                                arrowAnnotation.Name = "FV" + i + "." + nFakeVolatilityArrowCnt;
-                                arrowAnnotation.LineColor = Color.Black;
-
-                                historyChart.Annotations.Add(arrowAnnotation);
-                            }
-                            break;
-                        case ArrowColors.FAKE_DOWN_SIGNAL:
-                            if (isFakeDownArrowVisible)
-                            {
-                                nFakeDownArrowTotCnt += 1;
-                                nFakeDownArrowCnt += 1;
-
-                                if (!isArrowGrouping)
-                                {
-                                    arrowAnnotation.Width = 3; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-                                else
-                                {
-                                    arrowAnnotation.Width = 0.8; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-
-                                }
-                                arrowAnnotation.Height = -4;// -면 아래쪽방향, + 면 위쪽방향
-                                arrowAnnotation.AnchorOffsetY = -1.5;
-                                sFakeDownArrowToolTip +=
-                                $"*중첩 : {nFakeDownArrowCnt}( {nFakeDownArrowTotCnt} )  페이크 다운전략 : {fakereport.nBuyStrategyIdx}  주문시간 : {fakereport.nRqTime}  페이크 다운 가격 : {fakereport.nOverPrice}(원){NEW_LINE}" +
-                                $"{NEW_LINE}{NEW_LINE}";  // $"페이크 다운명 : {strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx]}{NEW_LINE}{NEW_LINE}";
-
-                                arrowAnnotation.ToolTip = $"*페이크 다운 총 갯수 : {nFakeDownArrowCnt}개\n" +
-                                   $"=====================================================\n" + sFakeDownArrowToolTip;
-                                if (nFakeDownArrowCnt == 1)
-                                    arrowAnnotation.Height = -4;
-                                else
-                                {
-                                    for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
-                                    {
-                                        if (historyChart.Annotations[k].Name.Equals("FD" + i + "." + (nFakeDownArrowCnt - 1)))  // F + 해당분봉의 최근삽입정보
-                                        {
-                                            historyChart.Annotations.RemoveAt(k);
-                                        }
-                                    }
-                                    arrowAnnotation.Height = -7;
-                                }
-                                arrowAnnotation.BackColor = Color.Purple;
-                                arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
-
-                                arrowAnnotation.Name = "FD" + i + "." + nFakeDownArrowCnt;
-                                arrowAnnotation.LineColor = Color.Black;
-
-                                historyChart.Annotations.Add(arrowAnnotation);
-                            }
-                            break;
-
-                        case ArrowColors.PAPER_BUY_SIGNAL:
-                            if (isPaperBuyArrowVisible)
-                            {
-                                nPaperBuyArrowTotCnt += 1;
-                                nPaperBuyArrowCnt += 1;
-
-                                if (!isArrowGrouping)
-                                {
-                                    arrowAnnotation.Width = -3; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-                                else
-                                {
-                                    arrowAnnotation.Width = -1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-
-                                }
-                                arrowAnnotation.Height = -4;// -면 아래쪽방향, + 면 위쪽방향
-                                arrowAnnotation.AnchorOffsetY = -1.5;
-
-                                sPaperBuyArrowToolTip +=
-                                             $"매수요청시간 : {fakereport.nRqTime} \n" +
-                                             $"매수블록ID : {nPaperBuyArrowTotCnt}  주문가격(수량) : {fakereport.nOverPrice}(원)\n" +
-                                             $"{NEW_LINE}{NEW_LINE}";  // "매수설명 : " + strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx] + "\n\n";
-
-                                arrowAnnotation.ToolTip = $"*모의매수 총 갯수 : {nPaperBuyArrowCnt}개\n" +
-                                       $"=====================================================\n" + sPaperBuyArrowToolTip;
-                                if (nPaperBuyArrowCnt == 1)
-                                    arrowAnnotation.Height = -4;
-                                else
-                                {
-                                    for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
-                                    {
-                                        if (historyChart.Annotations[k].Name.Equals("P" + i + "." +  (nPaperBuyArrowCnt - 1)))  // P + 해당분봉의 최근삽입정보
-                                        {
-                                            historyChart.Annotations.RemoveAt(k);
-                                        }
-                                    }
-                                    arrowAnnotation.Height = -7;
-                                }
-
-                                arrowAnnotation.BackColor = Color.Red;
-                                arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
-                                // arrowFakeBuy.AnchorY = historyChart.Series["MinuteStick"].Points[curEa.fakeBuyStrategy.arrMinuteIdx[p]].YValues[1]; // 고.저.시종
-                                arrowAnnotation.Name = "P" + i + "." + nPaperBuyArrowCnt;
-                                arrowAnnotation.LineColor = Color.Black;
-
-                                historyChart.Annotations.Add(arrowAnnotation);
-                            }
-                            break;
-
+                        ViewCurTimerSet(playButton, EventArgs.Empty);
+                        ClearChart();
+                        MessageBox.Show("No Data", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
                     }
 
+                    if (currentDrawIdx >= timelines.Length)
+                    {
+                        return;
+                    }
+
+                    if (isForceDraw)
+                        currentDrawIdx--;
+
+                    ClearChart();
+
+                    int nArrowCnt = 0;
+                    int nFakeBuyArrowTotCnt = 0;
+                    int nFakeResistArrowTotCnt = 0;
+                    int nFakeAssistantArrowTotCnt = 0;
+                    int nFakeVolatilityArrowTotCnt = 0;
+                    int nFakeDownArrowTotCnt = 0;
+                    int nPaperBuyArrowTotCnt = 0;
+                    int nPaperSellArrowTotCnt = 0;
+
+
+
+                    for (int i = 0; i < currentDrawIdx; i++)
+                    {
+                        displayedTimelines = new TimeLine[currentDrawIdx];
+                        Array.Copy(timelines, displayedTimelines, currentDrawIdx);
+
+                        //if (nFirstPrice == 0)
+                        //    nFirstPrice = displayedTimelines[i].fOverMa0Gap;
+
+                        int displayTime = displayedTimelines[i].nTime;
+
+                        // 차트 스케일 조정
+                        int maxY = displayedTimelines.Max(timeline => timeline.nMaxFs);
+                        int minY = displayedTimelines.Min(timeline => timeline.nMinFs);
+
+                        if (isViewGapMa)
+                        {
+                            int maxYGap = (int)displayedTimelines.Max(timeLine => timeLine.fOverMa0Gap);
+                            maxYGap = (int)displayedTimelines.Max(timeLine => timeLine.fOverMa1Gap);
+                            maxYGap = (int)displayedTimelines.Max(timeLine => timeLine.fOverMa2Gap);
+
+
+                            int minYGap = (int)displayedTimelines.Min(timeLine => timeLine.fOverMa0Gap);
+                            minYGap = (int)displayedTimelines.Min(timeLine => timeLine.fOverMa1Gap);
+                            minYGap = (int)displayedTimelines.Min(timeLine => timeLine.fOverMa2Gap);
+
+                            maxY = maxY > maxYGap ? maxY : maxYGap;
+                            minY = minY < minYGap ? minY : minYGap;
+
+                        }
+
+                        double padding = GetIntegratedMarketGap(displayedTimelines[0].nStartFs); // 여백
+                        historyChart.ChartAreas[0].AxisY.Maximum = maxY + padding;
+                        historyChart.ChartAreas[0].AxisY.Minimum = minY - padding;
+
+                        // Y축의 눈금 조정
+                        historyChart.ChartAreas[0].AxisY.Interval = YIntervalGap(maxY - minY); // Y축 간격
+
+                        // 현재 값들 설정
+                        nCurTime = displayedTimelines[i].nTime;
+                        nCurHighPrice = displayedTimelines[i].nMaxFs;
+                        nCurLowPrice = displayedTimelines[i].nMinFs;
+                        nCurStartPrice = displayedTimelines[i].nStartFs;
+                        nCurLastPrice = displayedTimelines[i].nLastFs;
+
+                        // 그래프 그리기
+                        // Console.WriteLine($"sDate: {displayedTimelines[i].sDate}, sCodeName: {displayedTimelines[i].sCodeName}, nIdx: {displayedTimelines[i].nIdx}");
+                        historyChart.Series["MinuteStick"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].nMaxFs);
+                        historyChart.Series["MinuteStick"].Points[i].YValues[1] = displayedTimelines[i].nMinFs;
+                        historyChart.Series["MinuteStick"].Points[i].YValues[2] = displayedTimelines[i].nStartFs;
+                        historyChart.Series["MinuteStick"].Points[i].YValues[3] = displayedTimelines[i].nLastFs;
+                        historyChart.Series["MinuteStick"].Points[i].ToolTip =
+                                $"해당시각 : {nCurTime},  인덱스 : {displayedTimelines[i].nIdx}{NEW_LINE}" +
+                                            $"종가 : {displayedTimelines[i].nLastFs}{NEW_LINE}" +
+                                            $"시가 : {displayedTimelines[i].nStartFs}{NEW_LINE}" +
+                                            $"고가 : {displayedTimelines[i].nMaxFs}{NEW_LINE}" +
+                                            $"저가 : {displayedTimelines[i].nMinFs}{NEW_LINE}" +
+                                            $"거래량 : {displayedTimelines[i].nTotalVolume}, 매수/매도비율 : {Math.Round(displayedTimelines[i].fVolumeRatio, 2)}(%){NEW_LINE}" +
+                                            $"속도 : {displayedTimelines[i].nCount}{NEW_LINE}" +
+                                            $"*거래대금22 : {displayedTimelines[i].fTotalPrice}(백만원){NEW_LINE}" +
+                                            $"*거래대금 : {Math.Round((double)(displayedTimelines[i].fTotalPrice), 2)}(백만원){NEW_LINE}" +
+                                            $"매수대금 : {Math.Round((double)(displayedTimelines[i].fBuyPrice), 2)}(백만원){NEW_LINE}" +
+                                            $"매도대금 : {Math.Round((double)(displayedTimelines[i].fSellPrice), 2)}(백만원){NEW_LINE}" +
+                                            $"누적상승 : {Math.Round(displayedTimelines[i].fAccumUpPower, 2)}(%),  누적하락 : {Math.Round(displayedTimelines[i].fAccumDownPower, 2)}(%){NEW_LINE}" +
+                                            $"손익률 : {Math.Round(((double)(displayedTimelines[i].nLastFs - displayedTimelines[i].nStartFs) / fYesterdayPrice) * 100, 2)}(%){NEW_LINE}" +
+                                            $"T각도 : {Math.Round(displayedTimelines[i].fMedianAngle, 2)}{NEW_LINE}" +
+                                            $"*H각도 : {Math.Round(displayedTimelines[i].fHourAngle, 2)}{NEW_LINE}" +
+                                            $"*R각도 : {Math.Round(displayedTimelines[i].fRecentAngle, 2)}{NEW_LINE}" +
+                                            $"*D각도 : {Math.Round(displayedTimelines[i].fDAngle, 2)}{NEW_LINE}" +
+                                            $"*Ma20m > Ma1h: {(displayedTimelines[i].fOverMa0 > displayedTimelines[i].fOverMa1)}{NEW_LINE}" +
+                                            $"*Ma1h > Ma2h: {(displayedTimelines[i].fOverMa1 > displayedTimelines[i].fOverMa2)}{NEW_LINE}" +
+                                            $"Ma20m > Ma2h: {(displayedTimelines[i].fOverMa0 > displayedTimelines[i].fOverMa2)}{NEW_LINE}" +
+                                            $"*Ma20m-- : {displayedTimelines[i].nDownTimeOverMa0}{NEW_LINE}" +
+                                            $"*Ma1h-- : {displayedTimelines[i].nDownTimeOverMa1}{NEW_LINE}" +
+                                            $"*Ma2h-- : {displayedTimelines[i].nDownTimeOverMa2}{NEW_LINE}" +
+                                            $"Ma20m++ : {displayedTimelines[i].nUpTimeOverMa0}{NEW_LINE}" +
+                                            $"Ma1h++ : {displayedTimelines[i].nUpTimeOverMa1}{NEW_LINE}" +
+                                            $"Ma2h++ : {displayedTimelines[i].nUpTimeOverMa2}{NEW_LINE}" +
+                                            $"*총순위 : {displayedTimelines[i].nSummationRanking}위( {displayedTimelines[i].nSummationMove} ){NEW_LINE}" +
+                                            $"*분당순위 : {displayedTimelines[i].nMinuteRanking} 위";
+
+                        // 이평선 그리기
+
+                        historyChart.Series["Ma20m"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa0);
+                        historyChart.Series["Ma1h"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa1);
+                        historyChart.Series["Ma2h"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa2);
+
+                        if (isViewGapMa)
+                        {
+                            historyChart.Series["Ma20mGap"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa0Gap);
+                            historyChart.Series["Ma1hGap"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa1Gap);
+                            historyChart.Series["Ma2hGap"].Points.AddXY(displayTime.ToString(), displayedTimelines[i].fOverMa2Gap);
+                        }
+
+                        // 화살표 그리기
+                        Console.WriteLine("displayTime: " + displayTime);
+                        List<FakeReport> fakereportList = GetFakeReportsByMin(displayTime);
+
+                        int nFakeBuyArrowCnt = 0;
+                        int nFakeResistArrowCnt = 0;
+                        int nFakeAssistantArrowCnt = 0;
+                        int nFakeVolatilityArrowCnt = 0;
+                        int nFakeDownArrowCnt = 0;
+                        int nPaperBuyArrowCnt = 0;
+
+                        string sFakeBuyArrowToolTip = "";
+                        string sFakeResistArrowToolTip = "";
+                        string sFakeAssistantArrowToolTip = "";
+                        string sFakeVolatilityArrowToolTip = "";
+                        string sFakeDownArrowToolTip = "";
+                        string sPaperBuyArrowToolTip = "";
+                        string sPaperSellArrowToolTip = "";
+
+                        for (int j = 0; j < fakereportList.Count; j++)
+                        {
+                            FakeReport fakereport = fakereportList[j];
+                            ArrowAnnotation arrowAnnotation = new ArrowAnnotation();
+                            nArrowCnt += 1;
+
+
+
+                            switch (fakereport.nBuyStrategyGroupNum)
+                            {
+                                case ArrowColors.FAKE_BUY_SIGNAL:
+                                    if (isFakeBuyArrowVisible)
+                                    {
+                                        nFakeBuyArrowTotCnt += 1;
+                                        nFakeBuyArrowCnt += 1;
+
+                                        if (!isArrowGrouping)
+                                        {
+                                            arrowAnnotation.Width = -2; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                        }
+                                        else
+                                        {
+                                            arrowAnnotation.Width = -0.7; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                        }
+
+                                        if (nFakeBuyArrowCnt == 1)
+                                        {
+                                            arrowAnnotation.Height = -4;
+                                        }
+                                        else
+                                        {
+                                            for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                            {
+                                                if (historyChart.Annotations[k].Name.Equals("FB" + i + "." + (nFakeBuyArrowCnt - 1)))  // F + 해당분봉의 최근삽입정보
+                                                {
+                                                    historyChart.Annotations.RemoveAt(k);
+                                                }
+                                            }
+                                            arrowAnnotation.Height = -7;
+                                        }
+
+                                        arrowAnnotation.AnchorOffsetY = -1.5;
+
+                                        sFakeBuyArrowToolTip +=
+                                            $"*중첩 : {nFakeBuyArrowCnt}( {nFakeBuyArrowTotCnt} )  가짜전략 : {fakereport.nBuyStrategyIdx}  주문시간 : {fakereport.nRqTime}  페이크매수가격 : {fakereport.nOverPrice}(원){NEW_LINE}" +
+                                          //$"페이크명 : {strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx]}{NEW_LINE}{NEW_LINE}";
+                                          $"{NEW_LINE}{NEW_LINE}";
+                                        arrowAnnotation.ToolTip = $"*페이크매수 총 갯수 : {nFakeBuyArrowCnt}개\n" +
+                                               $"=====================================================\n" + sFakeBuyArrowToolTip;
+
+                                        arrowAnnotation.BackColor = Color.Orange;
+                                        arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
+                                        arrowAnnotation.Name = "FB" + i + "." + nFakeBuyArrowCnt;
+                                        arrowAnnotation.LineColor = Color.Black;
+
+                                        historyChart.Annotations.Add(arrowAnnotation);
+
+                                    }
+                                    break;
+                                case ArrowColors.FAKE_RESIST_SIGNAL:
+                                    if (isFakeResistArrowVisible)
+                                    {
+                                        nFakeResistArrowTotCnt += 1;
+                                        nFakeResistArrowCnt += 1;
+
+                                        if (!isArrowGrouping)
+                                        {
+                                            arrowAnnotation.Width = 0; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                        }
+                                        else
+                                        {
+                                            arrowAnnotation.Width = -0.1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세\
+                                        }
+                                        arrowAnnotation.Height = -4;// -면 아래쪽방향, + 면 위쪽방향
+                                        arrowAnnotation.AnchorOffsetY = -1.5;
+
+                                        sFakeResistArrowToolTip +=
+                                          $"*중첩 : {nFakeResistArrowCnt}( {nFakeResistArrowTotCnt} )  가짜전략 : {fakereport.nBuyStrategyIdx}  주문시간 : {fakereport.nRqTime}  페이크저항가격 : {fakereport.nOverPrice}(원){NEW_LINE}" +
+                                          $"{NEW_LINE}{NEW_LINE}";  // $"페이크명 : {strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx]}{NEW_LINE}{NEW_LINE}";
+
+                                        arrowAnnotation.ToolTip = $"주문인덱스 : {i}\n" +
+                                            $"*페이크저항 총 갯수 : {nFakeResistArrowCnt}개\n" +
+                                           $"=====================================================\n" + sFakeResistArrowToolTip;
+                                        if (nFakeResistArrowCnt == 1)
+                                            arrowAnnotation.Height = -4;
+                                        else
+                                        {
+                                            for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                            {
+                                                if (historyChart.Annotations[k].Name.Equals("FR" + i + "." + (nFakeResistArrowCnt - 1)))  // F + 해당분봉의 최근삽입정보
+                                                {
+                                                    historyChart.Annotations.RemoveAt(k);
+                                                }
+                                            }
+                                            arrowAnnotation.Height = -7;
+                                        }
+                                        arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
+                                        arrowAnnotation.Name = "FR" + i + "." + nFakeResistArrowCnt;
+                                        arrowAnnotation.BackColor = Color.Green;
+                                        arrowAnnotation.LineColor = Color.Black;
+
+                                        historyChart.Annotations.Add(arrowAnnotation);
+                                    }
+                                    break;
+                                case ArrowColors.FAKE_ASSISTANT_SIGNAL:
+                                    if (isFakeAssistantArrowVisible)
+                                    {
+                                        nFakeAssistantArrowTotCnt += 1;
+                                        nFakeAssistantArrowCnt += 1;
+
+                                        if (!isArrowGrouping)
+                                        {
+                                            arrowAnnotation.Width = -1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                        }
+                                        else
+                                        {
+                                            arrowAnnotation.Width = -0.4; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                        }
+
+                                        arrowAnnotation.Height = -4;// -면 아래쪽방향, + 면 위쪽방향
+                                        arrowAnnotation.AnchorOffsetY = -1.5;
+
+                                        sFakeAssistantArrowToolTip +=
+                                          $"*중첩 : {nFakeAssistantArrowCnt}( {nFakeAssistantArrowTotCnt} )  가짜전략 : {fakereport.nBuyStrategyIdx}  주문시간 : {fakereport.nRqTime}  페이크보조가격 : {fakereport.nOverPrice}(원){NEW_LINE}" +
+                                          $"{NEW_LINE}{NEW_LINE}";  // $"페이크명 : {strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx]}{NEW_LINE}{NEW_LINE}";
+
+                                        arrowAnnotation.ToolTip =
+                                        $"*페이크보조 총 갯수 : {nFakeAssistantArrowCnt}개\n" +
+                                        $"주문인덱스 : {i}\n" +
+                                           $"=====================================================\n" + sFakeAssistantArrowToolTip;
+                                        if (nFakeAssistantArrowCnt == 1)
+                                            arrowAnnotation.Height = -4;
+                                        else
+                                        {
+                                            for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                            {
+                                                if (historyChart.Annotations[k].Name.Equals("FA" + i + "." + (nFakeAssistantArrowCnt - 1)))  // F + 해당분봉의 최근삽입정보
+                                                {
+                                                    historyChart.Annotations.RemoveAt(k);
+                                                }
+                                            }
+                                            arrowAnnotation.Height = -7;
+                                        }
+                                        arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
+                                        arrowAnnotation.Name = "FA" + i + "." + nFakeAssistantArrowCnt;
+                                        arrowAnnotation.BackColor = Color.Yellow;
+                                        arrowAnnotation.LineColor = Color.Black;
+
+                                        historyChart.Annotations.Add(arrowAnnotation);
+                                    }
+                                    break;
+
+                                case ArrowColors.FAKE_VOLATILE_SIGNAL:
+                                    if (isFakeVolatilityArrowVisible)
+                                    {
+                                        nFakeVolatilityArrowTotCnt += 1;
+                                        nFakeVolatilityArrowCnt += 1;
+
+                                        if (!isArrowGrouping)
+                                        {
+                                            arrowAnnotation.Width = 2; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                        }
+                                        else
+                                        {
+                                            arrowAnnotation.Width = 0.5; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+
+                                        }
+                                        arrowAnnotation.Height = -4;// -면 아래쪽방향, + 면 위쪽방향
+                                        arrowAnnotation.AnchorOffsetY = -1.5;
+                                        sFakeVolatilityArrowToolTip +=
+                                        $"*중첩 : {nFakeVolatilityArrowCnt}( {nFakeVolatilityArrowTotCnt} )  변동성전략 : {fakereport.nBuyStrategyIdx}  주문시간 : {fakereport.nRqTime}  변동성가격 : {fakereport.nOverPrice}(원){NEW_LINE}" +
+                                        $"{NEW_LINE}{NEW_LINE}";  // $"변동성명 : {strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx]}{NEW_LINE}{NEW_LINE}";
+
+                                        arrowAnnotation.ToolTip = $"*변동성 총 갯수 : {nFakeVolatilityArrowCnt}개\n" +
+                                           $"=====================================================\n" + sFakeVolatilityArrowToolTip;
+                                        if (nFakeVolatilityArrowCnt == 1)
+                                            arrowAnnotation.Height = -4;
+                                        else
+                                        {
+                                            for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                            {
+                                                if (historyChart.Annotations[k].Name.Equals("FV" + i + "." + (nFakeVolatilityArrowCnt - 1)))  // F + 해당분봉의 최근삽입정보
+                                                {
+                                                    historyChart.Annotations.RemoveAt(k);
+                                                }
+                                            }
+                                            arrowAnnotation.Height = -7;
+                                        }
+                                        arrowAnnotation.BackColor = Color.Navy;
+                                        arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
+
+                                        arrowAnnotation.Name = "FV" + i + "." + nFakeVolatilityArrowCnt;
+                                        arrowAnnotation.LineColor = Color.Black;
+
+                                        historyChart.Annotations.Add(arrowAnnotation);
+                                    }
+                                    break;
+                                case ArrowColors.FAKE_DOWN_SIGNAL:
+                                    if (isFakeDownArrowVisible)
+                                    {
+                                        nFakeDownArrowTotCnt += 1;
+                                        nFakeDownArrowCnt += 1;
+
+                                        if (!isArrowGrouping)
+                                        {
+                                            arrowAnnotation.Width = 3; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                        }
+                                        else
+                                        {
+                                            arrowAnnotation.Width = 0.8; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+
+                                        }
+                                        arrowAnnotation.Height = -4;// -면 아래쪽방향, + 면 위쪽방향
+                                        arrowAnnotation.AnchorOffsetY = -1.5;
+                                        sFakeDownArrowToolTip +=
+                                        $"*중첩 : {nFakeDownArrowCnt}( {nFakeDownArrowTotCnt} )  페이크 다운전략 : {fakereport.nBuyStrategyIdx}  주문시간 : {fakereport.nRqTime}  페이크 다운 가격 : {fakereport.nOverPrice}(원){NEW_LINE}" +
+                                        $"{NEW_LINE}{NEW_LINE}";  // $"페이크 다운명 : {strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx]}{NEW_LINE}{NEW_LINE}";
+
+                                        arrowAnnotation.ToolTip = $"*페이크 다운 총 갯수 : {nFakeDownArrowCnt}개\n" +
+                                           $"=====================================================\n" + sFakeDownArrowToolTip;
+                                        if (nFakeDownArrowCnt == 1)
+                                            arrowAnnotation.Height = -4;
+                                        else
+                                        {
+                                            for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                            {
+                                                if (historyChart.Annotations[k].Name.Equals("FD" + i + "." + (nFakeDownArrowCnt - 1)))  // F + 해당분봉의 최근삽입정보
+                                                {
+                                                    historyChart.Annotations.RemoveAt(k);
+                                                }
+                                            }
+                                            arrowAnnotation.Height = -7;
+                                        }
+                                        arrowAnnotation.BackColor = Color.Purple;
+                                        arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
+
+                                        arrowAnnotation.Name = "FD" + i + "." + nFakeDownArrowCnt;
+                                        arrowAnnotation.LineColor = Color.Black;
+
+                                        historyChart.Annotations.Add(arrowAnnotation);
+                                    }
+                                    break;
+
+                                case ArrowColors.PAPER_BUY_SIGNAL:
+                                    if (isPaperBuyArrowVisible)
+                                    {
+                                        nPaperBuyArrowTotCnt += 1;
+                                        nPaperBuyArrowCnt += 1;
+
+                                        if (!isArrowGrouping)
+                                        {
+                                            arrowAnnotation.Width = -3; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                        }
+                                        else
+                                        {
+                                            arrowAnnotation.Width = -1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+
+                                        }
+                                        arrowAnnotation.Height = -4;// -면 아래쪽방향, + 면 위쪽방향
+                                        arrowAnnotation.AnchorOffsetY = -1.5;
+
+                                        sPaperBuyArrowToolTip +=
+                                                     $"매수요청시간 : {fakereport.nRqTime} \n" +
+                                                     $"매수블록ID : {nPaperBuyArrowTotCnt}  주문가격(수량) : {fakereport.nOverPrice}(원)\n" +
+                                                     $"{NEW_LINE}{NEW_LINE}";  // "매수설명 : " + strategyNames.arrFakeBuyStrategyName[fakereport.nBuyStrategyIdx] + "\n\n";
+
+                                        arrowAnnotation.ToolTip = $"*모의매수 총 갯수 : {nPaperBuyArrowCnt}개\n" +
+                                               $"=====================================================\n" + sPaperBuyArrowToolTip;
+                                        if (nPaperBuyArrowCnt == 1)
+                                            arrowAnnotation.Height = -4;
+                                        else
+                                        {
+                                            for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                            {
+                                                if (historyChart.Annotations[k].Name.Equals("P" + i + "." + (nPaperBuyArrowCnt - 1)))  // P + 해당분봉의 최근삽입정보
+                                                {
+                                                    historyChart.Annotations.RemoveAt(k);
+                                                }
+                                            }
+                                            arrowAnnotation.Height = -7;
+                                        }
+
+                                        arrowAnnotation.BackColor = Color.Red;
+                                        arrowAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[i]);
+                                        // arrowFakeBuy.AnchorY = historyChart.Series["MinuteStick"].Points[curEa.fakeBuyStrategy.arrMinuteIdx[p]].YValues[1]; // 고.저.시종
+                                        arrowAnnotation.Name = "P" + i + "." + nPaperBuyArrowCnt;
+                                        arrowAnnotation.LineColor = Color.Black;
+
+                                        historyChart.Annotations.Add(arrowAnnotation);
+                                    }
+                                    break;
+
+                            }
+
+                        }
+                    }
+                    //  현재정보들 출력
+
+                    curTimeLabel.Text = $"현재시간 : {nCurTime}";
+                    highLabel.Text = $"{nCurHighPrice}";
+                    lowLabel.Text = $"{nCurLowPrice}";
+                    startLabel.Text = $"{nCurStartPrice}";
+                    lastLabel.Text = $"{nCurLastPrice}";
+
+                    currentDrawIdx++;
+
                 }
             }
-            //  현재정보들 출력
-            curTimeLabel.Text = $"현재시간 : {nCurTime}";
-            highLabel.Text = $"{nCurHighPrice}";
-            lowLabel.Text = $"{nCurLowPrice}";
-            startLabel.Text = $"{nCurStartPrice}";
-            lastLabel.Text = $"{nCurLastPrice}";
 
+            if (historyChart.InvokeRequired)
+            {
+                historyChart.Invoke(new MethodInvoker(Func));
+            }
+            else
+                Func();
         }
 
         public void KeyDownHandler(object sender, KeyEventArgs e)
@@ -1004,50 +999,56 @@ namespace AtoReplayer
 
         }
 
-        public void KeyUpHandler(object sender, KeyEventArgs e)
+        public void ChartClickHandler(object sender, EventArgs e)
+        {
+            // Set focus to the chart when it is clicked
+            historyChart.Focus();
+        }
+
+        public void ChartControlKeyUpHandler(object sender, KeyEventArgs e)
         {
             char cUp = (char)e.KeyValue;
 
             if (cUp == 189) // -
             {
                 isArrowGrouping = true;
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
             }
             if (cUp == 187) // +
             {
                 isArrowGrouping = false;
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
             }
 
             if (cUp == 'G')
             {
                 isViewGapMa = !isViewGapMa;
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
             }
 
             if (cUp == 'Q') // q가 눌렸는데 실매수
             {
                 isPaperBuyArrowVisible = !isPaperBuyArrowVisible;
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
             }
 
             if (cUp == 'W') // 실매도
             {
                 isPaperSellArrowVisible = !isPaperSellArrowVisible;
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
             }
 
             if (cUp == 'E') // 페이크매수
             {
                 isFakeBuyArrowVisible = !isFakeBuyArrowVisible;
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
             }
 
             if (cUp == 'R') // 페이크저항
             {
 
                 isFakeResistArrowVisible = !isFakeResistArrowVisible;
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
 
             }
 
@@ -1055,7 +1056,7 @@ namespace AtoReplayer
             {
 
                 isFakeAssistantArrowVisible = !isFakeAssistantArrowVisible;
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
 
             }
 
@@ -1064,19 +1065,19 @@ namespace AtoReplayer
             {
 
                 isFakeVolatilityArrowVisible = !isFakeVolatilityArrowVisible;
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
             }
 
             if (cUp == 'F') // 페이크 다운
             {
                 isFakeDownArrowVisible = !isFakeDownArrowVisible;
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
             }
 
             if (cUp == 'A')
             {
                 ReverseAllArrowVisible();
-                DrawChartUntilIdx();
+                DrawChartUntilIdx(true);
             }
         }
         public List<FakeReport> GetFakeReportsByMin(int nTime)

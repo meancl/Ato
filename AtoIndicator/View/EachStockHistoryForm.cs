@@ -345,7 +345,7 @@ namespace AtoIndicator.View.EachStockHistory
             this.Resize += CancelEventHandler;
             this.MouseWheel += MouseWheelEventHandler;
             nSpecificStrategyIdx = specificStrategy;
-
+            
             ResetMinuteChart(); // 이게 먼저 실행되어야 chart를 초기화시켜줌. 먼저 실행안되면 차트가 candleStickType아니라 오류생김
 
 
