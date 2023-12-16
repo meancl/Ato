@@ -60,6 +60,9 @@ namespace AtoReplayer
         public int nCurIdx; // 현재 인덱스
         public double fCurPower;
 
+        public int nCurHitNum;
+        public int nCurHitType;
+
         public int profitnLoss; // 손익
         public int nCurDeposit = DEFAULT_DEPOSIT; // 현재예수금
         public int nCurPrice; // 현재가
@@ -78,23 +81,33 @@ namespace AtoReplayer
             public string sType; // 주문타입
             public int nVolume; // 주문수량
             public int nPrice; // 주문가
+            public int nIdx;
 
-            public UnTradedInfo(int nOrderNum, int aTime = 0, string aType = "", int aVolume = 0, int aPrice = 0)
+            public UnTradedInfo(int nOrderNum, int aTime = 0, string aType = "", int aVolume = 0, int aPrice = 0, int aIdx = 0)
             {
                 nNum = nOrderNum;
                 nTime = aTime;
                 sType = aType;
                 nVolume = aVolume;
                 nPrice = aPrice;
+                nIdx = aIdx;
             }
 
         }
 
+
+        public List<UnTradedInfo> tradedHistoryList;
         public List<UnTradedInfo> unTradedInfoList;
+
+        public Dictionary<int, int> hitDict25;
+        public Dictionary<int, int> hitDict38;
+        public Dictionary<int, int> hitDict312;
+        public Dictionary<int, int> hitDict410;
 
         public Dictionary<int, bool> hogaDictionary;
         public List<int> hogaList;
 
+        public bool isHitView = true;
         public bool isMouseCursorView;
         public SoundPlayer buySoundPlayer;
         public SoundPlayer sellSoundPlayer;
@@ -115,6 +128,9 @@ namespace AtoReplayer
         public bool isFakeDownArrowVisible = true;
         public bool isPaperBuyArrowVisible = true;
         public bool isPaperSellArrowVisible = true;
+
+        public bool isRealBuyArrowVisible = true;
+        public bool isRealSellArrowVisible = true;
 
         public bool isAllArrowVisible = true;
 
@@ -145,6 +161,7 @@ namespace AtoReplayer
             sCodeTextBox.Text = "종목명/종목코드";
 
             historyChart.MouseMove += ChartMouseMoveHandler;
+            historyChart.Paint += ChartOnPaintHandler;
 
             // 컴포넌트 이벤트 핸들러
             historyChart.KeyUp += ChartControlKeyUpHandler;
@@ -199,6 +216,11 @@ namespace AtoReplayer
             unTradedListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "주문수량" });
 
             unTradedInfoList = new List<UnTradedInfo>();
+            tradedHistoryList = new List<UnTradedInfo>();
+            hitDict25 = new Dictionary<int, int>();
+            hitDict38 = new Dictionary<int, int>();
+            hitDict312 = new Dictionary<int, int>();
+            hitDict410 = new Dictionary<int, int>();
 
             unTradedListView.FullRowSelect = true;
 
@@ -311,6 +333,59 @@ namespace AtoReplayer
             }
 
             return listViewItems;
+        }
+
+        public void ChartOnPaintHandler(Object sender, PaintEventArgs e)
+        {
+            void DrawHitEdge(Dictionary<int, int> dict, Color color)
+            {
+                try
+                {
+                    if (historyChart.Series["MinuteStick"].Points.Count > 0)
+                    {
+                        foreach (var key in dict.Keys)
+                        {
+                            Series series = historyChart.Series["MinuteStick"];
+
+                            if (series.Points.Count >= key + 1)
+                            {
+                                DataPoint point = series.Points[key];
+
+                                double pixelPosition1 = historyChart.ChartAreas[0].AxisX.ValueToPixelPosition(0.8);
+                                double pixelPosition2 = historyChart.ChartAreas[0].AxisX.ValueToPixelPosition(0);
+
+                                double barLength = Math.Abs(pixelPosition2 - pixelPosition1);
+
+                                double xLocation = key + 1;
+                                double yStartValue = point.YValues[2]; // 시가
+                                double yLastValue = point.YValues[3]; // 종가
+
+                                double yMaxValue = yLastValue > yStartValue ? yLastValue : yStartValue;
+                                double yMinValue = yLastValue < yStartValue ? yLastValue : yStartValue;
+
+                                using (Pen pen = new Pen(color, 2))
+                                {
+                                    e.Graphics.DrawRectangle(pen,
+                                        (float)(historyChart.ChartAreas[0].AxisX.ValueToPixelPosition(xLocation) - barLength / 2),
+                                        (float)historyChart.ChartAreas[0].AxisY.ValueToPixelPosition(yMaxValue),
+                                        (float)barLength,
+                                        (float)(historyChart.ChartAreas[0].AxisY.ValueToPixelPosition(yMinValue) - historyChart.ChartAreas[0].AxisY.ValueToPixelPosition(yMaxValue)));
+                                }
+                            }
+                        }
+                    }
+
+                }
+                catch { }
+            }
+
+            if (isHitView)
+            {
+                DrawHitEdge(hitDict25, Color.Orange);
+                DrawHitEdge(hitDict38, Color.Green);
+                DrawHitEdge(hitDict312, Color.Purple);
+                DrawHitEdge(hitDict410, Color.Black);
+            }
         }
 
         // ---------------------------------------------------
@@ -634,7 +709,7 @@ namespace AtoReplayer
 
                             if (volumeResult > 0)
                             {
-                                AddListView(new UnTradedInfo(nOrderNum++, nCurTime, "매수", volumeResult, priceResult));
+                                AddListView(new UnTradedInfo(nOrderNum++, nCurTime, "매수", volumeResult, priceResult, nCurIdx));
                                 nCurDeposit -= (int)(volumeResult * priceResult * (1 + BUY_COMMISION));
                                 DisplayCurInfos();
                                 DrawChartUntilIdx(true);
@@ -668,7 +743,7 @@ namespace AtoReplayer
 
                                 if (nPossibleVolume < volumeResult)
                                     volumeResult = nPossibleVolume;
-                                AddListView(new UnTradedInfo(nOrderNum++, nCurTime, "매도", volumeResult, priceResult));
+                                AddListView(new UnTradedInfo(nOrderNum++, nCurTime, "매도", volumeResult, priceResult, nCurIdx));
                                 nPossibleVolume -= volumeResult;
                                 DrawChartUntilIdx(true);
                             }
@@ -775,6 +850,9 @@ namespace AtoReplayer
             nCurIdx = 0;
             fCurPower = 0;
 
+            nCurHitNum = 0;
+            nCurHitType = 0;
+
             profitnLoss = 0; // 손익
             nCurDeposit = DEFAULT_DEPOSIT; // 현재예수금
             nCurPrice = 0; // 현재가
@@ -790,6 +868,15 @@ namespace AtoReplayer
             hogaDictionary.Clear();
             hogaList.Clear();
             unTradedInfoList.Clear();
+            tradedHistoryList.Clear();
+
+            hitDict25.Clear();
+            hitDict38.Clear();
+            hitDict312.Clear();
+            hitDict410.Clear();
+
+            isMouseCursorView = false;
+            isHitView = true;
 
             isViewGapMa = true;
             isViewStartMa = true;
@@ -802,6 +889,8 @@ namespace AtoReplayer
             isFakeDownArrowVisible = true;
             isPaperBuyArrowVisible = true;
             isPaperSellArrowVisible = true;
+            isRealBuyArrowVisible = true;
+            isRealSellArrowVisible = true;
             isAllArrowVisible = true;
 
             loadingPanel.Visible = false;
@@ -899,6 +988,11 @@ namespace AtoReplayer
 
                     ClearChart();
 
+                    hitDict25.Clear();
+                    hitDict38.Clear();
+                    hitDict312.Clear();
+                    hitDict410.Clear();
+
                     int nArrowCnt = 0;
                     int nFakeBuyArrowTotCnt = 0;
                     int nFakeResistArrowTotCnt = 0;
@@ -912,6 +1006,8 @@ namespace AtoReplayer
                     {
                         displayedTimelines = new TimeLine[currentDrawIdx];
                         Array.Copy(timelines, displayedTimelines, currentDrawIdx);
+
+
 
                         //if (nFirstPrice == 0)
                         //    nFirstPrice = displayedTimelines[i].fOverMa0Gap;
@@ -1026,6 +1122,7 @@ namespace AtoReplayer
                         Console.WriteLine("displayTime: " + displayTime);
                         List<FakeReport> fakereportList = GetFakeReportsByMin(displayTime);
 
+                        
                         int nFakeBuyArrowCnt = 0;
                         int nFakeResistArrowCnt = 0;
                         int nFakeAssistantArrowCnt = 0;
@@ -1051,11 +1148,12 @@ namespace AtoReplayer
                             switch (fakereport.nBuyStrategyGroupNum)
                             {
                                 case ArrowColors.FAKE_BUY_SIGNAL:
+                                    nFakeBuyArrowTotCnt += 1;
+                                    nFakeBuyArrowCnt += 1;
+
                                     if (isFakeBuyArrowVisible)
                                     {
-                                        nFakeBuyArrowTotCnt += 1;
-                                        nFakeBuyArrowCnt += 1;
-
+                                       
                                         if (!isArrowGrouping)
                                         {
                                             arrowAnnotation.Width = -2; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
@@ -1100,10 +1198,10 @@ namespace AtoReplayer
                                     }
                                     break;
                                 case ArrowColors.FAKE_RESIST_SIGNAL:
+                                    nFakeResistArrowTotCnt += 1;
+                                    nFakeResistArrowCnt += 1;
                                     if (isFakeResistArrowVisible)
                                     {
-                                        nFakeResistArrowTotCnt += 1;
-                                        nFakeResistArrowCnt += 1;
 
                                         if (!isArrowGrouping)
                                         {
@@ -1145,10 +1243,10 @@ namespace AtoReplayer
                                     }
                                     break;
                                 case ArrowColors.FAKE_ASSISTANT_SIGNAL:
+                                    nFakeAssistantArrowTotCnt += 1;
+                                    nFakeAssistantArrowCnt += 1;
                                     if (isFakeAssistantArrowVisible)
                                     {
-                                        nFakeAssistantArrowTotCnt += 1;
-                                        nFakeAssistantArrowCnt += 1;
 
                                         if (!isArrowGrouping)
                                         {
@@ -1193,10 +1291,10 @@ namespace AtoReplayer
                                     break;
 
                                 case ArrowColors.FAKE_VOLATILE_SIGNAL:
+                                    nFakeVolatilityArrowTotCnt += 1;
+                                    nFakeVolatilityArrowCnt += 1;
                                     if (isFakeVolatilityArrowVisible)
                                     {
-                                        nFakeVolatilityArrowTotCnt += 1;
-                                        nFakeVolatilityArrowCnt += 1;
 
                                         if (!isArrowGrouping)
                                         {
@@ -1238,10 +1336,10 @@ namespace AtoReplayer
                                     }
                                     break;
                                 case ArrowColors.FAKE_DOWN_SIGNAL:
+                                    nFakeDownArrowTotCnt += 1;
+                                    nFakeDownArrowCnt += 1;
                                     if (isFakeDownArrowVisible)
                                     {
-                                        nFakeDownArrowTotCnt += 1;
-                                        nFakeDownArrowCnt += 1;
 
                                         if (!isArrowGrouping)
                                         {
@@ -1284,10 +1382,10 @@ namespace AtoReplayer
                                     break;
 
                                 case ArrowColors.PAPER_BUY_SIGNAL:
+                                    nPaperBuyArrowTotCnt += 1;
+                                    nPaperBuyArrowCnt += 1;
                                     if (isPaperBuyArrowVisible)
                                     {
-                                        nPaperBuyArrowTotCnt += 1;
-                                        nPaperBuyArrowCnt += 1;
 
                                         if (!isArrowGrouping)
                                         {
@@ -1335,63 +1433,232 @@ namespace AtoReplayer
                             }
 
                         }
-                    }
-                    //  현재손익등 계산
-                    for(int unTradedIdx = 0; unTradedIdx < unTradedInfoList.Count; unTradedIdx++)
-                    {
-                        if(nCurTime > unTradedInfoList[unTradedIdx].nTime) // 다음 분봉 이후부터 계산하기로 정함
+                        int nHitNum = nFakeBuyArrowCnt + nFakeAssistantArrowCnt + nFakeResistArrowCnt + nFakeVolatilityArrowCnt + nFakeDownArrowCnt + nPaperBuyArrowCnt;
+                        int nHitType = 0;
+
+                        if (nFakeBuyArrowCnt > 0)
+                            nHitType++;
+                        if (nFakeAssistantArrowCnt > 0)
+                            nHitType++;
+                        if (nFakeResistArrowCnt > 0)
+                            nHitType++;
+                        if (nFakeVolatilityArrowCnt > 0)
+                            nHitType++;
+                        if (nFakeDownArrowCnt > 0)
+                            nHitType++;
+                        if (nPaperBuyArrowCnt > 0)
+                            nHitType++;
+
+                        if (nHitType >= 2 && nHitNum >= 5)
+                            hitDict25[i] = nCurPrice;
+                        if (nHitType >= 3 && nHitNum >= 8)
+                            hitDict38[i] = nCurPrice;
+                        if (nHitType >= 3 && nHitNum >= 12)
+                            hitDict312[i] = nCurPrice;
+                        if (nHitType >= 4 && nHitNum >= 10)
+                            hitDict410[i] = nCurPrice;
+
+                        nCurHitNum = nHitNum;
+                        nCurHitType = nHitType;
+
+                        // 미체결 잔고 계산
+                        for (int unTradedIdx = 0; unTradedIdx < unTradedInfoList.Count; unTradedIdx++)
                         {
-                            if(unTradedInfoList[unTradedIdx].sType.Equals("매수"))
+                            if (nCurTime > unTradedInfoList[unTradedIdx].nTime) // 다음 분봉 이후부터 계산하기로 정함
                             {
-                                if( unTradedInfoList[unTradedIdx].nPrice > nCurLowPrice + GetIntegratedMarketGap(nCurLowPrice) ) // 혹은 더 비싸게 산다면
+                                if (unTradedInfoList[unTradedIdx].sType.Equals("매수"))
                                 {
-                                    if(unTradedInfoList[unTradedIdx].nPrice >= nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice))
+                                    if (unTradedInfoList[unTradedIdx].nPrice > nCurLowPrice + GetIntegratedMarketGap(nCurLowPrice)) // 혹은 더 비싸게 산다면
                                     {
-                                        nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
-                                        nCurDeposit -= (int)((nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice)) * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
-                                        unTradedInfoList[unTradedIdx].nPrice = nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice);
+                                        if (unTradedInfoList[unTradedIdx].nPrice >= nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice))
+                                        {
+                                            nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
+                                            nCurDeposit -= (int)((nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice)) * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
+                                            unTradedInfoList[unTradedIdx].nPrice = nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice);
+                                        }
+
+                                        // ok 체결완료
+                                        nOwnVolume += unTradedInfoList[unTradedIdx].nVolume;
+                                        nPossibleVolume += unTradedInfoList[unTradedIdx].nVolume;
+                                        nOwnTotalBuyedPrice += unTradedInfoList[unTradedIdx].nVolume * unTradedInfoList[unTradedIdx].nPrice;
+                                        nEveragePrice = nOwnTotalBuyedPrice / nOwnVolume;
+
+                                        ThreadSoundTask(BUY_SIGNAL);
+                                        tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
+                                        unTradedInfoList.RemoveAt(unTradedIdx--);
+                                        UpdateListView();
                                     }
+                                }
+                                else if (unTradedInfoList[unTradedIdx].sType.Equals("매도"))
+                                {
+                                    if (unTradedInfoList[unTradedIdx].nPrice < nCurHighPrice - GetIntegratedMarketGap(nCurHighPrice))
+                                    {
+                                        if (unTradedInfoList[unTradedIdx].nPrice <= nCurLowPrice - GetIntegratedMarketGap(nCurLowPrice))
+                                        {
+                                            unTradedInfoList[unTradedIdx].nPrice = nCurLowPrice - GetIntegratedMarketGap(nCurLowPrice);
+                                        }
 
-                                    // ok 체결완료
-                                    nOwnVolume += unTradedInfoList[unTradedIdx].nVolume;
-                                    nPossibleVolume += unTradedInfoList[unTradedIdx].nVolume;
-                                    nOwnTotalBuyedPrice += unTradedInfoList[unTradedIdx].nVolume * unTradedInfoList[unTradedIdx].nPrice;
-                                    nEveragePrice = nOwnTotalBuyedPrice / nOwnVolume;
+                                        nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 - (STOCK_TAX + SELL_COMMISION)));
+                                        profitnLoss += (int)(
+                                            ((unTradedInfoList[unTradedIdx].nPrice - nEveragePrice) * unTradedInfoList[unTradedIdx].nVolume
+                                            - (unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (STOCK_TAX + SELL_COMMISION))
+                                            - (nEveragePrice * unTradedInfoList[unTradedIdx].nVolume * BUY_COMMISION)));
+                                        nOwnVolume -= unTradedInfoList[unTradedIdx].nVolume;
+                                        nOwnTotalBuyedPrice -= nEveragePrice * unTradedInfoList[unTradedIdx].nVolume;
 
-                                    ThreadSoundTask(BUY_SIGNAL);
-                                    unTradedInfoList.RemoveAt(unTradedIdx--);
-                                    UpdateListView();
+                                        if (nOwnVolume == 0)
+                                        {
+                                            pnLRatio = 0;
+                                            pnLPrice = 0;
+                                            nEveragePrice = 0;
+                                            nOwnTotalBuyedPrice = 0;
+                                        }
+
+                                        ThreadSoundTask(SELL_SIGNAL);
+                                        tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
+                                        unTradedInfoList.RemoveAt(unTradedIdx--);
+                                        UpdateListView();
+                                    }
                                 }
                             }
-                            else if(unTradedInfoList[unTradedIdx].sType.Equals("매도"))
+
+                        }
+
+                    }
+
+                    int nRealBuyTotalCnt = 0;
+                    int nRealSellTotalCnt = 0;
+
+                    int nRealBuyMinuteCnt = 0; // 분이 달라진다면 초기화 필요
+                    int nRealSellMinuteCnt = 0;
+
+                    int nRealBuyMinuteTimeIdx = 0; // 분 구분을 위한 테스트변수
+                    int nRealSellMinuteTimeIdx = 0;
+
+                    string sRealBuyMinuteToolTip = "";
+                    string sRealSellMinuteToolTip = "";
+
+                    for (int h = 0; h < tradedHistoryList.Count; h++)
+                    {
+                        ArrowAnnotation realAnnotation = new ArrowAnnotation();
+                        if (tradedHistoryList[h].sType.Equals("매수"))
+                        {
+                            if (isRealBuyArrowVisible)
                             {
-                                if( unTradedInfoList[unTradedIdx].nPrice < nCurHighPrice - GetIntegratedMarketGap(nCurHighPrice) ) 
+                                if (tradedHistoryList[h].nIdx != nRealBuyMinuteTimeIdx)
                                 {
-                                    if (unTradedInfoList[unTradedIdx].nPrice <= nCurLowPrice - GetIntegratedMarketGap(nCurLowPrice))
-                                    {
-                                        unTradedInfoList[unTradedIdx].nPrice = nCurLowPrice + GetIntegratedMarketGap(nCurLowPrice);
-                                    }
-
-                                    nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 - (STOCK_TAX + SELL_COMMISION)));
-                                    profitnLoss += (int)(
-                                        ((unTradedInfoList[unTradedIdx].nPrice - nEveragePrice) * unTradedInfoList[unTradedIdx].nVolume 
-                                        - ( unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * ( STOCK_TAX + SELL_COMMISION) )
-                                        - (nEveragePrice * unTradedInfoList[unTradedIdx].nVolume * BUY_COMMISION)));
-                                    nOwnVolume -= unTradedInfoList[unTradedIdx].nVolume;
-                                    nOwnTotalBuyedPrice -= nEveragePrice * unTradedInfoList[unTradedIdx].nVolume;
-                                    
-                                    if (nOwnVolume == 0)
-                                    {
-                                        pnLRatio = 0;
-                                        pnLPrice = 0;
-                                        nEveragePrice = 0;
-                                        nOwnTotalBuyedPrice = 0;
-                                    }
-                                    ThreadSoundTask(SELL_SIGNAL);
-
-                                    unTradedInfoList.RemoveAt(unTradedIdx--);
-                                    UpdateListView();
+                                    nRealBuyMinuteCnt = 0;
+                                    sRealBuyMinuteToolTip = "";
                                 }
+                                nRealBuyMinuteTimeIdx = tradedHistoryList[h].nIdx;
+                                nRealBuyTotalCnt += 1;
+                                nRealBuyMinuteCnt += 1;
+
+
+                                if (!isArrowGrouping)
+                                {
+                                    realAnnotation.Width = -3; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                }
+                                else
+                                {
+                                    realAnnotation.Width = -1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                }
+
+                                realAnnotation.AnchorOffsetY = +1.5;
+
+                                sRealBuyMinuteToolTip += $"번호 : { tradedHistoryList[h].nNum} 시간 : {tradedHistoryList[h].nTime} 가격 : {tradedHistoryList[h].nPrice} 수량 : {tradedHistoryList[h].nVolume}\n\n";
+
+                                realAnnotation.ToolTip =
+                                    $"*실매수 총 갯수 : {nRealBuyMinuteCnt}개\n" +
+                                    $"=====================================================\n" + sRealBuyMinuteToolTip;
+
+                                if (nRealBuyMinuteCnt == 1) // 해당데이터가 첫번째면은
+                                    realAnnotation.Height = +4;
+                                else
+                                {
+                                    for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                    {
+                                        if (historyChart.Annotations[k].Name.Equals("Z" + nRealBuyMinuteTimeIdx + "." + (nRealBuyMinuteCnt - 1)))  // M + 해당분봉의 최근삽입정보
+                                        {
+                                            historyChart.Annotations.RemoveAt(k);
+                                        }
+                                    }
+                                    realAnnotation.Height = +7;
+                                }
+
+                                realAnnotation.BackColor = Color.HotPink;
+                                realAnnotation.LineColor = Color.Black;
+
+                                int nBuyAnnotationIdx = tradedHistoryList[h].nIdx;
+                                if (nBuyAnnotationIdx >= historyChart.Series["MinuteStick"].Points.Count)
+                                    nBuyAnnotationIdx = historyChart.Series["MinuteStick"].Points.Count - 1;
+
+                                realAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[nBuyAnnotationIdx]);
+                                realAnnotation.AnchorY = historyChart.Series["MinuteStick"].Points[nBuyAnnotationIdx].YValues[1]; // 고.저.시종
+                                realAnnotation.Name = "Z" + nRealBuyMinuteTimeIdx + "." + nRealBuyMinuteCnt;
+
+                                historyChart.Annotations.Add(realAnnotation);
+
+                            }
+                        }
+                        else if (tradedHistoryList[h].sType.Equals("매도"))
+                        {
+                            if (isRealSellArrowVisible)
+                            {
+                                if (tradedHistoryList[h].nIdx != nRealSellMinuteTimeIdx)
+                                {
+                                    nRealSellMinuteCnt = 0;
+                                    sRealSellMinuteToolTip = "";
+                                }
+                                nRealSellMinuteTimeIdx = tradedHistoryList[h].nIdx;
+                                nRealSellTotalCnt += 1;
+                                nRealSellMinuteCnt += 1;
+
+
+                                if (!isArrowGrouping)
+                                {
+                                    realAnnotation.Width = +1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                }
+                                else
+                                {
+                                    realAnnotation.Width = +0.2; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                }
+
+                                realAnnotation.AnchorOffsetY = +1.5;
+
+                                sRealSellMinuteToolTip += $"번호 : {tradedHistoryList[h].nNum} 시간 : {tradedHistoryList[h].nTime} 가격 : {tradedHistoryList[h].nPrice} 수량 : {tradedHistoryList[h].nVolume} \n\n";
+
+                                realAnnotation.ToolTip =
+                                    $"*실매수 총 갯수 : {nRealSellMinuteCnt}개\n" +
+                                    $"=====================================================\n" + sRealSellMinuteToolTip;
+
+                                if (nRealSellMinuteCnt == 1) // 해당데이터가 첫번째면은
+                                    realAnnotation.Height = +4;
+                                else
+                                {
+                                    for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                    {
+                                        if (historyChart.Annotations[k].Name.Equals("X" + nRealSellMinuteTimeIdx + "." + (nRealSellMinuteCnt - 1)))  // M + 해당분봉의 최근삽입정보
+                                        {
+                                            historyChart.Annotations.RemoveAt(k);
+                                        }
+                                    }
+                                    realAnnotation.Height = +7;
+                                }
+
+                                realAnnotation.BackColor = Color.LightSkyBlue;
+                                realAnnotation.LineColor = Color.Black;
+
+                                int nSellAnnotationIdx = tradedHistoryList[h].nIdx;
+                                if (nSellAnnotationIdx >= historyChart.Series["MinuteStick"].Points.Count)
+                                    nSellAnnotationIdx = historyChart.Series["MinuteStick"].Points.Count - 1;
+
+                                realAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[nSellAnnotationIdx]);
+                                realAnnotation.AnchorY = historyChart.Series["MinuteStick"].Points[nSellAnnotationIdx].YValues[1]; // 고.저.시종
+                                realAnnotation.Name = "X" + nRealSellMinuteTimeIdx + "." + nRealSellMinuteCnt;
+
+                                historyChart.Annotations.Add(realAnnotation);
+
                             }
                         }
 
@@ -1412,6 +1679,17 @@ namespace AtoReplayer
             }
             else
                 Func();
+        }
+
+        public static int AddTimeBySec(int timeToBeAdd, int addSec)
+        {
+            int secToBeAdd = (int)(timeToBeAdd / 10000) * 3600 + (int)(timeToBeAdd / 100) % 100 * 60 + timeToBeAdd % 100;
+            secToBeAdd += addSec;
+            int hour = secToBeAdd / 3600;
+            int minute = (secToBeAdd % 3600) / 60;
+            int second = secToBeAdd % 60;
+
+            return hour * 10000 + minute * 100 + second;
         }
 
         public const int BUY_SIGNAL = 0;
@@ -1474,6 +1752,9 @@ namespace AtoReplayer
             ownVolumeLabel.Text = $"{nOwnVolume}";
             possibleVolumeLabel.Text = $"{nPossibleVolume}";
 
+            hitNumLabel.Text = $"{nCurHitNum}";
+            hitTypeLabel.Text = $"{nCurHitType}";
+
             powerLabel.Text = $"{Math.Round(fCurPower, 3)}";
             speedLabel.Text = $"{nCurSpeed}";
             curTimeLabel.Text = $"현재시간 : {nCurTime}";
@@ -1481,6 +1762,7 @@ namespace AtoReplayer
             lowLabel.Text = $"{nCurLowPrice}";
             startLabel.Text = $"{nCurStartPrice}";
             lastLabel.Text = $"{nCurLastPrice}";
+
         }
 
         public void CalcCurrentCashFlow()
@@ -1511,6 +1793,13 @@ namespace AtoReplayer
                 isArrowGrouping = false;
                 DrawChartUntilIdx(true);
             }
+
+            if (cUp == 192) // `
+            {
+                isHitView = !isHitView;
+                DrawChartUntilIdx(true);
+            }
+
 
             if (cUp == 'G')
             {
@@ -1575,6 +1864,18 @@ namespace AtoReplayer
                 DrawChartUntilIdx(true);
             }
 
+            if(cUp == 'Z')
+            {
+                isRealBuyArrowVisible = !isRealBuyArrowVisible;
+                DrawChartUntilIdx(true);
+            }
+
+            if(cUp == 'X')
+            {
+                isRealSellArrowVisible = !isRealSellArrowVisible;
+                DrawChartUntilIdx(true);
+            }
+
             if (cUp == 'A')
             {
                 ReverseAllArrowVisible();
@@ -1613,6 +1914,8 @@ namespace AtoReplayer
             isFakeVolatilityArrowVisible = isAllArrowVisible;
             isFakeDownArrowVisible = isAllArrowVisible;
             isPaperBuyArrowVisible = isAllArrowVisible;
+            isRealBuyArrowVisible = isAllArrowVisible;
+            isRealSellArrowVisible = isAllArrowVisible;
             isPaperSellArrowVisible = isAllArrowVisible;
         }
 
