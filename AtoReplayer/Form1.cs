@@ -50,6 +50,39 @@ namespace AtoReplayer
         public int nCurHighPrice;
         public int nCurLowPrice;
         public int nCurLastPrice;
+
+        public int profitnLoss; // 손익
+        public int nCurDeposit; // 현재예수금
+        public int nCurPrice; // 현재가
+        public int nEveragePrice; // 평단가
+        public double pnLRatio; // 손익률
+        public int nOwnVolume;// 보유수량
+        public int nPossibleVolume; // 가능수량
+
+        public int nOrderNum = 0;
+        public class UnTradedInfo
+        {
+            public int nNum; // 주문번호
+            public int nTime; // 주문시간
+            public string sType; // 주문타입
+            public int nVolume; // 주문수량
+            public int nPrice; // 주문가
+
+            public UnTradedInfo(int nOrderNum, int aTime =0 , string aType = "", int aVolume= 0, int aPrice = 0)
+            {
+                nNum = nOrderNum;
+                nTime = aTime;
+                sType = aType;
+                nVolume = aVolume;
+                nPrice = aPrice;
+            }
+
+        }
+
+        public List<UnTradedInfo> unTradedInfoList;
+
+        public Dictionary<int, bool> hogaDictionary;
+       
         // ---------------------------------------------
         // ---------------------------------------------
         // ---------------------------------------------
@@ -120,21 +153,35 @@ namespace AtoReplayer
             nDelaySecondTextBox.KeyPress += nDelaySecondTextBox_KeyPress;
             // toolTip1.SetToolTip(forward60, "우아앙");
 
+
+            buyButton.Click += TradeButtonHandler;
+            sellButton.Click += TradeButtonHandler;
+
+            buyPriceTxtBox.Click += TradeTextBoxClickHandler;
+            buyVolumeTxtBox.Click += TradeTextBoxClickHandler;
+            sellPriceTxtBox.Click += TradeTextBoxClickHandler;
+            sellVolumeTxtBox.Click += TradeTextBoxClickHandler;
+
             // 테스트용 기본값
             // searchCode = "동화약품";
             // sCodeTextBox.Text = "동화약품";
             // dateTimePicker1.Value = Convert.ToDateTime("2023-11-10");
             // searchDate = "2023-06-16";
 
+            hogaDictionary = new Dictionary<int, bool>();
             string sString = "STRING";
             string sInt = "INT";
             string sDouble = "DOUBLE";
 
-            unTradedListView.Columns.Add(new ColumnHeader { Name = sString, Text = "매매타입" });
-            unTradedListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "가격" });
-            unTradedListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "수량" });
+            unTradedListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "번호" });
+            unTradedListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "주문시간" });
+            unTradedListView.Columns.Add(new ColumnHeader { Name = sString, Text = "타입" });
+            unTradedListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "주문가" });
+            unTradedListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "주문수량" });
 
+            unTradedInfoList = new List<UnTradedInfo>();
 
+            unTradedListView.FullRowSelect = true;
 
             unTradedListView.View = System.Windows.Forms.View.Details;
             unTradedListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -146,20 +193,87 @@ namespace AtoReplayer
         // ===================================================
         // 미체결 잔고 관련 메서드
         // ===================================================
+        public int nPrevOrderNum = 0; 
         public void MouseClickHandler(Object sender, EventArgs e)
         {
+            try
+            {
+                if (unTradedListView.FocusedItem != null)
+                {
+                    nPrevOrderNum = int.Parse( unTradedListView.FocusedItem.SubItems[0].Text );
+                   
+                }
+            }
+            catch
+            {
 
+            }
         }
 
         public void RowDoubleClickHandler(Object sender, MouseEventArgs e)
         {
+            try
+            {
+                if (unTradedListView.FocusedItem != null)
+                {
+                    nPrevOrderNum = int.Parse(unTradedListView.FocusedItem.SubItems[0].Text);
 
+                    for (int i = 0; i < unTradedInfoList.Count; i++)
+                    {
+                        if (unTradedInfoList[i].nNum == nPrevOrderNum)
+                        {
+                            unTradedInfoList.RemoveAt(i--);
+                        }
+                    }
+                    UpdateListView();
+                }
+            }
+            catch
+            {
+
+            }
         }
 
         public void ListViewKeyUpHandller(object sender, KeyEventArgs k)
         {
+            char cUp = (char)k.KeyValue;
+            if(cUp == 'C')
+            {
+                for(int i= 0;  i < unTradedInfoList.Count;i++)
+                {
+                    if (unTradedInfoList[i].nNum == nPrevOrderNum)
+                    {
+                        unTradedInfoList.RemoveAt(i--);
+                    }
+                }
+                UpdateListView();
 
+
+            }
         }
+
+        public List<ListViewItem> ReturnListViewItems(List<UnTradedInfo> tradeInfos)
+        {
+            List<ListViewItem> listViewItems = new List<ListViewItem>();
+            foreach (UnTradedInfo info in tradeInfos)
+            {
+                ListViewItem listViewItem = new ListViewItem(new String[]
+                {
+                    info.nNum.ToString(),
+                    info.nTime.ToString(),
+                    info.sType,
+                    info.nVolume.ToString(),
+                    info.nPrice.ToString()
+                });
+
+                listViewItem.UseItemStyleForSubItems = false;
+                listViewItem.SubItems[2].ForeColor = (info.sType.Equals("매수")) ? Color.Red : Color.Blue;
+                listViewItems.Add(listViewItem);
+            }
+
+            return listViewItems;
+        }
+
         // ---------------------------------------------------
         // ---------------------------------------------------
         // ---------------------------------------------------
@@ -402,6 +516,62 @@ namespace AtoReplayer
             DrawChartUntilIdx(true);
         }
 
+        private void  AddListView(UnTradedInfo info)
+        {
+            unTradedListView.Items.Clear();
+            unTradedListView.BeginUpdate();
+            unTradedInfoList.Add(info);
+            unTradedListView.Items.AddRange(ReturnListViewItems(unTradedInfoList).ToArray());
+            unTradedListView.EndUpdate();
+        }
+
+        private void UpdateListView()
+        {
+            unTradedListView.Items.Clear();
+            unTradedListView.BeginUpdate();
+            unTradedListView.Items.AddRange(ReturnListViewItems(unTradedInfoList).ToArray());
+            unTradedListView.EndUpdate();
+        }
+
+
+        // 매수,매도 버튼 눌렸을때
+        private void TradeButtonHandler(object sender, EventArgs e)
+        {
+
+            // TODO. 조건추가
+            // 내 현재 보유예수금 내에서만 살 수 있고
+            // 보유수량을 초과해서 매도가 불가능하고
+            // 
+            if (nCurTime > 0)
+            {
+                if (sender.Equals(buyButton))
+                {
+                    if (int.TryParse(buyPriceTxtBox.Text, out int priceResult) && int.TryParse(buyVolumeTxtBox.Text, out int volumeResult))
+                    {
+                        AddListView(new UnTradedInfo(nOrderNum++, nCurTime, "매수", volumeResult, priceResult));
+                    }
+                }
+                else if (sender.Equals(sellButton))
+                {
+                    if (nPossibleVolume > 0)
+                    {
+                        if (int.TryParse(sellPriceTxtBox.Text, out int priceResult) && int.TryParse(sellVolumeTxtBox.Text, out int volumeResult))
+                        {
+                            if (nPossibleVolume < volumeResult)
+                                volumeResult = nPossibleVolume;
+                            AddListView(new UnTradedInfo(nOrderNum++, nCurTime, "매도", volumeResult, priceResult));
+                            nPossibleVolume -= volumeResult;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void TradeTextBoxClickHandler(object sender, EventArgs e)
+        {
+            ((TextBox)sender).SelectAll();
+        }
+
         private void nDelaySecondTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             // 입력된 문자가 숫자이거나 마침표(.)이거나 백스페이스인 경우 허용
@@ -471,6 +641,25 @@ namespace AtoReplayer
             timelines = timelinesTask.Result;
             fakereports = fakereportsTask.Result;
 
+            nCurTime = 0;
+            nCurStartPrice= 0;
+            nCurHighPrice= 0;
+            nCurLowPrice= 0;
+            nCurLastPrice= 0;
+
+            profitnLoss= 0; // 손익
+            nCurDeposit= 0; // 현재예수금
+            nCurPrice= 0; // 현재가
+            nEveragePrice= 0; // 평단가
+            pnLRatio= 0; // 손익률
+            nOwnVolume= 0;// 보유수량
+            nPossibleVolume= 0; // 가능수량
+
+            nOrderNum = 0;
+
+            hogaDictionary.Clear();
+            unTradedInfoList.Clear();
+
             isViewGapMa = true;
             isBuyArrowVisible = true;
             isSellArrowVisible = true;
@@ -497,6 +686,23 @@ namespace AtoReplayer
                 nCurLowPrice = timelines[0].nMinFs;
                 nCurStartPrice = timelines[0].nStartFs;
                 nCurLastPrice = timelines[0].nLastFs;
+
+                int nTestPriceUp = (int)fYesterdayPrice + GetIntegratedMarketGap((int)fYesterdayPrice);
+                int nTestPriceDown = (int)fYesterdayPrice - GetIntegratedMarketGap((int)fYesterdayPrice);
+
+                hogaDictionary[(int)fYesterdayPrice] = true;
+
+                while (( nTestPriceUp - fYesterdayPrice) / fYesterdayPrice <= 0.3)
+                {
+                    hogaDictionary[nTestPriceUp] = true;
+                    nTestPriceUp += GetIntegratedMarketGap(nTestPriceUp);
+                }
+
+                while ((nTestPriceDown - fYesterdayPrice) / fYesterdayPrice >= -0.3)
+                {
+                    hogaDictionary[nTestPriceDown] = true;
+                    nTestPriceDown -= GetIntegratedMarketGap(nTestPriceDown);
+                }
             }
             catch
             {

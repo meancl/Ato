@@ -29,15 +29,15 @@ namespace AtoReplayer
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series29 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series30 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series31 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series32 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series33 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series34 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series35 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.historyChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.sCodeTextBox = new System.Windows.Forms.TextBox();
@@ -55,33 +55,33 @@ namespace AtoReplayer
             this.curLocLabel = new System.Windows.Forms.Label();
             this.curLocPowerLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.buyPrice = new System.Windows.Forms.TextBox();
-            this.buyVolume = new System.Windows.Forms.TextBox();
-            this.sellPrice = new System.Windows.Forms.TextBox();
-            this.sellVolume = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.unTradedListView = new System.Windows.Forms.ListView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.sellButton = new System.Windows.Forms.Button();
+            this.buyButton = new System.Windows.Forms.Button();
+            this.sellVolumeTxtBox = new System.Windows.Forms.TextBox();
+            this.sellPriceTxtBox = new System.Windows.Forms.TextBox();
+            this.buyVolumeTxtBox = new System.Windows.Forms.TextBox();
+            this.buyPriceTxtBox = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.unTradedListView = new System.Windows.Forms.ListView();
             this.curTimeLabel = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -103,56 +103,56 @@ namespace AtoReplayer
             this.historyChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.CursorX.IsUserSelectionEnabled = true;
-            chartArea1.Name = "ChartArea1";
-            this.historyChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.historyChart.Legends.Add(legend1);
+            chartArea5.CursorX.IsUserSelectionEnabled = true;
+            chartArea5.Name = "ChartArea1";
+            this.historyChart.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.historyChart.Legends.Add(legend5);
             this.historyChart.Location = new System.Drawing.Point(30, 86);
             this.historyChart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.historyChart.Name = "historyChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.Legend = "Legend1";
-            series1.Name = "MinuteStick";
-            series1.YValuesPerPoint = 4;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.Red;
-            series2.Legend = "Legend1";
-            series2.Name = "Ma20m";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            series3.Legend = "Legend1";
-            series3.Name = "Ma1h";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Color = System.Drawing.Color.Yellow;
-            series4.Legend = "Legend1";
-            series4.Name = "Ma2h";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Color = System.Drawing.Color.Green;
-            series5.Legend = "Legend1";
-            series5.Name = "Ma20mGap";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            series6.Legend = "Legend1";
-            series6.Name = "Ma1hGap";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Color = System.Drawing.Color.Purple;
-            series7.Legend = "Legend1";
-            series7.Name = "Ma2hGap";
-            this.historyChart.Series.Add(series1);
-            this.historyChart.Series.Add(series2);
-            this.historyChart.Series.Add(series3);
-            this.historyChart.Series.Add(series4);
-            this.historyChart.Series.Add(series5);
-            this.historyChart.Series.Add(series6);
-            this.historyChart.Series.Add(series7);
+            series29.ChartArea = "ChartArea1";
+            series29.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series29.Legend = "Legend1";
+            series29.Name = "MinuteStick";
+            series29.YValuesPerPoint = 4;
+            series30.ChartArea = "ChartArea1";
+            series30.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series30.Color = System.Drawing.Color.Red;
+            series30.Legend = "Legend1";
+            series30.Name = "Ma20m";
+            series31.ChartArea = "ChartArea1";
+            series31.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series31.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            series31.Legend = "Legend1";
+            series31.Name = "Ma1h";
+            series32.ChartArea = "ChartArea1";
+            series32.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series32.Color = System.Drawing.Color.Yellow;
+            series32.Legend = "Legend1";
+            series32.Name = "Ma2h";
+            series33.ChartArea = "ChartArea1";
+            series33.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series33.Color = System.Drawing.Color.Green;
+            series33.Legend = "Legend1";
+            series33.Name = "Ma20mGap";
+            series34.ChartArea = "ChartArea1";
+            series34.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series34.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            series34.Legend = "Legend1";
+            series34.Name = "Ma1hGap";
+            series35.ChartArea = "ChartArea1";
+            series35.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series35.Color = System.Drawing.Color.Purple;
+            series35.Legend = "Legend1";
+            series35.Name = "Ma2hGap";
+            this.historyChart.Series.Add(series29);
+            this.historyChart.Series.Add(series30);
+            this.historyChart.Series.Add(series31);
+            this.historyChart.Series.Add(series32);
+            this.historyChart.Series.Add(series33);
+            this.historyChart.Series.Add(series34);
+            this.historyChart.Series.Add(series35);
             this.historyChart.Size = new System.Drawing.Size(1142, 744);
             this.historyChart.TabIndex = 0;
             this.historyChart.Text = "chart1";
@@ -294,9 +294,9 @@ namespace AtoReplayer
             this.curLocLabel.AutoSize = true;
             this.curLocLabel.Location = new System.Drawing.Point(1178, 270);
             this.curLocLabel.Name = "curLocLabel";
-            this.curLocLabel.Size = new System.Drawing.Size(45, 15);
+            this.curLocLabel.Size = new System.Drawing.Size(67, 15);
             this.curLocLabel.TabIndex = 13;
-            this.curLocLabel.Text = "label2";
+            this.curLocLabel.Text = "현재좌표";
             // 
             // curLocPowerLabel
             // 
@@ -304,9 +304,9 @@ namespace AtoReplayer
             this.curLocPowerLabel.AutoSize = true;
             this.curLocPowerLabel.Location = new System.Drawing.Point(1178, 300);
             this.curLocPowerLabel.Name = "curLocPowerLabel";
-            this.curLocPowerLabel.Size = new System.Drawing.Size(45, 15);
+            this.curLocPowerLabel.Size = new System.Drawing.Size(67, 15);
             this.curLocPowerLabel.TabIndex = 14;
-            this.curLocPowerLabel.Text = "label3";
+            this.curLocPowerLabel.Text = "커서파워";
             // 
             // groupBox1
             // 
@@ -316,12 +316,12 @@ namespace AtoReplayer
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.sellVolume);
-            this.groupBox1.Controls.Add(this.sellPrice);
-            this.groupBox1.Controls.Add(this.buyVolume);
-            this.groupBox1.Controls.Add(this.buyPrice);
+            this.groupBox1.Controls.Add(this.sellButton);
+            this.groupBox1.Controls.Add(this.buyButton);
+            this.groupBox1.Controls.Add(this.sellVolumeTxtBox);
+            this.groupBox1.Controls.Add(this.sellPriceTxtBox);
+            this.groupBox1.Controls.Add(this.buyVolumeTxtBox);
+            this.groupBox1.Controls.Add(this.buyPriceTxtBox);
             this.groupBox1.Location = new System.Drawing.Point(1181, 787);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(280, 183);
@@ -329,51 +329,87 @@ namespace AtoReplayer
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "매매현황";
             // 
-            // buyPrice
+            // label5
             // 
-            this.buyPrice.Location = new System.Drawing.Point(65, 24);
-            this.buyPrice.Name = "buyPrice";
-            this.buyPrice.Size = new System.Drawing.Size(100, 25);
-            this.buyPrice.TabIndex = 0;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 143);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(52, 15);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "매도량";
             // 
-            // buyVolume
+            // label4
             // 
-            this.buyVolume.Location = new System.Drawing.Point(65, 59);
-            this.buyVolume.Name = "buyVolume";
-            this.buyVolume.Size = new System.Drawing.Size(100, 25);
-            this.buyVolume.TabIndex = 1;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 112);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(52, 15);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "매도가";
             // 
-            // sellPrice
+            // label3
             // 
-            this.sellPrice.Location = new System.Drawing.Point(65, 109);
-            this.sellPrice.Name = "sellPrice";
-            this.sellPrice.Size = new System.Drawing.Size(100, 25);
-            this.sellPrice.TabIndex = 2;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 62);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(52, 15);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "매수량";
             // 
-            // sellVolume
+            // label2
             // 
-            this.sellVolume.Location = new System.Drawing.Point(65, 140);
-            this.sellVolume.Name = "sellVolume";
-            this.sellVolume.Size = new System.Drawing.Size(100, 25);
-            this.sellVolume.TabIndex = 3;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 28);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(52, 15);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "매수가";
             // 
-            // button1
+            // sellButton
             // 
-            this.button1.Location = new System.Drawing.Point(192, 28);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(82, 36);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "매수";
-            this.button1.UseVisualStyleBackColor = true;
+            this.sellButton.Location = new System.Drawing.Point(192, 121);
+            this.sellButton.Name = "sellButton";
+            this.sellButton.Size = new System.Drawing.Size(82, 37);
+            this.sellButton.TabIndex = 5;
+            this.sellButton.Text = "매도";
+            this.sellButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // buyButton
             // 
-            this.button2.Location = new System.Drawing.Point(192, 121);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(82, 37);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "매도";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buyButton.Location = new System.Drawing.Point(192, 28);
+            this.buyButton.Name = "buyButton";
+            this.buyButton.Size = new System.Drawing.Size(82, 36);
+            this.buyButton.TabIndex = 4;
+            this.buyButton.Text = "매수";
+            this.buyButton.UseVisualStyleBackColor = true;
+            // 
+            // sellVolumeTxtBox
+            // 
+            this.sellVolumeTxtBox.Location = new System.Drawing.Point(65, 140);
+            this.sellVolumeTxtBox.Name = "sellVolumeTxtBox";
+            this.sellVolumeTxtBox.Size = new System.Drawing.Size(100, 25);
+            this.sellVolumeTxtBox.TabIndex = 3;
+            // 
+            // sellPriceTxtBox
+            // 
+            this.sellPriceTxtBox.Location = new System.Drawing.Point(65, 109);
+            this.sellPriceTxtBox.Name = "sellPriceTxtBox";
+            this.sellPriceTxtBox.Size = new System.Drawing.Size(100, 25);
+            this.sellPriceTxtBox.TabIndex = 2;
+            // 
+            // buyVolumeTxtBox
+            // 
+            this.buyVolumeTxtBox.Location = new System.Drawing.Point(65, 59);
+            this.buyVolumeTxtBox.Name = "buyVolumeTxtBox";
+            this.buyVolumeTxtBox.Size = new System.Drawing.Size(100, 25);
+            this.buyVolumeTxtBox.TabIndex = 1;
+            // 
+            // buyPriceTxtBox
+            // 
+            this.buyPriceTxtBox.Location = new System.Drawing.Point(65, 24);
+            this.buyPriceTxtBox.Name = "buyPriceTxtBox";
+            this.buyPriceTxtBox.Size = new System.Drawing.Size(100, 25);
+            this.buyPriceTxtBox.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -400,173 +436,6 @@ namespace AtoReplayer
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "계좌현황";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBox3.Controls.Add(this.unTradedListView);
-            this.groupBox3.Location = new System.Drawing.Point(1181, 583);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(280, 173);
-            this.groupBox3.TabIndex = 17;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "미체결 잔고";
-            // 
-            // unTradedListView
-            // 
-            this.unTradedListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.unTradedListView.HideSelection = false;
-            this.unTradedListView.Location = new System.Drawing.Point(3, 21);
-            this.unTradedListView.Name = "unTradedListView";
-            this.unTradedListView.Size = new System.Drawing.Size(274, 149);
-            this.unTradedListView.TabIndex = 0;
-            this.unTradedListView.UseCompatibleStateImageBehavior = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 28);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 15);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "매수가";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 62);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 15);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "매수량";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 112);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(52, 15);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "매도가";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 143);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 15);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "매도량";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(14, 78);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 15);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "현재가";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 166);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(52, 15);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "매수량";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 191);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 15);
-            this.label8.TabIndex = 2;
-            this.label8.Text = "가능수량";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(14, 107);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(52, 15);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "평단가";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 135);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(52, 15);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "수익률";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(98, 51);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(67, 15);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "현재잔고";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label12.Location = new System.Drawing.Point(98, 78);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(15, 15);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "0";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(98, 107);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(15, 15);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "0";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(98, 135);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(15, 15);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "0";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(98, 166);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(15, 15);
-            this.label15.TabIndex = 9;
-            this.label15.Text = "0";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(98, 191);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(15, 15);
-            this.label16.TabIndex = 10;
-            this.label16.Text = "0";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(171, 51);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(15, 15);
-            this.label17.TabIndex = 11;
-            this.label17.Text = "0";
-            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -584,6 +453,137 @@ namespace AtoReplayer
             this.label19.Size = new System.Drawing.Size(37, 15);
             this.label19.TabIndex = 12;
             this.label19.Text = "손익";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(171, 51);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(15, 15);
+            this.label17.TabIndex = 11;
+            this.label17.Text = "0";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(98, 191);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(15, 15);
+            this.label16.TabIndex = 10;
+            this.label16.Text = "0";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(98, 166);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(15, 15);
+            this.label15.TabIndex = 9;
+            this.label15.Text = "0";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(98, 135);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(15, 15);
+            this.label14.TabIndex = 8;
+            this.label14.Text = "0";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(98, 107);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(15, 15);
+            this.label13.TabIndex = 7;
+            this.label13.Text = "0";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label12.Location = new System.Drawing.Point(98, 78);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(15, 15);
+            this.label12.TabIndex = 6;
+            this.label12.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(98, 51);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(67, 15);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "현재잔고";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(14, 135);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(52, 15);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "수익률";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(14, 107);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(52, 15);
+            this.label9.TabIndex = 3;
+            this.label9.Text = "평단가";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 191);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(67, 15);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "가능수량";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(14, 166);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(52, 15);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "매수량";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(14, 78);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 15);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "현재가";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.groupBox3.Controls.Add(this.unTradedListView);
+            this.groupBox3.Location = new System.Drawing.Point(1181, 559);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(280, 213);
+            this.groupBox3.TabIndex = 17;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "미체결 잔고";
+            // 
+            // unTradedListView
+            // 
+            this.unTradedListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.unTradedListView.HideSelection = false;
+            this.unTradedListView.Location = new System.Drawing.Point(3, 21);
+            this.unTradedListView.Name = "unTradedListView";
+            this.unTradedListView.Size = new System.Drawing.Size(274, 189);
+            this.unTradedListView.TabIndex = 0;
+            this.unTradedListView.UseCompatibleStateImageBehavior = false;
             // 
             // curTimeLabel
             // 
@@ -751,12 +751,12 @@ namespace AtoReplayer
         private System.Windows.Forms.Label curLocLabel;
         private System.Windows.Forms.Label curLocPowerLabel;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox sellVolume;
-        private System.Windows.Forms.TextBox sellPrice;
-        private System.Windows.Forms.TextBox buyVolume;
-        private System.Windows.Forms.TextBox buyPrice;
+        private System.Windows.Forms.Button sellButton;
+        private System.Windows.Forms.Button buyButton;
+        private System.Windows.Forms.TextBox sellVolumeTxtBox;
+        private System.Windows.Forms.TextBox sellPriceTxtBox;
+        private System.Windows.Forms.TextBox buyVolumeTxtBox;
+        private System.Windows.Forms.TextBox buyPriceTxtBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ListView unTradedListView;
