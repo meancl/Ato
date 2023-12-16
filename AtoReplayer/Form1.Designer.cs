@@ -29,15 +29,15 @@ namespace AtoReplayer
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series29 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series30 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series31 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series32 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series33 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series34 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series35 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.historyChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.sCodeTextBox = new System.Windows.Forms.TextBox();
@@ -66,14 +66,14 @@ namespace AtoReplayer
             this.buyVolumeTxtBox = new System.Windows.Forms.TextBox();
             this.buyPriceTxtBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label18 = new System.Windows.Forms.Label();
+            this.profitnLossLabel = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
+            this.curDepositLabel = new System.Windows.Forms.Label();
+            this.possibleVolumeLabel = new System.Windows.Forms.Label();
+            this.ownVolumeLabel = new System.Windows.Forms.Label();
+            this.pnLRatioLabel = new System.Windows.Forms.Label();
+            this.everagePriceLabel = new System.Windows.Forms.Label();
+            this.curPriceLabel = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -91,6 +91,12 @@ namespace AtoReplayer
             this.startLabel = new System.Windows.Forms.Label();
             this.lowLabel = new System.Windows.Forms.Label();
             this.highLabel = new System.Windows.Forms.Label();
+            this.pnLPriceLabel = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.speedLabel = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.powerLabel = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.historyChart)).BeginInit();
             this.loadingPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -103,56 +109,56 @@ namespace AtoReplayer
             this.historyChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea5.CursorX.IsUserSelectionEnabled = true;
-            chartArea5.Name = "ChartArea1";
-            this.historyChart.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.historyChart.Legends.Add(legend5);
+            chartArea1.CursorX.IsUserSelectionEnabled = true;
+            chartArea1.Name = "ChartArea1";
+            this.historyChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.historyChart.Legends.Add(legend1);
             this.historyChart.Location = new System.Drawing.Point(30, 86);
             this.historyChart.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.historyChart.Name = "historyChart";
-            series29.ChartArea = "ChartArea1";
-            series29.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series29.Legend = "Legend1";
-            series29.Name = "MinuteStick";
-            series29.YValuesPerPoint = 4;
-            series30.ChartArea = "ChartArea1";
-            series30.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series30.Color = System.Drawing.Color.Red;
-            series30.Legend = "Legend1";
-            series30.Name = "Ma20m";
-            series31.ChartArea = "ChartArea1";
-            series31.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series31.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            series31.Legend = "Legend1";
-            series31.Name = "Ma1h";
-            series32.ChartArea = "ChartArea1";
-            series32.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series32.Color = System.Drawing.Color.Yellow;
-            series32.Legend = "Legend1";
-            series32.Name = "Ma2h";
-            series33.ChartArea = "ChartArea1";
-            series33.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series33.Color = System.Drawing.Color.Green;
-            series33.Legend = "Legend1";
-            series33.Name = "Ma20mGap";
-            series34.ChartArea = "ChartArea1";
-            series34.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series34.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            series34.Legend = "Legend1";
-            series34.Name = "Ma1hGap";
-            series35.ChartArea = "ChartArea1";
-            series35.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series35.Color = System.Drawing.Color.Purple;
-            series35.Legend = "Legend1";
-            series35.Name = "Ma2hGap";
-            this.historyChart.Series.Add(series29);
-            this.historyChart.Series.Add(series30);
-            this.historyChart.Series.Add(series31);
-            this.historyChart.Series.Add(series32);
-            this.historyChart.Series.Add(series33);
-            this.historyChart.Series.Add(series34);
-            this.historyChart.Series.Add(series35);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.Legend = "Legend1";
+            series1.Name = "MinuteStick";
+            series1.YValuesPerPoint = 4;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Color = System.Drawing.Color.Red;
+            series2.Legend = "Legend1";
+            series2.Name = "Ma20m";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            series3.Legend = "Legend1";
+            series3.Name = "Ma1h";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Color = System.Drawing.Color.Yellow;
+            series4.Legend = "Legend1";
+            series4.Name = "Ma2h";
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series5.Color = System.Drawing.Color.Green;
+            series5.Legend = "Legend1";
+            series5.Name = "Ma20mGap";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            series6.Legend = "Legend1";
+            series6.Name = "Ma1hGap";
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series7.Color = System.Drawing.Color.Purple;
+            series7.Legend = "Legend1";
+            series7.Name = "Ma2hGap";
+            this.historyChart.Series.Add(series1);
+            this.historyChart.Series.Add(series2);
+            this.historyChart.Series.Add(series3);
+            this.historyChart.Series.Add(series4);
+            this.historyChart.Series.Add(series5);
+            this.historyChart.Series.Add(series6);
+            this.historyChart.Series.Add(series7);
             this.historyChart.Size = new System.Drawing.Size(1142, 744);
             this.historyChart.TabIndex = 0;
             this.historyChart.Text = "chart1";
@@ -376,7 +382,7 @@ namespace AtoReplayer
             // 
             // buyButton
             // 
-            this.buyButton.Location = new System.Drawing.Point(192, 28);
+            this.buyButton.Location = new System.Drawing.Point(192, 48);
             this.buyButton.Name = "buyButton";
             this.buyButton.Size = new System.Drawing.Size(82, 36);
             this.buyButton.TabIndex = 4;
@@ -415,14 +421,16 @@ namespace AtoReplayer
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.groupBox2.Controls.Add(this.label18);
-            this.groupBox2.Controls.Add(this.label19);
-            this.groupBox2.Controls.Add(this.label17);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.pnLPriceLabel);
             this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.profitnLossLabel);
+            this.groupBox2.Controls.Add(this.label19);
+            this.groupBox2.Controls.Add(this.curDepositLabel);
+            this.groupBox2.Controls.Add(this.possibleVolumeLabel);
+            this.groupBox2.Controls.Add(this.ownVolumeLabel);
+            this.groupBox2.Controls.Add(this.pnLRatioLabel);
+            this.groupBox2.Controls.Add(this.everagePriceLabel);
+            this.groupBox2.Controls.Add(this.curPriceLabel);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
@@ -436,83 +444,83 @@ namespace AtoReplayer
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "계좌현황";
             // 
-            // label18
+            // profitnLossLabel
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(171, 21);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(15, 15);
-            this.label18.TabIndex = 13;
-            this.label18.Text = "0";
+            this.profitnLossLabel.AutoSize = true;
+            this.profitnLossLabel.Location = new System.Drawing.Point(208, 50);
+            this.profitnLossLabel.Name = "profitnLossLabel";
+            this.profitnLossLabel.Size = new System.Drawing.Size(15, 15);
+            this.profitnLossLabel.TabIndex = 13;
+            this.profitnLossLabel.Text = "0";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(98, 21);
+            this.label19.Location = new System.Drawing.Point(135, 50);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(37, 15);
             this.label19.TabIndex = 12;
             this.label19.Text = "손익";
             // 
-            // label17
+            // curDepositLabel
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(171, 51);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(15, 15);
-            this.label17.TabIndex = 11;
-            this.label17.Text = "0";
+            this.curDepositLabel.AutoSize = true;
+            this.curDepositLabel.Location = new System.Drawing.Point(208, 21);
+            this.curDepositLabel.Name = "curDepositLabel";
+            this.curDepositLabel.Size = new System.Drawing.Size(15, 15);
+            this.curDepositLabel.TabIndex = 11;
+            this.curDepositLabel.Text = "0";
             // 
-            // label16
+            // possibleVolumeLabel
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(98, 191);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(15, 15);
-            this.label16.TabIndex = 10;
-            this.label16.Text = "0";
+            this.possibleVolumeLabel.AutoSize = true;
+            this.possibleVolumeLabel.Location = new System.Drawing.Point(98, 191);
+            this.possibleVolumeLabel.Name = "possibleVolumeLabel";
+            this.possibleVolumeLabel.Size = new System.Drawing.Size(15, 15);
+            this.possibleVolumeLabel.TabIndex = 10;
+            this.possibleVolumeLabel.Text = "0";
             // 
-            // label15
+            // ownVolumeLabel
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(98, 166);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(15, 15);
-            this.label15.TabIndex = 9;
-            this.label15.Text = "0";
+            this.ownVolumeLabel.AutoSize = true;
+            this.ownVolumeLabel.Location = new System.Drawing.Point(98, 166);
+            this.ownVolumeLabel.Name = "ownVolumeLabel";
+            this.ownVolumeLabel.Size = new System.Drawing.Size(15, 15);
+            this.ownVolumeLabel.TabIndex = 9;
+            this.ownVolumeLabel.Text = "0";
             // 
-            // label14
+            // pnLRatioLabel
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(98, 135);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(15, 15);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "0";
+            this.pnLRatioLabel.AutoSize = true;
+            this.pnLRatioLabel.Location = new System.Drawing.Point(219, 138);
+            this.pnLRatioLabel.Name = "pnLRatioLabel";
+            this.pnLRatioLabel.Size = new System.Drawing.Size(15, 15);
+            this.pnLRatioLabel.TabIndex = 8;
+            this.pnLRatioLabel.Text = "0";
             // 
-            // label13
+            // everagePriceLabel
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(98, 107);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(15, 15);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "0";
+            this.everagePriceLabel.AutoSize = true;
+            this.everagePriceLabel.Location = new System.Drawing.Point(98, 107);
+            this.everagePriceLabel.Name = "everagePriceLabel";
+            this.everagePriceLabel.Size = new System.Drawing.Size(15, 15);
+            this.everagePriceLabel.TabIndex = 7;
+            this.everagePriceLabel.Text = "0";
             // 
-            // label12
+            // curPriceLabel
             // 
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label12.Location = new System.Drawing.Point(98, 78);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(15, 15);
-            this.label12.TabIndex = 6;
-            this.label12.Text = "0";
+            this.curPriceLabel.AutoSize = true;
+            this.curPriceLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.curPriceLabel.Location = new System.Drawing.Point(98, 78);
+            this.curPriceLabel.Name = "curPriceLabel";
+            this.curPriceLabel.Size = new System.Drawing.Size(15, 15);
+            this.curPriceLabel.TabIndex = 6;
+            this.curPriceLabel.Text = "0";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(98, 51);
+            this.label11.Location = new System.Drawing.Point(135, 21);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(67, 15);
             this.label11.TabIndex = 5;
@@ -521,11 +529,11 @@ namespace AtoReplayer
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(14, 135);
+            this.label10.Location = new System.Drawing.Point(14, 138);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(52, 15);
             this.label10.TabIndex = 4;
-            this.label10.Text = "수익률";
+            this.label10.Text = "수익금";
             // 
             // label9
             // 
@@ -601,7 +609,7 @@ namespace AtoReplayer
             this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label21.Location = new System.Drawing.Point(1178, 104);
+            this.label21.Location = new System.Drawing.Point(1181, 142);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(44, 17);
             this.label21.TabIndex = 19;
@@ -612,7 +620,7 @@ namespace AtoReplayer
             this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label22.Location = new System.Drawing.Point(1178, 138);
+            this.label22.Location = new System.Drawing.Point(1181, 170);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(44, 17);
             this.label22.TabIndex = 20;
@@ -623,7 +631,7 @@ namespace AtoReplayer
             this.label23.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label23.Location = new System.Drawing.Point(1178, 178);
+            this.label23.Location = new System.Drawing.Point(1181, 197);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(44, 17);
             this.label23.TabIndex = 21;
@@ -634,7 +642,7 @@ namespace AtoReplayer
             this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label24.Location = new System.Drawing.Point(1178, 219);
+            this.label24.Location = new System.Drawing.Point(1181, 227);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(44, 17);
             this.label24.TabIndex = 22;
@@ -645,7 +653,7 @@ namespace AtoReplayer
             this.lastLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lastLabel.AutoSize = true;
             this.lastLabel.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lastLabel.Location = new System.Drawing.Point(1254, 219);
+            this.lastLabel.Location = new System.Drawing.Point(1231, 227);
             this.lastLabel.Name = "lastLabel";
             this.lastLabel.Size = new System.Drawing.Size(17, 17);
             this.lastLabel.TabIndex = 26;
@@ -656,7 +664,7 @@ namespace AtoReplayer
             this.startLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.startLabel.AutoSize = true;
             this.startLabel.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.startLabel.Location = new System.Drawing.Point(1254, 178);
+            this.startLabel.Location = new System.Drawing.Point(1231, 197);
             this.startLabel.Name = "startLabel";
             this.startLabel.Size = new System.Drawing.Size(17, 17);
             this.startLabel.TabIndex = 25;
@@ -667,7 +675,7 @@ namespace AtoReplayer
             this.lowLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lowLabel.AutoSize = true;
             this.lowLabel.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lowLabel.Location = new System.Drawing.Point(1254, 138);
+            this.lowLabel.Location = new System.Drawing.Point(1231, 170);
             this.lowLabel.Name = "lowLabel";
             this.lowLabel.Size = new System.Drawing.Size(17, 17);
             this.lowLabel.TabIndex = 24;
@@ -678,17 +686,83 @@ namespace AtoReplayer
             this.highLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.highLabel.AutoSize = true;
             this.highLabel.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.highLabel.Location = new System.Drawing.Point(1254, 104);
+            this.highLabel.Location = new System.Drawing.Point(1231, 142);
             this.highLabel.Name = "highLabel";
             this.highLabel.Size = new System.Drawing.Size(17, 17);
             this.highLabel.TabIndex = 23;
             this.highLabel.Text = "0";
+            // 
+            // pnLPriceLabel
+            // 
+            this.pnLPriceLabel.AutoSize = true;
+            this.pnLPriceLabel.Location = new System.Drawing.Point(98, 138);
+            this.pnLPriceLabel.Name = "pnLPriceLabel";
+            this.pnLPriceLabel.Size = new System.Drawing.Size(15, 15);
+            this.pnLPriceLabel.TabIndex = 15;
+            this.pnLPriceLabel.Text = "0";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(161, 138);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(52, 15);
+            this.label13.TabIndex = 14;
+            this.label13.Text = "수익률";
+            // 
+            // speedLabel
+            // 
+            this.speedLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.speedLabel.AutoSize = true;
+            this.speedLabel.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.speedLabel.Location = new System.Drawing.Point(1231, 86);
+            this.speedLabel.Name = "speedLabel";
+            this.speedLabel.Size = new System.Drawing.Size(17, 17);
+            this.speedLabel.TabIndex = 28;
+            this.speedLabel.Text = "0";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label14.Location = new System.Drawing.Point(1181, 86);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(44, 17);
+            this.label14.TabIndex = 27;
+            this.label14.Text = "속도";
+            // 
+            // powerLabel
+            // 
+            this.powerLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.powerLabel.AutoSize = true;
+            this.powerLabel.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.powerLabel.Location = new System.Drawing.Point(1231, 113);
+            this.powerLabel.Name = "powerLabel";
+            this.powerLabel.Size = new System.Drawing.Size(17, 17);
+            this.powerLabel.TabIndex = 30;
+            this.powerLabel.Text = "0";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("굴림", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label15.Location = new System.Drawing.Point(1181, 113);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(44, 17);
+            this.label15.TabIndex = 29;
+            this.label15.Text = "파워";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1473, 986);
+            this.Controls.Add(this.powerLabel);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.speedLabel);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.lastLabel);
             this.Controls.Add(this.startLabel);
             this.Controls.Add(this.lowLabel);
@@ -768,15 +842,15 @@ namespace AtoReplayer
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label curDepositLabel;
+        private System.Windows.Forms.Label possibleVolumeLabel;
+        private System.Windows.Forms.Label ownVolumeLabel;
+        private System.Windows.Forms.Label pnLRatioLabel;
+        private System.Windows.Forms.Label everagePriceLabel;
+        private System.Windows.Forms.Label curPriceLabel;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label profitnLossLabel;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label curTimeLabel;
         private System.Windows.Forms.Label label21;
@@ -787,6 +861,12 @@ namespace AtoReplayer
         private System.Windows.Forms.Label startLabel;
         private System.Windows.Forms.Label lowLabel;
         private System.Windows.Forms.Label highLabel;
+        private System.Windows.Forms.Label pnLPriceLabel;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label speedLabel;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label powerLabel;
+        private System.Windows.Forms.Label label15;
     }
 }
 
