@@ -111,6 +111,33 @@ namespace AtoReplayer
         public bool isMouseCursorView;
         public SoundPlayer buySoundPlayer;
         public SoundPlayer sellSoundPlayer;
+
+        public struct ReserveInfo
+        {
+            public bool isSelected;
+            public bool isChosen;
+            public int nReserveTime;
+            public double fTouchLine;
+            public int nAdjustedPrice;
+            public int nReserveVolume;
+
+            public void Clear()
+            {
+                isSelected = false;
+                isChosen = false;
+                nReserveTime = 0;
+                fTouchLine = 0;
+                nAdjustedPrice = 0;
+                nReserveVolume = 0;
+            }
+        }
+        public const int INIT_RESERVE = 3;
+
+        public const int UP_BUY_RESERVE = 0;
+        public const int DOWN_BUY_RESERVE = 1;
+        public const int DOWN_SELL_RESERVE = 2;
+
+        public ReserveInfo[] reserveArr;
         // ---------------------------------------------
         // ---------------------------------------------
         // ---------------------------------------------
@@ -147,7 +174,7 @@ namespace AtoReplayer
 
             this.KeyPreview = true;
             this.KeyDown += KeyDownHandler;
-
+            this.MouseWheel += MouseWheelEventHandler;
 
             timer = new System.Timers.Timer(delayInterval);
             timer.Elapsed += delegate (Object sender, System.Timers.ElapsedEventArgs e)
@@ -161,6 +188,7 @@ namespace AtoReplayer
             sCodeTextBox.Text = "종목명/종목코드";
 
             historyChart.MouseMove += ChartMouseMoveHandler;
+            historyChart.MouseClick += ChartMouseClickHandler; // 이하동문
             historyChart.Paint += ChartOnPaintHandler;
 
             // 컴포넌트 이벤트 핸들러
@@ -221,6 +249,8 @@ namespace AtoReplayer
             hitDict38 = new Dictionary<int, int>();
             hitDict312 = new Dictionary<int, int>();
             hitDict410 = new Dictionary<int, int>();
+
+            reserveArr = new ReserveInfo[INIT_RESERVE];
 
             unTradedListView.FullRowSelect = true;
 
@@ -298,7 +328,7 @@ namespace AtoReplayer
                         {
                             nCurDeposit += (int)(unTradedInfoList[i].nVolume * unTradedInfoList[i].nPrice * (1 + BUY_COMMISION));
                         }
-                        else if(unTradedInfoList[i].sType.Equals("매도"))
+                        else if (unTradedInfoList[i].sType.Equals("매도"))
                         {
                             nPossibleVolume += unTradedInfoList[i].nVolume;
                         }
@@ -337,6 +367,69 @@ namespace AtoReplayer
 
         public void ChartOnPaintHandler(Object sender, PaintEventArgs e)
         {
+            void DrawReserveLine()
+            {
+                try
+                {
+                    if (historyChart.Series["MinuteStick"].Points.Count > 0)
+                    {
+                        try
+                        {
+
+                            int reservationX1 = (int)historyChart.ChartAreas[0].AxisX.ValueToPixelPosition(historyChart.ChartAreas[0].AxisX.Minimum);
+                            int reservationX2 = (int)historyChart.ChartAreas[0].AxisX.ValueToPixelPosition(historyChart.ChartAreas[0].AxisX.Maximum);
+
+                            float reservationY1;
+
+                            string sReserveChosenMsg;
+
+                            if (reserveArr[UP_BUY_RESERVE].isSelected && nCurReserve == UP_BUY_RESERVE)
+                            {
+                                if (reserveArr[UP_BUY_RESERVE].fTouchLine > 0)
+                                {
+                                    reservationY1 = (int)historyChart.ChartAreas[0].AxisY.ValueToPixelPosition(reserveArr[UP_BUY_RESERVE].fTouchLine);
+                                    e.Graphics.DrawLine(new Pen(Color.BlueViolet, 3), reservationX1, reservationY1, reservationX2, reservationY1);
+                                    priceViewLabel.Text = $"이상매수가격 : {Math.Round(reserveArr[UP_BUY_RESERVE].fTouchLine, 2)}";
+                                }
+
+                                sReserveChosenMsg = $"이상매수 채택 : {reserveArr[UP_BUY_RESERVE].isChosen}";
+                                if (!reserveChosenLabel.Text.Equals(sReserveChosenMsg))
+                                    reserveChosenLabel.Text = sReserveChosenMsg;
+                            }
+                            else if (reserveArr[DOWN_BUY_RESERVE].isSelected && nCurReserve == DOWN_BUY_RESERVE)
+                            {
+                                if (reserveArr[DOWN_BUY_RESERVE].fTouchLine > 0)
+                                {
+                                    reservationY1 = (int)historyChart.ChartAreas[0].AxisY.ValueToPixelPosition(reserveArr[DOWN_BUY_RESERVE].fTouchLine);
+                                    e.Graphics.DrawLine(new Pen(Color.Gold, 3), reservationX1, reservationY1, reservationX2, reservationY1);
+                                    priceViewLabel.Text = $"이하매수가격 : {Math.Round(reserveArr[DOWN_BUY_RESERVE].fTouchLine, 2)}";
+                                }
+
+                                sReserveChosenMsg = $"이하매수 채택 : {reserveArr[DOWN_BUY_RESERVE].isChosen}";
+                                if (!reserveChosenLabel.Text.Equals(sReserveChosenMsg))
+                                    reserveChosenLabel.Text = sReserveChosenMsg;
+                            }
+                            else if (reserveArr[DOWN_SELL_RESERVE].isSelected && nCurReserve == DOWN_SELL_RESERVE)
+                            {
+                                if (reserveArr[DOWN_SELL_RESERVE].fTouchLine > 0)
+                                {
+                                    reservationY1 = (int)historyChart.ChartAreas[0].AxisY.ValueToPixelPosition(reserveArr[DOWN_SELL_RESERVE].fTouchLine);
+                                    e.Graphics.DrawLine(new Pen(Color.Black, 3), reservationX1, reservationY1, reservationX2, reservationY1);
+                                    priceViewLabel.Text = $"이하매도가격 : {Math.Round(reserveArr[DOWN_SELL_RESERVE].fTouchLine, 2)}";
+                                }
+
+                                sReserveChosenMsg = $"이하매도채택 : {reserveArr[DOWN_SELL_RESERVE].isChosen}";
+                                if (!reserveChosenLabel.Text.Equals(sReserveChosenMsg))
+                                    reserveChosenLabel.Text = sReserveChosenMsg;
+                            }
+                        }
+                        catch
+                        { }
+                    }
+                }
+                catch { }
+            }
+
             void DrawHitEdge(Dictionary<int, int> dict, Color color)
             {
                 try
@@ -386,6 +479,8 @@ namespace AtoReplayer
                 DrawHitEdge(hitDict312, Color.Purple);
                 DrawHitEdge(hitDict410, Color.Black);
             }
+
+            DrawReserveLine();
         }
 
         // ---------------------------------------------------
@@ -448,7 +543,7 @@ namespace AtoReplayer
 
                         historyChart.ChartAreas[0].CursorX.SetCursorPixelPosition(new Point(e.X, e.Y), false);
                         historyChart.ChartAreas[0].CursorY.SetCursorPixelPosition(new Point(e.X, e.Y), false);
-                        
+
 
                         if (hit.Series != null && hit.Series.Name.Equals("MinuteStick"))
                         {
@@ -466,6 +561,206 @@ namespace AtoReplayer
             }
 
         }
+
+        public int GetAdjustedPrice(double fPrice, bool isUpped = true)
+        {
+            int pTest = 0;
+
+            if (isUpped)
+            {
+                for (int i = 0; i < hogaList.Count; i++)
+                {
+                    pTest = hogaList[i];
+                    if (pTest + GetIntegratedMarketGap(pTest) >= fPrice || (i == hogaList.Count - 1))
+                    {
+                        break;
+                    }
+                }
+            }
+            else
+            {
+
+                for (int i = hogaList.Count - 1; i >= 0; i--)
+                {
+                    pTest = hogaList[i];
+                    if (pTest - GetIntegratedMarketGap(pTest) <= fPrice || (i == 0))
+                    {
+                        break;
+                    }
+                }
+            }
+            return pTest;
+
+        }
+
+        public TRADE_MODE eBuyMode = TRADE_MODE.NONE_MODE;
+        public const int NONE_MODE = 0;
+        public const int BUY_MODE = 1;
+        public const int SELL_MODE = 2;
+        public enum TRADE_MODE
+        {
+            NONE_MODE,
+            BUY_MODE,
+            SELL_MODE,
+        }
+
+        public int nCurReserve;
+        public void ChartMouseClickHandler(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    if (eBuyMode == TRADE_MODE.BUY_MODE)
+                    {
+                        double yCoord = historyChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+                        if (double.IsNaN(yCoord))
+                            yCoord = 0;
+                        else
+                        {
+                            int targetPrice = GetAdjustedPrice(yCoord);
+
+                            // TODO 매수 미체결 삽입
+                            int nVolumeToBuy = nMouseWheel;
+                            int nPriceToBuy = targetPrice;
+                            if ((nPriceToBuy * nVolumeToBuy * (1 + BUY_COMMISION)) > nCurDeposit)
+                            {
+                                nVolumeToBuy = (int)(nCurDeposit / (nPriceToBuy * (1 + BUY_COMMISION)));
+                            }
+
+                            if (nVolumeToBuy > 0)
+                            {
+                                AddListView(new UnTradedInfo(nOrderNum++, nCurTime, "매수", nVolumeToBuy, nPriceToBuy, nCurIdx));
+                                nCurDeposit -= (int)(nVolumeToBuy * targetPrice * (1 + BUY_COMMISION));
+                                DisplayCurInfos();
+                                DrawChartUntilIdx(true);
+                            }
+                        };
+                    }
+                    else if (eBuyMode == TRADE_MODE.SELL_MODE)
+                    {
+                        double yCoord = historyChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+                        if (double.IsNaN(yCoord))
+                            yCoord = 0;
+                        else
+                        {
+                            int targetPrice = GetAdjustedPrice(yCoord, false);
+
+                            int nPriceToSell = targetPrice;
+                            int nVolumeToSell = nMouseWheel;
+
+                            if (nPossibleVolume < nVolumeToSell)
+                                nVolumeToSell = nPossibleVolume;
+
+                            // TODO. 매도 미체결 삽입
+                            if (nVolumeToSell > 0)
+                            {
+                                AddListView(new UnTradedInfo(nOrderNum++, nCurTime, "매도", nVolumeToSell, nPriceToSell, nCurIdx));
+                                nPossibleVolume -= nVolumeToSell;
+                                DisplayCurInfos();
+                                DrawChartUntilIdx(true);
+                            }
+                        }
+                    }
+                    else // 예약이 있는 지
+                    {
+                        if (historyChart.Series["MinuteStick"].Points.Count > 0)
+                        {
+                            double yCoord = historyChart.ChartAreas[0].AxisY.PixelPositionToValue(e.Y);
+                            if (double.IsNaN(yCoord))
+                                yCoord = 0;
+                            else
+                            {
+                                if (nCurReserve != INIT_RESERVE)
+                                {
+                                    if (nCurReserve == UP_BUY_RESERVE) //  N 이상
+                                    {
+                                        reserveArr[UP_BUY_RESERVE].isSelected = true;
+                                        reserveArr[UP_BUY_RESERVE].isChosen = false;
+                                        reserveArr[UP_BUY_RESERVE].nReserveTime = nCurTime;
+                                        reserveArr[UP_BUY_RESERVE].nReserveVolume = nMouseWheel;
+                                        reserveArr[UP_BUY_RESERVE].fTouchLine = yCoord;
+                                        reserveArr[UP_BUY_RESERVE].nAdjustedPrice = GetAdjustedPrice(yCoord);
+
+                                    }
+                                    else if (nCurReserve == DOWN_BUY_RESERVE) // M 이하
+                                    {
+                                        reserveArr[DOWN_BUY_RESERVE].isSelected = true;
+                                        reserveArr[DOWN_BUY_RESERVE].isChosen = false;
+                                        reserveArr[DOWN_BUY_RESERVE].nReserveTime = nCurTime;
+                                        reserveArr[DOWN_BUY_RESERVE].nReserveVolume = nMouseWheel;
+                                        reserveArr[DOWN_BUY_RESERVE].fTouchLine = yCoord;
+                                        reserveArr[DOWN_BUY_RESERVE].nAdjustedPrice = GetAdjustedPrice(yCoord);
+
+                                    }
+                                    else if (nCurReserve == DOWN_SELL_RESERVE)
+                                    {
+                                        reserveArr[DOWN_SELL_RESERVE].isSelected = true;
+                                        reserveArr[DOWN_SELL_RESERVE].isChosen = false;
+                                        reserveArr[DOWN_SELL_RESERVE].nReserveTime = nCurTime;
+                                        reserveArr[DOWN_SELL_RESERVE].nReserveVolume = nMouseWheel;
+                                        reserveArr[DOWN_SELL_RESERVE].fTouchLine = yCoord;
+                                        reserveArr[DOWN_SELL_RESERVE].nAdjustedPrice = GetAdjustedPrice(yCoord, false);
+                                    }
+                                }
+                                else // 0으로 설정 가능
+                                {
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+                else if (e.Button == MouseButtons.Middle)
+                {
+                    eBuyMode = SwitchTradeMode(eBuyMode);
+                    if (eBuyMode == TRADE_MODE.NONE_MODE)
+                        ClearBuyMode();
+                    else
+                        buyModeLabel.Text = $"buy : {eBuyMode}";
+                }
+            }
+            catch { }
+        }
+
+        public int nMouseWheel = 0;
+
+        public void MouseWheelEventHandler(object sender, MouseEventArgs e)
+        {
+            if (e.Delta > 0) // Scrolled up
+            {
+                nMouseWheel++;
+            }
+            else if (e.Delta < 0)
+            {
+                nMouseWheel--;
+            }
+            wheelLabel.Text = $"wheel : {nMouseWheel}";
+        }
+
+
+        public void ClearBuyMode(bool wheelInit = true)
+        {
+            eBuyMode = TRADE_MODE.NONE_MODE;
+            buyModeLabel.Text = $"buy : {eBuyMode}";
+            if (wheelInit)
+            {
+                nMouseWheel = 0;
+                wheelLabel.Text = $"wheel : 0";
+            }
+        }
+
+        public TRADE_MODE SwitchTradeMode(TRADE_MODE m)
+        {
+            if (m == TRADE_MODE.NONE_MODE)
+                return TRADE_MODE.BUY_MODE;
+            else if (m == TRADE_MODE.BUY_MODE)
+                return TRADE_MODE.SELL_MODE;
+            else
+                return TRADE_MODE.NONE_MODE;
+        }
+
         private void initializeChartDesign()
         {
             // Y축의 라벨 표시 형식 설정
@@ -524,6 +819,7 @@ namespace AtoReplayer
 
         private async Task dateTimePicker_action(object sender)
         {
+            ClearChart();
             DateTime dt = dateTimePicker1.Value;
             String sdt = dt.ToString(DATEFORMAT);
             if (searchDate != sdt)
@@ -565,6 +861,7 @@ namespace AtoReplayer
 
         private async void sCodeTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
+            ClearChart();
             sCodeTextBox.ForeColor = Color.Black;
             if (e.KeyChar == (char)Keys.Enter)
             {
@@ -594,6 +891,8 @@ namespace AtoReplayer
 
         private async void compLocButton_ClickAsync(object sender, EventArgs e)
         {
+            ClearChart();
+
             if (searchCompLoc == 0)
             {
                 searchCompLoc = 1;
@@ -603,6 +902,7 @@ namespace AtoReplayer
                 searchCompLoc = 0;
             }
             compLocButton.Text = searchCompLoc.ToString();
+
             await InitDrawAsync();
         }
 
@@ -718,17 +1018,10 @@ namespace AtoReplayer
                         }
                         else
                         {
-                            int pTest;
+                            int pTest = GetAdjustedPrice(priceResult);
                             MessageBox.Show("매수가 수정이 필요");
-                            for (int i = 0; i < hogaList.Count; i++)
-                            {
-                                pTest = hogaList[i];
-                                if (pTest + GetIntegratedMarketGap(pTest) >= priceResult || (i == hogaList.Count - 1))
-                                {
-                                    buyPriceTxtBox.Text = pTest.ToString();
-                                    break;
-                                }
-                            }
+
+                            buyPriceTxtBox.Text = pTest.ToString();
                         }
                     }
                 }
@@ -743,23 +1036,19 @@ namespace AtoReplayer
 
                                 if (nPossibleVolume < volumeResult)
                                     volumeResult = nPossibleVolume;
-                                AddListView(new UnTradedInfo(nOrderNum++, nCurTime, "매도", volumeResult, priceResult, nCurIdx));
-                                nPossibleVolume -= volumeResult;
-                                DrawChartUntilIdx(true);
+                                if (volumeResult > 0)
+                                {
+                                    AddListView(new UnTradedInfo(nOrderNum++, nCurTime, "매도", volumeResult, priceResult, nCurIdx));
+                                    nPossibleVolume -= volumeResult;
+                                    DrawChartUntilIdx(true);
+                                }
                             }
                             else
                             {
-                                int pTest;
+                                int pTest = GetAdjustedPrice(priceResult, false);
                                 MessageBox.Show("매도가 수정이 필요");
-                                for (int i = hogaList.Count -1 ; i >= 0; i--)
-                                {
-                                    pTest = hogaList[i];
-                                    if (pTest - GetIntegratedMarketGap(pTest) <= priceResult || (i == 0))
-                                    {
-                                        sellPriceTxtBox.Text = pTest.ToString();
-                                        break;
-                                    }
-                                }
+                                sellPriceTxtBox.Text = pTest.ToString();
+
                             }
                         }
                     }
@@ -870,10 +1159,17 @@ namespace AtoReplayer
             unTradedInfoList.Clear();
             tradedHistoryList.Clear();
 
+            UpdateListView();
+
+            ClearBuyMode();
+            for (int i = 0; i < INIT_RESERVE; i++)
+                reserveArr[i].Clear();
+
             hitDict25.Clear();
             hitDict38.Clear();
             hitDict312.Clear();
             hitDict410.Clear();
+
 
             isMouseCursorView = false;
             isHitView = true;
@@ -893,11 +1189,14 @@ namespace AtoReplayer
             isRealSellArrowVisible = true;
             isAllArrowVisible = true;
 
+            DisplayCurInfos();
+            ViewCurTimerSet(playButton, EventArgs.Empty);
+
             loadingPanel.Visible = false;
             EnableControls(this);
-            DisplayCurInfos();
 
-            ViewCurTimerSet(playButton, EventArgs.Empty);
+
+
 
             try
             {
@@ -1032,9 +1331,9 @@ namespace AtoReplayer
                             maxY = maxY > maxYGap ? maxY : maxYGap;
                             minY = minY < minYGap ? minY : minYGap;
 
-                        } 
+                        }
 
-                        if(isViewStartMa)
+                        if (isViewStartMa)
                         {
                             int maxYGap = (int)displayedTimelines.Max(timeLine => timeLine.fOverMa0);
                             maxYGap = (int)displayedTimelines.Max(timeLine => timeLine.fOverMa1);
@@ -1122,7 +1421,7 @@ namespace AtoReplayer
                         Console.WriteLine("displayTime: " + displayTime);
                         List<FakeReport> fakereportList = GetFakeReportsByMin(displayTime);
 
-                        
+
                         int nFakeBuyArrowCnt = 0;
                         int nFakeResistArrowCnt = 0;
                         int nFakeAssistantArrowCnt = 0;
@@ -1153,7 +1452,7 @@ namespace AtoReplayer
 
                                     if (isFakeBuyArrowVisible)
                                     {
-                                       
+
                                         if (!isArrowGrouping)
                                         {
                                             arrowAnnotation.Width = -2; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
@@ -1461,6 +1760,76 @@ namespace AtoReplayer
                         nCurHitNum = nHitNum;
                         nCurHitType = nHitType;
 
+
+                        // 예약 계산
+                        for (int rNum = 0; rNum < INIT_RESERVE; rNum++)
+                        {
+                            if (reserveArr[rNum].isSelected && !reserveArr[rNum].isChosen)
+                            {
+
+                                if (reserveArr[rNum].nReserveTime <= nCurTime)
+                                {
+                                    if (rNum == UP_BUY_RESERVE)
+                                    {
+                                        if (reserveArr[rNum].fTouchLine <= nCurHighPrice)
+                                        {
+                                            reserveArr[rNum].isChosen = true;
+
+                                            // 가격조정이 필요
+
+
+                                            if ((reserveArr[rNum].nAdjustedPrice * reserveArr[rNum].nReserveVolume * (1 + BUY_COMMISION)) > nCurDeposit)
+                                            {
+                                                reserveArr[rNum].nReserveVolume = (int)(nCurDeposit / (reserveArr[rNum].nAdjustedPrice * (1 + BUY_COMMISION)));
+                                            }
+
+                                            if (reserveArr[rNum].nReserveVolume > 0)
+                                            {
+                                                AddListView(new UnTradedInfo(nOrderNum++, reserveArr[rNum].nReserveTime - (UP_BUY_RESERVE + 1), "매수", reserveArr[rNum].nReserveVolume, reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice), nCurIdx ));
+                                                nCurDeposit -= (int)(reserveArr[rNum].nReserveVolume * (reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice)) * (1 + BUY_COMMISION));
+                                                DisplayCurInfos();
+                                            }
+                                        }
+                                    }
+                                    else if (rNum == DOWN_BUY_RESERVE)
+                                    {
+                                        if (reserveArr[rNum].fTouchLine >= nCurLowPrice)
+                                        {
+                                            reserveArr[rNum].isChosen = true;
+                                            if ((reserveArr[rNum].nAdjustedPrice * reserveArr[rNum].nReserveVolume * (1 + BUY_COMMISION)) > nCurDeposit)
+                                            {
+                                                reserveArr[rNum].nReserveVolume = (int)(nCurDeposit / (reserveArr[rNum].nAdjustedPrice * (1 + BUY_COMMISION)));
+                                            }
+
+                                            if (reserveArr[rNum].nReserveVolume > 0)
+                                            {
+                                                AddListView(new UnTradedInfo(nOrderNum++, reserveArr[rNum].nReserveTime - (DOWN_BUY_RESERVE + 1), "매수", reserveArr[rNum].nReserveVolume, reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice), nCurIdx ));
+                                                nCurDeposit -= (int)(reserveArr[rNum].nReserveVolume * (reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice)) * (1 + BUY_COMMISION));
+                                                DisplayCurInfos();
+                                            }
+
+                                        }
+                                    }
+                                    else if (rNum == DOWN_SELL_RESERVE)
+                                    {
+                                        if (reserveArr[rNum].fTouchLine >= nCurLowPrice)
+                                        {
+                                            reserveArr[rNum].isChosen = true;
+                                            if (nPossibleVolume < reserveArr[rNum].nReserveVolume)
+                                                reserveArr[rNum].nReserveVolume = nPossibleVolume;
+
+                                            if (reserveArr[rNum].nReserveVolume > 0)
+                                            {
+                                                AddListView(new UnTradedInfo(nOrderNum++, reserveArr[rNum].nReserveTime - (DOWN_SELL_RESERVE + 1), "매도", reserveArr[rNum].nReserveVolume, reserveArr[rNum].nAdjustedPrice - GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice), nCurIdx ));
+                                                nPossibleVolume -= reserveArr[rNum].nReserveVolume;
+                                                DisplayCurInfos();
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         // 미체결 잔고 계산
                         for (int unTradedIdx = 0; unTradedIdx < unTradedInfoList.Count; unTradedIdx++)
                         {
@@ -1470,23 +1839,33 @@ namespace AtoReplayer
                                 {
                                     if (unTradedInfoList[unTradedIdx].nPrice > nCurLowPrice + GetIntegratedMarketGap(nCurLowPrice)) // 혹은 더 비싸게 산다면
                                     {
-                                        if (unTradedInfoList[unTradedIdx].nPrice >= nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice))
+
+
+                                        if ((unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION)) > nCurDeposit)
                                         {
-                                            nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
-                                            nCurDeposit -= (int)((nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice)) * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
-                                            unTradedInfoList[unTradedIdx].nPrice = nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice);
+                                            unTradedInfoList[unTradedIdx].nVolume = (int)(nCurDeposit / (unTradedInfoList[unTradedIdx].nPrice * (1 + BUY_COMMISION)));
                                         }
 
-                                        // ok 체결완료
-                                        nOwnVolume += unTradedInfoList[unTradedIdx].nVolume;
-                                        nPossibleVolume += unTradedInfoList[unTradedIdx].nVolume;
-                                        nOwnTotalBuyedPrice += unTradedInfoList[unTradedIdx].nVolume * unTradedInfoList[unTradedIdx].nPrice;
-                                        nEveragePrice = nOwnTotalBuyedPrice / nOwnVolume;
+                                        if (unTradedInfoList[unTradedIdx].nVolume > 0)
+                                        {
+                                            if (unTradedInfoList[unTradedIdx].nPrice >= nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice))
+                                            {
+                                                nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
+                                                nCurDeposit -= (int)((nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice)) * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
+                                                unTradedInfoList[unTradedIdx].nPrice = nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice);
+                                            }
 
-                                        ThreadSoundTask(BUY_SIGNAL);
-                                        tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
-                                        unTradedInfoList.RemoveAt(unTradedIdx--);
-                                        UpdateListView();
+                                            // ok 체결완료
+                                            nOwnVolume += unTradedInfoList[unTradedIdx].nVolume;
+                                            nPossibleVolume += unTradedInfoList[unTradedIdx].nVolume;
+                                            nOwnTotalBuyedPrice += unTradedInfoList[unTradedIdx].nVolume * unTradedInfoList[unTradedIdx].nPrice;
+                                            nEveragePrice = nOwnTotalBuyedPrice / nOwnVolume;
+
+                                            ThreadSoundTask(BUY_SIGNAL);
+                                            tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, (unTradedInfoList[unTradedIdx].nIdx == nCurIdx)?nCurIdx + 1: nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
+                                            unTradedInfoList.RemoveAt(unTradedIdx--);
+                                            UpdateListView();
+                                        }
                                     }
                                 }
                                 else if (unTradedInfoList[unTradedIdx].sType.Equals("매도"))
@@ -1515,7 +1894,7 @@ namespace AtoReplayer
                                         }
 
                                         ThreadSoundTask(SELL_SIGNAL);
-                                        tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
+                                        tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, (unTradedInfoList[unTradedIdx].nIdx == nCurIdx) ? nCurIdx + 1 : nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
                                         unTradedInfoList.RemoveAt(unTradedIdx--);
                                         UpdateListView();
                                     }
@@ -1523,6 +1902,7 @@ namespace AtoReplayer
                             }
 
                         }
+
 
                     }
 
@@ -1545,124 +1925,129 @@ namespace AtoReplayer
                         {
                             if (isRealBuyArrowVisible)
                             {
-                                if (tradedHistoryList[h].nIdx != nRealBuyMinuteTimeIdx)
+
+                                if (tradedHistoryList[h].nIdx < historyChart.Series["MinuteStick"].Points.Count)
                                 {
-                                    nRealBuyMinuteCnt = 0;
-                                    sRealBuyMinuteToolTip = "";
-                                }
-                                nRealBuyMinuteTimeIdx = tradedHistoryList[h].nIdx;
-                                nRealBuyTotalCnt += 1;
-                                nRealBuyMinuteCnt += 1;
-
-
-                                if (!isArrowGrouping)
-                                {
-                                    realAnnotation.Width = -3; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-                                else
-                                {
-                                    realAnnotation.Width = -1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-
-                                realAnnotation.AnchorOffsetY = +1.5;
-
-                                sRealBuyMinuteToolTip += $"번호 : { tradedHistoryList[h].nNum} 시간 : {tradedHistoryList[h].nTime} 가격 : {tradedHistoryList[h].nPrice} 수량 : {tradedHistoryList[h].nVolume}\n\n";
-
-                                realAnnotation.ToolTip =
-                                    $"*실매수 총 갯수 : {nRealBuyMinuteCnt}개\n" +
-                                    $"=====================================================\n" + sRealBuyMinuteToolTip;
-
-                                if (nRealBuyMinuteCnt == 1) // 해당데이터가 첫번째면은
-                                    realAnnotation.Height = +4;
-                                else
-                                {
-                                    for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                    if (tradedHistoryList[h].nIdx != nRealBuyMinuteTimeIdx)
                                     {
-                                        if (historyChart.Annotations[k].Name.Equals("Z" + nRealBuyMinuteTimeIdx + "." + (nRealBuyMinuteCnt - 1)))  // M + 해당분봉의 최근삽입정보
-                                        {
-                                            historyChart.Annotations.RemoveAt(k);
-                                        }
+                                        nRealBuyMinuteCnt = 0;
+                                        sRealBuyMinuteToolTip = "";
                                     }
-                                    realAnnotation.Height = +7;
+                                    nRealBuyMinuteTimeIdx = tradedHistoryList[h].nIdx;
+                                    nRealBuyTotalCnt += 1;
+                                    nRealBuyMinuteCnt += 1;
+
+
+                                    if (!isArrowGrouping)
+                                    {
+                                        realAnnotation.Width = -3; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                    }
+                                    else
+                                    {
+                                        realAnnotation.Width = -1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                    }
+
+                                    realAnnotation.AnchorOffsetY = +1.5;
+
+                                    sRealBuyMinuteToolTip += $"번호 : { tradedHistoryList[h].nNum} 시간 : {tradedHistoryList[h].nTime} 가격 : {tradedHistoryList[h].nPrice} 수량 : {tradedHistoryList[h].nVolume}\n\n";
+
+                                    realAnnotation.ToolTip =
+                                        $"*실매수 총 갯수 : {nRealBuyMinuteCnt}개\n" +
+                                        $"=====================================================\n" + sRealBuyMinuteToolTip;
+
+                                    if (nRealBuyMinuteCnt == 1) // 해당데이터가 첫번째면은
+                                        realAnnotation.Height = +4;
+                                    else
+                                    {
+                                        for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                        {
+                                            if (historyChart.Annotations[k].Name.Equals("Z" + nRealBuyMinuteTimeIdx + "." + (nRealBuyMinuteCnt - 1)))  // M + 해당분봉의 최근삽입정보
+                                            {
+                                                historyChart.Annotations.RemoveAt(k);
+                                            }
+                                        }
+                                        realAnnotation.Height = +7;
+                                    }
+
+                                    realAnnotation.BackColor = Color.HotPink;
+                                    realAnnotation.LineColor = Color.Black;
+
+                                    int nBuyAnnotationIdx = tradedHistoryList[h].nIdx;
+
+                                    realAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[nBuyAnnotationIdx]);
+                                    realAnnotation.AnchorY = historyChart.Series["MinuteStick"].Points[nBuyAnnotationIdx].YValues[1]; // 고.저.시종
+                                    realAnnotation.Name = "Z" + nRealBuyMinuteTimeIdx + "." + nRealBuyMinuteCnt;
+
+                                    historyChart.Annotations.Add(realAnnotation);
+
                                 }
-
-                                realAnnotation.BackColor = Color.HotPink;
-                                realAnnotation.LineColor = Color.Black;
-
-                                int nBuyAnnotationIdx = tradedHistoryList[h].nIdx;
-                                if (nBuyAnnotationIdx >= historyChart.Series["MinuteStick"].Points.Count)
-                                    nBuyAnnotationIdx = historyChart.Series["MinuteStick"].Points.Count - 1;
-
-                                realAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[nBuyAnnotationIdx]);
-                                realAnnotation.AnchorY = historyChart.Series["MinuteStick"].Points[nBuyAnnotationIdx].YValues[1]; // 고.저.시종
-                                realAnnotation.Name = "Z" + nRealBuyMinuteTimeIdx + "." + nRealBuyMinuteCnt;
-
-                                historyChart.Annotations.Add(realAnnotation);
-
                             }
                         }
                         else if (tradedHistoryList[h].sType.Equals("매도"))
                         {
                             if (isRealSellArrowVisible)
                             {
-                                if (tradedHistoryList[h].nIdx != nRealSellMinuteTimeIdx)
+                                if (tradedHistoryList[h].nIdx < historyChart.Series["MinuteStick"].Points.Count)
                                 {
-                                    nRealSellMinuteCnt = 0;
-                                    sRealSellMinuteToolTip = "";
-                                }
-                                nRealSellMinuteTimeIdx = tradedHistoryList[h].nIdx;
-                                nRealSellTotalCnt += 1;
-                                nRealSellMinuteCnt += 1;
-
-
-                                if (!isArrowGrouping)
-                                {
-                                    realAnnotation.Width = +1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-                                else
-                                {
-                                    realAnnotation.Width = +0.2; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
-                                }
-
-                                realAnnotation.AnchorOffsetY = +1.5;
-
-                                sRealSellMinuteToolTip += $"번호 : {tradedHistoryList[h].nNum} 시간 : {tradedHistoryList[h].nTime} 가격 : {tradedHistoryList[h].nPrice} 수량 : {tradedHistoryList[h].nVolume} \n\n";
-
-                                realAnnotation.ToolTip =
-                                    $"*실매수 총 갯수 : {nRealSellMinuteCnt}개\n" +
-                                    $"=====================================================\n" + sRealSellMinuteToolTip;
-
-                                if (nRealSellMinuteCnt == 1) // 해당데이터가 첫번째면은
-                                    realAnnotation.Height = +4;
-                                else
-                                {
-                                    for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                    if (tradedHistoryList[h].nIdx != nRealSellMinuteTimeIdx)
                                     {
-                                        if (historyChart.Annotations[k].Name.Equals("X" + nRealSellMinuteTimeIdx + "." + (nRealSellMinuteCnt - 1)))  // M + 해당분봉의 최근삽입정보
-                                        {
-                                            historyChart.Annotations.RemoveAt(k);
-                                        }
+                                        nRealSellMinuteCnt = 0;
+                                        sRealSellMinuteToolTip = "";
                                     }
-                                    realAnnotation.Height = +7;
+                                    nRealSellMinuteTimeIdx = tradedHistoryList[h].nIdx;
+                                    nRealSellTotalCnt += 1;
+                                    nRealSellMinuteCnt += 1;
+
+
+                                    if (!isArrowGrouping)
+                                    {
+                                        realAnnotation.Width = +1; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                    }
+                                    else
+                                    {
+                                        realAnnotation.Width = +0.2; // -가 왼쪽으로 기움, + 가 오른쪽으로 기움 , 0이 수직자세
+                                    }
+
+                                    realAnnotation.AnchorOffsetY = +1.5;
+
+                                    sRealSellMinuteToolTip += $"번호 : {tradedHistoryList[h].nNum} 시간 : {tradedHistoryList[h].nTime} 가격 : {tradedHistoryList[h].nPrice} 수량 : {tradedHistoryList[h].nVolume} \n\n";
+
+                                    realAnnotation.ToolTip =
+                                        $"*실매수 총 갯수 : {nRealSellMinuteCnt}개\n" +
+                                        $"=====================================================\n" + sRealSellMinuteToolTip;
+
+                                    if (nRealSellMinuteCnt == 1) // 해당데이터가 첫번째면은
+                                        realAnnotation.Height = +4;
+                                    else
+                                    {
+                                        for (int k = 0; k < historyChart.Annotations.Count; k++) // 어노테이션들 중
+                                        {
+                                            if (historyChart.Annotations[k].Name.Equals("X" + nRealSellMinuteTimeIdx + "." + (nRealSellMinuteCnt - 1)))  // M + 해당분봉의 최근삽입정보
+                                            {
+                                                historyChart.Annotations.RemoveAt(k);
+                                            }
+                                        }
+                                        realAnnotation.Height = +7;
+                                    }
+
+                                    realAnnotation.BackColor = Color.LightSkyBlue;
+                                    realAnnotation.LineColor = Color.Black;
+
+                                    int nSellAnnotationIdx = tradedHistoryList[h].nIdx;
+
+
+                                    realAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[nSellAnnotationIdx]);
+                                    realAnnotation.AnchorY = historyChart.Series["MinuteStick"].Points[nSellAnnotationIdx].YValues[1]; // 고.저.시종
+                                    realAnnotation.Name = "X" + nRealSellMinuteTimeIdx + "." + nRealSellMinuteCnt;
+
+                                    historyChart.Annotations.Add(realAnnotation);
+
                                 }
-
-                                realAnnotation.BackColor = Color.LightSkyBlue;
-                                realAnnotation.LineColor = Color.Black;
-
-                                int nSellAnnotationIdx = tradedHistoryList[h].nIdx;
-                                if (nSellAnnotationIdx >= historyChart.Series["MinuteStick"].Points.Count)
-                                    nSellAnnotationIdx = historyChart.Series["MinuteStick"].Points.Count - 1;
-
-                                realAnnotation.SetAnchor(historyChart.Series["MinuteStick"].Points[nSellAnnotationIdx]);
-                                realAnnotation.AnchorY = historyChart.Series["MinuteStick"].Points[nSellAnnotationIdx].YValues[1]; // 고.저.시종
-                                realAnnotation.Name = "X" + nRealSellMinuteTimeIdx + "." + nRealSellMinuteCnt;
-
-                                historyChart.Annotations.Add(realAnnotation);
-
                             }
                         }
 
                     }
+
 
                     //  현재정보들 출력
                     CalcCurrentCashFlow();
@@ -1709,9 +2094,36 @@ namespace AtoReplayer
             }
             catch { }
         }
+
+        public bool isCtrlPushed = false;
         public void KeyDownHandler(object sender, KeyEventArgs e)
         {
-            char cDown = (char)e.KeyValue;
+            char cPressed = (char)e.KeyValue;
+
+            if (cPressed == 49 || cPressed == 50 || cPressed == 57)
+            {
+
+                ClearBuyMode(false);
+
+                if (cPressed == 49)
+                {
+                    nCurReserve = UP_BUY_RESERVE;
+                }
+                else if (cPressed == 50)
+                {
+                    nCurReserve = DOWN_BUY_RESERVE;
+                }
+                else if (cPressed == 57)
+                {
+                    nCurReserve = DOWN_SELL_RESERVE;
+                }
+
+            }
+
+            if (cPressed == 17) // ctrl
+            {
+                isCtrlPushed = true;
+            }
 
         }
 
@@ -1806,13 +2218,13 @@ namespace AtoReplayer
                 isViewGapMa = !isViewGapMa;
                 DrawChartUntilIdx(true);
             }
-            if(cUp == 'H')
+            if (cUp == 'H')
             {
                 isViewStartMa = !isViewStartMa;
                 DrawChartUntilIdx(true);
             }
 
-            if(cUp == 'M')
+            if (cUp == 'M')
             {
                 isMouseCursorView = !isMouseCursorView;
             }
@@ -1864,13 +2276,13 @@ namespace AtoReplayer
                 DrawChartUntilIdx(true);
             }
 
-            if(cUp == 'Z')
+            if (cUp == 'Z')
             {
                 isRealBuyArrowVisible = !isRealBuyArrowVisible;
                 DrawChartUntilIdx(true);
             }
 
-            if(cUp == 'X')
+            if (cUp == 'X')
             {
                 isRealSellArrowVisible = !isRealSellArrowVisible;
                 DrawChartUntilIdx(true);
@@ -1881,6 +2293,43 @@ namespace AtoReplayer
                 ReverseAllArrowVisible();
                 DrawChartUntilIdx(true);
             }
+
+            if (cUp == 17)
+            {
+                isCtrlPushed = false;
+            }
+            if (cUp == 49 || cUp == 50 || cUp == 57)
+            {
+
+                if (isCtrlPushed) // 취소
+                {
+                    if (cUp == 49)
+                    {
+                        reserveArr[UP_BUY_RESERVE].Clear();
+                        reserveChosenLabel.Text = "이상매수 예약 취소";
+                        priceViewLabel.Text = "";
+                    }
+                    if (cUp == 50)
+                    {
+                        reserveArr[DOWN_BUY_RESERVE].Clear();
+                        reserveChosenLabel.Text = "이하매수 예약 취소";
+                        priceViewLabel.Text = "";
+                    }
+                    if (cUp == 57)
+                    {
+                        reserveArr[DOWN_SELL_RESERVE].Clear();
+                        reserveChosenLabel.Text = "이하매도 예약 취소";
+                        priceViewLabel.Text = "";
+                    }
+                }
+                else
+                {
+                    reserveChosenLabel.Text = "";
+                    priceViewLabel.Text = "";
+                }
+                nCurReserve = INIT_RESERVE;
+            }
+
         }
         public List<FakeReport> GetFakeReportsByMin(int nTime)
         {
