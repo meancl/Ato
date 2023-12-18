@@ -120,6 +120,7 @@ namespace AtoReplayer
             public double fTouchLine;
             public int nAdjustedPrice;
             public int nReserveVolume;
+            public int nReservedIdx;
 
             public void Clear()
             {
@@ -129,6 +130,7 @@ namespace AtoReplayer
                 fTouchLine = 0;
                 nAdjustedPrice = 0;
                 nReserveVolume = 0;
+                nReservedIdx = 0;
             }
         }
         public const int INIT_RESERVE = 3;
@@ -681,6 +683,7 @@ namespace AtoReplayer
                                         reserveArr[UP_BUY_RESERVE].nReserveVolume = nMouseWheel;
                                         reserveArr[UP_BUY_RESERVE].fTouchLine = yCoord;
                                         reserveArr[UP_BUY_RESERVE].nAdjustedPrice = GetAdjustedPrice(yCoord);
+                                        reserveArr[UP_BUY_RESERVE].nReservedIdx = nCurIdx;
 
                                     }
                                     else if (nCurReserve == DOWN_BUY_RESERVE) // M 이하
@@ -691,6 +694,7 @@ namespace AtoReplayer
                                         reserveArr[DOWN_BUY_RESERVE].nReserveVolume = nMouseWheel;
                                         reserveArr[DOWN_BUY_RESERVE].fTouchLine = yCoord;
                                         reserveArr[DOWN_BUY_RESERVE].nAdjustedPrice = GetAdjustedPrice(yCoord);
+                                        reserveArr[DOWN_BUY_RESERVE].nReservedIdx = nCurIdx;
 
                                     }
                                     else if (nCurReserve == DOWN_SELL_RESERVE)
@@ -701,6 +705,7 @@ namespace AtoReplayer
                                         reserveArr[DOWN_SELL_RESERVE].nReserveVolume = nMouseWheel;
                                         reserveArr[DOWN_SELL_RESERVE].fTouchLine = yCoord;
                                         reserveArr[DOWN_SELL_RESERVE].nAdjustedPrice = GetAdjustedPrice(yCoord, false);
+                                        reserveArr[DOWN_SELL_RESERVE].nReservedIdx = nCurIdx;
                                     }
                                 }
                                 else // 0으로 설정 가능
@@ -1114,6 +1119,7 @@ namespace AtoReplayer
 
             // -------------- 차트 초기화 -----------------
             ClearChart();
+            currentDrawIdx = 0;
 
             // -------------- 데이터 조회 -----------------
             // 조회 중 메시지 박스 표시
@@ -1761,148 +1767,150 @@ namespace AtoReplayer
                         nCurHitType = nHitType;
 
 
-                        // 예약 계산
-                        for (int rNum = 0; rNum < INIT_RESERVE; rNum++)
+                        if (displayedTimelines[i].nCount > 0)
                         {
-                            if (reserveArr[rNum].isSelected && !reserveArr[rNum].isChosen)
+                            // 예약 계산
+                            for (int rNum = 0; rNum < INIT_RESERVE; rNum++)
                             {
-
-                                if (reserveArr[rNum].nReserveTime <= nCurTime)
+                                if (reserveArr[rNum].isSelected && !reserveArr[rNum].isChosen)
                                 {
-                                    if (rNum == UP_BUY_RESERVE)
+
+                                    if (reserveArr[rNum].nReserveTime <= nCurTime)
                                     {
-                                        if (reserveArr[rNum].fTouchLine <= nCurHighPrice)
+                                        if (rNum == UP_BUY_RESERVE)
                                         {
-                                            reserveArr[rNum].isChosen = true;
-
-                                            // 가격조정이 필요
-
-
-                                            if ((reserveArr[rNum].nAdjustedPrice * reserveArr[rNum].nReserveVolume * (1 + BUY_COMMISION)) > nCurDeposit)
+                                            if (reserveArr[rNum].fTouchLine <= nCurHighPrice)
                                             {
-                                                reserveArr[rNum].nReserveVolume = (int)(nCurDeposit / (reserveArr[rNum].nAdjustedPrice * (1 + BUY_COMMISION)));
-                                            }
+                                                reserveArr[rNum].isChosen = true;
 
-                                            if (reserveArr[rNum].nReserveVolume > 0)
-                                            {
-                                                AddListView(new UnTradedInfo(nOrderNum++, reserveArr[rNum].nReserveTime - (UP_BUY_RESERVE + 1), "매수", reserveArr[rNum].nReserveVolume, reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice), nCurIdx ));
-                                                nCurDeposit -= (int)(reserveArr[rNum].nReserveVolume * (reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice)) * (1 + BUY_COMMISION));
-                                                DisplayCurInfos();
+                                                // 가격조정이 필요
+
+
+                                                if ((reserveArr[rNum].nAdjustedPrice * reserveArr[rNum].nReserveVolume * (1 + BUY_COMMISION)) > nCurDeposit)
+                                                {
+                                                    reserveArr[rNum].nReserveVolume = (int)(nCurDeposit / (reserveArr[rNum].nAdjustedPrice * (1 + BUY_COMMISION)));
+                                                }
+
+                                                if (reserveArr[rNum].nReserveVolume > 0)
+                                                {
+                                                    AddListView(new UnTradedInfo(nOrderNum++, reserveArr[rNum].nReserveTime - (UP_BUY_RESERVE + 1), "매수", reserveArr[rNum].nReserveVolume, reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice), reserveArr[rNum].nReservedIdx));
+                                                    nCurDeposit -= (int)(reserveArr[rNum].nReserveVolume * (reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice)) * (1 + BUY_COMMISION));
+                                                    DisplayCurInfos();
+                                                }
                                             }
                                         }
-                                    }
-                                    else if (rNum == DOWN_BUY_RESERVE)
-                                    {
-                                        if (reserveArr[rNum].fTouchLine >= nCurLowPrice)
+                                        else if (rNum == DOWN_BUY_RESERVE)
                                         {
-                                            reserveArr[rNum].isChosen = true;
-                                            if ((reserveArr[rNum].nAdjustedPrice * reserveArr[rNum].nReserveVolume * (1 + BUY_COMMISION)) > nCurDeposit)
+                                            if (reserveArr[rNum].fTouchLine >= nCurLowPrice)
                                             {
-                                                reserveArr[rNum].nReserveVolume = (int)(nCurDeposit / (reserveArr[rNum].nAdjustedPrice * (1 + BUY_COMMISION)));
-                                            }
+                                                reserveArr[rNum].isChosen = true;
+                                                if ((reserveArr[rNum].nAdjustedPrice * reserveArr[rNum].nReserveVolume * (1 + BUY_COMMISION)) > nCurDeposit)
+                                                {
+                                                    reserveArr[rNum].nReserveVolume = (int)(nCurDeposit / (reserveArr[rNum].nAdjustedPrice * (1 + BUY_COMMISION)));
+                                                }
 
-                                            if (reserveArr[rNum].nReserveVolume > 0)
-                                            {
-                                                AddListView(new UnTradedInfo(nOrderNum++, reserveArr[rNum].nReserveTime - (DOWN_BUY_RESERVE + 1), "매수", reserveArr[rNum].nReserveVolume, reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice), nCurIdx ));
-                                                nCurDeposit -= (int)(reserveArr[rNum].nReserveVolume * (reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice)) * (1 + BUY_COMMISION));
-                                                DisplayCurInfos();
-                                            }
+                                                if (reserveArr[rNum].nReserveVolume > 0)
+                                                {
+                                                    AddListView(new UnTradedInfo(nOrderNum++, reserveArr[rNum].nReserveTime - (DOWN_BUY_RESERVE + 1), "매수", reserveArr[rNum].nReserveVolume, reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice), reserveArr[rNum].nReservedIdx));
+                                                    nCurDeposit -= (int)(reserveArr[rNum].nReserveVolume * (reserveArr[rNum].nAdjustedPrice + GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice)) * (1 + BUY_COMMISION));
+                                                    DisplayCurInfos();
+                                                }
 
+                                            }
                                         }
-                                    }
-                                    else if (rNum == DOWN_SELL_RESERVE)
-                                    {
-                                        if (reserveArr[rNum].fTouchLine >= nCurLowPrice)
+                                        else if (rNum == DOWN_SELL_RESERVE)
                                         {
-                                            reserveArr[rNum].isChosen = true;
-                                            if (nPossibleVolume < reserveArr[rNum].nReserveVolume)
-                                                reserveArr[rNum].nReserveVolume = nPossibleVolume;
-
-                                            if (reserveArr[rNum].nReserveVolume > 0)
+                                            if (reserveArr[rNum].fTouchLine >= nCurLowPrice)
                                             {
-                                                AddListView(new UnTradedInfo(nOrderNum++, reserveArr[rNum].nReserveTime - (DOWN_SELL_RESERVE + 1), "매도", reserveArr[rNum].nReserveVolume, reserveArr[rNum].nAdjustedPrice - GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice), nCurIdx ));
-                                                nPossibleVolume -= reserveArr[rNum].nReserveVolume;
-                                                DisplayCurInfos();
+                                                reserveArr[rNum].isChosen = true;
+                                                if (nPossibleVolume < reserveArr[rNum].nReserveVolume)
+                                                    reserveArr[rNum].nReserveVolume = nPossibleVolume;
+
+                                                if (reserveArr[rNum].nReserveVolume > 0)
+                                                {
+                                                    AddListView(new UnTradedInfo(nOrderNum++, reserveArr[rNum].nReserveTime - (DOWN_SELL_RESERVE + 1), "매도", reserveArr[rNum].nReserveVolume, reserveArr[rNum].nAdjustedPrice - GetIntegratedMarketGap(reserveArr[rNum].nAdjustedPrice), reserveArr[rNum].nReservedIdx));
+                                                    nPossibleVolume -= reserveArr[rNum].nReserveVolume;
+                                                    DisplayCurInfos();
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
 
-                        // 미체결 잔고 계산
-                        for (int unTradedIdx = 0; unTradedIdx < unTradedInfoList.Count; unTradedIdx++)
-                        {
-                            if (nCurTime > unTradedInfoList[unTradedIdx].nTime) // 다음 분봉 이후부터 계산하기로 정함
+                            // 미체결 잔고 계산
+                            for (int unTradedIdx = 0; unTradedIdx < unTradedInfoList.Count; unTradedIdx++)
                             {
-                                if (unTradedInfoList[unTradedIdx].sType.Equals("매수"))
+                                if (nCurTime > unTradedInfoList[unTradedIdx].nTime && nCurIdx > unTradedInfoList[unTradedIdx].nIdx) // 다음 분봉 이후부터 계산하기로 정함
                                 {
-                                    if (unTradedInfoList[unTradedIdx].nPrice > nCurLowPrice + GetIntegratedMarketGap(nCurLowPrice)) // 혹은 더 비싸게 산다면
+                                    if (unTradedInfoList[unTradedIdx].sType.Equals("매수"))
                                     {
-
-
-                                        if ((unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION)) > nCurDeposit)
+                                        if (unTradedInfoList[unTradedIdx].nPrice > nCurLowPrice + GetIntegratedMarketGap(nCurLowPrice)) // 혹은 더 비싸게 산다면
                                         {
-                                            unTradedInfoList[unTradedIdx].nVolume = (int)(nCurDeposit / (unTradedInfoList[unTradedIdx].nPrice * (1 + BUY_COMMISION)));
-                                        }
 
-                                        if (unTradedInfoList[unTradedIdx].nVolume > 0)
-                                        {
-                                            if (unTradedInfoList[unTradedIdx].nPrice >= nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice))
+
+                                            if ((unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION)) > nCurDeposit)
                                             {
-                                                nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
-                                                nCurDeposit -= (int)((nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice)) * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
-                                                unTradedInfoList[unTradedIdx].nPrice = nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice);
+                                                unTradedInfoList[unTradedIdx].nVolume = (int)(nCurDeposit / (unTradedInfoList[unTradedIdx].nPrice * (1 + BUY_COMMISION)));
                                             }
 
-                                            // ok 체결완료
-                                            nOwnVolume += unTradedInfoList[unTradedIdx].nVolume;
-                                            nPossibleVolume += unTradedInfoList[unTradedIdx].nVolume;
-                                            nOwnTotalBuyedPrice += unTradedInfoList[unTradedIdx].nVolume * unTradedInfoList[unTradedIdx].nPrice;
-                                            nEveragePrice = nOwnTotalBuyedPrice / nOwnVolume;
+                                            if (unTradedInfoList[unTradedIdx].nVolume > 0)
+                                            {
+                                                if (unTradedInfoList[unTradedIdx].nPrice >= nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice))
+                                                {
+                                                    nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
+                                                    nCurDeposit -= (int)((nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice)) * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
+                                                    unTradedInfoList[unTradedIdx].nPrice = nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice);
+                                                }
 
-                                            ThreadSoundTask(BUY_SIGNAL);
-                                            tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, (unTradedInfoList[unTradedIdx].nIdx == nCurIdx)?nCurIdx + 1: nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
+                                                // ok 체결완료
+                                                nOwnVolume += unTradedInfoList[unTradedIdx].nVolume;
+                                                nPossibleVolume += unTradedInfoList[unTradedIdx].nVolume;
+                                                nOwnTotalBuyedPrice += unTradedInfoList[unTradedIdx].nVolume * unTradedInfoList[unTradedIdx].nPrice;
+                                                nEveragePrice = nOwnTotalBuyedPrice / nOwnVolume;
+
+                                                ThreadSoundTask(BUY_SIGNAL);
+                                                tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, (unTradedInfoList[unTradedIdx].nIdx == nCurIdx) ? nCurIdx + 1 : nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
+                                                unTradedInfoList.RemoveAt(unTradedIdx--);
+                                                UpdateListView();
+                                            }
+                                        }
+                                    }
+                                    else if (unTradedInfoList[unTradedIdx].sType.Equals("매도"))
+                                    {
+                                        if (unTradedInfoList[unTradedIdx].nPrice < nCurHighPrice - GetIntegratedMarketGap(nCurHighPrice))
+                                        {
+                                            if (unTradedInfoList[unTradedIdx].nPrice <= nCurLowPrice - GetIntegratedMarketGap(nCurLowPrice))
+                                            {
+                                                unTradedInfoList[unTradedIdx].nPrice = nCurLowPrice - GetIntegratedMarketGap(nCurLowPrice);
+                                            }
+
+                                            nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 - (STOCK_TAX + SELL_COMMISION)));
+                                            profitnLoss += (int)(
+                                                ((unTradedInfoList[unTradedIdx].nPrice - nEveragePrice) * unTradedInfoList[unTradedIdx].nVolume
+                                                - (unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (STOCK_TAX + SELL_COMMISION))
+                                                - (nEveragePrice * unTradedInfoList[unTradedIdx].nVolume * BUY_COMMISION)));
+                                            nOwnVolume -= unTradedInfoList[unTradedIdx].nVolume;
+                                            nOwnTotalBuyedPrice -= nEveragePrice * unTradedInfoList[unTradedIdx].nVolume;
+
+                                            if (nOwnVolume == 0)
+                                            {
+                                                pnLRatio = 0;
+                                                pnLPrice = 0;
+                                                nEveragePrice = 0;
+                                                nOwnTotalBuyedPrice = 0;
+                                            }
+
+                                            ThreadSoundTask(SELL_SIGNAL);
+                                            tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, (unTradedInfoList[unTradedIdx].nIdx == nCurIdx) ? nCurIdx + 1 : nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
                                             unTradedInfoList.RemoveAt(unTradedIdx--);
                                             UpdateListView();
                                         }
                                     }
                                 }
-                                else if (unTradedInfoList[unTradedIdx].sType.Equals("매도"))
-                                {
-                                    if (unTradedInfoList[unTradedIdx].nPrice < nCurHighPrice - GetIntegratedMarketGap(nCurHighPrice))
-                                    {
-                                        if (unTradedInfoList[unTradedIdx].nPrice <= nCurLowPrice - GetIntegratedMarketGap(nCurLowPrice))
-                                        {
-                                            unTradedInfoList[unTradedIdx].nPrice = nCurLowPrice - GetIntegratedMarketGap(nCurLowPrice);
-                                        }
 
-                                        nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 - (STOCK_TAX + SELL_COMMISION)));
-                                        profitnLoss += (int)(
-                                            ((unTradedInfoList[unTradedIdx].nPrice - nEveragePrice) * unTradedInfoList[unTradedIdx].nVolume
-                                            - (unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (STOCK_TAX + SELL_COMMISION))
-                                            - (nEveragePrice * unTradedInfoList[unTradedIdx].nVolume * BUY_COMMISION)));
-                                        nOwnVolume -= unTradedInfoList[unTradedIdx].nVolume;
-                                        nOwnTotalBuyedPrice -= nEveragePrice * unTradedInfoList[unTradedIdx].nVolume;
-
-                                        if (nOwnVolume == 0)
-                                        {
-                                            pnLRatio = 0;
-                                            pnLPrice = 0;
-                                            nEveragePrice = 0;
-                                            nOwnTotalBuyedPrice = 0;
-                                        }
-
-                                        ThreadSoundTask(SELL_SIGNAL);
-                                        tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, (unTradedInfoList[unTradedIdx].nIdx == nCurIdx) ? nCurIdx + 1 : nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
-                                        unTradedInfoList.RemoveAt(unTradedIdx--);
-                                        UpdateListView();
-                                    }
-                                }
                             }
-
                         }
-
 
                     }
 
