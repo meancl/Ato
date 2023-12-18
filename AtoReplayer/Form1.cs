@@ -1847,33 +1847,24 @@ namespace AtoReplayer
                                     {
                                         if (unTradedInfoList[unTradedIdx].nPrice > nCurLowPrice + GetIntegratedMarketGap(nCurLowPrice)) // 혹은 더 비싸게 산다면
                                         {
-
-
-                                            if ((unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION)) > nCurDeposit)
+                                            if (unTradedInfoList[unTradedIdx].nPrice >= nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice))
                                             {
-                                                unTradedInfoList[unTradedIdx].nVolume = (int)(nCurDeposit / (unTradedInfoList[unTradedIdx].nPrice * (1 + BUY_COMMISION)));
+                                                nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
+                                                nCurDeposit -= (int)((nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice)) * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
+                                                unTradedInfoList[unTradedIdx].nPrice = nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice);
                                             }
 
-                                            if (unTradedInfoList[unTradedIdx].nVolume > 0)
-                                            {
-                                                if (unTradedInfoList[unTradedIdx].nPrice >= nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice))
-                                                {
-                                                    nCurDeposit += (int)(unTradedInfoList[unTradedIdx].nPrice * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
-                                                    nCurDeposit -= (int)((nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice)) * unTradedInfoList[unTradedIdx].nVolume * (1 + BUY_COMMISION));
-                                                    unTradedInfoList[unTradedIdx].nPrice = nCurHighPrice + GetIntegratedMarketGap(nCurHighPrice);
-                                                }
+                                            // ok 체결완료
+                                            nOwnVolume += unTradedInfoList[unTradedIdx].nVolume;
+                                            nPossibleVolume += unTradedInfoList[unTradedIdx].nVolume;
+                                            nOwnTotalBuyedPrice += unTradedInfoList[unTradedIdx].nVolume * unTradedInfoList[unTradedIdx].nPrice;
+                                            nEveragePrice = nOwnTotalBuyedPrice / nOwnVolume;
 
-                                                // ok 체결완료
-                                                nOwnVolume += unTradedInfoList[unTradedIdx].nVolume;
-                                                nPossibleVolume += unTradedInfoList[unTradedIdx].nVolume;
-                                                nOwnTotalBuyedPrice += unTradedInfoList[unTradedIdx].nVolume * unTradedInfoList[unTradedIdx].nPrice;
-                                                nEveragePrice = nOwnTotalBuyedPrice / nOwnVolume;
+                                            ThreadSoundTask(BUY_SIGNAL);
+                                            tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, (unTradedInfoList[unTradedIdx].nIdx == nCurIdx) ? nCurIdx + 1 : nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
+                                            unTradedInfoList.RemoveAt(unTradedIdx--);
+                                            UpdateListView();
 
-                                                ThreadSoundTask(BUY_SIGNAL);
-                                                tradedHistoryList.Add(new UnTradedInfo(unTradedInfoList[unTradedIdx].nNum, unTradedInfoList[unTradedIdx].nTime, unTradedInfoList[unTradedIdx].sType, unTradedInfoList[unTradedIdx].nVolume, unTradedInfoList[unTradedIdx].nPrice, (unTradedInfoList[unTradedIdx].nIdx == nCurIdx) ? nCurIdx + 1 : nCurIdx)); // unTradedInfoList[unTradedIdx].nIdx
-                                                unTradedInfoList.RemoveAt(unTradedIdx--);
-                                                UpdateListView();
-                                            }
                                         }
                                     }
                                     else if (unTradedInfoList[unTradedIdx].sType.Equals("매도"))

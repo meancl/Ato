@@ -75,12 +75,12 @@ namespace AtoReplayer
             this.ownVolumeLabel = new System.Windows.Forms.Label();
             this.pnLRatioLabel = new System.Windows.Forms.Label();
             this.everagePriceLabel = new System.Windows.Forms.Label();
+            this.curPriceLabel = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.curPriceLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.unTradedListView = new System.Windows.Forms.ListView();
@@ -114,8 +114,7 @@ namespace AtoReplayer
             // 
             // historyChart
             // 
-            this.historyChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.historyChart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.CursorX.IsUserSelectionEnabled = true;
             chartArea1.Name = "ChartArea1";
@@ -539,6 +538,18 @@ namespace AtoReplayer
             this.everagePriceLabel.TabIndex = 7;
             this.everagePriceLabel.Text = "0";
             // 
+            // curPriceLabel
+            // 
+            this.curPriceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.curPriceLabel.AutoSize = true;
+            this.curPriceLabel.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.curPriceLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.curPriceLabel.Location = new System.Drawing.Point(98, 77);
+            this.curPriceLabel.Name = "curPriceLabel";
+            this.curPriceLabel.Size = new System.Drawing.Size(16, 15);
+            this.curPriceLabel.TabIndex = 6;
+            this.curPriceLabel.Text = "0";
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -583,18 +594,6 @@ namespace AtoReplayer
             this.label7.Size = new System.Drawing.Size(52, 15);
             this.label7.TabIndex = 1;
             this.label7.Text = "매수량";
-            // 
-            // curPriceLabel
-            // 
-            this.curPriceLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.curPriceLabel.AutoSize = true;
-            this.curPriceLabel.Font = new System.Drawing.Font("굴림", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.curPriceLabel.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.curPriceLabel.Location = new System.Drawing.Point(98, 77);
-            this.curPriceLabel.Name = "curPriceLabel";
-            this.curPriceLabel.Size = new System.Drawing.Size(16, 15);
-            this.curPriceLabel.TabIndex = 6;
-            this.curPriceLabel.Text = "0";
             // 
             // label6
             // 
