@@ -13,6 +13,7 @@ namespace AtoIndicator.DB
         public DbSet<FakeReport> fakeReports { get; set; }
         public DbSet<StrategyNameDict> strategyNameDict { get; set; }
         public DbSet<LocationUser> locationUserDict { get; set; }
+        public DbSet<Minutehistories> minutehistories { get; set; }
 
         // Entity를 DB에 삽입하는 과정 
         // nuget console에서
@@ -80,6 +81,15 @@ namespace AtoIndicator.DB
                 entity.HasKey(k => new { k.sUserName });
             });
 
+            modelBuilder.Entity<Minutehistories>(entity =>
+            {
+                entity.HasKey(k => new { k.compLoc, k.sDate, k.sCode, k.sCodeName, k.nIdx });
+                entity.Property(k => k.compLoc).IsRequired();
+                entity.Property(k => k.sDate).IsRequired();
+                entity.Property(k => k.sCode).IsRequired();
+                entity.Property(k => k.sCodeName).IsRequired();
+                entity.Property(k => k.nIdx).IsRequired();
+            });
 
         }
     }

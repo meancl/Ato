@@ -215,6 +215,11 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DB\Minutehistories.cs" />
+    <Compile Include="Migrations\20231229033110_mig_add_minutehistories.cs" />
+    <Compile Include="Migrations\20231229033110_mig_add_minutehistories.designer.cs">
+      <DependentUpon>20231229033110_mig_add_minutehistories.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyControl\ArrowControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

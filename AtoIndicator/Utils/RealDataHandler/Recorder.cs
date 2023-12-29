@@ -229,9 +229,9 @@ namespace AtoIndicator
                         }
                     }
                     PrintLog($"=========================== DB삽입 종료 ===========================");
-
                 }
 
+                PutChartToDBAsync();
             }
             Task.Run(() => PutTradeResultToDB());
         }
@@ -244,7 +244,7 @@ namespace AtoIndicator
         #region 차트 DB작업
         public void PutChartResultAsync()
         {
-            void PutChartDataToDB()
+            void PutChartDataToFTPByTxt()
             {
                 string ftpHost = "ftp://221.149.119.60:2021";
                 string ftpUsername = "ftp_user";
@@ -322,8 +322,120 @@ namespace AtoIndicator
                 PrintLog($"차트 데이터를 삽입완료했습니다.");
             }
 
+            Task.Run(() => PutChartDataToFTPByTxt());
+        }
+
+        public void PutChartToDBAsync()
+        {
+            void PutChartDataToDB()
+            {
+                using (var dbContext = new myDbContext())
+                {
+                    EachStock curEa;
+                    // Insert 속도 향상시키기
+                    // 1.
+                    dbContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+
+                    // 2.
+                    dbContext.ChangeTracker.AutoDetectChangesEnabled = false;
+
+                    PrintLog($"=========================== 차트데이터 DB삽입 시작 ===========================");
+
+                    for (int i = 0; i < nStockLength; i++)
+                    {
+                        curEa = ea[i];
+
+                        if (curEa.fakeBuyStrategy.nStrategyNum >= 10) // 페바 10개 이상만
+                        {
+
+                            List<Minutehistories> minutehistoriesList = new List<Minutehistories>();
+
+                            try
+                            {
+                                for (int nLastMinuteIdx = 0; nLastMinuteIdx <= curEa.timeLines1m.nRealDataIdx; nLastMinuteIdx++)
+                                {
+                                    Minutehistories minutehistories = new Minutehistories();
+
+                                    minutehistories.compLoc = COMPUTER_LOCATION;
+                                    minutehistories.sDate = DateTime.Today;
+                                    minutehistories.sCode = curEa.sCode;
+                                    minutehistories.sCodeName = curEa.sCodeName;
+                                    minutehistories.nIdx = nLastMinuteIdx;
+                                    minutehistories.nTime = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nTime;
+                                    minutehistories.nStartFs = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nStartFs;
+                                    minutehistories.nMaxFs = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nMaxFs;
+                                    minutehistories.nMinFs = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nMinFs;
+                                    minutehistories.nLastFs = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nLastFs;
+                                    minutehistories.nTotalVolume = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nTotalVolume;
+                                    minutehistories.fVolumeRatio = (double)(curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nBuyVolume - curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nSellVolume) / (curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nTotalVolume + 1) * 100;
+                                    minutehistories.nCount = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nCount;
+                                    minutehistories.fTotalPrice = ((double)(curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].lTotalPrice / MainForm.MILLION));
+                                    minutehistories.fBuyPrice = (double)(curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].lBuyPrice / MainForm.MILLION);
+                                    minutehistories.fSellPrice = (double)(curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].lSellPrice / MainForm.MILLION);
+                                    minutehistories.fAccumUpPower = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fAccumUpPower * 100;
+                                    minutehistories.fAccumDownPower = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fAccumDownPower * 100;
+                                    minutehistories.fUpDownPer = ((double)(curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nLastFs - curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nStartFs) / curEa.nYesterdayEndPrice) * 100;
+                                    minutehistories.fInitAngle = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fInitAngle;
+                                    minutehistories.fMaxAngle = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fMaxAngle;
+                                    minutehistories.fMedianAngle = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fMedianAngle;
+                                    minutehistories.fHourAngle = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fHourAngle;
+                                    minutehistories.fRecentAngle = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fRecentAngle;
+                                    minutehistories.fDAngle = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fDAngle;
+                                    minutehistories.fOverMa0 = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fOverMa0;
+                                    minutehistories.fOverMa1 = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fOverMa1;
+                                    minutehistories.fOverMa2 = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fOverMa2;
+                                    minutehistories.fOverMa0Gap = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fOverMaGap0;
+                                    minutehistories.fOverMa1Gap = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fOverMaGap1;
+                                    minutehistories.fOverMa2Gap = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].fOverMaGap2;
+                                    minutehistories.nDownTimeOverMa0 = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nDownTimeOverMa0;
+                                    minutehistories.nDownTimeOverMa1 = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nDownTimeOverMa1;
+                                    minutehistories.nDownTimeOverMa2 = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nDownTimeOverMa2;
+                                    minutehistories.nUpTimeOverMa0 = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nUpTimeOverMa0;
+                                    minutehistories.nUpTimeOverMa1 = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nUpTimeOverMa1;
+                                    minutehistories.nUpTimeOverMa2 = curEa.timeLines1m.arrTimeLine[nLastMinuteIdx].nUpTimeOverMa2;
+                                    minutehistories.nSummationRanking = curEa.rankSystem.arrRanking[nLastMinuteIdx].nSummationRanking;
+                                    minutehistories.nSummationMove = curEa.rankSystem.arrRanking[nLastMinuteIdx].nSummationMove;
+                                    minutehistories.nMinuteRanking = curEa.rankSystem.arrRanking[nLastMinuteIdx].nMinuteRanking;
+
+                                    minutehistoriesList.Add(minutehistories);
+                                }
+
+                                dbContext.minutehistories.AddRange(minutehistoriesList.ToArray());
+                                dbContext.SaveChanges();
+                            }
+                            catch
+                            {
+                                // 오류가 생김
+                                // 디비 롤백이 생긴다?
+                                PrintLog($"minutehistories : {curEa.sCode}  {curEa.sCodeName} DB 범위삽입 실패로 롤백!!");
+                                PrintLog($"minutehistories : {curEa.sCode}  {curEa.sCodeName} DB 개별삽입 재시도 시작");
+                               
+                                for (int idx = 0; idx < minutehistoriesList.Count; idx++)
+                                {
+                                    try
+                                    {
+                                        dbContext.minutehistories.Add(minutehistoriesList[idx]);
+                                        dbContext.SaveChanges();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        PrintLog($"minutehistories : {curEa.sCode}  {curEa.sCodeName} 인덱스 : ({idx}) 블럭 DB 개별삽입 실패!");
+                                        dbContext.minutehistories.Remove(minutehistoriesList[idx]);
+                                    }
+                                }
+
+                                PrintLog($"minutehistories : {curEa.sCode}  {curEa.sCodeName} DB 개별삽입 재시도 종료");
+
+                            }
+                        }
+                    }
+
+                    PrintLog($"=========================== 차트데이터 DB삽입 종료 ===========================");
+                }
+                #endregion
+            }
+
             Task.Run(() => PutChartDataToDB());
         }
-        #endregion
     }
 }

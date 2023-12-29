@@ -225,6 +225,7 @@ namespace AtoIndicator
                         isMarketLabel.Text = $"장시작 : {isMarketStart}";
                         PutTradeResultAsync();
                         PutChartResultAsync();
+                        
                     }
                 }
                 return; // 장시작시간 실시간데이터는  여기서 종료
