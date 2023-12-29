@@ -171,6 +171,8 @@ namespace AtoIndicator
                                     case TradeMethodCategory.FixedMethod:
                                         slot.fTargetPer = DEFAULT_FIXED_CEILING;
                                         slot.fBottomPer = DEFAULT_FIXED_BOTTOM;
+                                        slot.nFixedDelayTime = DEFAULT_DELAY_TIME;
+                                        slot.fFixedDelayBottomPad = DEFAULT_DELAY_BOTTOM_PAD;
                                         break;
                                     default:
                                         break;
@@ -377,6 +379,8 @@ namespace AtoIndicator
                                 case TradeMethodCategory.FixedMethod:
                                     slot.fTargetPer = DEFAULT_FIXED_CEILING;
                                     slot.fBottomPer = DEFAULT_FIXED_BOTTOM;
+                                    slot.nFixedDelayTime = DEFAULT_DELAY_TIME;
+                                    slot.fFixedDelayBottomPad = DEFAULT_DELAY_BOTTOM_PAD;
                                     break;
                                 default:
                                     break;

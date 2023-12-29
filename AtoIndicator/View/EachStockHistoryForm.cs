@@ -2961,11 +2961,15 @@ namespace AtoIndicator.View.EachStockHistory
                                 {
                                     curEa.myTradeManager.arrBuyedSlots[i].fTargetPer = mainForm.GetProfitPercent(curEa.myTradeManager.arrBuyedSlots[i].nBuyedSumPrice, (int)(curEa.myTradeManager.fTargetPriceTouch * curEa.myTradeManager.arrBuyedSlots[i].nBuyVolume), curEa.nMarketGubun) / 100;
                                     curEa.myTradeManager.arrBuyedSlots[i].fBottomPer = mainForm.GetProfitPercent(curEa.myTradeManager.arrBuyedSlots[i].nBuyedSumPrice, (int)(curEa.myTradeManager.fBottomPriceTouch * curEa.myTradeManager.arrBuyedSlots[i].nBuyVolume), curEa.nMarketGubun) / 100;
+                                    curEa.myTradeManager.arrBuyedSlots[i].nFixedDelayTime = mainForm.DEFAULT_DELAY_TIME;
+                                    curEa.myTradeManager.arrBuyedSlots[i].fFixedDelayBottomPad = mainForm.DEFAULT_DELAY_BOTTOM_PAD;
                                 }
                                 else
                                 {
                                     curEa.myTradeManager.arrBuyedSlots[i].fTargetPer = mainForm.DEFAULT_FIXED_CEILING;
                                     curEa.myTradeManager.arrBuyedSlots[i].fBottomPer = mainForm.DEFAULT_FIXED_BOTTOM;
+                                    curEa.myTradeManager.arrBuyedSlots[i].nFixedDelayTime = mainForm.DEFAULT_DELAY_TIME;
+                                    curEa.myTradeManager.arrBuyedSlots[i].fFixedDelayBottomPad = mainForm.DEFAULT_DELAY_BOTTOM_PAD;
                                 }
 
                             }

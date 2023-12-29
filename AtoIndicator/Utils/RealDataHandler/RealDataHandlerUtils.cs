@@ -793,6 +793,8 @@ namespace AtoIndicator
                             case TradeMethodCategory.FixedMethod:
                                 ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fTargetPer = DEFAULT_FIXED_CEILING;
                                 ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fBottomPer = DEFAULT_FIXED_BOTTOM;
+                                ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].nFixedDelayTime = DEFAULT_DELAY_TIME;
+                                ea[nCurIdx].myTradeManager.arrBuyedSlots[nSlotIdx].fFixedDelayBottomPad = DEFAULT_DELAY_BOTTOM_PAD;
                                 break;
                             default:
                                 break;

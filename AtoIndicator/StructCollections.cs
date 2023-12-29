@@ -682,6 +682,10 @@ namespace AtoIndicator
             public double fTargetPer; // 얼마에 익절할거야
             public double fBottomPer; // 얼마에 손절할거야
 
+            // 고정형 매매용
+            public int nFixedDelayTime;
+            public double fFixedDelayBottomPad;
+
             // 경과 확인용
             public double fPowerWithFee; // 세금 수수료 포함 손익율
             public int nCurLineIdx; // 현재 익절선과 손절선의 인덱스
@@ -785,6 +789,9 @@ namespace AtoIndicator
                 newSlot.nCheckLineIdx = nCheckLineIdx;
                 newSlot.fCheckCeilingPer = fCheckCeilingPer;
                 newSlot.fCheckBottomPer = fCheckBottomPer;
+
+                newSlot.nFixedDelayTime = nFixedDelayTime;
+                newSlot.fFixedDelayBottomPad = fFixedDelayBottomPad;
 
                 return newSlot;
             }

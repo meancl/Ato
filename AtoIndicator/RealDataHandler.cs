@@ -1700,6 +1700,8 @@ namespace AtoIndicator
                                                         case TradeMethodCategory.FixedMethod:
                                                             newSlot.fTargetPer = DEFAULT_FIXED_CEILING;
                                                             newSlot.fBottomPer = DEFAULT_FIXED_BOTTOM;
+                                                            newSlot.nFixedDelayTime = DEFAULT_DELAY_TIME;
+                                                            newSlot.fFixedDelayBottomPad = DEFAULT_DELAY_BOTTOM_PAD;
                                                             break;
                                                         default:
                                                             break;
