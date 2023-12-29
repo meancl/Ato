@@ -35,7 +35,11 @@ namespace AtoIndicator
         public List<string> bKeyList;
         public Dictionary<string, BasicInfo> bDict = new Dictionary<string, BasicInfo>();
 
-
+        public bool isConfigurationExist = false;
+        public int DEFAULT_DELAY_TIME = 0;
+        public double DEFAULT_DELAY_BOTTOM_PAD = 0;
+        public double DEFAULT_FIXED_CEILING = 0.02;
+        public double DEFAULT_FIXED_BOTTOM = -0.01;
 
 
         public StrategyNames strategyName;

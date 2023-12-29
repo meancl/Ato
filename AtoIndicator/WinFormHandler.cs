@@ -229,7 +229,7 @@ namespace AtoIndicator
                 {
                     if (isShiftPushed && cUp == 'F') // 고정치 변경
                     {
-                        fixedGroupBox.Visible = !fixedGroupBox.Visible;
+                        CallThreadConfiguration();
                     }
                 }
             }
@@ -237,39 +237,6 @@ namespace AtoIndicator
             {
                 if(cUp == 13) // enter
                     ViewManualEachStock();
-            }
-        }
-
-        public void FixedChangeClickHandler(object sender, EventArgs e)
-        {
-            try
-            {
-                double fOneMove = 0.001;
-
-                if (sender.Equals(ceilingDownButton))
-                {
-                    DEFAULT_FIXED_CEILING -= fOneMove;
-                    ceilingLabel.Text = Math.Round(DEFAULT_FIXED_CEILING, 3).ToString();
-                }
-                else if (sender.Equals(ceilingUpButton))
-                {
-                    DEFAULT_FIXED_CEILING += fOneMove;
-                    ceilingLabel.Text = Math.Round(DEFAULT_FIXED_CEILING, 3).ToString();
-                }
-                else if (sender.Equals(floorDownButton))
-                {
-                    DEFAULT_FIXED_BOTTOM -= fOneMove;
-                    floorLabel.Text = Math.Round(DEFAULT_FIXED_BOTTOM, 3).ToString();
-                }
-                else if (sender.Equals(floorUpButton))
-                {
-                    DEFAULT_FIXED_BOTTOM += fOneMove;
-                    floorLabel.Text = Math.Round(DEFAULT_FIXED_BOTTOM, 3).ToString();
-                }
-            }
-            catch
-            {
-
             }
         }
 
@@ -489,6 +456,22 @@ namespace AtoIndicator
             try
             {
                 new Thread(() => new FastInfo(this).ShowDialog()).Start();
+            }
+            catch
+            {
+
+            }
+        }
+
+        public void CallThreadConfiguration()
+        {
+            try
+            {
+                if (!isConfigurationExist)
+                {
+                    isConfigurationExist = true;
+                    new Thread(() => new Configuration(this).ShowDialog()).Start();
+                }
             }
             catch
             {

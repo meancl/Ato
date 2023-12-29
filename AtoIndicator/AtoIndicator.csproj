@@ -380,6 +380,12 @@
     <Compile Include="Utils\RealDataHandler\TradingLiner.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="View\Configuration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Configuration.Designer.cs">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\EachStockHistoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
