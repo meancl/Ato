@@ -103,11 +103,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Manager\DataManager.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="AtoReplayer.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AtoReplayer.Designer.cs">
+      <DependentUpon>AtoReplayer.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ArrowColors.cs" />
     <Compile Include="Models\FakeReport.cs" />
@@ -116,8 +116,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\DbUtil.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AtoReplayer.resx">
+      <DependentUpon>AtoReplayer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

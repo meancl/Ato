@@ -30,14 +30,7 @@ namespace AtoIndicator.View
         private void InitializeComponent()
         {
             this.fixedGroupBox = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.floorLabel = new System.Windows.Forms.Label();
-            this.floorUpButton = new System.Windows.Forms.Button();
-            this.floorDownButton = new System.Windows.Forms.Button();
-            this.ceilingLabel = new System.Windows.Forms.Label();
-            this.ceilingUpButton = new System.Windows.Forms.Button();
-            this.ceilingDownButton = new System.Windows.Forms.Button();
+            this.gapCheckBox = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.delayPaddingLabel = new System.Windows.Forms.Label();
@@ -46,7 +39,14 @@ namespace AtoIndicator.View
             this.delayTimeLabel = new System.Windows.Forms.Label();
             this.delayTimeUpButton = new System.Windows.Forms.Button();
             this.delayTimeDownButton = new System.Windows.Forms.Button();
-            this.gapCheckBox = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.floorLabel = new System.Windows.Forms.Label();
+            this.floorUpButton = new System.Windows.Forms.Button();
+            this.floorDownButton = new System.Windows.Forms.Button();
+            this.ceilingLabel = new System.Windows.Forms.Label();
+            this.ceilingUpButton = new System.Windows.Forms.Button();
+            this.ceilingDownButton = new System.Windows.Forms.Button();
             this.fixedGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,81 +78,15 @@ namespace AtoIndicator.View
             this.fixedGroupBox.TabStop = false;
             this.fixedGroupBox.Text = "고정식 조정";
             // 
-            // label10
+            // gapCheckBox
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(21, 121);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(41, 12);
-            this.label10.TabIndex = 544;
-            this.label10.Text = "하한선";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(21, 90);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(41, 12);
-            this.label9.TabIndex = 543;
-            this.label9.Text = "상한선";
-            // 
-            // floorLabel
-            // 
-            this.floorLabel.AutoSize = true;
-            this.floorLabel.Location = new System.Drawing.Point(183, 119);
-            this.floorLabel.Name = "floorLabel";
-            this.floorLabel.Size = new System.Drawing.Size(39, 12);
-            this.floorLabel.TabIndex = 542;
-            this.floorLabel.Text = "-0.015";
-            // 
-            // floorUpButton
-            // 
-            this.floorUpButton.Location = new System.Drawing.Point(249, 116);
-            this.floorUpButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.floorUpButton.Name = "floorUpButton";
-            this.floorUpButton.Size = new System.Drawing.Size(22, 18);
-            this.floorUpButton.TabIndex = 541;
-            this.floorUpButton.Text = "▶";
-            this.floorUpButton.UseVisualStyleBackColor = true;
-            // 
-            // floorDownButton
-            // 
-            this.floorDownButton.Location = new System.Drawing.Point(147, 116);
-            this.floorDownButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.floorDownButton.Name = "floorDownButton";
-            this.floorDownButton.Size = new System.Drawing.Size(22, 18);
-            this.floorDownButton.TabIndex = 540;
-            this.floorDownButton.Text = "◀";
-            this.floorDownButton.UseVisualStyleBackColor = true;
-            // 
-            // ceilingLabel
-            // 
-            this.ceilingLabel.AutoSize = true;
-            this.ceilingLabel.Location = new System.Drawing.Point(195, 90);
-            this.ceilingLabel.Name = "ceilingLabel";
-            this.ceilingLabel.Size = new System.Drawing.Size(27, 12);
-            this.ceilingLabel.TabIndex = 539;
-            this.ceilingLabel.Text = "0.08";
-            // 
-            // ceilingUpButton
-            // 
-            this.ceilingUpButton.Location = new System.Drawing.Point(249, 84);
-            this.ceilingUpButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ceilingUpButton.Name = "ceilingUpButton";
-            this.ceilingUpButton.Size = new System.Drawing.Size(22, 18);
-            this.ceilingUpButton.TabIndex = 538;
-            this.ceilingUpButton.Text = "▶";
-            this.ceilingUpButton.UseVisualStyleBackColor = true;
-            // 
-            // ceilingDownButton
-            // 
-            this.ceilingDownButton.Location = new System.Drawing.Point(147, 87);
-            this.ceilingDownButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.ceilingDownButton.Name = "ceilingDownButton";
-            this.ceilingDownButton.Size = new System.Drawing.Size(22, 18);
-            this.ceilingDownButton.TabIndex = 537;
-            this.ceilingDownButton.Text = "◀";
-            this.ceilingDownButton.UseVisualStyleBackColor = true;
+            this.gapCheckBox.AutoSize = true;
+            this.gapCheckBox.Location = new System.Drawing.Point(0, 143);
+            this.gapCheckBox.Name = "gapCheckBox";
+            this.gapCheckBox.Size = new System.Drawing.Size(66, 16);
+            this.gapCheckBox.TabIndex = 553;
+            this.gapCheckBox.Text = "ROUGH";
+            this.gapCheckBox.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -230,15 +164,81 @@ namespace AtoIndicator.View
             this.delayTimeDownButton.Text = "◀";
             this.delayTimeDownButton.UseVisualStyleBackColor = true;
             // 
-            // gapCheckBox
+            // label10
             // 
-            this.gapCheckBox.AutoSize = true;
-            this.gapCheckBox.Location = new System.Drawing.Point(0, 143);
-            this.gapCheckBox.Name = "gapCheckBox";
-            this.gapCheckBox.Size = new System.Drawing.Size(49, 16);
-            this.gapCheckBox.TabIndex = 553;
-            this.gapCheckBox.Text = "GAP";
-            this.gapCheckBox.UseVisualStyleBackColor = true;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(21, 121);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(41, 12);
+            this.label10.TabIndex = 544;
+            this.label10.Text = "하한선";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(21, 90);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(41, 12);
+            this.label9.TabIndex = 543;
+            this.label9.Text = "상한선";
+            // 
+            // floorLabel
+            // 
+            this.floorLabel.AutoSize = true;
+            this.floorLabel.Location = new System.Drawing.Point(183, 119);
+            this.floorLabel.Name = "floorLabel";
+            this.floorLabel.Size = new System.Drawing.Size(39, 12);
+            this.floorLabel.TabIndex = 542;
+            this.floorLabel.Text = "-0.015";
+            // 
+            // floorUpButton
+            // 
+            this.floorUpButton.Location = new System.Drawing.Point(249, 116);
+            this.floorUpButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.floorUpButton.Name = "floorUpButton";
+            this.floorUpButton.Size = new System.Drawing.Size(22, 18);
+            this.floorUpButton.TabIndex = 541;
+            this.floorUpButton.Text = "▶";
+            this.floorUpButton.UseVisualStyleBackColor = true;
+            // 
+            // floorDownButton
+            // 
+            this.floorDownButton.Location = new System.Drawing.Point(147, 116);
+            this.floorDownButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.floorDownButton.Name = "floorDownButton";
+            this.floorDownButton.Size = new System.Drawing.Size(22, 18);
+            this.floorDownButton.TabIndex = 540;
+            this.floorDownButton.Text = "◀";
+            this.floorDownButton.UseVisualStyleBackColor = true;
+            // 
+            // ceilingLabel
+            // 
+            this.ceilingLabel.AutoSize = true;
+            this.ceilingLabel.Location = new System.Drawing.Point(195, 90);
+            this.ceilingLabel.Name = "ceilingLabel";
+            this.ceilingLabel.Size = new System.Drawing.Size(27, 12);
+            this.ceilingLabel.TabIndex = 539;
+            this.ceilingLabel.Text = "0.08";
+            // 
+            // ceilingUpButton
+            // 
+            this.ceilingUpButton.Location = new System.Drawing.Point(249, 84);
+            this.ceilingUpButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ceilingUpButton.Name = "ceilingUpButton";
+            this.ceilingUpButton.Size = new System.Drawing.Size(22, 18);
+            this.ceilingUpButton.TabIndex = 538;
+            this.ceilingUpButton.Text = "▶";
+            this.ceilingUpButton.UseVisualStyleBackColor = true;
+            // 
+            // ceilingDownButton
+            // 
+            this.ceilingDownButton.Location = new System.Drawing.Point(147, 87);
+            this.ceilingDownButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ceilingDownButton.Name = "ceilingDownButton";
+            this.ceilingDownButton.Size = new System.Drawing.Size(22, 18);
+            this.ceilingDownButton.TabIndex = 537;
+            this.ceilingDownButton.Text = "◀";
+            this.ceilingDownButton.UseVisualStyleBackColor = true;
             // 
             // Configuration
             // 

@@ -466,6 +466,9 @@
     <Compile Include="WinFormHandler.cs">
       <SubType>Form</SubType>
     </Compile>
+    <EmbeddedResource Include="View\Configuration.resx">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\EachStockHistoryForm.resx">
       <DependentUpon>EachStockHistoryForm.cs</DependentUpon>
     </EmbeddedResource>

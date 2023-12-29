@@ -21,14 +21,14 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace AtoReplayer
 {
-    public partial class Form1 : Form
+    public partial class AtoReplayer : Form
     {
         private DataManager dataManager;
         private const string DATEFORMAT = "yyyy-MM-dd";
 
         private string searchCode = ""; // 주식 코드 or 주식명
         private string searchDate = DateTime.Today.ToString(DATEFORMAT);
-        private int searchCompLoc = 0;
+        private int searchCompLoc = 1;
 
         TimeLine[] timelines = new TimeLine[0];
         FakeReport[] fakereports = new FakeReport[0];
@@ -163,7 +163,7 @@ namespace AtoReplayer
 
         public bool isAllArrowVisible = true;
 
-        public Form1()
+        public AtoReplayer()
         {
             InitializeComponent();
 
