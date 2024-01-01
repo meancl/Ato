@@ -25,9 +25,9 @@ namespace AtoIndicator.View
             gapCheckBox.CheckedChanged += CheckBoxCheckedHandler;
 
             delayTimeLabel.Text = mainForm.DEFAULT_DELAY_TIME.ToString();
-            delayPaddingLabel.Text = Math.Round(mainForm.DEFAULT_DELAY_BOTTOM_PAD, 3).ToString();
-            ceilingLabel.Text = Math.Round(mainForm.DEFAULT_FIXED_CEILING, 3).ToString();
-            floorLabel.Text = Math.Round(mainForm.DEFAULT_FIXED_BOTTOM, 3).ToString();
+            delayPaddingLabel.Text = Math.Round(mainForm.DEFAULT_DELAY_BOTTOM_PAD, 4).ToString();
+            ceilingLabel.Text = Math.Round(mainForm.DEFAULT_FIXED_CEILING, 4).ToString();
+            floorLabel.Text = Math.Round(mainForm.DEFAULT_FIXED_BOTTOM, 4).ToString();
 
             ceilingDownButton.Click += FixedChangeClickHandler;
             ceilingUpButton.Click += FixedChangeClickHandler;
