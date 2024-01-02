@@ -69,7 +69,6 @@ namespace AtoIndicator.View
             this.label1 = new System.Windows.Forms.Label();
             this.tHIT121 = new System.Windows.Forms.TextBox();
             this.label70 = new System.Windows.Forms.Label();
-            this.label69 = new System.Windows.Forms.Label();
             this.timeLabel = new System.Windows.Forms.Label();
             this.registerLabel = new System.Windows.Forms.Label();
             this.keyLabel = new System.Windows.Forms.Label();
@@ -234,12 +233,7 @@ namespace AtoIndicator.View
             this.reserve3Btn = new System.Windows.Forms.Button();
             this.reserve2Btn = new System.Windows.Forms.Button();
             this.reserve1Btn = new System.Windows.Forms.Button();
-            this.write5Btn = new System.Windows.Forms.Button();
-            this.write4Btn = new System.Windows.Forms.Button();
-            this.write3Btn = new System.Windows.Forms.Button();
-            this.write2Btn = new System.Windows.Forms.Button();
             this.timerCheckBox = new System.Windows.Forms.CheckBox();
-            this.write1Btn = new System.Windows.Forms.Button();
             this.t4P2 = new System.Windows.Forms.TextBox();
             this.label31 = new System.Windows.Forms.Label();
             this.t4P1 = new System.Windows.Forms.TextBox();
@@ -300,6 +294,12 @@ namespace AtoIndicator.View
             this.tUntilVi2 = new System.Windows.Forms.TextBox();
             this.untilVi = new System.Windows.Forms.Label();
             this.tUntilVi1 = new System.Windows.Forms.TextBox();
+            this.label69 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.crushVisualCheckBox = new System.Windows.Forms.CheckBox();
+            this.viVisualCheckBox = new System.Windows.Forms.CheckBox();
+            this.viVisualTxtBox = new System.Windows.Forms.TextBox();
+            this.crushVisualTxtBox = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -308,9 +308,9 @@ namespace AtoIndicator.View
             // 
             this.groupBox2.Controls.Add(this.listView1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(410, 0);
+            this.groupBox2.Location = new System.Drawing.Point(409, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1090, 828);
+            this.groupBox2.Size = new System.Drawing.Size(1091, 828);
             this.groupBox2.TabIndex = 20;
             this.groupBox2.TabStop = false;
             // 
@@ -321,7 +321,7 @@ namespace AtoIndicator.View
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(3, 17);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(1084, 808);
+            this.listView1.Size = new System.Drawing.Size(1085, 808);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -370,6 +370,12 @@ namespace AtoIndicator.View
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.crushVisualTxtBox);
+            this.groupBox1.Controls.Add(this.viVisualTxtBox);
+            this.groupBox1.Controls.Add(this.viVisualCheckBox);
+            this.groupBox1.Controls.Add(this.crushVisualCheckBox);
+            this.groupBox1.Controls.Add(this.label72);
+            this.groupBox1.Controls.Add(this.label69);
             this.groupBox1.Controls.Add(this.tUntilVi2);
             this.groupBox1.Controls.Add(this.untilVi);
             this.groupBox1.Controls.Add(this.tUntilVi1);
@@ -404,7 +410,6 @@ namespace AtoIndicator.View
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.tHIT121);
             this.groupBox1.Controls.Add(this.label70);
-            this.groupBox1.Controls.Add(this.label69);
             this.groupBox1.Controls.Add(this.timeLabel);
             this.groupBox1.Controls.Add(this.registerLabel);
             this.groupBox1.Controls.Add(this.keyLabel);
@@ -569,12 +574,7 @@ namespace AtoIndicator.View
             this.groupBox1.Controls.Add(this.reserve3Btn);
             this.groupBox1.Controls.Add(this.reserve2Btn);
             this.groupBox1.Controls.Add(this.reserve1Btn);
-            this.groupBox1.Controls.Add(this.write5Btn);
-            this.groupBox1.Controls.Add(this.write4Btn);
-            this.groupBox1.Controls.Add(this.write3Btn);
-            this.groupBox1.Controls.Add(this.write2Btn);
             this.groupBox1.Controls.Add(this.timerCheckBox);
-            this.groupBox1.Controls.Add(this.write1Btn);
             this.groupBox1.Controls.Add(this.t4P2);
             this.groupBox1.Controls.Add(this.label31);
             this.groupBox1.Controls.Add(this.t4P1);
@@ -640,14 +640,14 @@ namespace AtoIndicator.View
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(410, 828);
+            this.groupBox1.Size = new System.Drawing.Size(409, 828);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             // 
             // upSoundCheckBox
             // 
             this.upSoundCheckBox.AutoSize = true;
-            this.upSoundCheckBox.Location = new System.Drawing.Point(337, 60);
+            this.upSoundCheckBox.Location = new System.Drawing.Point(16, 312);
             this.upSoundCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.upSoundCheckBox.Name = "upSoundCheckBox";
             this.upSoundCheckBox.Size = new System.Drawing.Size(38, 16);
@@ -658,7 +658,7 @@ namespace AtoIndicator.View
             // viSoundCheckBox
             // 
             this.viSoundCheckBox.AutoSize = true;
-            this.viSoundCheckBox.Location = new System.Drawing.Point(338, 38);
+            this.viSoundCheckBox.Location = new System.Drawing.Point(17, 290);
             this.viSoundCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.viSoundCheckBox.Name = "viSoundCheckBox";
             this.viSoundCheckBox.Size = new System.Drawing.Size(33, 16);
@@ -669,7 +669,7 @@ namespace AtoIndicator.View
             // crushSoundCheckBox
             // 
             this.crushSoundCheckBox.AutoSize = true;
-            this.crushSoundCheckBox.Location = new System.Drawing.Point(338, 18);
+            this.crushSoundCheckBox.Location = new System.Drawing.Point(17, 270);
             this.crushSoundCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.crushSoundCheckBox.Name = "crushSoundCheckBox";
             this.crushSoundCheckBox.Size = new System.Drawing.Size(56, 16);
@@ -860,7 +860,7 @@ namespace AtoIndicator.View
             // 
             // tRPD2
             // 
-            this.tRPD2.Location = new System.Drawing.Point(658, 780);
+            this.tRPD2.Location = new System.Drawing.Point(354, 613);
             this.tRPD2.Name = "tRPD2";
             this.tRPD2.Size = new System.Drawing.Size(48, 21);
             this.tRPD2.TabIndex = 522;
@@ -868,7 +868,7 @@ namespace AtoIndicator.View
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(514, 788);
+            this.label4.Location = new System.Drawing.Point(210, 621);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(121, 12);
             this.label4.TabIndex = 520;
@@ -876,7 +876,7 @@ namespace AtoIndicator.View
             // 
             // tRPD1
             // 
-            this.tRPD1.Location = new System.Drawing.Point(435, 783);
+            this.tRPD1.Location = new System.Drawing.Point(131, 616);
             this.tRPD1.Name = "tRPD1";
             this.tRPD1.Size = new System.Drawing.Size(48, 21);
             this.tRPD1.TabIndex = 521;
@@ -907,20 +907,11 @@ namespace AtoIndicator.View
             // label70
             // 
             this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(12, 244);
+            this.label70.Location = new System.Drawing.Point(15, 481);
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(77, 12);
             this.label70.TabIndex = 516;
             this.label70.Text = "* 필터 버튼 *";
-            // 
-            // label69
-            // 
-            this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(12, 475);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(77, 12);
-            this.label69.TabIndex = 515;
-            this.label69.Text = "* 적기 버튼 *";
             // 
             // timeLabel
             // 
@@ -957,7 +948,7 @@ namespace AtoIndicator.View
             // 
             // tCURFC2
             // 
-            this.tCURFC2.Location = new System.Drawing.Point(350, 697);
+            this.tCURFC2.Location = new System.Drawing.Point(354, 694);
             this.tCURFC2.Name = "tCURFC2";
             this.tCURFC2.Size = new System.Drawing.Size(48, 21);
             this.tCURFC2.TabIndex = 510;
@@ -965,7 +956,7 @@ namespace AtoIndicator.View
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(192, 700);
+            this.label67.Location = new System.Drawing.Point(196, 697);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(144, 12);
             this.label67.TabIndex = 508;
@@ -973,14 +964,14 @@ namespace AtoIndicator.View
             // 
             // tCURFC1
             // 
-            this.tCURFC1.Location = new System.Drawing.Point(128, 695);
+            this.tCURFC1.Location = new System.Drawing.Point(132, 692);
             this.tCURFC1.Name = "tCURFC1";
             this.tCURFC1.Size = new System.Drawing.Size(48, 21);
             this.tCURFC1.TabIndex = 509;
             // 
             // tCURFT2
             // 
-            this.tCURFT2.Location = new System.Drawing.Point(350, 660);
+            this.tCURFT2.Location = new System.Drawing.Point(354, 660);
             this.tCURFT2.Name = "tCURFT2";
             this.tCURFT2.Size = new System.Drawing.Size(48, 21);
             this.tCURFT2.TabIndex = 507;
@@ -988,7 +979,7 @@ namespace AtoIndicator.View
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(192, 663);
+            this.label68.Location = new System.Drawing.Point(196, 663);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(128, 12);
             this.label68.TabIndex = 505;
@@ -996,7 +987,7 @@ namespace AtoIndicator.View
             // 
             // tCURFT1
             // 
-            this.tCURFT1.Location = new System.Drawing.Point(128, 659);
+            this.tCURFT1.Location = new System.Drawing.Point(132, 659);
             this.tCURFT1.Name = "tCURFT1";
             this.tCURFT1.Size = new System.Drawing.Size(48, 21);
             this.tCURFT1.TabIndex = 506;
@@ -1601,7 +1592,7 @@ namespace AtoIndicator.View
             // 
             // reserve4Btn
             // 
-            this.reserve4Btn.Location = new System.Drawing.Point(21, 404);
+            this.reserve4Btn.Location = new System.Drawing.Point(24, 641);
             this.reserve4Btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reserve4Btn.Name = "reserve4Btn";
             this.reserve4Btn.Size = new System.Drawing.Size(52, 34);
@@ -1818,7 +1809,7 @@ namespace AtoIndicator.View
             // 
             // tCS2
             // 
-            this.tCS2.Location = new System.Drawing.Point(315, 529);
+            this.tCS2.Location = new System.Drawing.Point(318, 517);
             this.tCS2.Name = "tCS2";
             this.tCS2.Size = new System.Drawing.Size(48, 21);
             this.tCS2.TabIndex = 317;
@@ -1826,7 +1817,7 @@ namespace AtoIndicator.View
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(192, 535);
+            this.label40.Location = new System.Drawing.Point(195, 523);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(97, 12);
             this.label40.TabIndex = 315;
@@ -1834,7 +1825,7 @@ namespace AtoIndicator.View
             // 
             // tCS1
             // 
-            this.tCS1.Location = new System.Drawing.Point(128, 529);
+            this.tCS1.Location = new System.Drawing.Point(131, 517);
             this.tCS1.Name = "tCS1";
             this.tCS1.Size = new System.Drawing.Size(48, 21);
             this.tCS1.TabIndex = 316;
@@ -1864,7 +1855,7 @@ namespace AtoIndicator.View
             // 
             // tPM2
             // 
-            this.tPM2.Location = new System.Drawing.Point(351, 783);
+            this.tPM2.Location = new System.Drawing.Point(326, 776);
             this.tPM2.Name = "tPM2";
             this.tPM2.Size = new System.Drawing.Size(48, 21);
             this.tPM2.TabIndex = 311;
@@ -1872,7 +1863,7 @@ namespace AtoIndicator.View
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(192, 786);
+            this.label35.Location = new System.Drawing.Point(196, 782);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(101, 12);
             this.label35.TabIndex = 309;
@@ -1880,14 +1871,14 @@ namespace AtoIndicator.View
             // 
             // tPM1
             // 
-            this.tPM1.Location = new System.Drawing.Point(128, 782);
+            this.tPM1.Location = new System.Drawing.Point(132, 778);
             this.tPM1.Name = "tPM1";
             this.tPM1.Size = new System.Drawing.Size(48, 21);
             this.tPM1.TabIndex = 310;
             // 
             // tCM2
             // 
-            this.tCM2.Location = new System.Drawing.Point(351, 746);
+            this.tCM2.Location = new System.Drawing.Point(326, 742);
             this.tCM2.Name = "tCM2";
             this.tCM2.Size = new System.Drawing.Size(48, 21);
             this.tCM2.TabIndex = 308;
@@ -1895,7 +1886,7 @@ namespace AtoIndicator.View
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(192, 751);
+            this.label36.Location = new System.Drawing.Point(196, 747);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(101, 12);
             this.label36.TabIndex = 306;
@@ -1903,7 +1894,7 @@ namespace AtoIndicator.View
             // 
             // tCM1
             // 
-            this.tCM1.Location = new System.Drawing.Point(128, 746);
+            this.tCM1.Location = new System.Drawing.Point(132, 742);
             this.tCM1.Name = "tCM1";
             this.tCM1.Size = new System.Drawing.Size(48, 21);
             this.tCM1.TabIndex = 307;
@@ -2163,7 +2154,7 @@ namespace AtoIndicator.View
             // 
             // reserve3Btn
             // 
-            this.reserve3Btn.Location = new System.Drawing.Point(21, 357);
+            this.reserve3Btn.Location = new System.Drawing.Point(24, 594);
             this.reserve3Btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reserve3Btn.Name = "reserve3Btn";
             this.reserve3Btn.Size = new System.Drawing.Size(52, 34);
@@ -2173,7 +2164,7 @@ namespace AtoIndicator.View
             // 
             // reserve2Btn
             // 
-            this.reserve2Btn.Location = new System.Drawing.Point(21, 312);
+            this.reserve2Btn.Location = new System.Drawing.Point(24, 549);
             this.reserve2Btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reserve2Btn.Name = "reserve2Btn";
             this.reserve2Btn.Size = new System.Drawing.Size(52, 32);
@@ -2183,53 +2174,13 @@ namespace AtoIndicator.View
             // 
             // reserve1Btn
             // 
-            this.reserve1Btn.Location = new System.Drawing.Point(21, 268);
+            this.reserve1Btn.Location = new System.Drawing.Point(24, 505);
             this.reserve1Btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reserve1Btn.Name = "reserve1Btn";
             this.reserve1Btn.Size = new System.Drawing.Size(52, 30);
             this.reserve1Btn.TabIndex = 267;
             this.reserve1Btn.Text = "예약1";
             this.reserve1Btn.UseVisualStyleBackColor = true;
-            // 
-            // write5Btn
-            // 
-            this.write5Btn.Location = new System.Drawing.Point(24, 668);
-            this.write5Btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.write5Btn.Name = "write5Btn";
-            this.write5Btn.Size = new System.Drawing.Size(52, 34);
-            this.write5Btn.TabIndex = 266;
-            this.write5Btn.Text = "적기5";
-            this.write5Btn.UseVisualStyleBackColor = true;
-            // 
-            // write4Btn
-            // 
-            this.write4Btn.Location = new System.Drawing.Point(24, 624);
-            this.write4Btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.write4Btn.Name = "write4Btn";
-            this.write4Btn.Size = new System.Drawing.Size(52, 32);
-            this.write4Btn.TabIndex = 265;
-            this.write4Btn.Text = "적기4";
-            this.write4Btn.UseVisualStyleBackColor = true;
-            // 
-            // write3Btn
-            // 
-            this.write3Btn.Location = new System.Drawing.Point(24, 581);
-            this.write3Btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.write3Btn.Name = "write3Btn";
-            this.write3Btn.Size = new System.Drawing.Size(52, 30);
-            this.write3Btn.TabIndex = 264;
-            this.write3Btn.Text = "적기3";
-            this.write3Btn.UseVisualStyleBackColor = true;
-            // 
-            // write2Btn
-            // 
-            this.write2Btn.Location = new System.Drawing.Point(24, 539);
-            this.write2Btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.write2Btn.Name = "write2Btn";
-            this.write2Btn.Size = new System.Drawing.Size(52, 30);
-            this.write2Btn.TabIndex = 263;
-            this.write2Btn.Text = "적기2";
-            this.write2Btn.UseVisualStyleBackColor = true;
             // 
             // timerCheckBox
             // 
@@ -2241,16 +2192,6 @@ namespace AtoIndicator.View
             this.timerCheckBox.TabIndex = 262;
             this.timerCheckBox.Text = "타이머";
             this.timerCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // write1Btn
-            // 
-            this.write1Btn.Location = new System.Drawing.Point(24, 496);
-            this.write1Btn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.write1Btn.Name = "write1Btn";
-            this.write1Btn.Size = new System.Drawing.Size(52, 34);
-            this.write1Btn.TabIndex = 261;
-            this.write1Btn.Text = "적기1";
-            this.write1Btn.UseVisualStyleBackColor = true;
             // 
             // t4P2
             // 
@@ -2576,7 +2517,7 @@ namespace AtoIndicator.View
             // 
             // tPD2
             // 
-            this.tPD2.Location = new System.Drawing.Point(658, 753);
+            this.tPD2.Location = new System.Drawing.Point(354, 586);
             this.tPD2.Name = "tPD2";
             this.tPD2.Size = new System.Drawing.Size(48, 21);
             this.tPD2.TabIndex = 212;
@@ -2584,7 +2525,7 @@ namespace AtoIndicator.View
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(514, 761);
+            this.label5.Location = new System.Drawing.Point(210, 594);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(109, 12);
             this.label5.TabIndex = 210;
@@ -2592,7 +2533,7 @@ namespace AtoIndicator.View
             // 
             // tPD1
             // 
-            this.tPD1.Location = new System.Drawing.Point(435, 755);
+            this.tPD1.Location = new System.Drawing.Point(131, 588);
             this.tPD1.Name = "tPD1";
             this.tPD1.Size = new System.Drawing.Size(48, 21);
             this.tPD1.TabIndex = 211;
@@ -2691,7 +2632,7 @@ namespace AtoIndicator.View
             // 
             // tUntilVi2
             // 
-            this.tUntilVi2.Location = new System.Drawing.Point(315, 565);
+            this.tUntilVi2.Location = new System.Drawing.Point(318, 553);
             this.tUntilVi2.Name = "tUntilVi2";
             this.tUntilVi2.Size = new System.Drawing.Size(48, 21);
             this.tUntilVi2.TabIndex = 553;
@@ -2699,7 +2640,7 @@ namespace AtoIndicator.View
             // untilVi
             // 
             this.untilVi.AutoSize = true;
-            this.untilVi.Location = new System.Drawing.Point(192, 571);
+            this.untilVi.Location = new System.Drawing.Point(195, 559);
             this.untilVi.Name = "untilVi";
             this.untilVi.Size = new System.Drawing.Size(96, 12);
             this.untilVi.TabIndex = 551;
@@ -2707,10 +2648,64 @@ namespace AtoIndicator.View
             // 
             // tUntilVi1
             // 
-            this.tUntilVi1.Location = new System.Drawing.Point(128, 565);
+            this.tUntilVi1.Location = new System.Drawing.Point(131, 553);
             this.tUntilVi1.Name = "tUntilVi1";
             this.tUntilVi1.Size = new System.Drawing.Size(48, 21);
             this.tUntilVi1.TabIndex = 552;
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(14, 245);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(77, 12);
+            this.label69.TabIndex = 554;
+            this.label69.Text = "* 알람 체크 *";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(14, 360);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(89, 12);
+            this.label72.TabIndex = 555;
+            this.label72.Text = "* 비쥬얼 체크 *";
+            // 
+            // crushVisualCheckBox
+            // 
+            this.crushVisualCheckBox.AutoSize = true;
+            this.crushVisualCheckBox.Location = new System.Drawing.Point(63, 380);
+            this.crushVisualCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.crushVisualCheckBox.Name = "crushVisualCheckBox";
+            this.crushVisualCheckBox.Size = new System.Drawing.Size(56, 16);
+            this.crushVisualCheckBox.TabIndex = 556;
+            this.crushVisualCheckBox.Text = "crush";
+            this.crushVisualCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // viVisualCheckBox
+            // 
+            this.viVisualCheckBox.AutoSize = true;
+            this.viVisualCheckBox.Location = new System.Drawing.Point(63, 408);
+            this.viVisualCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.viVisualCheckBox.Name = "viVisualCheckBox";
+            this.viVisualCheckBox.Size = new System.Drawing.Size(33, 16);
+            this.viVisualCheckBox.TabIndex = 557;
+            this.viVisualCheckBox.Text = "vi";
+            this.viVisualCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // viVisualTxtBox
+            // 
+            this.viVisualTxtBox.Location = new System.Drawing.Point(14, 406);
+            this.viVisualTxtBox.Name = "viVisualTxtBox";
+            this.viVisualTxtBox.Size = new System.Drawing.Size(43, 21);
+            this.viVisualTxtBox.TabIndex = 558;
+            // 
+            // crushVisualTxtBox
+            // 
+            this.crushVisualTxtBox.Location = new System.Drawing.Point(14, 379);
+            this.crushVisualTxtBox.Name = "crushVisualTxtBox";
+            this.crushVisualTxtBox.Size = new System.Drawing.Size(43, 21);
+            this.crushVisualTxtBox.TabIndex = 559;
             // 
             // FastInfo
             // 
@@ -2795,12 +2790,7 @@ namespace AtoIndicator.View
         private System.Windows.Forms.TextBox tTF2;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox tTF1;
-        private System.Windows.Forms.Button write5Btn;
-        private System.Windows.Forms.Button write4Btn;
-        private System.Windows.Forms.Button write3Btn;
-        private System.Windows.Forms.Button write2Btn;
         private System.Windows.Forms.CheckBox timerCheckBox;
-        private System.Windows.Forms.Button write1Btn;
         private System.Windows.Forms.Button reserve3Btn;
         private System.Windows.Forms.Button reserve2Btn;
         private System.Windows.Forms.Button reserve1Btn;
@@ -2966,7 +2956,6 @@ namespace AtoIndicator.View
         private System.Windows.Forms.Label registerLabel;
         private System.Windows.Forms.Label timeLabel;
         private System.Windows.Forms.Label label70;
-        private System.Windows.Forms.Label label69;
         private System.Windows.Forms.TextBox tHIT122;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tHIT121;
@@ -3000,5 +2989,11 @@ namespace AtoIndicator.View
         private System.Windows.Forms.TextBox tUntilVi2;
         private System.Windows.Forms.Label untilVi;
         private System.Windows.Forms.TextBox tUntilVi1;
+        private System.Windows.Forms.TextBox crushVisualTxtBox;
+        private System.Windows.Forms.TextBox viVisualTxtBox;
+        private System.Windows.Forms.CheckBox viVisualCheckBox;
+        private System.Windows.Forms.CheckBox crushVisualCheckBox;
+        private System.Windows.Forms.Label label72;
+        private System.Windows.Forms.Label label69;
     }
 }

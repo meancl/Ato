@@ -2184,7 +2184,7 @@ namespace AtoIndicator
                         
                         ea[nCurIdx].nUpViPrice = ea[nCurIdx].nTodayStartPrice;
                         int nViCountError = 0;
-                        while ( (((double)( ea[nCurIdx].nUpViPrice - ea[nCurIdx].nTodayStartPrice ) / ea[nCurIdx].nYesterdayEndPrice)  <=  0.1 ) &&
+                        while ( (((double)( ea[nCurIdx].nUpViPrice - ea[nCurIdx].nTodayStartPrice ) / ea[nCurIdx].nTodayStartPrice)  <=  0.1 ) &&
                             nViCountError <= 200) // vi가와 시가의 차이가 10퍼가 넘을때까지 
                         {
                             ea[nCurIdx].nUpViPrice += GetIntegratedMarketGap(ea[nCurIdx].nUpViPrice);

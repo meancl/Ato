@@ -121,11 +121,7 @@ namespace AtoIndicator.View
             timerDownButton.Click += TimerButtonClickHandler;
             timerUpButton.Click += TimerButtonClickHandler;
 
-            this.write1Btn.Click += WriteButtonClickHandler;
-            this.write2Btn.Click += WriteButtonClickHandler;
-            this.write3Btn.Click += WriteButtonClickHandler;
-            this.write4Btn.Click += WriteButtonClickHandler;
-            this.write5Btn.Click += WriteButtonClickHandler;
+       
 
             this.reserve1Btn.Click += ReserveButtonClickHandler;
             this.reserve2Btn.Click += ReserveButtonClickHandler;
@@ -138,12 +134,6 @@ namespace AtoIndicator.View
             tooltip3.SetToolTip(reserve3Btn, "분봉상 전고돌파 확정");
             tooltip4.SetToolTip(reserve4Btn, "페이크매수분포2 페이크갯수 50 맥스파워 0.1");
 
-
-            tooltip7.SetToolTip(write1Btn, "현재 0.02퍼 이상");
-            tooltip8.SetToolTip(write2Btn, "이전 0.02퍼 이상");
-            tooltip9.SetToolTip(write3Btn, "속도 100 이상");
-            tooltip10.SetToolTip(write4Btn, "페매수 10개 이상");
-            tooltip11.SetToolTip(write5Btn, "갭 0.02퍼 이상");
 
             this.FormClosed += FormClosedHandler;
 
@@ -1875,6 +1865,43 @@ namespace AtoIndicator.View
                                         listViewItem.SubItems[restIdx].BackColor = Color.Teal;
                                     else
                                         listViewItem.SubItems[restIdx].BackColor = myColor;
+
+
+                                   
+                                }
+
+                                if (crushVisualCheckBox.Checked)
+                                {
+                                    try
+                                    {
+                                        bool isDigit = double.TryParse(crushVisualTxtBox.Text, out double fCrushValue);
+                                        if (isDigit)
+                                        {
+                                            if (mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower <= fCrushValue)
+                                                listViewItem.SubItems[7].BackColor = Color.Yellow;
+                                        }
+                                    }
+                                    catch
+                                    {
+
+                                    }
+                                }
+
+                                if (viVisualCheckBox.Checked)
+                                {
+                                    try
+                                    {
+                                        bool isDigit = double.TryParse(viVisualTxtBox.Text, out double fViValue);
+                                        if (isDigit)
+                                        {
+                                            if (((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice) <= fViValue)
+                                                listViewItem.SubItems[8].BackColor = Color.Orange;
+                                        }
+                                    }
+                                    catch
+                                    {
+
+                                    }
                                 }
 
 
@@ -2082,29 +2109,6 @@ namespace AtoIndicator.View
             isR1 = isR2 = isR3 = isR4 = isRZ = false;
         }
 
-        private void WriteButtonClickHandler(object sender, EventArgs e)
-        {
-            if (sender.Equals(write1Btn))
-            {
-                tCM1.Text = "0.02";
-            }
-            else if (sender.Equals(write2Btn))
-            {
-                tPM1.Text = "0.02";
-            }
-            else if (sender.Equals(write3Btn))
-            {
-                tCS1.Text = "100";
-            }
-            else if (sender.Equals(write4Btn))
-            {
-                tFBA1.Text = "10";
-            }
-            else if (sender.Equals(write5Btn))
-            {
-                tSG1.Text = "0.02";
-            }
-        }
 
         public int nTimerMilliSec = 300;
         public const int TIMER_MOVING = 100;
