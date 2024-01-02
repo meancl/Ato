@@ -16,9 +16,9 @@ namespace AtoIndicator
         #endregion
 
         #region 상수
-        public const double KOSPI_STOCK_TAX1 = 0.0005; // 코스피 거래세
+        public const double KOSPI_STOCK_TAX1 = 0.0003; // 코스피 거래세
         public const double KOSPI_STOCK_TAX2 = 0.0015; // 코스피 농특세
-        public const double KOSDAQ_STOCK_TAX = 0.002; // 코스닥 거래세
+        public const double KOSDAQ_STOCK_TAX = 0.0018; // 코스닥 거래세
 
         public const double KIWOOM_STOCK_FEE = 0.00015; // 증권 매매수수료
 

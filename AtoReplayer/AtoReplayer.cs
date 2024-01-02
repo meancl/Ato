@@ -49,7 +49,7 @@ namespace AtoReplayer
         public const int DEFAULT_DEPOSIT = 500000;
         public const double BUY_COMMISION = 0.00015;
         public const double SELL_COMMISION = 0.00015;
-        public const double STOCK_TAX = 0.002;
+        public const double STOCK_TAX = 0.0018;
 
         public int nCurTime;
         public int nCurStartPrice;
