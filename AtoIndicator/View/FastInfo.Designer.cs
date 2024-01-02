@@ -300,6 +300,8 @@ namespace AtoIndicator.View
             this.viVisualCheckBox = new System.Windows.Forms.CheckBox();
             this.viVisualTxtBox = new System.Windows.Forms.TextBox();
             this.crushVisualTxtBox = new System.Windows.Forms.TextBox();
+            this.speedVisualTxtBox = new System.Windows.Forms.TextBox();
+            this.speedVisualCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -370,6 +372,8 @@ namespace AtoIndicator.View
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.speedVisualCheckBox);
+            this.groupBox1.Controls.Add(this.speedVisualTxtBox);
             this.groupBox1.Controls.Add(this.crushVisualTxtBox);
             this.groupBox1.Controls.Add(this.viVisualTxtBox);
             this.groupBox1.Controls.Add(this.viVisualCheckBox);
@@ -2707,6 +2711,24 @@ namespace AtoIndicator.View
             this.crushVisualTxtBox.Size = new System.Drawing.Size(43, 21);
             this.crushVisualTxtBox.TabIndex = 559;
             // 
+            // speedVisualTxtBox
+            // 
+            this.speedVisualTxtBox.Location = new System.Drawing.Point(14, 437);
+            this.speedVisualTxtBox.Name = "speedVisualTxtBox";
+            this.speedVisualTxtBox.Size = new System.Drawing.Size(43, 21);
+            this.speedVisualTxtBox.TabIndex = 560;
+            // 
+            // speedVisualCheckBox
+            // 
+            this.speedVisualCheckBox.AutoSize = true;
+            this.speedVisualCheckBox.Location = new System.Drawing.Point(63, 439);
+            this.speedVisualCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.speedVisualCheckBox.Name = "speedVisualCheckBox";
+            this.speedVisualCheckBox.Size = new System.Drawing.Size(59, 16);
+            this.speedVisualCheckBox.TabIndex = 561;
+            this.speedVisualCheckBox.Text = "speed";
+            this.speedVisualCheckBox.UseVisualStyleBackColor = true;
+            // 
             // FastInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -2995,5 +3017,7 @@ namespace AtoIndicator.View
         private System.Windows.Forms.CheckBox crushVisualCheckBox;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Label label69;
+        private System.Windows.Forms.CheckBox speedVisualCheckBox;
+        private System.Windows.Forms.TextBox speedVisualTxtBox;
     }
 }

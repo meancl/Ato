@@ -1904,6 +1904,25 @@ namespace AtoIndicator.View
                                     }
                                 }
 
+                                if (speedVisualCheckBox.Checked)
+                                {
+                                    try
+                                    {
+                                        bool isDigit = double.TryParse(speedVisualTxtBox.Text, out double fSpeedValue);
+                                        if (isDigit)
+                                        {
+                                            if (mainForm.ea[i].speedStatus.fCur >= fSpeedValue)
+                                                listViewItem.SubItems[9].BackColor = Color.Green;
+                                        }
+                                    }
+                                    catch
+                                    {
+
+                                    }
+                                }
+
+
+
 
                                 listViewItemList.Add(listViewItem);
 
