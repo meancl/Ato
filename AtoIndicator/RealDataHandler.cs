@@ -1972,7 +1972,7 @@ namespace AtoIndicator
 
                         if (s4 == 0 && b4 == 0)
                         {
-                            if (Math.Abs(ea[nCurIdx].fPower) > 0.05 || (Math.Abs(ea[nCurIdx].fPowerJar) > 0.01 && (ea[nCurIdx].nChegyulCnt > 1000 || ea[nCurIdx].nStopHogaCnt > 1000)))  // 정확한 vi 기준을 몰라 안좋은 종목들은 걸러내면 진짜 vi만 남을듯
+                            if (true) // 일단 다 vi라고 치자 // Math.Abs(ea[nCurIdx].fPower) > 0.05 || (Math.Abs(ea[nCurIdx].fPowerJar) > 0.01 && (ea[nCurIdx].nChegyulCnt > 1000 || ea[nCurIdx].nStopHogaCnt > 1000)))  // 정확한 vi 기준을 몰라 안좋은 종목들은 걸러내면 진짜 vi만 남을듯
                             {
                                 if (!ea[nCurIdx].isViMode)
                                 {
@@ -1997,11 +1997,11 @@ namespace AtoIndicator
 
                                 // 다음 vi 가격 설정
                                 int nViCountError = 0;
-                                while ( ( ((double)(ea[nCurIdx].nUpViPrice - ea[nCurIdx].nCurHogaPrice) / ea[nCurIdx].nYesterdayEndPrice) <= 0.1 ) &&
+                                ea[nCurIdx].nUpViPrice = ea[nCurIdx].nCurHogaPrice;
+                                while ( ( ((double)(ea[nCurIdx].nUpViPrice - ea[nCurIdx].nCurHogaPrice) / ea[nCurIdx].nCurHogaPrice) <= 0.1 ) &&
                                     nViCountError <= 200 ) // vi가와 시가의 차이가 10퍼가 넘을때까지 
                                 {
                                     ea[nCurIdx].nUpViPrice += GetIntegratedMarketGap(ea[nCurIdx].nUpViPrice);
-                                    ea[nCurIdx].fUpViPower = (double)ea[nCurIdx].nUpViPrice / ea[nCurIdx].nYesterdayEndPrice;
                                     nViCountError++;
                                 }
                             }
@@ -2181,15 +2181,13 @@ namespace AtoIndicator
                         }
                         ea[nCurIdx].fStartGap = (double)ea[nCurIdx].nStartGap / ea[nCurIdx].nYesterdayEndPrice; // 갭의 등락율 or ea[nCurIdx].fPower
 
-
+                        
                         ea[nCurIdx].nUpViPrice = ea[nCurIdx].nTodayStartPrice;
-
                         int nViCountError = 0;
                         while ( (((double)( ea[nCurIdx].nUpViPrice - ea[nCurIdx].nTodayStartPrice ) / ea[nCurIdx].nYesterdayEndPrice)  <=  0.1 ) &&
                             nViCountError <= 200) // vi가와 시가의 차이가 10퍼가 넘을때까지 
                         {
                             ea[nCurIdx].nUpViPrice += GetIntegratedMarketGap(ea[nCurIdx].nUpViPrice);
-                            ea[nCurIdx].fUpViPower = (double)ea[nCurIdx].nUpViPrice / ea[nCurIdx].nYesterdayEndPrice;
                             nViCountError++;
                         }
 
@@ -2232,6 +2230,16 @@ namespace AtoIndicator
                         ea[nCurIdx].isViMode = false;
                         ea[nCurIdx].isViGauge = true;
                         ea[nCurIdx].nViEndTime = nSharedTime;
+
+                        // 다음 vi 가격 설정
+                        int nViCountError = 0;
+                        ea[nCurIdx].nUpViPrice = ea[nCurIdx].nFs;
+                        while ((((double)(ea[nCurIdx].nUpViPrice - ea[nCurIdx].nFs) / ea[nCurIdx].nFs) <= 0.1) &&
+                            nViCountError <= 200) // vi가와 시가의 차이가 10퍼가 넘을때까지 
+                        {
+                            ea[nCurIdx].nUpViPrice += GetIntegratedMarketGap(ea[nCurIdx].nUpViPrice);
+                            nViCountError++;
+                        }
                     }
 
                     ea[nCurIdx].fPowerWithoutGap = ea[nCurIdx].fPower - ea[nCurIdx].fStartGap;

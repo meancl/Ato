@@ -45,9 +45,10 @@ namespace AtoIndicator.View
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "초기갭" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "맥스차" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "당일탑" });
-            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "vi차" });
-
+            
             listView1.Columns.Add(new ColumnHeader { Name = sString, Text = "RV" });
+
+            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "vi까지" });
             listView1.Columns.Add(new ColumnHeader { Name = sString, Text = "VI" });
 
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "체결속도" });
@@ -491,6 +492,8 @@ namespace AtoIndicator.View
                         tTradeCompared2.Text = "";
                         tTradeStrength1.Text = "";
                         tTradeStrength2.Text = "";
+                        tUntilVi1.Text = "";
+                        tUntilVi2.Text = "";
 
                     }
                 }
@@ -852,6 +855,8 @@ namespace AtoIndicator.View
                 string sTradeCompared2 = "";
                 string sTradeStrength1 = "";
                 string sTradeStrength2 = "";
+                string sUntilVi1 = "";
+                string sUntilVi2 = "";
 
                 bool isTF1 = false;
                 bool isTF2 = false;
@@ -1007,6 +1012,8 @@ namespace AtoIndicator.View
                 bool isTradeCompared2 = false;
                 bool isTradeStrength1 = false;
                 bool isTradeStrength2 = false;
+                bool isUntilVi1 = false;
+                bool isUntilVi2 = false;
 
                 try
                 {
@@ -1172,6 +1179,8 @@ namespace AtoIndicator.View
                     sTradeCompared2 = tTradeCompared2.Text.Trim();
                     sTradeStrength1 = tTradeStrength1.Text.Trim();
                     sTradeStrength2 = tTradeStrength2.Text.Trim();
+                    sUntilVi1 = tUntilVi1.Text.Trim();
+                    sUntilVi2 = tUntilVi2.Text.Trim();
 
 
                     isTF1 = !sTF1.Equals("");
@@ -1328,6 +1337,8 @@ namespace AtoIndicator.View
                     isTradeCompared2 = !sTradeCompared2.Equals("");
                     isTradeStrength1 = !sTradeStrength1.Equals("");
                     isTradeStrength2 = !sTradeStrength2.Equals("");
+                    isUntilVi1 = !sUntilVi1.Equals("");
+                    isUntilVi2 = !sUntilVi2.Equals("");
 
                     nPass = 0; // pass cnt
                     nPassLen = 0;
@@ -1409,6 +1420,7 @@ namespace AtoIndicator.View
                                         isFABPlusNum1 || isFABPlusNum2,
                                         isTradeCompared1 || isTradeCompared2,
                                         isTradeStrength1 || isTradeStrength2,
+                                        isUntilVi1 || isUntilVi2,
                     });
 
                     string sPassNum = passNumTxtBox.Text.Trim();
@@ -1684,6 +1696,10 @@ namespace AtoIndicator.View
                             if (isTradeStrength1 || isTradeStrength2)
                                 nPass += ((isTradeStrength1 ? double.Parse(sTradeStrength1) <= mainForm.ea[i].fTs : true) &&
                                   (isTradeStrength2 ? mainForm.ea[i].fTs <= double.Parse(sTradeStrength2) : true)) ? 1 : 0;
+                            if(isUntilVi1 || isUntilVi2)
+                                nPass += ((isUntilVi1 ? double.Parse(sUntilVi1) <= ((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice) : true) &&
+                                  (isUntilVi2 ? ((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice) <= double.Parse(sUntilVi2) : true)) ? 1 : 0;
+
 
                             isShow = nPass >= nFinalPassNum;
 
@@ -1761,9 +1777,10 @@ namespace AtoIndicator.View
                                 Math.Round(mainForm.ea[i].fStartGap, 3).ToString(),
                                 Math.Round(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower, 3).ToString(),
                                 Math.Round(mainForm.ea[i].fTodayMaxPower, 3).ToString(),
-                                Math.Round(mainForm.ea[i].fUpViPower - mainForm.ea[i].fPower , 3).ToString(),
-
+                                
                                 "", // 매수예약
+
+                                Math.Round((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice, 3).ToString(),
                                 mainForm.ea[i].isViMode.ToString(),
 
                                 Math.Round(mainForm.ea[i].speedStatus.fCur, 2).ToString(),
@@ -1839,22 +1856,22 @@ namespace AtoIndicator.View
                                     else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isBuyReserved ||
                                               mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isBuyReserved ||
                                               mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isBuyReserved ||
-                                              mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isBuyReserved) && restIdx == 7)
+                                              mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isBuyReserved) && restIdx == 6)
                                         listViewItem.SubItems[restIdx].BackColor = Color.Black;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isSelected && restIdx == 8) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isChosen1 && restIdx == 9))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isSelected && restIdx == 7) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isChosen1 && restIdx == 8))
                                         listViewItem.SubItems[restIdx].BackColor = Color.BlueViolet;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isSelected && restIdx == 10) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isChosen1 && restIdx == 11))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isSelected && restIdx == 9) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isChosen1 && restIdx == 10))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Gold;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isSelected && restIdx == 12) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isChosen1 && restIdx == 13))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isSelected && restIdx == 11) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isChosen1 && restIdx == 12))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Turquoise;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isSelected && restIdx == 14) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isChosen1 && restIdx == 15))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isSelected && restIdx == 13) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isChosen1 && restIdx == 14))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Olive;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isSelected && restIdx == 16) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isChosen1 && restIdx == 17))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isSelected && restIdx == 15) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isChosen1 && restIdx == 16))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Teal;
                                     else
                                         listViewItem.SubItems[restIdx].BackColor = myColor;

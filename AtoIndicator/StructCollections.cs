@@ -193,7 +193,6 @@ namespace AtoIndicator
             public int nRealDataIdxVi;
 
 
-            public double fUpViPower;
             public int nUpViPrice;
 
 
