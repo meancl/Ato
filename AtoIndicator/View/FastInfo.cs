@@ -325,6 +325,17 @@ namespace AtoIndicator.View
                         eCheckBox.Checked = false;
                         rCheckBox.Checked = false;
 
+                        crushVisualTxtBox.Text = "";
+                        viVisualTxtBox.Text = "";
+                        speedVisualTxtBox.Text = "";
+
+                        crushVisualCheckBox.Checked = false;
+                        viVisualCheckBox.Checked = false;
+                        speedVisualCheckBox.Checked = false;
+
+                        crushSoundCheckBox.Checked = false;
+                        viSoundCheckBox.Checked = false;
+                        upSoundCheckBox.Checked = false;
 
                         passNumTxtBox.Text = "";
 

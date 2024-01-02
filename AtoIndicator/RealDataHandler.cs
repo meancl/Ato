@@ -1998,7 +1998,7 @@ namespace AtoIndicator
                                 // 다음 vi 가격 설정
                                 int nViCountError = 0;
                                 ea[nCurIdx].nUpViPrice = ea[nCurIdx].nCurHogaPrice;
-                                while ( ( ((double)(ea[nCurIdx].nUpViPrice - ea[nCurIdx].nCurHogaPrice) / ea[nCurIdx].nCurHogaPrice) <= 0.1 ) &&
+                                while ( ( ((double)(ea[nCurIdx].nUpViPrice - ea[nCurIdx].nCurHogaPrice) / ea[nCurIdx].nCurHogaPrice) < 0.1 ) &&
                                     nViCountError <= 200 ) // vi가와 시가의 차이가 10퍼가 넘을때까지 
                                 {
                                     ea[nCurIdx].nUpViPrice += GetIntegratedMarketGap(ea[nCurIdx].nUpViPrice);
@@ -2184,7 +2184,7 @@ namespace AtoIndicator
                         
                         ea[nCurIdx].nUpViPrice = ea[nCurIdx].nTodayStartPrice;
                         int nViCountError = 0;
-                        while ( (((double)( ea[nCurIdx].nUpViPrice - ea[nCurIdx].nTodayStartPrice ) / ea[nCurIdx].nTodayStartPrice)  <=  0.1 ) &&
+                        while ( (((double)( ea[nCurIdx].nUpViPrice - ea[nCurIdx].nTodayStartPrice ) / ea[nCurIdx].nTodayStartPrice)  < 0.1 ) &&
                             nViCountError <= 200) // vi가와 시가의 차이가 10퍼가 넘을때까지 
                         {
                             ea[nCurIdx].nUpViPrice += GetIntegratedMarketGap(ea[nCurIdx].nUpViPrice);
@@ -2234,7 +2234,7 @@ namespace AtoIndicator
                         // 다음 vi 가격 설정
                         int nViCountError = 0;
                         ea[nCurIdx].nUpViPrice = ea[nCurIdx].nFs;
-                        while ((((double)(ea[nCurIdx].nUpViPrice - ea[nCurIdx].nFs) / ea[nCurIdx].nFs) <= 0.1) &&
+                        while ((((double)(ea[nCurIdx].nUpViPrice - ea[nCurIdx].nFs) / ea[nCurIdx].nFs) < 0.1) &&
                             nViCountError <= 200) // vi가와 시가의 차이가 10퍼가 넘을때까지 
                         {
                             ea[nCurIdx].nUpViPrice += GetIntegratedMarketGap(ea[nCurIdx].nUpViPrice);
