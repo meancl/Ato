@@ -45,6 +45,7 @@ namespace AtoIndicator.View
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "초기갭" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "맥스차" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "당일탑" });
+            listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "vi차" });
 
             listView1.Columns.Add(new ColumnHeader { Name = sString, Text = "RV" });
             listView1.Columns.Add(new ColumnHeader { Name = sString, Text = "VI" });
@@ -1760,6 +1761,8 @@ namespace AtoIndicator.View
                                 Math.Round(mainForm.ea[i].fStartGap, 3).ToString(),
                                 Math.Round(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower, 3).ToString(),
                                 Math.Round(mainForm.ea[i].fTodayMaxPower, 3).ToString(),
+                                Math.Round(mainForm.ea[i].fUpViPower - mainForm.ea[i].fPower , 3).ToString(),
+
                                 "", // 매수예약
                                 mainForm.ea[i].isViMode.ToString(),
 
@@ -1836,22 +1839,22 @@ namespace AtoIndicator.View
                                     else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isBuyReserved ||
                                               mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isBuyReserved ||
                                               mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isBuyReserved ||
-                                              mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isBuyReserved) && restIdx == 6)
+                                              mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isBuyReserved) && restIdx == 7)
                                         listViewItem.SubItems[restIdx].BackColor = Color.Black;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isSelected && restIdx == 7) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isChosen1 && restIdx == 8))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isSelected && restIdx == 8) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isChosen1 && restIdx == 9))
                                         listViewItem.SubItems[restIdx].BackColor = Color.BlueViolet;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isSelected && restIdx == 9) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isChosen1 && restIdx == 10))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isSelected && restIdx == 10) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isChosen1 && restIdx == 11))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Gold;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isSelected && restIdx == 11) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isChosen1 && restIdx == 12))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isSelected && restIdx == 12) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_DOWN_RESERVE].isChosen1 && restIdx == 13))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Turquoise;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isSelected && restIdx == 13) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isChosen1 && restIdx == 14))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isSelected && restIdx == 14) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_RESERVE_POSITION_RESERVE].isChosen1 && restIdx == 15))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Olive;
-                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isSelected && restIdx == 15) ||
-                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isChosen1 && restIdx == 16))
+                                    else if ((mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isSelected && restIdx == 16) ||
+                                            (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isChosen1 && restIdx == 17))
                                         listViewItem.SubItems[restIdx].BackColor = Color.Teal;
                                     else
                                         listViewItem.SubItems[restIdx].BackColor = myColor;

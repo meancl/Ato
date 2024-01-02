@@ -1994,6 +1994,16 @@ namespace AtoIndicator
                                 ea[nCurIdx].isViMode = false;
                                 ea[nCurIdx].isViGauge = true;
                                 ea[nCurIdx].nViEndTime = nSharedTime;
+
+                                // 다음 vi 가격 설정
+                                int nViCountError = 0;
+                                while ( ( ((double)(ea[nCurIdx].nUpViPrice - ea[nCurIdx].nCurHogaPrice) / ea[nCurIdx].nYesterdayEndPrice) <= 0.1 ) &&
+                                    nViCountError <= 200 ) // vi가와 시가의 차이가 10퍼가 넘을때까지 
+                                {
+                                    ea[nCurIdx].nUpViPrice += GetIntegratedMarketGap(ea[nCurIdx].nUpViPrice);
+                                    ea[nCurIdx].fUpViPower = (double)ea[nCurIdx].nUpViPrice / ea[nCurIdx].nYesterdayEndPrice;
+                                    nViCountError++;
+                                }
                             }
                         }
                     }
@@ -2170,6 +2180,18 @@ namespace AtoIndicator
                             ea[nCurIdx].nTodayStartPrice = ea[nCurIdx].nYesterdayEndPrice + ea[nCurIdx].nStartGap;
                         }
                         ea[nCurIdx].fStartGap = (double)ea[nCurIdx].nStartGap / ea[nCurIdx].nYesterdayEndPrice; // 갭의 등락율 or ea[nCurIdx].fPower
+
+
+                        ea[nCurIdx].nUpViPrice = ea[nCurIdx].nTodayStartPrice;
+
+                        int nViCountError = 0;
+                        while ( (((double)( ea[nCurIdx].nUpViPrice - ea[nCurIdx].nTodayStartPrice ) / ea[nCurIdx].nYesterdayEndPrice)  <=  0.1 ) &&
+                            nViCountError <= 200) // vi가와 시가의 차이가 10퍼가 넘을때까지 
+                        {
+                            ea[nCurIdx].nUpViPrice += GetIntegratedMarketGap(ea[nCurIdx].nUpViPrice);
+                            ea[nCurIdx].fUpViPower = (double)ea[nCurIdx].nUpViPrice / ea[nCurIdx].nYesterdayEndPrice;
+                            nViCountError++;
+                        }
 
 
 

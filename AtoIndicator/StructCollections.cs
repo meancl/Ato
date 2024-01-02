@@ -193,6 +193,10 @@ namespace AtoIndicator
             public int nRealDataIdxVi;
 
 
+            public double fUpViPower;
+            public int nUpViPrice;
+
+
             // ------------------------------
             // 오늘 가격
             //-------------------------------
