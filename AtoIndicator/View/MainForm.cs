@@ -54,6 +54,8 @@ namespace AtoIndicator
 
             checkChartButton.Click += Button_Click;
 
+            accountComboBox.SelectedIndexChanged += SelectedIndexChangedHandler;
+
             axKHOpenAPI1.OnEventConnect += OnEventConnectHandler; // 로그인 event slot connect
             axKHOpenAPI1.OnReceiveTrData += OnReceiveTrDataHandler; // TR event slot connect
             axKHOpenAPI1.OnReceiveRealData += OnReceiveRealDataHandler; // 실시간 event slot connect

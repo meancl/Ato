@@ -324,6 +324,17 @@ namespace AtoIndicator
         }
         public int nSellMethodSetting;
 
+        public void SelectedIndexChangedHandler(object sender, EventArgs e)
+        {
+            ComboBox combo = (ComboBox)sender;
+
+            sAccountNum = combo.Text;
+
+            // RequestHoldings(0);
+            RequestDeposit(); // 예수금상세현황요청 
+
+        }
+
         public void ToolTipItemClickHandler(object sender, EventArgs e)
         {
             ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;

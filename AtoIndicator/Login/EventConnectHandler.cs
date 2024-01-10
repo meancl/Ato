@@ -54,8 +54,7 @@ namespace AtoIndicator
                 RequestHoldings(0);
                 SubscribeRealData(); // 실시간 구독 
                 RequestDeposit(); // 예수금상세현황요청 
-
-
+              
                 foreach (string sAccount in accountArray)
                 {
                     if (sAccount.Length > 0)
