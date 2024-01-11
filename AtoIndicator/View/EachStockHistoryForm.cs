@@ -37,6 +37,7 @@ namespace AtoIndicator.View.EachStockHistory
         public bool isAllArrowVisible = true;
 
         public bool isViewGapMa = false;
+        public bool isViewInitMa = false;
 
         public int nLastMinuteIdx = 0;
         public int nLastBuyedBlockIdx = 0;
@@ -558,16 +559,19 @@ namespace AtoIndicator.View.EachStockHistory
                 nLastMinuteIdx = 0;
 
                 historyChart.Series["MinuteStick"].Points.Clear();
-                historyChart.Series["Ma20m"].Points.Clear();
-                historyChart.Series["Ma1h"].Points.Clear();
-                historyChart.Series["Ma2h"].Points.Clear();
-
+             
                 historyChart.Series["MinuteStick"].ChartType = SeriesChartType.Candlestick;
                 historyChart.Series["MinuteStick"].ChartArea = "TotalArea";
 
+                historyChart.Series["Ma20m"].Points.Clear();
+                historyChart.Series["Ma1h"].Points.Clear();
+                historyChart.Series["Ma2h"].Points.Clear();
                 historyChart.Series["Ma20m"].ChartType = SeriesChartType.Line;
                 historyChart.Series["Ma1h"].ChartType = SeriesChartType.Line;
                 historyChart.Series["Ma2h"].ChartType = SeriesChartType.Line;
+                historyChart.Series["Ma20m"].Enabled = isViewInitMa;
+                historyChart.Series["Ma1h"].Enabled = isViewInitMa;
+                historyChart.Series["Ma2h"].Enabled = isViewInitMa;
 
                 historyChart.Series["Ma20mGap"].Points.Clear();
                 historyChart.Series["Ma1hGap"].Points.Clear();
@@ -2656,6 +2660,12 @@ namespace AtoIndicator.View.EachStockHistory
             if (cUp == 'G')
             {
                 isViewGapMa = !isViewGapMa;
+                ResetMinuteChart();
+            }
+
+            if (cUp == 'H')
+            {
+                isViewInitMa = !isViewInitMa;
                 ResetMinuteChart();
             }
 
