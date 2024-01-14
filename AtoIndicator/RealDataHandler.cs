@@ -133,8 +133,8 @@ namespace AtoIndicator
 
         public const int UP_RESERVE = 0;
         public const int DOWN_RESERVE = 1;
-        public const int MA_DOWN_RESERVE = 2;
-        public const int MA_RESERVE_POSITION_RESERVE = 3;
+        public const int MA_20M_DOWN_RESERVE = 2;
+        public const int MA_2H_DOWN_RESERVE = 3;
         public const int MA_UP_RESERVE = 4;
         public const int INIT_RESERVE = 5;
 
@@ -1179,44 +1179,47 @@ namespace AtoIndicator
                         #region MA 예약 확인
                         {
 
-                            // MA 역배열
-                            if(ea[i].manualReserve.reserveArr[MA_RESERVE_POSITION_RESERVE].isSelected && !ea[i].manualReserve.reserveArr[MA_RESERVE_POSITION_RESERVE].isChosen1)
+                          
+                            // MA 20m 다운 
+                            if (ea[i].manualReserve.reserveArr[MA_20M_DOWN_RESERVE].isSelected && !ea[i].manualReserve.reserveArr[MA_20M_DOWN_RESERVE].isChosen1)
                             {
-                                if (ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMa0 <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMa2 &&
-                                    ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMa1 <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMa2
-                                    )
+                                if (ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap0)
                                 {
-                                    ea[i].manualReserve.reserveArr[MA_RESERVE_POSITION_RESERVE].isChosen1 = true;
-                                    ea[i].manualReserve.reserveArr[MA_RESERVE_POSITION_RESERVE].nChosenTime = nSharedTime;
-                                    ea[i].manualReserve.reserveArr[MA_RESERVE_POSITION_RESERVE].dChosenTime = DateTime.UtcNow;
+                                    if (ea[i].manualReserve.reserveArr[MA_20M_DOWN_RESERVE].isBuyReserved)
+                                    {
+                                        ea[i].manualReserve.reserveArr[MA_20M_DOWN_RESERVE].isBuyReserved = false;
+                                        RequestMachineBuy(i, nQty: ea[i].manualReserve.reserveArr[MA_20M_DOWN_RESERVE].nBuyReserveNumStock);
+                                    }
+                                    ea[i].manualReserve.reserveArr[MA_20M_DOWN_RESERVE].isChosen1 = true;
+                                    ea[i].manualReserve.reserveArr[MA_20M_DOWN_RESERVE].nChosenTime = nSharedTime;
+                                    ea[i].manualReserve.reserveArr[MA_20M_DOWN_RESERVE].dChosenTime = DateTime.UtcNow;
                                 }
                             }
 
-                            // MA 다운 
-                            if (ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].isSelected && !ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].isChosen1)
+                            // MA 2H 다운
+                            if (ea[i].manualReserve.reserveArr[MA_2H_DOWN_RESERVE].isSelected && !ea[i].manualReserve.reserveArr[MA_2H_DOWN_RESERVE].isChosen1)
                             {
-                                if (ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMa0 &&
-                                    ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMa1 &&
-                                    ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMa2 
-                                    )
+                                if (ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap2)
                                 {
-                                    if (ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].isBuyReserved)
+                                    if (ea[i].manualReserve.reserveArr[MA_2H_DOWN_RESERVE].isBuyReserved)
                                     {
-                                        ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].isBuyReserved = false;
-                                        RequestMachineBuy(i, nQty: ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].nBuyReserveNumStock);
+                                        ea[i].manualReserve.reserveArr[MA_2H_DOWN_RESERVE].isBuyReserved = false;
+                                        RequestMachineBuy(i, nQty: ea[i].manualReserve.reserveArr[MA_2H_DOWN_RESERVE].nBuyReserveNumStock);
                                     }
-                                    ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].isChosen1 = true;
-                                    ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].nChosenTime = nSharedTime;
-                                    ea[i].manualReserve.reserveArr[MA_DOWN_RESERVE].dChosenTime = DateTime.UtcNow;
+
+                                    ea[i].manualReserve.reserveArr[MA_2H_DOWN_RESERVE].isChosen1 = true;
+                                    ea[i].manualReserve.reserveArr[MA_2H_DOWN_RESERVE].nChosenTime = nSharedTime;
+                                    ea[i].manualReserve.reserveArr[MA_2H_DOWN_RESERVE].dChosenTime = DateTime.UtcNow;
                                 }
                             }
+
 
                             // MA 업 
                             if (ea[i].manualReserve.reserveArr[MA_UP_RESERVE].isSelected && !ea[i].manualReserve.reserveArr[MA_UP_RESERVE].isChosen1)
                             {
-                                if (ea[i].nFs >= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMa0 &&
-                                    ea[i].nFs >= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMa1 &&
-                                    ea[i].nFs >= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMa2
+                                if (ea[i].nFs >= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap0 &&
+                                    ea[i].nFs >= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap1 &&
+                                    ea[i].nFs >= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap2
                                     )
                                 {
                                     if (ea[i].manualReserve.reserveArr[MA_UP_RESERVE].isBuyReserved)
