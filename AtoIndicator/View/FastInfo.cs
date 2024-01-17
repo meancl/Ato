@@ -332,6 +332,7 @@ namespace AtoIndicator.View
                         crushVisualCheckBox.Checked = false;
                         viVisualCheckBox.Checked = false;
                         speedVisualCheckBox.Checked = false;
+                        maVisualCheckBox.Checked = false;
 
                         crushSoundCheckBox.Checked = false;
                         viSoundCheckBox.Checked = false;
@@ -495,6 +496,8 @@ namespace AtoIndicator.View
                         tTradeStrength2.Text = "";
                         tUntilVi1.Text = "";
                         tUntilVi2.Text = "";
+                        tDUP1.Text = "";
+                        tDUP2.Text = "";
 
                     }
                 }
@@ -858,6 +861,8 @@ namespace AtoIndicator.View
                 string sTradeStrength2 = "";
                 string sUntilVi1 = "";
                 string sUntilVi2 = "";
+                string sDUP1 = "";
+                string sDUP2 = "";
 
                 bool isTF1 = false;
                 bool isTF2 = false;
@@ -1015,6 +1020,8 @@ namespace AtoIndicator.View
                 bool isTradeStrength2 = false;
                 bool isUntilVi1 = false;
                 bool isUntilVi2 = false;
+                bool isDUP1 = false;
+                bool isDUP2 = false;
 
                 try
                 {
@@ -1182,6 +1189,8 @@ namespace AtoIndicator.View
                     sTradeStrength2 = tTradeStrength2.Text.Trim();
                     sUntilVi1 = tUntilVi1.Text.Trim();
                     sUntilVi2 = tUntilVi2.Text.Trim();
+                    sDUP1 = tDUP1.Text.Trim();
+                    sDUP2 = tDUP2.Text.Trim();
 
 
                     isTF1 = !sTF1.Equals("");
@@ -1340,6 +1349,9 @@ namespace AtoIndicator.View
                     isTradeStrength2 = !sTradeStrength2.Equals("");
                     isUntilVi1 = !sUntilVi1.Equals("");
                     isUntilVi2 = !sUntilVi2.Equals("");
+                    isDUP1 = !sDUP1.Equals("");
+                    isDUP2 = !sDUP2.Equals("");
+                    
 
                     nPass = 0; // pass cnt
                     nPassLen = 0;
@@ -1422,6 +1434,7 @@ namespace AtoIndicator.View
                                         isTradeCompared1 || isTradeCompared2,
                                         isTradeStrength1 || isTradeStrength2,
                                         isUntilVi1 || isUntilVi2,
+                                        isDUP1 || isDUP2,
                     });
 
                     string sPassNum = passNumTxtBox.Text.Trim();
@@ -1598,6 +1611,9 @@ namespace AtoIndicator.View
                             if (isTMD1 || isTMD2)
                                 nPass += ((isTMD1 ? double.Parse(sTMD1) <= mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fTodayBottomPower : true) &&
                                     (isTMD2 ? mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fTodayBottomPower <= double.Parse(sTMD2) : true)) ? 1 : 0;
+                            if (isDUP1 || isDUP2)
+                                nPass += ((isDUP1 ? double.Parse(sDUP1) <= mainForm.ea[i].fPower - mainForm.ea[i].fTodayBottomPower : true) &&
+                                    (isDUP2 ? mainForm.ea[i].fPower - mainForm.ea[i].fTodayBottomPower <= double.Parse(sDUP2) : true)) ? 1 : 0;
                             if (isMR1 || isMR2)
                                 nPass += ((isMR1 ? int.Parse(sMR1) <= mainForm.ea[i].rankSystem.nMinuteSummationRanking : true) &&
                                   (isMR2 ? mainForm.ea[i].rankSystem.nMinuteSummationRanking <= int.Parse(sMR2) : true)) ? 1 : 0;
