@@ -1878,8 +1878,20 @@ namespace AtoIndicator.View
                                     else
                                         listViewItem.SubItems[restIdx].BackColor = myColor;
 
+                                }
 
-                                   
+                                if (maVisualCheckBox.Checked)
+                                {
+                                    try
+                                    {
+                                        if (mainForm.nTimeLineIdx == mainForm.ea[i].nMaGapFallTimeLineIdx)
+                                            listViewItem.SubItems[11].BackColor = Color.Firebrick;
+
+                                        if (mainForm.nTimeLineIdx == mainForm.ea[i].nMaGapCrushTimeLineIdx)
+                                            listViewItem.SubItems[13].BackColor = Color.Orchid;
+                                    }
+                                    catch
+                                    { }
                                 }
 
                                 if (crushVisualCheckBox.Checked)

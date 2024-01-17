@@ -178,6 +178,9 @@ namespace AtoIndicator
             public int nFirstVolume;
             public long lFirstPrice;
 
+            public bool isMaGapCrush;
+            public int nMaGapFallTimeLineIdx;
+            public int nMaGapCrushTimeLineIdx;
 
             public int nRealMaxPrice;
             // ----------------------------------
