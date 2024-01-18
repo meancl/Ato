@@ -1041,9 +1041,9 @@ namespace AtoIndicator
 
                             // 이평선 돌파 여부 확인
                             {
-                                if (ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap0 ||
-                                    ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap1 ||
-                                    ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap2
+                                if (ea[i].nFs < ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap0 ||
+                                    ea[i].nFs < ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap1 ||
+                                    ea[i].nFs < ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap2
                                     )// down
                                 {
                                     if(ea[i].isMaGapCrush)
@@ -1053,9 +1053,9 @@ namespace AtoIndicator
                                 }
 
 
-                                if (ea[i].nFs >= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap0 &&
-                                   ea[i].nFs >= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap1 &&
-                                   ea[i].nFs >= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap2
+                                if (ea[i].nFs > ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap0 &&
+                                   ea[i].nFs > ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap1 &&
+                                   ea[i].nFs > ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap2
                                    ) // up 
                                 {
                                     if(!ea[i].isMaGapCrush)

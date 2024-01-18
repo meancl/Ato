@@ -2669,6 +2669,16 @@ namespace AtoIndicator.View.EachStockHistory
                 ResetMinuteChart();
             }
 
+            if (isSpacePushed && cUp == 'J')
+            {
+                mainForm.ea[nCurIdx].nSelectedCondition++;
+            }
+
+            if(isCtrlPushed && cUp == 'J')
+            {
+                mainForm.ea[nCurIdx].nSelectedCondition = 0;
+            }
+
             if (cUp == 'L') // 로그
             {
                 new ScrollableMessageBox().ShowLog(mainForm.ea[nCurIdx]);
@@ -3017,6 +3027,7 @@ namespace AtoIndicator.View.EachStockHistory
                     }
                 }
             }
+
 
 
             if (isCtrlPushed)
