@@ -198,7 +198,8 @@ namespace AtoIndicator
 
             public int nUpViPrice;
 
-            public int nSelectedCondition; // 해당 종목을 선택하기
+            public int nSelectedConditionJ; // 해당 종목을 선택하기1
+            public int nSelectedConditionK; // 해당 종목을 선택하기2
 
             // ------------------------------
             // 오늘 가격

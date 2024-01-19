@@ -594,13 +594,6 @@ namespace AtoIndicator.View
                     nRZNum = 11;
                     ShowIndicator();
                 }
-                if (cUp == 'L')
-                {
-                    CheckReserve();
-                    isRZ = true;
-                    nRZNum = 12;
-                    ShowIndicator();
-                }
             }
             else
             {
@@ -1788,17 +1781,12 @@ namespace AtoIndicator.View
                                         isReserveShow = mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isSelected;
                                     else if (nRZNum == 10)
                                     {
-                                        if (mainForm.ea[i].nSelectedCondition >= 1)
+                                        if (mainForm.ea[i].nSelectedConditionJ > 0)
                                             isReserveShow = true;
                                     }
                                     else if (nRZNum == 11)
                                     {
-                                        if (mainForm.ea[i].nSelectedCondition >= 2)
-                                            isReserveShow = true;
-                                    }
-                                    else if (nRZNum == 12)
-                                    {
-                                        if (mainForm.ea[i].nSelectedCondition >= 3)
+                                        if (mainForm.ea[i].nSelectedConditionK > 0)
                                             isReserveShow = true;
                                     }
 
@@ -1903,9 +1891,21 @@ namespace AtoIndicator.View
                                         listViewItem.SubItems[restIdx].BackColor = myColor;
                                 }
 
+                                // K
                                 try
                                 {
-                                    Color colorSelection = GetColorBySelectionNum(mainForm.ea[i].nSelectedCondition, myColor);
+                                    Color colorSelection = GetColorBySelectionNum(mainForm.ea[i].nSelectedConditionK, myColor);
+                                    listViewItem.SubItems[4].BackColor = colorSelection;
+                                }
+                                catch
+                                {
+
+                                }
+
+                                // J 
+                                try
+                                {
+                                    Color colorSelection = GetColorBySelectionNum(mainForm.ea[i].nSelectedConditionJ, myColor);
                                     listViewItem.SubItems[6].BackColor = colorSelection;
                                 }
                                 catch
@@ -1960,7 +1960,6 @@ namespace AtoIndicator.View
                                     if (mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_UP_RESERVE].isChosen1)
                                         listViewItem.SubItems[16].BackColor = Color.Teal;
                                 }
-
                                 catch
                                 {
 

@@ -2652,7 +2652,7 @@ namespace AtoIndicator.View.EachStockHistory
             {
                 ShowVariables();
             }
-            if (cUp == 'K') // 매매블럭
+            if (cUp == 'B') // 매매블럭
             {
                 new ScrollableMessageBox().ShowEachBlock(mainForm.ea[nCurIdx]);
             }
@@ -2669,15 +2669,24 @@ namespace AtoIndicator.View.EachStockHistory
                 ResetMinuteChart();
             }
 
-            if (isSpacePushed && cUp == 'J')
+            if ( cUp == 'J')
             {
-                mainForm.ea[nCurIdx].nSelectedCondition++;
+                if(isSpacePushed)
+                    mainForm.ea[nCurIdx].nSelectedConditionJ++;
+
+                if(isCtrlPushed)
+                    mainForm.ea[nCurIdx].nSelectedConditionJ = 0;
             }
 
-            if(isCtrlPushed && cUp == 'J')
+            if (cUp == 'K')
             {
-                mainForm.ea[nCurIdx].nSelectedCondition = 0;
+                if (isSpacePushed)
+                    mainForm.ea[nCurIdx].nSelectedConditionK++;
+
+                if (isCtrlPushed)
+                    mainForm.ea[nCurIdx].nSelectedConditionK = 0;
             }
+
 
             if (cUp == 'L') // 로그
             {
