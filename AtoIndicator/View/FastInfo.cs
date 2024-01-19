@@ -594,6 +594,14 @@ namespace AtoIndicator.View
                     nRZNum = 11;
                     ShowIndicator();
                 }
+
+                if (cUp == 'L')
+                {
+                    CheckReserve();
+                    isRZ = true;
+                    nRZNum = 12;
+                    ShowIndicator();
+                }
             }
             else
             {
@@ -1787,6 +1795,14 @@ namespace AtoIndicator.View
                                     else if (nRZNum == 11)
                                     {
                                         if (mainForm.ea[i].nSelectedConditionK > 0)
+                                            isReserveShow = true;
+                                    }
+                                    else if (nRZNum == 12)
+                                    {
+                                        if (mainForm.ea[i].nSelectedConditionJ > 0 || 
+                                            mainForm.ea[i].nSelectedConditionK > 0 || 
+                                            mainForm.ea[i].manualReserve.isChosenW 
+                                           )
                                             isReserveShow = true;
                                     }
 
