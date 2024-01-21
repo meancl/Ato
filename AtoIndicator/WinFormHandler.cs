@@ -183,6 +183,11 @@ namespace AtoIndicator
                     CallThreadFastInfo();
                 }
 
+                if(cUp == 'M')
+                {
+                    CallThreadRegisterBlockByCode();
+                }
+
                 if (isShiftPushed && isCtrlPushed)
                 {
                     if (cUp == 27) // esc
@@ -461,7 +466,14 @@ namespace AtoIndicator
             }
             catch { }
         }
-
+        public void CallThreadRegisterBlockByCode()
+        {
+            try
+            {
+                new Thread(() => new RegisterBlockByCode(this).ShowDialog()).Start();
+            }
+            catch { }
+        }
         public void CallThreadFastInfo()
         {
             try

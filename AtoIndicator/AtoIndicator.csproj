@@ -431,6 +431,12 @@
     <Compile Include="View\FastInfo.Designer.cs">
       <DependentUpon>FastInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\RegisterBlockByCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\RegisterBlockByCode.Designer.cs">
+      <DependentUpon>RegisterBlockByCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ScrollableMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -495,6 +501,9 @@
     </Compile>
     <EmbeddedResource Include="View\FastInfo.resx">
       <DependentUpon>FastInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\RegisterBlockByCode.resx">
+      <DependentUpon>RegisterBlockByCode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ScrollableMessageBox.resx">
       <DependentUpon>ScrollableMessageBox.cs</DependentUpon>
