@@ -112,6 +112,9 @@ namespace AtoIndicator.View.StatisticResult
                     int passNum = 0;
                     bool isChecked = false;
 
+                    int conditionPassNum = 0;
+                    bool isConditionChecked = false;
+
 
                     for (int eachPointer = 0; eachPointer < mainForm.strategyHistoryList[strategyNum].Count; eachPointer++) // 해당 전략의 매수데이터들을 순회한다.
                     {
@@ -120,9 +123,11 @@ namespace AtoIndicator.View.StatisticResult
                         curBuyedSlot = mainForm.ea[curStrategyHistory.nEaIdx].paperBuyStrategy.paperTradeSlot[curStrategyHistory.nBuyedIdx]; // 해당 BuyedSlot을 얻었다.
 
                         // 테스트
+                        
+                        // qwerjk
                         passNum = 0;
                         isChecked = qCheckBox.Checked || wCheckBox.Checked || eCheckBox.Checked || 
-                                    rCheckBox.Checked || jCheckBox.Checked || kCheckBox.Checked || hit38CheckBox.Checked;
+                                    rCheckBox.Checked || jCheckBox.Checked || kCheckBox.Checked;
 
                         if (qCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenQ)
                             passNum ++;
@@ -142,11 +147,19 @@ namespace AtoIndicator.View.StatisticResult
                         if (kCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].nSelectedConditionK > 0)
                             passNum ++;
 
-                        if (hit38CheckBox.Checked && curBuyedSlot.nHit38Num > 0)
-                            passNum++;
-
                         if (isChecked && passNum == 0)
                             continue;
+
+                        // 조건
+                        conditionPassNum = 0;
+                        isConditionChecked = hit38CheckBox.Checked;
+
+                        if (hit38CheckBox.Checked && curBuyedSlot.nHit38Num > 0)
+                            conditionPassNum++;
+
+                        if (isConditionChecked && conditionPassNum == 0)
+                            continue;
+
                         // 테스트 종료
 
                         curResultTracker.nEaIdx = curStrategyHistory.nEaIdx;

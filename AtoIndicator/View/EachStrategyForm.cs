@@ -125,6 +125,9 @@ namespace AtoIndicator.View.EachStrategy
                     int passNum = 0;
                     bool isChecked = false;
 
+                    int conditionPassNum = 0;
+                    bool isConditionChecked = false;
+
                     for (int i = 0; i < list.Count; i++)
                     {
                         curEa = mainForm.ea[list[i].nEaIdx];
@@ -132,9 +135,10 @@ namespace AtoIndicator.View.EachStrategy
 
 
                         // 테스트
+                        
+                        // qwerjk
                         passNum = 0;
-
-                        isChecked = isQChecked || isWChecked || isEChecked || isRChecked || isJChecked || isKChecked || isHit38Checked;
+                        isChecked = isQChecked || isWChecked || isEChecked || isRChecked || isJChecked || isKChecked;
 
                         if (isQChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenQ)
                             passNum++;
@@ -148,10 +152,18 @@ namespace AtoIndicator.View.EachStrategy
                             passNum++;
                         if (isKChecked && mainForm.ea[list[i].nEaIdx].nSelectedConditionK > 0)
                             passNum++;
-                        if (isHit38Checked && buyedSlot.nHit38Num > 0)
-                            passNum++;
-
+                        
                         if (isChecked && passNum == 0)
+                            continue;
+
+                        // 조건
+                        conditionPassNum = 0;
+                        isConditionChecked = isHit38Checked;
+
+                        if (isHit38Checked && buyedSlot.nHit38Num > 0)
+                            conditionPassNum++;
+
+                        if (isConditionChecked && conditionPassNum == 0)
                             continue;
                         // 테스트 종료
 
