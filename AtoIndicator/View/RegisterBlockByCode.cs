@@ -59,9 +59,13 @@ namespace AtoIndicator.View
 
         }
 
+        const int INIT_NUM = -1;
         const int JNum = 1;
         const int KNum = 2;
-        const int WNum = 3;
+        const int QNum = 3;
+        const int WNum = 4;
+        const int ENum = 5;
+        const int RNum = 6;
 
 
         public void RegisterByTxt()
@@ -77,7 +81,7 @@ namespace AtoIndicator.View
 
                     if (stockArray.Length > 0)
                     {
-                        int nSpecificNum = 0;
+                        int nSpecificNum = INIT_NUM;
 
                         string title = stockArray[0].Trim();
 
@@ -89,9 +93,21 @@ namespace AtoIndicator.View
                         {
                             nSpecificNum = KNum;
                         }
+                        else if (title.Equals("Q") || title.Equals("q"))
+                        {
+                            nSpecificNum = QNum;
+                        }
                         else if (title.Equals("W") || title.Equals("w"))
                         {
                             nSpecificNum = WNum;
+                        }
+                        else if (title.Equals("E") || title.Equals("e"))
+                        {
+                            nSpecificNum = ENum;
+                        }
+                        else if (title.Equals("R") || title.Equals("r"))
+                        {
+                            nSpecificNum = RNum;
                         }
                         else if (title.Equals("clear") || title.Equals("cls"))
                         {
@@ -99,7 +115,10 @@ namespace AtoIndicator.View
                             {
                                 mainForm.ea[n].nSelectedConditionJ = 0;
                                 mainForm.ea[n].nSelectedConditionK = 0;
+                                mainForm.ea[n].manualReserve.isChosenQ = false;
                                 mainForm.ea[n].manualReserve.isChosenW = false;
+                                mainForm.ea[n].manualReserve.isChosenE = false;
+                                mainForm.ea[n].manualReserve.isChosenR = false;
                             }
                             continue;
                         }
@@ -119,8 +138,17 @@ namespace AtoIndicator.View
                                 case KNum:
                                     mainForm.ea[nCurIdx].nSelectedConditionK++;
                                     break;
+                                case QNum:
+                                    mainForm.ea[nCurIdx].manualReserve.isChosenQ = true;
+                                    break;
                                 case WNum:
                                     mainForm.ea[nCurIdx].manualReserve.isChosenW = true;
+                                    break;
+                                case ENum:
+                                    mainForm.ea[nCurIdx].manualReserve.isChosenE = true;
+                                    break;
+                                case RNum:
+                                    mainForm.ea[nCurIdx].manualReserve.isChosenR = true;
                                     break;
                                 default:
                                     break;
