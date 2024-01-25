@@ -1800,8 +1800,11 @@ namespace AtoIndicator.View
                                     else if (nRZNum == 12)
                                     {
                                         if (mainForm.ea[i].nSelectedConditionJ > 0 || 
-                                            mainForm.ea[i].nSelectedConditionK > 0 || 
-                                            mainForm.ea[i].manualReserve.isChosenW 
+                                            mainForm.ea[i].nSelectedConditionK > 0 ||
+                                            mainForm.ea[i].manualReserve.isChosenQ ||
+                                            mainForm.ea[i].manualReserve.isChosenW ||
+                                            mainForm.ea[i].manualReserve.isChosenE ||
+                                            mainForm.ea[i].manualReserve.isChosenR
                                            )
                                             isReserveShow = true;
                                     }
