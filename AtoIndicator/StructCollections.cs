@@ -1456,6 +1456,9 @@ namespace AtoIndicator
             public int nCanceledVolume; // 매수취소 적용된 매수요청물량
             public int nTargetRqVolume;
 
+            public int nFakeBuyCnt;
+            public int nHit38Num;
+
             // 매도
             public TradeMethodCategory methodCategory;
             public bool isSelling;

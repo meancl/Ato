@@ -27,6 +27,9 @@ namespace AtoIndicator.View.EachStrategy
             public int nBuyedTime;
             public string sCode;
             public string sCodeName;
+            public int nHit38Num;
+            public int nFakeBuyCnt;
+            public int nFullFakeBuyCnt;
             public int nStrategySequence;
             public double fProfit;
             public int nBuyedPrice;
@@ -37,7 +40,7 @@ namespace AtoIndicator.View.EachStrategy
 
             public string[] GetStringArray()
             {
-                return new string[] { nBuyedTime.ToString(), sCode, sCodeName, nStrategySequence.ToString(),  Math.Round(fProfit * 100, 2).ToString(),
+                return new string[] { nBuyedTime.ToString(), sCode, sCodeName, nHit38Num.ToString(), nFakeBuyCnt.ToString(), nFullFakeBuyCnt.ToString(), nStrategySequence.ToString(),  Math.Round(fProfit * 100, 2).ToString(),
                     nBuyedPrice.ToString(), nCurPrice.ToString(),
                 isTrading.ToString(), isAllCanceled.ToString(), nSlotIdx.ToString()};
             }
@@ -45,13 +48,29 @@ namespace AtoIndicator.View.EachStrategy
         }
         #endregion
 
+        public bool isQChecked;
+        public bool isWChecked;
+        public bool isEChecked;
+        public bool isRChecked;
+        public bool isJChecked;
+        public bool isKChecked;
+        public bool isHit38Checked;
+
         #region 생성자 
-        public EachStrategyForm(MainForm parentForm, int strategyIdx)
+        public EachStrategyForm(MainForm parentForm, int strategyIdx, bool isQ=false, bool isW=false, bool isE=false, 
+            bool isR=false, bool isJ=false, bool isK=false, bool isHit38=false)
         {
             mainForm = parentForm; // 메인폼을 받는다.
             nStrategyIdx = strategyIdx; // 해당전략idx를 받는다.
             InitializeComponent(); // Default Form Method
 
+            isQChecked = isQ;
+            isWChecked = isW;
+            isEChecked = isE;
+            isRChecked = isR;
+            isJChecked = isJ;
+            isKChecked = isK;
+            isHit38Checked = isHit38;
 
 
             string sString = "STRING";
@@ -61,6 +80,9 @@ namespace AtoIndicator.View.EachStrategy
             eachStrategyListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "매수시간" });
             eachStrategyListView.Columns.Add(new ColumnHeader { Name = sString, Text = "종목번호" });
             eachStrategyListView.Columns.Add(new ColumnHeader { Name = sString, Text = "종목명" });
+            eachStrategyListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "히트38" });
+            eachStrategyListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "페매" });
+            eachStrategyListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "풀페매" });
             eachStrategyListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "전략순번" });
             eachStrategyListView.Columns.Add(new ColumnHeader { Name = sDouble, Text = "이익률" });
             eachStrategyListView.Columns.Add(new ColumnHeader { Name = sInt, Text = "매수가" });
@@ -100,17 +122,48 @@ namespace AtoIndicator.View.EachStrategy
 
                     var list = mainForm.strategyHistoryList[nStrategyIdx]; // count > 0 이어야지 폼이 던져졌으니 최소 1개의 데이터가 있는걸 보장한다.
                     EachStrategyInfo eachStrategyInfo;
+                    int passNum = 0;
+                    bool isChecked = false;
 
                     for (int i = 0; i < list.Count; i++)
                     {
                         curEa = mainForm.ea[list[i].nEaIdx];
                         buyedSlot = curEa.paperBuyStrategy.paperTradeSlot[list[i].nBuyedIdx];
 
+
+                        // 테스트
+                        passNum = 0;
+
+                        isChecked = isQChecked || isWChecked || isEChecked || isRChecked || isJChecked || isKChecked || isHit38Checked;
+
+                        if (isQChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenQ)
+                            passNum++;
+                        if (isWChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenW)
+                            passNum++;
+                        if (isEChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenE)
+                            passNum++;
+                        if (isRChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenR)
+                            passNum++;
+                        if (isJChecked && mainForm.ea[list[i].nEaIdx].nSelectedConditionJ > 0)
+                            passNum++;
+                        if (isKChecked && mainForm.ea[list[i].nEaIdx].nSelectedConditionK > 0)
+                            passNum++;
+                        if (isHit38Checked && buyedSlot.nHit38Num > 0)
+                            passNum++;
+
+                        if (isChecked && passNum == 0)
+                            continue;
+                        // 테스트 종료
+
+
                         // Default 작업
                         eachStrategyInfo.isAllCanceled = false;
                         eachStrategyInfo.isTrading = false;
                         eachStrategyInfo.sCode = curEa.sCode;
                         eachStrategyInfo.sCodeName = curEa.sCodeName;
+                        eachStrategyInfo.nHit38Num = buyedSlot.nHit38Num;
+                        eachStrategyInfo.nFakeBuyCnt = buyedSlot.nFakeBuyCnt;
+                        eachStrategyInfo.nFullFakeBuyCnt = curEa.fakeBuyStrategy.nStrategyNum;
                         eachStrategyInfo.nStrategySequence = buyedSlot.nSequence;
                         eachStrategyInfo.fProfit = 0.0;
                         eachStrategyInfo.nBuyedPrice = buyedSlot.nBuyedPrice;

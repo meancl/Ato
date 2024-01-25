@@ -365,6 +365,8 @@ namespace AtoIndicator
                 frame.paperTradeSlot[frame.nStrategyNum].fBottomPer = GetNextFloor(frame.paperTradeSlot[frame.nStrategyNum].nCurLineIdx, frame.paperTradeSlot[frame.nStrategyNum].methodCategory);
                 frame.paperTradeSlot[frame.nStrategyNum].sFixedMsg = ea[nEaIdx].GetInfoString();
                 frame.paperTradeSlot[frame.nStrategyNum].nSequence = frame.arrStrategy[nPaperBuyStrategyNum] + 1;
+                frame.paperTradeSlot[frame.nStrategyNum].nFakeBuyCnt = ea[nEaIdx].fakeBuyStrategy.nStrategyNum;
+                frame.paperTradeSlot[frame.nStrategyNum].nHit38Num = ea[nEaIdx].fakeStrategyMgr.hitDict38.Count;
 
                 strategyHistoryList[nPaperBuyStrategyNum].Add(new StrategyHistory(nEaIdx, frame.nStrategyNum)); // 전략리스트 인덱스에 맞게 삽입
                 totalTradeHistoryList.Add(new StrategyHistory(nEaIdx, frame.nStrategyNum)); // 전체 매매리스트

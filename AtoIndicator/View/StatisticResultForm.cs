@@ -109,11 +109,46 @@ namespace AtoIndicator.View.StatisticResult
 
                 if (mainForm.strategyHistoryList[strategyNum].Count > 0) // 해당전략이 사용됐을경우 (한번이라도)
                 {
+                    int passNum = 0;
+                    bool isChecked = false;
+
+
                     for (int eachPointer = 0; eachPointer < mainForm.strategyHistoryList[strategyNum].Count; eachPointer++) // 해당 전략의 매수데이터들을 순회한다.
                     {
+
                         curStrategyHistory = mainForm.strategyHistoryList[strategyNum][eachPointer]; // nEaIdx와 nBuyedIdx를 얻었다
                         curBuyedSlot = mainForm.ea[curStrategyHistory.nEaIdx].paperBuyStrategy.paperTradeSlot[curStrategyHistory.nBuyedIdx]; // 해당 BuyedSlot을 얻었다.
-                        
+
+                        // 테스트
+                        passNum = 0;
+                        isChecked = qCheckBox.Checked || wCheckBox.Checked || eCheckBox.Checked || 
+                                    rCheckBox.Checked || jCheckBox.Checked || kCheckBox.Checked || hit38CheckBox.Checked;
+
+                        if (qCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenQ)
+                            passNum ++;
+
+                        if (wCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenW)
+                            passNum++;
+
+                        if (eCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenE)
+                            passNum ++;
+
+                        if (rCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenR)
+                            passNum ++;
+
+                        if (jCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].nSelectedConditionJ > 0)
+                            passNum ++;
+
+                        if (kCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].nSelectedConditionK > 0)
+                            passNum ++;
+
+                        if (hit38CheckBox.Checked && curBuyedSlot.nHit38Num > 0)
+                            passNum++;
+
+                        if (isChecked && passNum == 0)
+                            continue;
+                        // 테스트 종료
+
                         curResultTracker.nEaIdx = curStrategyHistory.nEaIdx;
                         curResultTracker.nBuyedIdx = curStrategyHistory.nBuyedIdx;
 
@@ -420,7 +455,8 @@ namespace AtoIndicator.View.StatisticResult
         {
             try
             {
-                new Thread(() => new EachStrategyForm(mainForm, nCallStrategy).ShowDialog()).Start();
+                new Thread(() => new EachStrategyForm(mainForm, nCallStrategy, qCheckBox.Checked, wCheckBox.Checked, eCheckBox.Checked,
+                                            rCheckBox.Checked, jCheckBox.Checked, kCheckBox.Checked, hit38CheckBox.Checked).ShowDialog()).Start();
             }
             catch { }
         }
