@@ -345,6 +345,8 @@ namespace AtoIndicator.View.StatisticResult
                                 textBoxArr[strategyNum].BackColor = Color.FromArgb(255 - nColorStep, 255 - nColorStep, 255);
                             }
                         }
+                        else
+                            textBoxArr[strategyNum].BackColor = System.Drawing.SystemColors.ControlLight;
                     }));
                 }
                 else
@@ -372,6 +374,8 @@ namespace AtoIndicator.View.StatisticResult
                             textBoxArr[strategyNum].BackColor = Color.FromArgb(255 - nColorStep, 255 - nColorStep, 255);
                         }
                     }
+                    else
+                        textBoxArr[strategyNum].BackColor = System.Drawing.SystemColors.ControlLight;
                 }
             } // END ---- 전략별로
 

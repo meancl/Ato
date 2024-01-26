@@ -286,7 +286,7 @@ namespace AtoIndicator.View.EachStrategy
             if (eachStrategyListView.FocusedItem != null)
             {
                 int nEaIdx = mainForm.eachStockDict[eachStrategyListView.FocusedItem.SubItems[1].Text.Trim()];
-                int nSlotIdx = int.Parse(eachStrategyListView.FocusedItem.SubItems[9].Text);
+                int nSlotIdx = int.Parse(eachStrategyListView.FocusedItem.SubItems[12].Text);
 
                 curEa = mainForm.ea[nEaIdx];
                 buyedSlot = mainForm.ea[nEaIdx].paperBuyStrategy.paperTradeSlot[nSlotIdx];
