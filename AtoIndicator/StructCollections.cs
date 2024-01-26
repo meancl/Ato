@@ -2385,21 +2385,6 @@ namespace AtoIndicator
 
                 sRight = tText2.Trim();
                 isRight = !sRight.Equals("");
-
-                try
-                {
-                    if (isLeft)
-                        fLeft = double.Parse(sLeft);
-
-                    if (isRight)
-                        fRight = double.Parse(sRight);
-                }
-                catch 
-                {
-                    isLeft = isRight = false;
-                    sLeft = sRight = "";
-                    fLeft = fRight = 0;
-                }
             }
 
             public bool IsChecked()
@@ -2411,7 +2396,24 @@ namespace AtoIndicator
             {
                 bool isRet = false;
 
-                if(isLeft || isRight)
+                try
+                {
+                    if (isLeft)
+                        fLeft = double.Parse(sLeft);
+
+                    if (isRight)
+                        fRight = double.Parse(sRight);
+                }
+                catch
+                {
+                    isLeft = isRight = false;
+                    sLeft = sRight = "";
+                    fLeft = fRight = 0;
+                }
+                // 오류가 날 시, false로 반한
+                // 아래 if (isLeft || isRight) 없애면 true로 반환
+
+                if (isLeft || isRight)
                     isRet = (isLeft ? fLeft <= fCompare : true) &&
                         (isRight ? fRight >= fCompare : true);
 
