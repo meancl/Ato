@@ -494,9 +494,9 @@ namespace AtoIndicator.View.StatisticResult
             sPack.isEChecked = eCheckBox.Checked;
             sPack.isRChecked = rCheckBox.Checked;
 
-            sPack.jPack = new ComparePackage(tJ1.Text, tJ2.Text);
-            sPack.kPack = new ComparePackage(tK1.Text, tK2.Text);
-            sPack.hit38Pack = new ComparePackage(tHit381.Text, tHit382.Text);
+            sPack.jPack.Set(tJ1.Text, tJ2.Text);
+            sPack.kPack.Set(tK1.Text, tK2.Text);
+            sPack.hit38Pack.Set(tHit381.Text, tHit382.Text);
         }
     }
 }

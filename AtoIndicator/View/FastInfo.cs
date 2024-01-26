@@ -46,7 +46,7 @@ namespace AtoIndicator.View
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "초기갭" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "맥스차" });
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "당일탑" });
-            
+
             listView1.Columns.Add(new ColumnHeader { Name = sString, Text = "RV" });
 
             listView1.Columns.Add(new ColumnHeader { Name = sDouble, Text = "vi까지" });
@@ -122,7 +122,7 @@ namespace AtoIndicator.View
             timerDownButton.Click += TimerButtonClickHandler;
             timerUpButton.Click += TimerButtonClickHandler;
 
-       
+
 
             this.reserve1Btn.Click += ReserveButtonClickHandler;
             this.reserve2Btn.Click += ReserveButtonClickHandler;
@@ -580,7 +580,7 @@ namespace AtoIndicator.View
                     ShowIndicator();
                 }
 
-                if(cUp == 'J')
+                if (cUp == 'J')
                 {
                     CheckReserve();
                     isRZ = true;
@@ -702,6 +702,91 @@ namespace AtoIndicator.View
         bool isUsing = false;
 
         public int nPrevTime;
+
+        // 비교 대상자 변수들
+        public ComparePackage TFPack;
+        public ComparePackage SGPack;
+        public ComparePackage WOGPack;
+        public ComparePackage CPPack;
+        public ComparePackage PDPack;
+        public ComparePackage RPDPack;
+        public ComparePackage PJPack;
+        public ComparePackage UPJPack;
+        public ComparePackage DPJPack;
+        public ComparePackage TTMPack;
+        public ComparePackage BMPack;
+        public ComparePackage SMPack;
+        public ComparePackage TAPack;
+        public ComparePackage HAPack;
+        public ComparePackage RAPack;
+        public ComparePackage DAPack;
+        public ComparePackage _1PPack;
+        public ComparePackage _2PPack;
+        public ComparePackage _3PPack;
+        public ComparePackage _4PPack;
+        public ComparePackage VIPack;
+        public ComparePackage RBPPack;
+        public ComparePackage TFPPack;
+        public ComparePackage EPPack;
+        public ComparePackage AISPack;
+        public ComparePackage SCPack;
+        public ComparePackage SUDCPack;
+        public ComparePackage SUPPack;
+        public ComparePackage SDPPack;
+        public ComparePackage SPDPack;
+        public ComparePackage ECPack;
+        public ComparePackage CMPack;
+        public ComparePackage PMPack;
+        public ComparePackage CCPack;
+        public ComparePackage CSPack;
+        public ComparePackage AMUPack;
+        public ComparePackage AMDPack;
+        public ComparePackage HSPack;
+        public ComparePackage PSPack;
+        public ComparePackage PUSPack;
+        public ComparePackage TSPack;
+        public ComparePackage TMAXPack;
+        public ComparePackage TMINPack;
+        public ComparePackage TMDPack;
+        public ComparePackage MRPack;
+        public ComparePackage TRPack;
+        public ComparePackage RDIFPack;
+        public ComparePackage AI20TPack;
+        public ComparePackage AI30TPack;
+        public ComparePackage AI50TPack;
+        public ComparePackage CRCPack;
+        public ComparePackage UCRCPack;
+        public ComparePackage T150Pack;
+        public ComparePackage C150Pack;
+        public ComparePackage RBAPack;
+        public ComparePackage RBDPack;
+        public ComparePackage FBAPack;
+        public ComparePackage FBDPack;
+        public ComparePackage FAAPack;
+        public ComparePackage FADPack;
+        public ComparePackage FRAPack;
+        public ComparePackage FRDPack;
+        public ComparePackage PUAPack;
+        public ComparePackage PUDPack;
+        public ComparePackage PDAPack;
+        public ComparePackage PDDPack;
+        public ComparePackage SFDPack;
+        public ComparePackage HIT5Pack;
+        public ComparePackage HIT8Pack;
+        public ComparePackage HIT10Pack;
+        public ComparePackage HIT12Pack;
+        public ComparePackage CURFTPack;
+        public ComparePackage CURFCPack;
+        public ComparePackage FABNumPack;
+        public ComparePackage FABPlusNumPack;
+        public ComparePackage TradeComparedPack;
+        public ComparePackage TradeStrengthPack;
+        public ComparePackage UntilViPack;
+        public ComparePackage DUPPack;
+
+        // End -- 비교 대상자 변수들
+
+
         public void UpdateTable()
         {
 
@@ -730,7 +815,7 @@ namespace AtoIndicator.View
 
 
 
-              
+
                 try
                 {
                     int nPass = 0; // pass cnt
@@ -741,85 +826,85 @@ namespace AtoIndicator.View
                     List<ListViewItem> listViewItemList = new List<ListViewItem>();
 
 
-                    ComparePackage TFPack = new ComparePackage(tTF1.Text, tTF2.Text);
-                    ComparePackage SGPack = new ComparePackage(tSG1.Text, tSG2.Text);
-                    ComparePackage WOGPack = new ComparePackage(tWOG1.Text, tWOG2.Text);
-                    ComparePackage CPPack = new ComparePackage(tCP1.Text, tCP2.Text);
-                    ComparePackage PDPack = new ComparePackage(tPD1.Text, tPD2.Text);
-                    ComparePackage RPDPack = new ComparePackage(tRPD1.Text, tRPD2.Text);
-                    ComparePackage PJPack = new ComparePackage(tPJ1.Text, tPJ2.Text);
-                    ComparePackage UPJPack = new ComparePackage(tUPJ1.Text, tUPJ2.Text);
-                    ComparePackage DPJPack = new ComparePackage(tDPJ1.Text, tDPJ2.Text);
-                    ComparePackage TTMPack = new ComparePackage(tTTM1.Text, tTTM2.Text);
-                    ComparePackage BMPack = new ComparePackage(tBM1.Text, tBM2.Text);
-                    ComparePackage SMPack = new ComparePackage(tSM1.Text, tSM2.Text);
-                    ComparePackage TAPack = new ComparePackage(tTA1.Text, tTA2.Text);
-                    ComparePackage HAPack = new ComparePackage(tHA1.Text, tHA2.Text);
-                    ComparePackage RAPack = new ComparePackage(tRA1.Text, tRA2.Text);
-                    ComparePackage DAPack = new ComparePackage(tDA1.Text, tDA2.Text);
-                    ComparePackage _1PPack = new ComparePackage(t1P1.Text, t1P2.Text);
-                    ComparePackage _2PPack = new ComparePackage(t2P1.Text, t2P2.Text);
-                    ComparePackage _3PPack = new ComparePackage(t3P1.Text, t3P2.Text);
-                    ComparePackage _4PPack = new ComparePackage(t4P1.Text, t4P2.Text);
-                    ComparePackage VIPack = new ComparePackage(tVI1.Text, tVI2.Text);
-                    ComparePackage RBPPack = new ComparePackage(tRBP1.Text, tRBP2.Text);
-                    ComparePackage TFPPack = new ComparePackage(tTFP1.Text, tTFP2.Text);
-                    ComparePackage EPPack = new ComparePackage(tEP1.Text, tEP2.Text);
-                    ComparePackage AISPack = new ComparePackage(tAIS1.Text, tAIS2.Text);
-                    ComparePackage SCPack = new ComparePackage(tSC1.Text, tSC2.Text);
-                    ComparePackage SUDCPack = new ComparePackage(tSUDC1.Text, tSUDC2.Text);
-                    ComparePackage SUPPack = new ComparePackage(tSUP1.Text, tSUP2.Text);
-                    ComparePackage SDPPack = new ComparePackage(tSDP1.Text, tSDP2.Text);
-                    ComparePackage SPDPack = new ComparePackage(tSPD1.Text, tSPD2.Text);
-                    ComparePackage ECPack = new ComparePackage(tEC1.Text, tEC2.Text);
-                    ComparePackage CMPack = new ComparePackage(tCM1.Text, tCM2.Text);
-                    ComparePackage PMPack = new ComparePackage(tPM1.Text, tPM2.Text);
-                    ComparePackage CCPack = new ComparePackage(tCC1.Text, tCC2.Text);
-                    ComparePackage CSPack = new ComparePackage(tCS1.Text, tCS2.Text);
-                    ComparePackage AMUPack = new ComparePackage(tAMU1.Text, tAMU2.Text);
-                    ComparePackage AMDPack = new ComparePackage(tAMD1.Text, tAMD2.Text);
-                    ComparePackage HSPack = new ComparePackage(tHS1.Text, tHS2.Text);
-                    ComparePackage PSPack = new ComparePackage(tPS1.Text, tPS2.Text);
-                    ComparePackage PUSPack = new ComparePackage(tPUS1.Text, tPUS2.Text);
-                    ComparePackage TSPack = new ComparePackage(tTS1.Text, tTS2.Text);
-                    ComparePackage TMAXPack = new ComparePackage(tTMAX1.Text, tTMAX2.Text);
-                    ComparePackage TMINPack = new ComparePackage(tTMIN1.Text, tTMIN2.Text);
-                    ComparePackage TMDPack = new ComparePackage(tTMD1.Text, tTMD2.Text);
-                    ComparePackage MRPack = new ComparePackage(tMR1.Text, tMR2.Text);
-                    ComparePackage TRPack = new ComparePackage(tTR1.Text, tTR2.Text);
-                    ComparePackage RDIFPack = new ComparePackage(tRDIF1.Text, tRDIF2.Text);
-                    ComparePackage AI20TPack = new ComparePackage(tAI20T1.Text, tAI20T2.Text);
-                    ComparePackage AI30TPack = new ComparePackage(tAI30T1.Text, tAI30T2.Text);
-                    ComparePackage AI50TPack = new ComparePackage(tAI50T1.Text, tAI50T2.Text);
-                    ComparePackage CRCPack = new ComparePackage(tCRC1.Text, tCRC2.Text);
-                    ComparePackage UCRCPack = new ComparePackage(tUCRC1.Text, tUCRC2.Text);
-                    ComparePackage T150Pack = new ComparePackage(tT1501.Text, tT1502.Text);
-                    ComparePackage C150Pack = new ComparePackage(tC1501.Text, tC1502.Text);
-                    ComparePackage RBAPack = new ComparePackage(tRBA1.Text, tRBA2.Text);
-                    ComparePackage RBDPack = new ComparePackage(tRBD1.Text, tRBD2.Text);
-                    ComparePackage FBAPack = new ComparePackage(tFBA1.Text, tFBA2.Text);
-                    ComparePackage FBDPack = new ComparePackage(tFBD1.Text, tFBD2.Text);
-                    ComparePackage FAAPack = new ComparePackage(tFAA1.Text, tFAA2.Text);
-                    ComparePackage FADPack = new ComparePackage(tFAD1.Text, tFAD2.Text);
-                    ComparePackage FRAPack = new ComparePackage(tFRA1.Text, tFRA2.Text);
-                    ComparePackage FRDPack = new ComparePackage(tFRD1.Text, tFRD2.Text);
-                    ComparePackage PUAPack = new ComparePackage(tPUA1.Text, tPUA2.Text);
-                    ComparePackage PUDPack = new ComparePackage(tPUD1.Text, tPUD2.Text);
-                    ComparePackage PDAPack = new ComparePackage(tPDA1.Text, tPDA2.Text);
-                    ComparePackage PDDPack = new ComparePackage(tPDD1.Text, tPDD2.Text);
-                    ComparePackage SFDPack = new ComparePackage(tSFD1.Text, tSFD2.Text);
-                    ComparePackage HIT5Pack = new ComparePackage(tHIT51.Text, tHIT52.Text);
-                    ComparePackage HIT8Pack = new ComparePackage(tHIT81.Text, tHIT82.Text);
-                    ComparePackage HIT10Pack = new ComparePackage(tHIT101.Text, tHIT102.Text);
-                    ComparePackage HIT12Pack = new ComparePackage(tHIT121.Text, tHIT122.Text);
-                    ComparePackage CURFTPack = new ComparePackage(tCURFT1.Text, tCURFT2.Text);
-                    ComparePackage CURFCPack = new ComparePackage(tCURFC1.Text, tCURFC2.Text);
-                    ComparePackage FABNumPack = new ComparePackage(tFABNum1.Text, tFABNum2.Text);
-                    ComparePackage FABPlusNumPack = new ComparePackage(tFABPlusNum1.Text, tFABPlusNum2.Text);
-                    ComparePackage TradeComparedPack = new ComparePackage(tTradeCompared1.Text, tTradeCompared2.Text);
-                    ComparePackage TradeStrengthPack = new ComparePackage(tTradeStrength1.Text, tTradeStrength2.Text);
-                    ComparePackage UntilViPack = new ComparePackage(tUntilVi1.Text, tUntilVi2.Text);
-                    ComparePackage DUPPack = new ComparePackage(tDUP1.Text, tDUP2.Text);
+                    TFPack.Set(tTF1.Text, tTF2.Text);
+                    SGPack.Set(tSG1.Text, tSG2.Text);
+                    WOGPack.Set(tWOG1.Text, tWOG2.Text);
+                    CPPack.Set(tCP1.Text, tCP2.Text);
+                    PDPack.Set(tPD1.Text, tPD2.Text);
+                    RPDPack.Set(tRPD1.Text, tRPD2.Text);
+                    PJPack.Set(tPJ1.Text, tPJ2.Text);
+                    UPJPack.Set(tUPJ1.Text, tUPJ2.Text);
+                    DPJPack.Set(tDPJ1.Text, tDPJ2.Text);
+                    TTMPack.Set(tTTM1.Text, tTTM2.Text);
+                    BMPack.Set(tBM1.Text, tBM2.Text);
+                    SMPack.Set(tSM1.Text, tSM2.Text);
+                    TAPack.Set(tTA1.Text, tTA2.Text);
+                    HAPack.Set(tHA1.Text, tHA2.Text);
+                    RAPack.Set(tRA1.Text, tRA2.Text);
+                    DAPack.Set(tDA1.Text, tDA2.Text);
+                    _1PPack.Set(t1P1.Text, t1P2.Text);
+                    _2PPack.Set(t2P1.Text, t2P2.Text);
+                    _3PPack.Set(t3P1.Text, t3P2.Text);
+                    _4PPack.Set(t4P1.Text, t4P2.Text);
+                    VIPack.Set(tVI1.Text, tVI2.Text);
+                    RBPPack.Set(tRBP1.Text, tRBP2.Text);
+                    TFPPack.Set(tTFP1.Text, tTFP2.Text);
+                    EPPack.Set(tEP1.Text, tEP2.Text);
+                    AISPack.Set(tAIS1.Text, tAIS2.Text);
+                    SCPack.Set(tSC1.Text, tSC2.Text);
+                    SUDCPack.Set(tSUDC1.Text, tSUDC2.Text);
+                    SUPPack.Set(tSUP1.Text, tSUP2.Text);
+                    SDPPack.Set(tSDP1.Text, tSDP2.Text);
+                    SPDPack.Set(tSPD1.Text, tSPD2.Text);
+                    ECPack.Set(tEC1.Text, tEC2.Text);
+                    CMPack.Set(tCM1.Text, tCM2.Text);
+                    PMPack.Set(tPM1.Text, tPM2.Text);
+                    CCPack.Set(tCC1.Text, tCC2.Text);
+                    CSPack.Set(tCS1.Text, tCS2.Text);
+                    AMUPack.Set(tAMU1.Text, tAMU2.Text);
+                    AMDPack.Set(tAMD1.Text, tAMD2.Text);
+                    HSPack.Set(tHS1.Text, tHS2.Text);
+                    PSPack.Set(tPS1.Text, tPS2.Text);
+                    PUSPack.Set(tPUS1.Text, tPUS2.Text);
+                    TSPack.Set(tTS1.Text, tTS2.Text);
+                    TMAXPack.Set(tTMAX1.Text, tTMAX2.Text);
+                    TMINPack.Set(tTMIN1.Text, tTMIN2.Text);
+                    TMDPack.Set(tTMD1.Text, tTMD2.Text);
+                    MRPack.Set(tMR1.Text, tMR2.Text);
+                    TRPack.Set(tTR1.Text, tTR2.Text);
+                    RDIFPack.Set(tRDIF1.Text, tRDIF2.Text);
+                    AI20TPack.Set(tAI20T1.Text, tAI20T2.Text);
+                    AI30TPack.Set(tAI30T1.Text, tAI30T2.Text);
+                    AI50TPack.Set(tAI50T1.Text, tAI50T2.Text);
+                    CRCPack.Set(tCRC1.Text, tCRC2.Text);
+                    UCRCPack.Set(tUCRC1.Text, tUCRC2.Text);
+                    T150Pack.Set(tT1501.Text, tT1502.Text);
+                    C150Pack.Set(tC1501.Text, tC1502.Text);
+                    RBAPack.Set(tRBA1.Text, tRBA2.Text);
+                    RBDPack.Set(tRBD1.Text, tRBD2.Text);
+                    FBAPack.Set(tFBA1.Text, tFBA2.Text);
+                    FBDPack.Set(tFBD1.Text, tFBD2.Text);
+                    FAAPack.Set(tFAA1.Text, tFAA2.Text);
+                    FADPack.Set(tFAD1.Text, tFAD2.Text);
+                    FRAPack.Set(tFRA1.Text, tFRA2.Text);
+                    FRDPack.Set(tFRD1.Text, tFRD2.Text);
+                    PUAPack.Set(tPUA1.Text, tPUA2.Text);
+                    PUDPack.Set(tPUD1.Text, tPUD2.Text);
+                    PDAPack.Set(tPDA1.Text, tPDA2.Text);
+                    PDDPack.Set(tPDD1.Text, tPDD2.Text);
+                    SFDPack.Set(tSFD1.Text, tSFD2.Text);
+                    HIT5Pack.Set(tHIT51.Text, tHIT52.Text);
+                    HIT8Pack.Set(tHIT81.Text, tHIT82.Text);
+                    HIT10Pack.Set(tHIT101.Text, tHIT102.Text);
+                    HIT12Pack.Set(tHIT121.Text, tHIT122.Text);
+                    CURFTPack.Set(tCURFT1.Text, tCURFT2.Text);
+                    CURFCPack.Set(tCURFC1.Text, tCURFC2.Text);
+                    FABNumPack.Set(tFABNum1.Text, tFABNum2.Text);
+                    FABPlusNumPack.Set(tFABPlusNum1.Text, tFABPlusNum2.Text);
+                    TradeComparedPack.Set(tTradeCompared1.Text, tTradeCompared2.Text);
+                    TradeStrengthPack.Set(tTradeStrength1.Text, tTradeStrength2.Text);
+                    UntilViPack.Set(tUntilVi1.Text, tUntilVi2.Text);
+                    DUPPack.Set(tDUP1.Text, tDUP2.Text);
 
 
                     nPass = 0; // pass cnt
@@ -870,6 +955,7 @@ namespace AtoIndicator.View
                                                     TMINPack.IsChecked(),
                                                     TMDPack.IsChecked(),
                                                     MRPack.IsChecked(),
+                                                    TRPack.IsChecked(),
                                                     RDIFPack.IsChecked(),
                                                     AI20TPack.IsChecked(),
                                                     AI30TPack.IsChecked(),
@@ -959,7 +1045,7 @@ namespace AtoIndicator.View
                                 nPass++;
                             if (RPDPack.IsChecked() && RPDPack.Compare(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower))
                                 nPass++;
-                            if (PJPack.IsChecked() && PJPack.Compare(mainForm.ea[i].fPowerJar)) 
+                            if (PJPack.IsChecked() && PJPack.Compare(mainForm.ea[i].fPowerJar))
                                 nPass++;
                             if (UPJPack.IsChecked() && UPJPack.Compare(mainForm.ea[i].fOnlyUpPowerJar))
                                 nPass++;
@@ -1164,7 +1250,7 @@ namespace AtoIndicator.View
                                     }
                                     else if (nRZNum == 12)
                                     {
-                                        if (mainForm.ea[i].nSelectedConditionJ > 0 || 
+                                        if (mainForm.ea[i].nSelectedConditionJ > 0 ||
                                             mainForm.ea[i].nSelectedConditionK > 0 ||
                                             mainForm.ea[i].manualReserve.isChosenQ ||
                                             mainForm.ea[i].manualReserve.isChosenW ||
@@ -1204,7 +1290,7 @@ namespace AtoIndicator.View
                                 Math.Round(mainForm.ea[i].fStartGap, 3).ToString(),
                                 Math.Round(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower, 3).ToString(),
                                 Math.Round(mainForm.ea[i].fTodayMaxPower, 3).ToString(),
-                                
+
                                 "", // 매수예약
 
                                 Math.Round((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice, 3).ToString(),
@@ -1267,12 +1353,12 @@ namespace AtoIndicator.View
                                 listViewItem.UseItemStyleForSubItems = false;
 
 
-                              
+
 
 
                                 for (int restIdx = 0; restIdx < listViewItem.SubItems.Count; restIdx++)
                                 {
-                                        listViewItem.SubItems[restIdx].BackColor = myColor;
+                                    listViewItem.SubItems[restIdx].BackColor = myColor;
                                 }
 
                                 // K
@@ -1299,19 +1385,19 @@ namespace AtoIndicator.View
 
                                 try // 기본색칠
                                 {
-                                    if (mainForm.ea[i].manualReserve.isChosenQ )
+                                    if (mainForm.ea[i].manualReserve.isChosenQ)
                                         listViewItem.SubItems[0].BackColor = Color.Green; // Green
-                                    if (mainForm.ea[i].manualReserve.isChosenW )
+                                    if (mainForm.ea[i].manualReserve.isChosenW)
                                         listViewItem.SubItems[1].BackColor = Color.Orange; // Orange 
-                                    if (mainForm.ea[i].manualReserve.isChosenE )
+                                    if (mainForm.ea[i].manualReserve.isChosenE)
                                         listViewItem.SubItems[2].BackColor = Color.SkyBlue; // SkyBlue
-                                    if (mainForm.ea[i].manualReserve.isChosenR )
+                                    if (mainForm.ea[i].manualReserve.isChosenR)
                                         listViewItem.SubItems[3].BackColor = Color.GreenYellow; // GreenYellow
                                     if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx)
                                         listViewItem.SubItems[4].BackColor = Color.DarkGray;
-                                    if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx )
+                                    if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx)
                                         listViewItem.SubItems[5].BackColor = Color.LightSlateGray;
-                                    
+
                                     if (mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isBuyReserved ||
                                               mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isBuyReserved ||
                                               mainForm.ea[i].manualReserve.reserveArr[MainForm.MA_20M_DOWN_RESERVE].isBuyReserved ||
@@ -1422,11 +1508,11 @@ namespace AtoIndicator.View
                                 // crush sound alarm 
                                 if (crushSoundCheckBox.Checked)
                                 {
-                                    if ( ( mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx ||
-                                        mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx )
+                                    if ((mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx ||
+                                        mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx)
                                         )
                                     {
-                                        if (!mainForm.ea[i].soundReserve.isCrushCheck) 
+                                        if (!mainForm.ea[i].soundReserve.isCrushCheck)
                                         {
                                             mainForm.ea[i].soundReserve.isCrushCheck = true;
                                             isCrushAlarm = true;
@@ -1441,7 +1527,7 @@ namespace AtoIndicator.View
                                 // vi sound alarm
                                 if (viSoundCheckBox.Checked)
                                 {
-                                    if (( mainForm.ea[i].isViMode && mainForm.ea[i].speedStatus.fCur >= 30 )
+                                    if ((mainForm.ea[i].isViMode && mainForm.ea[i].speedStatus.fCur >= 30)
                                         )
                                     {
                                         if (!mainForm.ea[i].soundReserve.isViCheck) // 언제 끝나지 
@@ -1456,9 +1542,9 @@ namespace AtoIndicator.View
                                     }
                                 }
 
-                                if(upSoundCheckBox.Checked)
+                                if (upSoundCheckBox.Checked)
                                 {
-                                    if(mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].dChosenTime != mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].dPrevChosenTime)
+                                    if (mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].dChosenTime != mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].dPrevChosenTime)
                                     {
                                         mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].dPrevChosenTime = mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].dChosenTime;
                                         isUpAlarm = true;
@@ -1492,10 +1578,10 @@ namespace AtoIndicator.View
                     if (isCrushAlarm)
                         mainForm.soundMgr.soundReserveQueue.Enqueue(MainForm.SoundTrack.Crush);
 
-                    if(isViAlarm)
+                    if (isViAlarm)
                         mainForm.soundMgr.soundReserveQueue.Enqueue(MainForm.SoundTrack.VI);
 
-                    
+
 
                     try // sound 없는 기계에 soundPlayer.Play()로 문제가 생길까봐... 말이 안되기는 하지만 조심
                     {
@@ -1503,7 +1589,7 @@ namespace AtoIndicator.View
                         {
 
                             // 딜레이 확인 
-                            if (mainForm.soundMgr.isSoundCompleted && 
+                            if (mainForm.soundMgr.isSoundCompleted &&
                                 mainForm.soundMgr.soundReserveQueue.Count > 0) // 재생이 끝남 
                             {
                                 MainForm.SoundTrack sound = mainForm.soundMgr.soundReserveQueue.Dequeue();
@@ -1521,7 +1607,7 @@ namespace AtoIndicator.View
                                         }
                                         else if (sound == MainForm.SoundTrack.VI)
                                         {
-                                            if(viSoundCheckBox.Checked)
+                                            if (viSoundCheckBox.Checked)
                                                 viSoundPlayer.Play();
                                             else
                                                 mainForm.soundMgr.soundReserveQueue.Enqueue(sound);
@@ -1529,7 +1615,7 @@ namespace AtoIndicator.View
 
                                         else if (sound == MainForm.SoundTrack.Up)
                                         {
-                                            if(upSoundCheckBox.Checked)
+                                            if (upSoundCheckBox.Checked)
                                                 upSoundPlayer.Play();
                                             else
                                                 mainForm.soundMgr.soundReserveQueue.Enqueue(sound);

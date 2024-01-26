@@ -2367,7 +2367,7 @@ namespace AtoIndicator
             Up
         }
 
-        public class ComparePackage
+        public struct ComparePackage
         {
             public bool isLeft;
             public string sLeft;
@@ -2378,7 +2378,7 @@ namespace AtoIndicator
             public double fRight;
 
 
-            public ComparePackage(string tText1, string tText2)
+            public void Set(string tText1, string tText2)
             {
                 sLeft = tText1.Trim();
                 isLeft = !sLeft.Equals("");
@@ -2406,6 +2406,7 @@ namespace AtoIndicator
             {
                 return isLeft || isRight;
             }
+
             public bool Compare(double fCompare)
             {
                 bool isRet = false;
