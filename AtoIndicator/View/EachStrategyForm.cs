@@ -48,30 +48,17 @@ namespace AtoIndicator.View.EachStrategy
         }
         #endregion
 
-        public bool isQChecked;
-        public bool isWChecked;
-        public bool isEChecked;
-        public bool isRChecked;
-        public bool isJChecked;
-        public bool isKChecked;
-        public bool isHit38Checked;
+   
 
+        public MainForm.StasticResultPackage sPack;
         #region 생성자 
-        public EachStrategyForm(MainForm parentForm, int strategyIdx, bool isQ=false, bool isW=false, bool isE=false, 
-            bool isR=false, bool isJ=false, bool isK=false, bool isHit38=false)
+        public EachStrategyForm(MainForm parentForm, int strategyIdx, MainForm.StasticResultPackage stasticResultPackage)
         {
             mainForm = parentForm; // 메인폼을 받는다.
             nStrategyIdx = strategyIdx; // 해당전략idx를 받는다.
             InitializeComponent(); // Default Form Method
 
-            isQChecked = isQ;
-            isWChecked = isW;
-            isEChecked = isE;
-            isRChecked = isR;
-            isJChecked = isJ;
-            isKChecked = isK;
-            isHit38Checked = isHit38;
-
+            sPack = stasticResultPackage;
 
             string sString = "STRING";
             string sInt = "INT";
@@ -138,19 +125,20 @@ namespace AtoIndicator.View.EachStrategy
                         
                         // qwerjk
                         passNum = 0;
-                        isChecked = isQChecked || isWChecked || isEChecked || isRChecked || isJChecked || isKChecked;
+                        isChecked = sPack.isQChecked || sPack.isWChecked || sPack.isEChecked || sPack.isRChecked ||
+                            sPack.jPack.IsChecked() || sPack.kPack.IsChecked();
 
-                        if (isQChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenQ)
+                        if (sPack.isQChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenQ)
                             passNum++;
-                        if (isWChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenW)
+                        if (sPack.isWChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenW)
                             passNum++;
-                        if (isEChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenE)
+                        if (sPack.isEChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenE)
                             passNum++;
-                        if (isRChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenR)
+                        if (sPack.isRChecked && mainForm.ea[list[i].nEaIdx].manualReserve.isChosenR)
                             passNum++;
-                        if (isJChecked && mainForm.ea[list[i].nEaIdx].nSelectedConditionJ > 0)
+                        if (sPack.jPack.IsChecked() && mainForm.ea[list[i].nEaIdx].nSelectedConditionJ > 0)
                             passNum++;
-                        if (isKChecked && mainForm.ea[list[i].nEaIdx].nSelectedConditionK > 0)
+                        if (sPack.kPack.IsChecked() && mainForm.ea[list[i].nEaIdx].nSelectedConditionK > 0)
                             passNum++;
                         
                         if (isChecked && passNum == 0)
@@ -158,9 +146,9 @@ namespace AtoIndicator.View.EachStrategy
 
                         // 조건
                         conditionPassNum = 0;
-                        isConditionChecked = isHit38Checked;
+                        isConditionChecked = sPack.hit38Pack.IsChecked();
 
-                        if (isHit38Checked && buyedSlot.nHit38Num > 0)
+                        if (sPack.hit38Pack.Compare(buyedSlot.nFakeBuyCnt))
                             conditionPassNum++;
 
                         if (isConditionChecked && conditionPassNum == 0)

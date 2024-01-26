@@ -12,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static AtoIndicator.KiwoomLib.TimeLib;
+using static AtoIndicator.MainForm;
 
 
 namespace AtoIndicator.View
@@ -729,324 +730,7 @@ namespace AtoIndicator.View
 
 
 
-                string sTF1 = "";
-                string sTF2 = "";
-                string sSG1 = "";
-                string sSG2 = "";
-                string sWOG1 = "";
-                string sWOG2 = "";
-                string sCP1 = "";
-                string sCP2 = "";
-                string sPD1 = "";
-                string sPD2 = "";
-                string sRPD1 = "";
-                string sRPD2 = "";
-                string sPJ1 = "";
-                string sPJ2 = "";
-                string sUPJ1 = "";
-                string sUPJ2 = "";
-                string sDPJ1 = "";
-                string sDPJ2 = "";
-                string sTTM1 = "";
-                string sTTM2 = "";
-                string sBM1 = "";
-                string sBM2 = "";
-                string sSM1 = "";
-                string sSM2 = "";
-                string sTA1 = "";
-                string sTA2 = "";
-                string sHA1 = "";
-                string sHA2 = "";
-                string sRA1 = "";
-                string sRA2 = "";
-                string sDA1 = "";
-                string sDA2 = "";
-                string s1P1 = "";
-                string s1P2 = "";
-                string s2P1 = "";
-                string s2P2 = "";
-                string s3P1 = "";
-                string s3P2 = "";
-                string s4P1 = "";
-                string s4P2 = "";
-                string sVI1 = "";
-                string sVI2 = "";
-                string sRBP1 = "";
-                string sRBP2 = "";
-                string sTFP1 = "";
-                string sTFP2 = "";
-                string sEP1 = "";
-                string sEP2 = "";
-                string sAIS1 = "";
-                string sAIS2 = "";
-                string sSC1 = "";
-                string sSC2 = "";
-                string sSUDC1 = "";
-                string sSUDC2 = "";
-                string sSUP1 = "";
-                string sSUP2 = "";
-                string sSDP1 = "";
-                string sSDP2 = "";
-                string sSPD1 = "";
-                string sSPD2 = "";
-                string sEC1 = "";
-                string sEC2 = "";
-                string sCM1 = "";
-                string sCM2 = "";
-                string sPM1 = "";
-                string sPM2 = "";
-                string sCC1 = "";
-                string sCC2 = "";
-                string sCS1 = "";
-                string sCS2 = "";
-                string sAMU1 = "";
-                string sAMU2 = "";
-                string sAMD1 = "";
-                string sAMD2 = "";
-                string sHS1 = "";
-                string sHS2 = "";
-                string sPS1 = "";
-                string sPS2 = "";
-                string sPUS1 = "";
-                string sPUS2 = "";
-                string sTS1 = "";
-                string sTS2 = "";
-                string sTMAX1 = "";
-                string sTMAX2 = "";
-                string sTMIN1 = "";
-                string sTMIN2 = "";
-                string sTMD1 = "";
-                string sTMD2 = "";
-                string sMR1 = "";
-                string sMR2 = "";
-                string sTR1 = "";
-                string sTR2 = "";
-                string sRDIF1 = "";
-                string sRDIF2 = "";
-                string sAI20T1 = "";
-                string sAI20T2 = "";
-                string sAI30T1 = "";
-                string sAI30T2 = "";
-                string sAI50T1 = "";
-                string sAI50T2 = "";
-                string sCRC1 = "";
-                string sCRC2 = "";
-                string sUCRC1 = "";
-                string sUCRC2 = "";
-                string sT1501 = "";
-                string sT1502 = "";
-                string sC1501 = "";
-                string sC1502 = "";
-                string sRBA1 = "";
-                string sRBA2 = "";
-                string sRBD1 = "";
-                string sRBD2 = "";
-                string sFBA1 = "";
-                string sFBA2 = "";
-                string sFBD1 = "";
-                string sFBD2 = "";
-                string sFAA1 = "";
-                string sFAA2 = "";
-                string sFAD1 = "";
-                string sFAD2 = "";
-                string sFRA1 = "";
-                string sFRA2 = "";
-                string sFRD1 = "";
-                string sFRD2 = "";
-                string sPUA1 = "";
-                string sPUA2 = "";
-                string sPUD1 = "";
-                string sPUD2 = "";
-                string sPDA1 = "";
-                string sPDA2 = "";
-                string sPDD1 = "";
-                string sPDD2 = "";
-                string sSFD1 = "";
-                string sSFD2 = "";
-                string sHIT51 = "";
-                string sHIT52 = "";
-                string sHIT81 = "";
-                string sHIT82 = "";
-                string sHIT101 = "";
-                string sHIT102 = "";
-                string sHIT121 = "";
-                string sHIT122 = "";
-                string sCURFT1 = "";
-                string sCURFT2 = "";
-                string sCURFC1 = "";
-                string sCURFC2 = "";
-                string sFABNum1 = "";
-                string sFABNum2 = "";
-                string sFABPlusNum1 = "";
-                string sFABPlusNum2 = "";
-                string sTradeCompared1 = "";
-                string sTradeCompared2 = "";
-                string sTradeStrength1 = "";
-                string sTradeStrength2 = "";
-                string sUntilVi1 = "";
-                string sUntilVi2 = "";
-                string sDUP1 = "";
-                string sDUP2 = "";
-
-                bool isTF1 = false;
-                bool isTF2 = false;
-                bool isSG1 = false;
-                bool isSG2 = false;
-                bool isWOG1 = false;
-                bool isWOG2 = false;
-                bool isCP1 = false;
-                bool isCP2 = false;
-                bool isPD1 = false;
-                bool isPD2 = false;
-                bool isRPD1 = false;
-                bool isRPD2 = false;
-                bool isPJ1 = false;
-                bool isPJ2 = false;
-                bool isUPJ1 = false;
-                bool isUPJ2 = false;
-                bool isDPJ1 = false;
-                bool isDPJ2 = false;
-                bool isTTM1 = false;
-                bool isTTM2 = false;
-                bool isBM1 = false;
-                bool isBM2 = false;
-                bool isSM1 = false;
-                bool isSM2 = false;
-                bool isTA1 = false;
-                bool isTA2 = false;
-                bool isHA1 = false;
-                bool isHA2 = false;
-                bool isRA1 = false;
-                bool isRA2 = false;
-                bool isDA1 = false;
-                bool isDA2 = false;
-                bool is1P1 = false;
-                bool is1P2 = false;
-                bool is2P1 = false;
-                bool is2P2 = false;
-                bool is3P1 = false;
-                bool is3P2 = false;
-                bool is4P1 = false;
-                bool is4P2 = false;
-                bool isVI1 = false;
-                bool isVI2 = false;
-                bool isRBP1 = false;
-                bool isRBP2 = false;
-                bool isTFP1 = false;
-                bool isTFP2 = false;
-                bool isEP1 = false;
-                bool isEP2 = false;
-                bool isAIS1 = false;
-                bool isAIS2 = false;
-                bool isSC1 = false;
-                bool isSC2 = false;
-                bool isSUDC1 = false;
-                bool isSUDC2 = false;
-                bool isSUP1 = false;
-                bool isSUP2 = false;
-                bool isSDP1 = false;
-                bool isSDP2 = false;
-                bool isSPD1 = false;
-                bool isSPD2 = false;
-                bool isEC1 = false;
-                bool isEC2 = false;
-                bool isCM1 = false;
-                bool isCM2 = false;
-                bool isPM1 = false;
-                bool isPM2 = false;
-                bool isCC1 = false;
-                bool isCC2 = false;
-                bool isCS1 = false;
-                bool isCS2 = false;
-                bool isAMU1 = false;
-                bool isAMU2 = false;
-                bool isAMD1 = false;
-                bool isAMD2 = false;
-                bool isHS1 = false;
-                bool isHS2 = false;
-                bool isPS1 = false;
-                bool isPS2 = false;
-                bool isPUS1 = false;
-                bool isPUS2 = false;
-                bool isTS1 = false;
-                bool isTS2 = false;
-                bool isTMAX1 = false;
-                bool isTMAX2 = false;
-                bool isTMIN1 = false;
-                bool isTMIN2 = false;
-                bool isTMD1 = false;
-                bool isTMD2 = false;
-                bool isMR1 = false;
-                bool isMR2 = false;
-                bool isTR1 = false;
-                bool isTR2 = false;
-                bool isRDIF1 = false;
-                bool isRDIF2 = false;
-                bool isAI20T1 = false;
-                bool isAI20T2 = false;
-                bool isAI30T1 = false;
-                bool isAI30T2 = false;
-                bool isAI50T1 = false;
-                bool isAI50T2 = false;
-                bool isCRC1 = false;
-                bool isCRC2 = false;
-                bool isUCRC1 = false;
-                bool isUCRC2 = false;
-                bool isT1501 = false;
-                bool isT1502 = false;
-                bool isC1501 = false;
-                bool isC1502 = false;
-                bool isRBA1 = false;
-                bool isRBA2 = false;
-                bool isRBD1 = false;
-                bool isRBD2 = false;
-                bool isFBA1 = false;
-                bool isFBA2 = false;
-                bool isFBD1 = false;
-                bool isFBD2 = false;
-                bool isFAA1 = false;
-                bool isFAA2 = false;
-                bool isFAD1 = false;
-                bool isFAD2 = false;
-                bool isFRA1 = false;
-                bool isFRA2 = false;
-                bool isFRD1 = false;
-                bool isFRD2 = false;
-                bool isPUA1 = false;
-                bool isPUA2 = false;
-                bool isPUD1 = false;
-                bool isPUD2 = false;
-                bool isPDA1 = false;
-                bool isPDA2 = false;
-                bool isPDD1 = false;
-                bool isPDD2 = false;
-                bool isSFD1 = false;
-                bool isSFD2 = false;
-                bool isHIT51 = false;
-                bool isHIT52 = false;
-                bool isHIT81 = false;
-                bool isHIT82 = false;
-                bool isHIT101 = false;
-                bool isHIT102 = false;
-                bool isHIT121 = false;
-                bool isHIT122 = false;
-                bool isCURFT1 = false;
-                bool isCURFT2 = false;
-                bool isCURFC1 = false;
-                bool isCURFC2 = false;
-                bool isFABNum1 = false;
-                bool isFABNum2 = false;
-                bool isFABPlusNum1 = false;
-                bool isFABPlusNum2 = false;
-                bool isTradeCompared1 = false;
-                bool isTradeCompared2 = false;
-                bool isTradeStrength1 = false;
-                bool isTradeStrength2 = false;
-                bool isUntilVi1 = false;
-                bool isUntilVi2 = false;
-                bool isDUP1 = false;
-                bool isDUP2 = false;
-
+              
                 try
                 {
                     int nPass = 0; // pass cnt
@@ -1057,409 +741,169 @@ namespace AtoIndicator.View
                     List<ListViewItem> listViewItemList = new List<ListViewItem>();
 
 
-                    sTF1 = tTF1.Text.Trim();
-                    sTF2 = tTF2.Text.Trim();
-                    sSG1 = tSG1.Text.Trim();
-                    sSG2 = tSG2.Text.Trim();
-                    sWOG1 = tWOG1.Text.Trim();
-                    sWOG2 = tWOG2.Text.Trim();
-                    sCP1 = tCP1.Text.Trim();
-                    sCP2 = tCP2.Text.Trim();
-                    sPD1 = tPD1.Text.Trim();
-                    sPD2 = tPD2.Text.Trim();
-                    sRPD1 = tRPD1.Text.Trim();
-                    sRPD2 = tRPD2.Text.Trim();
-                    sPJ1 = tPJ1.Text.Trim();
-                    sPJ2 = tPJ2.Text.Trim();
-                    sUPJ1 = tUPJ1.Text.Trim();
-                    sUPJ2 = tUPJ2.Text.Trim();
-                    sDPJ1 = tDPJ1.Text.Trim();
-                    sDPJ2 = tDPJ2.Text.Trim();
-                    sTTM1 = tTTM1.Text.Trim();
-                    sTTM2 = tTTM2.Text.Trim();
-                    sBM1 = tBM1.Text.Trim();
-                    sBM2 = tBM2.Text.Trim();
-                    sSM1 = tSM1.Text.Trim();
-                    sSM2 = tSM2.Text.Trim();
-                    sTA1 = tTA1.Text.Trim();
-                    sTA2 = tTA2.Text.Trim();
-                    sHA1 = tHA1.Text.Trim();
-                    sHA2 = tHA2.Text.Trim();
-                    sRA1 = tRA1.Text.Trim();
-                    sRA2 = tRA2.Text.Trim();
-                    sDA1 = tDA1.Text.Trim();
-                    sDA2 = tDA2.Text.Trim();
-                    s1P1 = t1P1.Text.Trim();
-                    s1P2 = t1P2.Text.Trim();
-                    s2P1 = t2P1.Text.Trim();
-                    s2P2 = t2P2.Text.Trim();
-                    s3P1 = t3P1.Text.Trim();
-                    s3P2 = t3P2.Text.Trim();
-                    s4P1 = t4P1.Text.Trim();
-                    s4P2 = t4P2.Text.Trim();
-                    sVI1 = tVI1.Text.Trim();
-                    sVI2 = tVI2.Text.Trim();
-                    sRBP1 = tRBP1.Text.Trim();
-                    sRBP2 = tRBP2.Text.Trim();
-                    sTFP1 = tTFP1.Text.Trim();
-                    sTFP2 = tTFP2.Text.Trim();
-                    sEP1 = tEP1.Text.Trim();
-                    sEP2 = tEP2.Text.Trim();
-                    sAIS1 = tAIS1.Text.Trim();
-                    sAIS2 = tAIS2.Text.Trim();
-                    sSC1 = tSC1.Text.Trim();
-                    sSC2 = tSC2.Text.Trim();
-                    sSUDC1 = tSUDC1.Text.Trim();
-                    sSUDC2 = tSUDC2.Text.Trim();
-                    sSUP1 = tSUP1.Text.Trim();
-                    sSUP2 = tSUP2.Text.Trim();
-                    sSDP1 = tSDP1.Text.Trim();
-                    sSDP2 = tSDP2.Text.Trim();
-                    sSPD1 = tSPD1.Text.Trim();
-                    sSPD2 = tSPD2.Text.Trim();
-                    sEC1 = tEC1.Text.Trim();
-                    sEC2 = tEC2.Text.Trim();
-                    sCM1 = tCM1.Text.Trim();
-                    sCM2 = tCM2.Text.Trim();
-                    sPM1 = tPM1.Text.Trim();
-                    sPM2 = tPM2.Text.Trim();
-                    sCC1 = tCC1.Text.Trim();
-                    sCC2 = tCC2.Text.Trim();
-                    sCS1 = tCS1.Text.Trim();
-                    sCS2 = tCS2.Text.Trim();
-                    sAMU1 = tAMU1.Text.Trim();
-                    sAMU2 = tAMU2.Text.Trim();
-                    sAMD1 = tAMD1.Text.Trim();
-                    sAMD2 = tAMD2.Text.Trim();
-                    sHS1 = tHS1.Text.Trim();
-                    sHS2 = tHS2.Text.Trim();
-                    sPS1 = tPS1.Text.Trim();
-                    sPS2 = tPS2.Text.Trim();
-                    sPUS1 = tPUS1.Text.Trim();
-                    sPUS2 = tPUS2.Text.Trim();
-                    sTS1 = tTS1.Text.Trim();
-                    sTS2 = tTS2.Text.Trim();
-                    sTMAX1 = tTMAX1.Text.Trim();
-                    sTMAX2 = tTMAX2.Text.Trim();
-                    sTMIN1 = tTMIN1.Text.Trim();
-                    sTMIN2 = tTMIN2.Text.Trim();
-                    sTMD1 = tTMD1.Text.Trim();
-                    sTMD2 = tTMD2.Text.Trim();
-                    sMR1 = tMR1.Text.Trim();
-                    sMR2 = tMR2.Text.Trim();
-                    sTR1 = tTR1.Text.Trim();
-                    sTR2 = tTR2.Text.Trim();
-                    sRDIF1 = tRDIF1.Text.Trim();
-                    sRDIF2 = tRDIF2.Text.Trim();
-                    sAI20T1 = tAI20T1.Text.Trim();
-                    sAI20T2 = tAI20T2.Text.Trim();
-                    sAI30T1 = tAI30T1.Text.Trim();
-                    sAI30T2 = tAI30T2.Text.Trim();
-                    sAI50T1 = tAI50T1.Text.Trim();
-                    sAI50T2 = tAI50T2.Text.Trim();
-                    sCRC1 = tCRC1.Text.Trim();
-                    sCRC2 = tCRC2.Text.Trim();
-                    sUCRC1 = tUCRC1.Text.Trim();
-                    sUCRC2 = tUCRC2.Text.Trim();
-                    sT1501 = tT1501.Text.Trim();
-                    sT1502 = tT1502.Text.Trim();
-                    sC1501 = tC1501.Text.Trim();
-                    sC1502 = tC1502.Text.Trim();
-                    sRBA1 = tRBA1.Text.Trim();
-                    sRBA2 = tRBA2.Text.Trim();
-                    sRBD1 = tRBD1.Text.Trim();
-                    sRBD2 = tRBD2.Text.Trim();
-                    sFBA1 = tFBA1.Text.Trim();
-                    sFBA2 = tFBA2.Text.Trim();
-                    sFBD1 = tFBD1.Text.Trim();
-                    sFBD2 = tFBD2.Text.Trim();
-                    sFAA1 = tFAA1.Text.Trim();
-                    sFAA2 = tFAA2.Text.Trim();
-                    sFAD1 = tFAD1.Text.Trim();
-                    sFAD2 = tFAD2.Text.Trim();
-                    sFRA1 = tFRA1.Text.Trim();
-                    sFRA2 = tFRA2.Text.Trim();
-                    sFRD1 = tFRD1.Text.Trim();
-                    sFRD2 = tFRD2.Text.Trim();
-                    sPUA1 = tPUA1.Text.Trim();
-                    sPUA2 = tPUA2.Text.Trim();
-                    sPUD1 = tPUD1.Text.Trim();
-                    sPUD2 = tPUD2.Text.Trim();
-                    sPDA1 = tPDA1.Text.Trim();
-                    sPDA2 = tPDA2.Text.Trim();
-                    sPDD1 = tPDD1.Text.Trim();
-                    sPDD2 = tPDD2.Text.Trim();
-                    sSFD1 = tSFD1.Text.Trim();
-                    sSFD2 = tSFD2.Text.Trim();
-                    sHIT51 = tHIT51.Text.Trim();
-                    sHIT52 = tHIT52.Text.Trim();
-                    sHIT81 = tHIT81.Text.Trim();
-                    sHIT82 = tHIT82.Text.Trim();
-                    sHIT101 = tHIT101.Text.Trim();
-                    sHIT102 = tHIT102.Text.Trim();
-                    sHIT121 = tHIT121.Text.Trim();
-                    sHIT122 = tHIT122.Text.Trim();
-                    sCURFT1 = tCURFT1.Text.Trim();
-                    sCURFT2 = tCURFT2.Text.Trim();
-                    sCURFC1 = tCURFC1.Text.Trim();
-                    sCURFC2 = tCURFC2.Text.Trim();
-                    sFABNum1 = tFABNum1.Text.Trim();
-                    sFABNum2 = tFABNum2.Text.Trim();
-                    sFABPlusNum1 = tFABPlusNum1.Text.Trim();
-                    sFABPlusNum2 = tFABPlusNum2.Text.Trim();
-                    sTradeCompared1 = tTradeCompared1.Text.Trim();
-                    sTradeCompared2 = tTradeCompared2.Text.Trim();
-                    sTradeStrength1 = tTradeStrength1.Text.Trim();
-                    sTradeStrength2 = tTradeStrength2.Text.Trim();
-                    sUntilVi1 = tUntilVi1.Text.Trim();
-                    sUntilVi2 = tUntilVi2.Text.Trim();
-                    sDUP1 = tDUP1.Text.Trim();
-                    sDUP2 = tDUP2.Text.Trim();
+                    ComparePackage TFPack = new ComparePackage(tTF1.Text, tTF2.Text);
+                    ComparePackage SGPack = new ComparePackage(tSG1.Text, tSG2.Text);
+                    ComparePackage WOGPack = new ComparePackage(tWOG1.Text, tWOG2.Text);
+                    ComparePackage CPPack = new ComparePackage(tCP1.Text, tCP2.Text);
+                    ComparePackage PDPack = new ComparePackage(tPD1.Text, tPD2.Text);
+                    ComparePackage RPDPack = new ComparePackage(tRPD1.Text, tRPD2.Text);
+                    ComparePackage PJPack = new ComparePackage(tPJ1.Text, tPJ2.Text);
+                    ComparePackage UPJPack = new ComparePackage(tUPJ1.Text, tUPJ2.Text);
+                    ComparePackage DPJPack = new ComparePackage(tDPJ1.Text, tDPJ2.Text);
+                    ComparePackage TTMPack = new ComparePackage(tTTM1.Text, tTTM2.Text);
+                    ComparePackage BMPack = new ComparePackage(tBM1.Text, tBM2.Text);
+                    ComparePackage SMPack = new ComparePackage(tSM1.Text, tSM2.Text);
+                    ComparePackage TAPack = new ComparePackage(tTA1.Text, tTA2.Text);
+                    ComparePackage HAPack = new ComparePackage(tHA1.Text, tHA2.Text);
+                    ComparePackage RAPack = new ComparePackage(tRA1.Text, tRA2.Text);
+                    ComparePackage DAPack = new ComparePackage(tDA1.Text, tDA2.Text);
+                    ComparePackage _1PPack = new ComparePackage(t1P1.Text, t1P2.Text);
+                    ComparePackage _2PPack = new ComparePackage(t2P1.Text, t2P2.Text);
+                    ComparePackage _3PPack = new ComparePackage(t3P1.Text, t3P2.Text);
+                    ComparePackage _4PPack = new ComparePackage(t4P1.Text, t4P2.Text);
+                    ComparePackage VIPack = new ComparePackage(tVI1.Text, tVI2.Text);
+                    ComparePackage RBPPack = new ComparePackage(tRBP1.Text, tRBP2.Text);
+                    ComparePackage TFPPack = new ComparePackage(tTFP1.Text, tTFP2.Text);
+                    ComparePackage EPPack = new ComparePackage(tEP1.Text, tEP2.Text);
+                    ComparePackage AISPack = new ComparePackage(tAIS1.Text, tAIS2.Text);
+                    ComparePackage SCPack = new ComparePackage(tSC1.Text, tSC2.Text);
+                    ComparePackage SUDCPack = new ComparePackage(tSUDC1.Text, tSUDC2.Text);
+                    ComparePackage SUPPack = new ComparePackage(tSUP1.Text, tSUP2.Text);
+                    ComparePackage SDPPack = new ComparePackage(tSDP1.Text, tSDP2.Text);
+                    ComparePackage SPDPack = new ComparePackage(tSPD1.Text, tSPD2.Text);
+                    ComparePackage ECPack = new ComparePackage(tEC1.Text, tEC2.Text);
+                    ComparePackage CMPack = new ComparePackage(tCM1.Text, tCM2.Text);
+                    ComparePackage PMPack = new ComparePackage(tPM1.Text, tPM2.Text);
+                    ComparePackage CCPack = new ComparePackage(tCC1.Text, tCC2.Text);
+                    ComparePackage CSPack = new ComparePackage(tCS1.Text, tCS2.Text);
+                    ComparePackage AMUPack = new ComparePackage(tAMU1.Text, tAMU2.Text);
+                    ComparePackage AMDPack = new ComparePackage(tAMD1.Text, tAMD2.Text);
+                    ComparePackage HSPack = new ComparePackage(tHS1.Text, tHS2.Text);
+                    ComparePackage PSPack = new ComparePackage(tPS1.Text, tPS2.Text);
+                    ComparePackage PUSPack = new ComparePackage(tPUS1.Text, tPUS2.Text);
+                    ComparePackage TSPack = new ComparePackage(tTS1.Text, tTS2.Text);
+                    ComparePackage TMAXPack = new ComparePackage(tTMAX1.Text, tTMAX2.Text);
+                    ComparePackage TMINPack = new ComparePackage(tTMIN1.Text, tTMIN2.Text);
+                    ComparePackage TMDPack = new ComparePackage(tTMD1.Text, tTMD2.Text);
+                    ComparePackage MRPack = new ComparePackage(tMR1.Text, tMR2.Text);
+                    ComparePackage TRPack = new ComparePackage(tTR1.Text, tTR2.Text);
+                    ComparePackage RDIFPack = new ComparePackage(tRDIF1.Text, tRDIF2.Text);
+                    ComparePackage AI20TPack = new ComparePackage(tAI20T1.Text, tAI20T2.Text);
+                    ComparePackage AI30TPack = new ComparePackage(tAI30T1.Text, tAI30T2.Text);
+                    ComparePackage AI50TPack = new ComparePackage(tAI50T1.Text, tAI50T2.Text);
+                    ComparePackage CRCPack = new ComparePackage(tCRC1.Text, tCRC2.Text);
+                    ComparePackage UCRCPack = new ComparePackage(tUCRC1.Text, tUCRC2.Text);
+                    ComparePackage T150Pack = new ComparePackage(tT1501.Text, tT1502.Text);
+                    ComparePackage C150Pack = new ComparePackage(tC1501.Text, tC1502.Text);
+                    ComparePackage RBAPack = new ComparePackage(tRBA1.Text, tRBA2.Text);
+                    ComparePackage RBDPack = new ComparePackage(tRBD1.Text, tRBD2.Text);
+                    ComparePackage FBAPack = new ComparePackage(tFBA1.Text, tFBA2.Text);
+                    ComparePackage FBDPack = new ComparePackage(tFBD1.Text, tFBD2.Text);
+                    ComparePackage FAAPack = new ComparePackage(tFAA1.Text, tFAA2.Text);
+                    ComparePackage FADPack = new ComparePackage(tFAD1.Text, tFAD2.Text);
+                    ComparePackage FRAPack = new ComparePackage(tFRA1.Text, tFRA2.Text);
+                    ComparePackage FRDPack = new ComparePackage(tFRD1.Text, tFRD2.Text);
+                    ComparePackage PUAPack = new ComparePackage(tPUA1.Text, tPUA2.Text);
+                    ComparePackage PUDPack = new ComparePackage(tPUD1.Text, tPUD2.Text);
+                    ComparePackage PDAPack = new ComparePackage(tPDA1.Text, tPDA2.Text);
+                    ComparePackage PDDPack = new ComparePackage(tPDD1.Text, tPDD2.Text);
+                    ComparePackage SFDPack = new ComparePackage(tSFD1.Text, tSFD2.Text);
+                    ComparePackage HIT5Pack = new ComparePackage(tHIT51.Text, tHIT52.Text);
+                    ComparePackage HIT8Pack = new ComparePackage(tHIT81.Text, tHIT82.Text);
+                    ComparePackage HIT10Pack = new ComparePackage(tHIT101.Text, tHIT102.Text);
+                    ComparePackage HIT12Pack = new ComparePackage(tHIT121.Text, tHIT122.Text);
+                    ComparePackage CURFTPack = new ComparePackage(tCURFT1.Text, tCURFT2.Text);
+                    ComparePackage CURFCPack = new ComparePackage(tCURFC1.Text, tCURFC2.Text);
+                    ComparePackage FABNumPack = new ComparePackage(tFABNum1.Text, tFABNum2.Text);
+                    ComparePackage FABPlusNumPack = new ComparePackage(tFABPlusNum1.Text, tFABPlusNum2.Text);
+                    ComparePackage TradeComparedPack = new ComparePackage(tTradeCompared1.Text, tTradeCompared2.Text);
+                    ComparePackage TradeStrengthPack = new ComparePackage(tTradeStrength1.Text, tTradeStrength2.Text);
+                    ComparePackage UntilViPack = new ComparePackage(tUntilVi1.Text, tUntilVi2.Text);
+                    ComparePackage DUPPack = new ComparePackage(tDUP1.Text, tDUP2.Text);
 
-
-                    isTF1 = !sTF1.Equals("");
-                    isTF2 = !sTF2.Equals("");
-                    isSG1 = !sSG1.Equals("");
-                    isSG2 = !sSG2.Equals("");
-                    isWOG1 = !sWOG1.Equals("");
-                    isWOG2 = !sWOG2.Equals("");
-                    isCP1 = !sCP1.Equals("");
-                    isCP2 = !sCP2.Equals("");
-                    isPD1 = !sPD1.Equals("");
-                    isPD2 = !sPD2.Equals("");
-                    isRPD1 = !sRPD1.Equals("");
-                    isRPD2 = !sRPD2.Equals("");
-                    isPJ1 = !sPJ1.Equals("");
-                    isPJ2 = !sPJ2.Equals("");
-                    isUPJ1 = !sUPJ1.Equals("");
-                    isUPJ2 = !sUPJ2.Equals("");
-                    isDPJ1 = !sDPJ1.Equals("");
-                    isDPJ2 = !sDPJ2.Equals("");
-                    isTTM1 = !sTTM1.Equals("");
-                    isTTM2 = !sTTM2.Equals("");
-                    isBM1 = !sBM1.Equals("");
-                    isBM2 = !sBM2.Equals("");
-                    isSM1 = !sSM1.Equals("");
-                    isSM2 = !sSM2.Equals("");
-                    isTA1 = !sTA1.Equals("");
-                    isTA2 = !sTA2.Equals("");
-                    isHA1 = !sHA1.Equals("");
-                    isHA2 = !sHA2.Equals("");
-                    isRA1 = !sRA1.Equals("");
-                    isRA2 = !sRA2.Equals("");
-                    isDA1 = !sDA1.Equals("");
-                    isDA2 = !sDA2.Equals("");
-                    is1P1 = !s1P1.Equals("");
-                    is1P2 = !s1P2.Equals("");
-                    is2P1 = !s2P1.Equals("");
-                    is2P2 = !s2P2.Equals("");
-                    is3P1 = !s3P1.Equals("");
-                    is3P2 = !s3P2.Equals("");
-                    is4P1 = !s4P1.Equals("");
-                    is4P2 = !s4P2.Equals("");
-                    isVI1 = !sVI1.Equals("");
-                    isVI2 = !sVI2.Equals("");
-                    isRBP1 = !sRBP1.Equals("");
-                    isRBP2 = !sRBP2.Equals("");
-                    isTFP1 = !sTFP1.Equals("");
-                    isTFP2 = !sTFP2.Equals("");
-                    isEP1 = !sEP1.Equals("");
-                    isEP2 = !sEP2.Equals("");
-                    isAIS1 = !sAIS1.Equals("");
-                    isAIS2 = !sAIS2.Equals("");
-                    isSC1 = !sSC1.Equals("");
-                    isSC2 = !sSC2.Equals("");
-                    isSUDC1 = !sSUDC1.Equals("");
-                    isSUDC2 = !sSUDC2.Equals("");
-                    isSUP1 = !sSUP1.Equals("");
-                    isSUP2 = !sSUP2.Equals("");
-                    isSDP1 = !sSDP1.Equals("");
-                    isSDP2 = !sSDP2.Equals("");
-                    isSPD1 = !sSPD1.Equals("");
-                    isSPD2 = !sSPD2.Equals("");
-                    isEC1 = !sEC1.Equals("");
-                    isEC2 = !sEC2.Equals("");
-                    isCM1 = !sCM1.Equals("");
-                    isCM2 = !sCM2.Equals("");
-                    isPM1 = !sPM1.Equals("");
-                    isPM2 = !sPM2.Equals("");
-                    isCC1 = !sCC1.Equals("");
-                    isCC2 = !sCC2.Equals("");
-                    isCS1 = !sCS1.Equals("");
-                    isCS2 = !sCS2.Equals("");
-                    isAMU1 = !sAMU1.Equals("");
-                    isAMU2 = !sAMU2.Equals("");
-                    isAMD1 = !sAMD1.Equals("");
-                    isAMD2 = !sAMD2.Equals("");
-                    isHS1 = !sHS1.Equals("");
-                    isHS2 = !sHS2.Equals("");
-                    isPS1 = !sPS1.Equals("");
-                    isPS2 = !sPS2.Equals("");
-                    isPUS1 = !sPUS1.Equals("");
-                    isPUS2 = !sPUS2.Equals("");
-                    isTS1 = !sTS1.Equals("");
-                    isTS2 = !sTS2.Equals("");
-                    isTMAX1 = !sTMAX1.Equals("");
-                    isTMAX2 = !sTMAX2.Equals("");
-                    isTMIN1 = !sTMIN1.Equals("");
-                    isTMIN2 = !sTMIN2.Equals("");
-                    isTMD1 = !sTMD1.Equals("");
-                    isTMD2 = !sTMD2.Equals("");
-                    isMR1 = !sMR1.Equals("");
-                    isMR2 = !sMR2.Equals("");
-                    isTR1 = !sTR1.Equals("");
-                    isTR2 = !sTR2.Equals("");
-                    isRDIF1 = !sRDIF1.Equals("");
-                    isRDIF2 = !sRDIF2.Equals("");
-                    isAI20T1 = !sAI20T1.Equals("");
-                    isAI20T2 = !sAI20T2.Equals("");
-                    isAI30T1 = !sAI30T1.Equals("");
-                    isAI30T2 = !sAI30T2.Equals("");
-                    isAI50T1 = !sAI50T1.Equals("");
-                    isAI50T2 = !sAI50T2.Equals("");
-                    isCRC1 = !sCRC1.Equals("");
-                    isCRC2 = !sCRC2.Equals("");
-                    isUCRC1 = !sUCRC1.Equals("");
-                    isUCRC2 = !sUCRC2.Equals("");
-                    isT1501 = !sT1501.Equals("");
-                    isT1502 = !sT1502.Equals("");
-                    isC1501 = !sC1501.Equals("");
-                    isC1502 = !sC1502.Equals("");
-                    isRBA1 = !sRBA1.Equals("");
-                    isRBA2 = !sRBA2.Equals("");
-                    isRBD1 = !sRBD1.Equals("");
-                    isRBD2 = !sRBD2.Equals("");
-                    isFBA1 = !sFBA1.Equals("");
-                    isFBA2 = !sFBA2.Equals("");
-                    isFBD1 = !sFBD1.Equals("");
-                    isFBD2 = !sFBD2.Equals("");
-                    isFAA1 = !sFAA1.Equals("");
-                    isFAA2 = !sFAA2.Equals("");
-                    isFAD1 = !sFAD1.Equals("");
-                    isFAD2 = !sFAD2.Equals("");
-                    isFRA1 = !sFRA1.Equals("");
-                    isFRA2 = !sFRA2.Equals("");
-                    isFRD1 = !sFRD1.Equals("");
-                    isFRD2 = !sFRD2.Equals("");
-                    isPUA1 = !sPUA1.Equals("");
-                    isPUA2 = !sPUA2.Equals("");
-                    isPUD1 = !sPUD1.Equals("");
-                    isPUD2 = !sPUD2.Equals("");
-                    isPDA1 = !sPDA1.Equals("");
-                    isPDA2 = !sPDA2.Equals("");
-                    isPDD1 = !sPDD1.Equals("");
-                    isPDD2 = !sPDD2.Equals("");
-                    isSFD1 = !sSFD1.Equals("");
-                    isSFD2 = !sSFD2.Equals("");
-                    isHIT51 = !sHIT51.Equals("");
-                    isHIT52 = !sHIT52.Equals("");
-                    isHIT81 = !sHIT81.Equals("");
-                    isHIT82 = !sHIT82.Equals("");
-                    isHIT101 = !sHIT101.Equals("");
-                    isHIT102 = !sHIT102.Equals("");
-                    isHIT121 = !sHIT121.Equals("");
-                    isHIT122 = !sHIT122.Equals("");
-                    isCURFT1 = !sCURFT1.Equals("");
-                    isCURFT2 = !sCURFT2.Equals("");
-                    isCURFC1 = !sCURFC1.Equals("");
-                    isCURFC2 = !sCURFC2.Equals("");
-                    isFABNum1 = !sFABNum1.Equals("");
-                    isFABNum2 = !sFABNum2.Equals("");
-                    isFABPlusNum1 = !sFABPlusNum1.Equals("");
-                    isFABPlusNum2 = !sFABPlusNum2.Equals("");
-                    isTradeCompared1 = !sTradeCompared1.Equals("");
-                    isTradeCompared2 = !sTradeCompared2.Equals("");
-                    isTradeStrength1 = !sTradeStrength1.Equals("");
-                    isTradeStrength2 = !sTradeStrength2.Equals("");
-                    isUntilVi1 = !sUntilVi1.Equals("");
-                    isUntilVi2 = !sUntilVi2.Equals("");
-                    isDUP1 = !sDUP1.Equals("");
-                    isDUP2 = !sDUP2.Equals("");
-                    
 
                     nPass = 0; // pass cnt
                     nPassLen = 0;
                     nFullMinusNum = GetPassNum(new bool[] {
-                                        isTF1 || isTF2 ,
-                                        isSG1 || isSG2 ,
-                                        isWOG1 || isWOG2 ,
-                                        isCP1 || isCP2 ,
-                                        isPJ1 || isPJ2 ,
-                                        isUPJ1 || isUPJ2 ,
-                                        isDPJ1 || isDPJ2 ,
-                                        isTTM1 || isTTM2 ,
-                                        isBM1 || isBM2 ,
-                                        isPD1 || isPD2 ,
-                                        isRPD1 || isRPD2 ,
-                                        isSM1 || isSM2 ,
-                                        isTA1 || isTA2 ,
-                                        isHA1 || isHA2 ,
-                                        isRA1 || isRA2 ,
-                                        isDA1 || isDA2 ,
-                                        is1P1 || is1P2 ,
-                                        is2P1 || is2P2 ,
-                                        is3P1 || is3P2 ,
-                                        is4P1 || is4P2 ,
-                                        isVI1 || isVI2,
-                                        isRBP1 || isRBP2,
-                                        isTFP1 || isTFP2,
-                                        isEP1 || isEP2,
-                                        isAIS1 || isAIS2,
-                                        isSC1 || isSC2,
-                                        isSUDC1 || isSUDC2,
-                                        isSUP1 || isSUP2,
-                                        isSDP1 || isSDP2,
-                                        isSPD1 || isSPD2,
-                                        isEC1 || isEC2,
-                                        isCM1 || isCM2,
-                                        isPM1 || isPM2,
-                                        isCC1 || isCC2,
-                                        isCS1 || isCS2,
-                                        isAMU1 || isAMU2,
-                                        isAMD1 || isAMD2,
-                                        isHS1 || isHS2,
-                                        isPS1 || isPS2,
-                                        isPUS1 || isPUS2,
-                                        isTS1 || isTS2,
-                                        isTMAX1 || isTMAX2,
-                                        isTMIN1 || isTMIN2,
-                                        isTMD1 || isTMD2,
-                                        isMR1 || isMR2 ,
-                                        isTR1 || isTR2 ,
-                                        isRDIF1 || isRDIF2 ,
-                                        isAI20T1 || isAI20T2 ,
-                                        isAI30T1 || isAI30T2 ,
-                                        isAI50T1 || isAI50T2 ,
-                                        isCRC1 || isCRC2 ,
-                                        isUCRC1 || isUCRC2 ,
-                                        isT1501 || isT1502,
-                                        isC1501 || isC1502,
-                                        isRBA1 || isRBA2,
-                                        isFBA1 || isFBA2,
-                                        isFAA1 || isFAA2,
-                                        isFRA1 || isFRA2,
-                                        isPUA1 || isPUA2,
-                                        isPDA1 || isPDA2,
-                                        isRBD1 || isRBD2,
-                                        isFBD1 || isFBD2,
-                                        isFAD1 || isFAD2,
-                                        isFRD1 || isFRD2,
-                                        isPUD1 || isPUD2,
-                                        isPDD1 || isPDD2,
-                                        isSFD1 || isSFD2,
-                                        isHIT51 || isHIT52,
-                                        isHIT81 || isHIT82,
-                                        isHIT101 || isHIT102,
-                                        isHIT121 || isHIT122,
-                                        isCURFT1 || isCURFT2,
-                                        isCURFC1 || isCURFC2,
-                                        isFABNum1 || isFABNum2,
-                                        isFABPlusNum1 || isFABPlusNum2,
-                                        isTradeCompared1 || isTradeCompared2,
-                                        isTradeStrength1 || isTradeStrength2,
-                                        isUntilVi1 || isUntilVi2,
-                                        isDUP1 || isDUP2,
-                    });
+                                                    TFPack.IsChecked(),
+                                                    SGPack.IsChecked(),
+                                                    WOGPack.IsChecked(),
+                                                    CPPack.IsChecked(),
+                                                    PDPack.IsChecked(),
+                                                    RPDPack.IsChecked(),
+                                                    PJPack.IsChecked(),
+                                                    UPJPack.IsChecked(),
+                                                    DPJPack.IsChecked(),
+                                                    TTMPack.IsChecked(),
+                                                    BMPack.IsChecked(),
+                                                    SMPack.IsChecked(),
+                                                    TAPack.IsChecked(),
+                                                    HAPack.IsChecked(),
+                                                    RAPack.IsChecked(),
+                                                    DAPack.IsChecked(),
+                                                    _1PPack.IsChecked(),
+                                                    _2PPack.IsChecked(),
+                                                    _3PPack.IsChecked(),
+                                                    _4PPack.IsChecked(),
+                                                    VIPack.IsChecked(),
+                                                    RBPPack.IsChecked(),
+                                                    TFPPack.IsChecked(),
+                                                    EPPack.IsChecked(),
+                                                    AISPack.IsChecked(),
+                                                    SCPack.IsChecked(),
+                                                    SUDCPack.IsChecked(),
+                                                    SUPPack.IsChecked(),
+                                                    SDPPack.IsChecked(),
+                                                    SPDPack.IsChecked(),
+                                                    ECPack.IsChecked(),
+                                                    CMPack.IsChecked(),
+                                                    PMPack.IsChecked(),
+                                                    CCPack.IsChecked(),
+                                                    CSPack.IsChecked(),
+                                                    AMUPack.IsChecked(),
+                                                    AMDPack.IsChecked(),
+                                                    HSPack.IsChecked(),
+                                                    PSPack.IsChecked(),
+                                                    PUSPack.IsChecked(),
+                                                    TSPack.IsChecked(),
+                                                    TMAXPack.IsChecked(),
+                                                    TMINPack.IsChecked(),
+                                                    TMDPack.IsChecked(),
+                                                    MRPack.IsChecked(),
+                                                    RDIFPack.IsChecked(),
+                                                    AI20TPack.IsChecked(),
+                                                    AI30TPack.IsChecked(),
+                                                    AI50TPack.IsChecked(),
+                                                    CRCPack.IsChecked(),
+                                                    UCRCPack.IsChecked(),
+                                                    T150Pack.IsChecked(),
+                                                    C150Pack.IsChecked(),
+                                                    RBAPack.IsChecked(),
+                                                    RBDPack.IsChecked(),
+                                                    FBAPack.IsChecked(),
+                                                    FBDPack.IsChecked(),
+                                                    FAAPack.IsChecked(),
+                                                    FADPack.IsChecked(),
+                                                    FRAPack.IsChecked(),
+                                                    FRDPack.IsChecked(),
+                                                    PUAPack.IsChecked(),
+                                                    PUDPack.IsChecked(),
+                                                    PDAPack.IsChecked(),
+                                                    PDDPack.IsChecked(),
+                                                    SFDPack.IsChecked(),
+                                                    HIT5Pack.IsChecked(),
+                                                    HIT8Pack.IsChecked(),
+                                                    HIT10Pack.IsChecked(),
+                                                    HIT12Pack.IsChecked(),
+                                                    CURFTPack.IsChecked(),
+                                                    CURFCPack.IsChecked(),
+                                                    FABNumPack.IsChecked(),
+                                                    FABPlusNumPack.IsChecked(),
+                                                    TradeComparedPack.IsChecked(),
+                                                    TradeStrengthPack.IsChecked(),
+                                                    UntilViPack.IsChecked(),
+                                                    DUPPack.IsChecked(),
+                });
 
                     string sPassNum = passNumTxtBox.Text.Trim();
                     int nPassMinusNum = 0;
@@ -1503,243 +947,164 @@ namespace AtoIndicator.View
                             isShow = false;
                             isReserveShow = true;
 
-                            if (isTF1 || isTF2)
-                                nPass += ((isTF1 ? int.Parse(sTF1) <= mainForm.ea[i].fakeStrategyMgr.nTotalFakeCount : true) &&
-                                    (isTF2 ? mainForm.ea[i].fakeStrategyMgr.nTotalFakeCount <= int.Parse(sTF2) : true)) ? 1 : 0;
-                            if (isSG1 || isSG2)
-                                nPass += ((isSG1 ? double.Parse(sSG1) <= mainForm.ea[i].fStartGap : true) &&
-                                    (isSG2 ? mainForm.ea[i].fStartGap <= double.Parse(sSG2) : true)) ? 1 : 0;
-                            if (isWOG1 || isWOG2)
-                                nPass += ((isWOG1 ? double.Parse(sWOG1) <= mainForm.ea[i].fPowerWithoutGap : true) &&
-                                    (isWOG2 ? mainForm.ea[i].fPowerWithoutGap <= double.Parse(sWOG2) : true)) ? 1 : 0;
-                            if (isCP1 || isCP2)
-                                nPass += ((isCP1 ? double.Parse(sCP1) <= mainForm.ea[i].fPower : true) &&
-                                    (isCP2 ? mainForm.ea[i].fPower <= double.Parse(sCP2) : true)) ? 1 : 0;
-                            if ((isPD1 || isPD2) && mainForm.ea[i].nYesterdayEndPrice > 0)
-                                nPass += ((isPD1 ? double.Parse(sPD1) <= (double)(mainForm.ea[i].timeLines1m.nMaxUpFs - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice : true) &&
-                                    (isPD2 ? (double)(mainForm.ea[i].timeLines1m.nMaxUpFs - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice <= double.Parse(sPD2) : true)) ? 1 : 0;
-                            if (isRPD1 || isRPD2)
-                                nPass += ((isRPD1 ? double.Parse(sRPD1) <= mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower : true) &&
-                                    (isRPD2 ? mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower <= double.Parse(sRPD2) : true)) ? 1 : 0;
-                            if (isPJ1 || isPJ2)
-                                nPass += ((isPJ1 ? double.Parse(sPJ1) <= mainForm.ea[i].fPowerJar : true) &&
-                                    (isPJ2 ? mainForm.ea[i].fPowerJar <= double.Parse(sPJ2) : true)) ? 1 : 0;
-                            if (isUPJ1 || isUPJ2)
-                                nPass += ((isUPJ1 ? double.Parse(sUPJ1) <= mainForm.ea[i].fOnlyUpPowerJar : true) &&
-                                    (isUPJ2 ? mainForm.ea[i].fOnlyUpPowerJar <= double.Parse(sUPJ2) : true)) ? 1 : 0;
-                            if (isDPJ1 || isDPJ2)
-                                nPass += ((isDPJ1 ? double.Parse(sDPJ1) <= mainForm.ea[i].fOnlyDownPowerJar : true) &&
-                                    (isDPJ2 ? mainForm.ea[i].fOnlyDownPowerJar <= double.Parse(sDPJ2) : true)) ? 1 : 0;
-                            if (isTTM1 || isTTM2)
-                                nPass += ((isTTM1 ? double.Parse(sTTM1) * 100000000 <= mainForm.ea[i].lTotalTradePrice : true) &&
-                                    (isTTM2 ? mainForm.ea[i].lTotalTradePrice <= double.Parse(sTTM2) * 100000000 : true)) ? 1 : 0;
-                            if (isBM1 || isBM2)
-                                nPass += ((isBM1 ? double.Parse(sBM1) * 100000000 <= mainForm.ea[i].lOnlyBuyPrice : true) &&
-                                    (isBM2 ? mainForm.ea[i].lOnlyBuyPrice <= double.Parse(sBM2) * 100000000 : true)) ? 1 : 0;
-                            if (isSM1 || isSM2)
-                                nPass += ((isSM1 ? double.Parse(sSM1) * 100000000 <= mainForm.ea[i].lOnlySellPrice : true) &&
-                                    (isSM2 ? mainForm.ea[i].lOnlySellPrice <= double.Parse(sSM2) * 100000000 : true)) ? 1 : 0;
-                            if (isTA1 || isTA2)
-                                nPass += ((isTA1 ? double.Parse(sTA1) <= mainForm.ea[i].timeLines1m.fTotalMedianAngle : true) &&
-                                    (isTA2 ? mainForm.ea[i].timeLines1m.fTotalMedianAngle <= double.Parse(sTA2) : true)) ? 1 : 0;
-                            if (isHA1 || isHA2)
-                                nPass += ((isHA1 ? double.Parse(sHA1) <= mainForm.ea[i].timeLines1m.fHourMedianAngle : true) &&
-                                    (isHA2 ? mainForm.ea[i].timeLines1m.fHourMedianAngle <= double.Parse(sHA2) : true)) ? 1 : 0;
-                            if (isRA1 || isRA2)
-                                nPass += ((isRA1 ? double.Parse(sRA1) <= mainForm.ea[i].timeLines1m.fRecentMedianAngle : true) &&
-                                    (isRA2 ? mainForm.ea[i].timeLines1m.fRecentMedianAngle <= double.Parse(sRA2) : true)) ? 1 : 0;
-                            if (isDA1 || isDA2)
-                                nPass += ((isDA1 ? double.Parse(sDA1) <= mainForm.ea[i].timeLines1m.fDAngle : true) &&
-                                    (isDA2 ? mainForm.ea[i].timeLines1m.fDAngle <= double.Parse(sDA2) : true)) ? 1 : 0;
-                            if (is1P1 || is1P2)
-                                nPass += ((is1P1 ? int.Parse(s1P1) <= mainForm.ea[i].timeLines1m.onePerCandleList.Count : true) &&
-                                    (is1P2 ? mainForm.ea[i].timeLines1m.onePerCandleList.Count <= int.Parse(s1P2) : true)) ? 1 : 0;
-                            if (is2P1 || is2P2)
-                                nPass += ((is2P1 ? int.Parse(s2P1) <= mainForm.ea[i].timeLines1m.twoPerCandleList.Count : true) &&
-                                    (is2P2 ? mainForm.ea[i].timeLines1m.twoPerCandleList.Count <= int.Parse(s2P2) : true)) ? 1 : 0;
-                            if (is3P1 || is3P2)
-                                nPass += ((is3P1 ? int.Parse(s3P1) <= mainForm.ea[i].timeLines1m.threePerCandleList.Count : true) &&
-                                    (is3P2 ? mainForm.ea[i].timeLines1m.threePerCandleList.Count <= int.Parse(s3P2) : true)) ? 1 : 0;
-                            if (is4P1 || is4P2)
-                                nPass += ((is4P1 ? int.Parse(s4P1) <= mainForm.ea[i].timeLines1m.fourPerCandleList.Count : true) &&
-                                    (is4P2 ? mainForm.ea[i].timeLines1m.fourPerCandleList.Count <= int.Parse(s4P2) : true)) ? 1 : 0;
-                            if (isVI1 || isVI2)
-                                nPass += ((isVI1 ? int.Parse(sVI1) <= mainForm.ea[i].nViCnt : true) &&
-                                    (isVI2 ? mainForm.ea[i].nViCnt <= int.Parse(sVI2) : true)) ? 1 : 0;
-                            if (isRBP1 || isRBP2)
-                                nPass += ((isRBP1 ? int.Parse(sRBP1) <= mainForm.ea[i].fakeStrategyMgr.nAIPassed : true) &&
-                                    (isRBP2 ? mainForm.ea[i].fakeStrategyMgr.nAIPassed <= int.Parse(sRBP2) : true)) ? 1 : 0;
-                            if (isTFP1 || isTFP2)
-                                nPass += ((isTFP1 ? int.Parse(sTFP1) <= mainForm.ea[i].fakeStrategyMgr.nFakeAccumPassed : true) &&
-                                    (isTFP2 ? mainForm.ea[i].fakeStrategyMgr.nFakeAccumPassed <= int.Parse(sTFP2) : true)) ? 1 : 0;
-                            if (isEP1 || isEP2)
-                                nPass += ((isEP1 ? int.Parse(sEP1) <= mainForm.ea[i].fakeStrategyMgr.nEveryAIPassNum : true) &&
-                                    (isEP2 ? mainForm.ea[i].fakeStrategyMgr.nEveryAIPassNum <= int.Parse(sEP2) : true)) ? 1 : 0;
-                            if (isAIS1 || isAIS2)
-                                nPass += ((isAIS1 ? double.Parse(sAIS1) <= mainForm.ea[i].fakeStrategyMgr.fAIScore : true) &&
-                                    (isAIS2 ? mainForm.ea[i].fakeStrategyMgr.fAIScore <= double.Parse(sAIS2) : true)) ? 1 : 0;
-                            if (isSC1 || isSC2)
-                                nPass += ((isSC1 ? int.Parse(sSC1) <= mainForm.ea[i].nStopHogaCnt : true) &&
-                                    (isSC2 ? mainForm.ea[i].nStopHogaCnt <= int.Parse(sSC2) : true)) ? 1 : 0;
-                            if (isSUDC1 || isSUDC2)
-                                nPass += ((isSUDC1 ? int.Parse(sSUDC1) <= mainForm.ea[i].nStopUpDownCnt : true) &&
-                                    (isSUDC2 ? mainForm.ea[i].nStopUpDownCnt <= int.Parse(sSUDC2) : true)) ? 1 : 0;
-                            if (isSUP1 || isSUP2)
-                                nPass += ((isSUP1 ? double.Parse(sSUP1) <= mainForm.ea[i].fStopMaxPower : true) &&
-                                    (isSUP2 ? mainForm.ea[i].fStopMaxPower <= double.Parse(sSUP2) : true)) ? 1 : 0;
-                            if (isSDP1 || isSDP2)
-                                nPass += ((isSDP1 ? double.Parse(sSDP1) <= mainForm.ea[i].fStopMinPower : true) &&
-                                    (isSDP2 ? mainForm.ea[i].fStopMinPower <= double.Parse(sSDP2) : true)) ? 1 : 0;
-                            if (isSPD1 || isSPD2)
-                                nPass += ((isSPD1 ? double.Parse(sSPD1) <= mainForm.ea[i].fStopMaxMinDiff : true) &&
-                                    (isSPD2 ? mainForm.ea[i].fStopMaxMinDiff <= double.Parse(sSPD2) : true)) ? 1 : 0;
-                            if (isEC1 || isEC2)
-                                nPass += ((isEC1 ? int.Parse(sEC1) <= mainForm.ea[i].fakeStrategyMgr.nEveryAICount : true) &&
-                                    (isEC2 ? mainForm.ea[i].fakeStrategyMgr.nEveryAICount <= int.Parse(sEC2) : true)) ? 1 : 0;
-                            if (isCM1 || isCM2)
-                                nPass += ((isCM1 ? double.Parse(sCM1) <= (double)(mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nPrevTimeLineIdx].nLastFs - mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nPrevTimeLineIdx].nStartFs) / mainForm.ea[i].nYesterdayEndPrice : true) &&
-                                    (isCM2 ? (double)(mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nPrevTimeLineIdx].nLastFs - mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nPrevTimeLineIdx].nStartFs) / mainForm.ea[i].nYesterdayEndPrice <= double.Parse(sCM2) : true)) ? 1 : 0;
-                            if (isPM1 || isPM2)
-                                nPass += ((isPM1 ? double.Parse(sPM1) <= (double)(mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nRealDataIdx].nLastFs - mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nRealDataIdx].nStartFs) / mainForm.ea[i].nYesterdayEndPrice : true) &&
-                                    (isPM2 ? (double)(mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nRealDataIdx].nLastFs - mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nRealDataIdx].nStartFs) / mainForm.ea[i].nYesterdayEndPrice <= double.Parse(sPM2) : true)) ? 1 : 0;
-                            if (isCC1 || isCC2)
-                                nPass += ((isCC1 ? int.Parse(sCC1) <= mainForm.ea[i].nChegyulCnt : true) &&
-                                    (isCC2 ? mainForm.ea[i].nChegyulCnt <= int.Parse(sCC2) : true)) ? 1 : 0;
-                            if (isCS1 || isCS2)
-                                nPass += ((isCS1 ? double.Parse(sCS1) <= mainForm.ea[i].speedStatus.fCur : true) &&
-                                    (isCS2 ? mainForm.ea[i].speedStatus.fCur <= double.Parse(sCS2) : true)) ? 1 : 0;
-                            if (isAMU1 || isAMU2)
-                                nPass += ((isAMU1 ? double.Parse(sAMU1) <= mainForm.ea[i].fPositiveStickPower : true) &&
-                                    (isAMU2 ? mainForm.ea[i].fPositiveStickPower <= double.Parse(sAMU2) : true)) ? 1 : 0;
-                            if (isAMD1 || isAMD2)
-                                nPass += ((isAMD1 ? double.Parse(sAMD1) <= mainForm.ea[i].fNegativeStickPower : true) &&
-                                    (isAMD2 ? mainForm.ea[i].fNegativeStickPower <= double.Parse(sAMD2) : true)) ? 1 : 0;
-                            if (isHS1 || isHS2)
-                                nPass += ((isHS1 ? double.Parse(sHS1) <= mainForm.ea[i].hogaSpeedStatus.fCur : true) &&
-                                    (isHS2 ? mainForm.ea[i].hogaSpeedStatus.fCur <= double.Parse(sHS2) : true)) ? 1 : 0;
-                            if (isPS1 || isPS2)
-                                nPass += ((isPS1 ? double.Parse(sPS1) <= mainForm.ea[i].priceMoveStatus.fCur : true) &&
-                                    (isPS2 ? mainForm.ea[i].priceMoveStatus.fCur <= double.Parse(sPS2) : true)) ? 1 : 0;
-                            if (isPUS1 || isPUS2)
-                                nPass += ((isPUS1 ? double.Parse(sPUS1) <= mainForm.ea[i].priceUpMoveStatus.fCur : true) &&
-                                    (isPUS2 ? mainForm.ea[i].priceUpMoveStatus.fCur <= double.Parse(sPUS2) : true)) ? 1 : 0;
-                            if (isTS1 || isTS2)
-                                nPass += ((isTS1 ? double.Parse(sTS1) <= mainForm.ea[i].tradeStatus.fCur : true) &&
-                                    (isTS2 ? mainForm.ea[i].tradeStatus.fCur <= double.Parse(sTS2) : true)) ? 1 : 0;
-                            if (isTMAX1 || isTMAX2)
-                                nPass += ((isTMAX1 ? double.Parse(sTMAX1) <= mainForm.ea[i].fTodayMaxPower : true) &&
-                                    (isTMAX2 ? mainForm.ea[i].fTodayMaxPower <= double.Parse(sTMAX2) : true)) ? 1 : 0;
-                            if (isTMIN1 || isTMIN2)
-                                nPass += ((isTMIN1 ? double.Parse(sTMIN1) <= mainForm.ea[i].fTodayMinPower : true) &&
-                                    (isTMIN2 ? mainForm.ea[i].fTodayMinPower <= double.Parse(sTMIN2) : true)) ? 1 : 0;
-                            if (isTMD1 || isTMD2)
-                                nPass += ((isTMD1 ? double.Parse(sTMD1) <= mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fTodayBottomPower : true) &&
-                                    (isTMD2 ? mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fTodayBottomPower <= double.Parse(sTMD2) : true)) ? 1 : 0;
-                            if (isDUP1 || isDUP2)
-                                nPass += ((isDUP1 ? double.Parse(sDUP1) <= mainForm.ea[i].fPower - mainForm.ea[i].fTodayBottomPower : true) &&
-                                    (isDUP2 ? mainForm.ea[i].fPower - mainForm.ea[i].fTodayBottomPower <= double.Parse(sDUP2) : true)) ? 1 : 0;
-                            if (isMR1 || isMR2)
-                                nPass += ((isMR1 ? int.Parse(sMR1) <= mainForm.ea[i].rankSystem.nMinuteSummationRanking : true) &&
-                                  (isMR2 ? mainForm.ea[i].rankSystem.nMinuteSummationRanking <= int.Parse(sMR2) : true)) ? 1 : 0;
-                            if (isTR1 || isTR2)
-                                nPass += ((isTR1 ? int.Parse(sTR1) <= mainForm.ea[i].rankSystem.nSummationRanking : true) &&
-                                  (isTR2 ? mainForm.ea[i].rankSystem.nSummationRanking <= int.Parse(sTR2) : true)) ? 1 : 0;
-                            if (isRDIF1 || isRDIF2)
-                                nPass += ((isRDIF1 ? int.Parse(sRDIF1) <= mainForm.ea[i].rankSystem.nSummationMove : true) &&
-                                  (isRDIF2 ? mainForm.ea[i].rankSystem.nSummationMove <= int.Parse(sRDIF2) : true)) ? 1 : 0;
-                            if (isAI20T1 || isAI20T2)
-                                nPass += ((isAI20T1 ? int.Parse(sAI20T1) <= mainForm.ea[i].fakeStrategyMgr.nAI20Time : true) &&
-                                  (isAI20T2 ? mainForm.ea[i].fakeStrategyMgr.nAI20Time <= int.Parse(sAI20T2) : true)) ? 1 : 0;
-                            if (isAI30T1 || isAI30T2)
-                                nPass += ((isAI30T1 ? int.Parse(sAI30T1) <= mainForm.ea[i].fakeStrategyMgr.nAI30Time : true) &&
-                                  (isAI30T2 ? mainForm.ea[i].fakeStrategyMgr.nAI30Time <= int.Parse(sAI30T2) : true)) ? 1 : 0;
-                            if (isAI50T1 || isAI50T2)
-                                nPass += ((isAI50T1 ? int.Parse(sAI50T1) <= mainForm.ea[i].fakeStrategyMgr.nAI50Time : true) &&
-                                  (isAI50T2 ? mainForm.ea[i].fakeStrategyMgr.nAI50Time <= int.Parse(sAI50T2) : true)) ? 1 : 0;
-                            if (isCRC1 || isCRC2)
-                                nPass += ((isCRC1 ? int.Parse(sCRC1) <= mainForm.ea[i].crushMinuteManager.nCurCnt : true) &&
-                                  (isCRC2 ? mainForm.ea[i].crushMinuteManager.nCurCnt <= int.Parse(sCRC2) : true)) ? 1 : 0;
-                            if (isUCRC1 || isUCRC2)
-                                nPass += ((isUCRC1 ? int.Parse(sUCRC1) <= mainForm.ea[i].crushMinuteManager.nUpCnt : true) &&
-                                  (isUCRC2 ? mainForm.ea[i].crushMinuteManager.nUpCnt <= int.Parse(sUCRC2) : true)) ? 1 : 0;
-                            if (isT1501 || isT1502)
-                                nPass += ((isT1501 ? int.Parse(sT1501) <= mainForm.ea[i].sequenceStrategy.nSpeed150TotalSec : true) &&
-                                  (isT1502 ? mainForm.ea[i].sequenceStrategy.nSpeed150TotalSec <= int.Parse(sT1502) : true)) ? 1 : 0;
-                            if (isC1501 || isC1502)
-                                nPass += ((isC1501 ? int.Parse(sC1501) <= mainForm.ea[i].sequenceStrategy.nSpeed150CurSec : true) &&
-                                  (isC1502 ? mainForm.ea[i].sequenceStrategy.nSpeed150CurSec <= int.Parse(sC1502) : true)) ? 1 : 0;
-                            if (isRBA1 || isRBA2)
-                                nPass += ((isRBA1 ? int.Parse(sRBA1) <= mainForm.ea[i].paperBuyStrategy.nStrategyNum : true) &&
-                                  (isRBA2 ? mainForm.ea[i].paperBuyStrategy.nStrategyNum <= int.Parse(sRBA2) : true)) ? 1 : 0;
-                            if (isRBD1 || isRBD2)
-                                nPass += ((isRBD1 ? int.Parse(sRBD1) <= mainForm.ea[i].paperBuyStrategy.nMinuteLocationCount : true) &&
-                                  (isRBD2 ? mainForm.ea[i].paperBuyStrategy.nMinuteLocationCount <= int.Parse(sRBD2) : true)) ? 1 : 0;
-                            if (isFBA1 || isFBA2)
-                                nPass += ((isFBA1 ? int.Parse(sFBA1) <= mainForm.ea[i].fakeBuyStrategy.nStrategyNum : true) &&
-                                  (isFBA2 ? mainForm.ea[i].fakeBuyStrategy.nStrategyNum <= int.Parse(sFBA2) : true)) ? 1 : 0;
-                            if (isFBD1 || isFBD2)
-                                nPass += ((isFBD1 ? int.Parse(sFBD1) <= mainForm.ea[i].fakeBuyStrategy.nMinuteLocationCount : true) &&
-                                  (isFBD2 ? mainForm.ea[i].fakeBuyStrategy.nMinuteLocationCount <= int.Parse(sFBD2) : true)) ? 1 : 0;
-                            if (isFAA1 || isFAA2)
-                                nPass += ((isFAA1 ? int.Parse(sFAA1) <= mainForm.ea[i].fakeAssistantStrategy.nStrategyNum : true) &&
-                                  (isFAA2 ? mainForm.ea[i].fakeAssistantStrategy.nStrategyNum <= int.Parse(sFAA2) : true)) ? 1 : 0;
-                            if (isFAD1 || isFAD2)
-                                nPass += ((isFAD1 ? int.Parse(sFAD1) <= mainForm.ea[i].fakeAssistantStrategy.nMinuteLocationCount : true) &&
-                                  (isFAD2 ? mainForm.ea[i].fakeAssistantStrategy.nMinuteLocationCount <= int.Parse(sFAD2) : true)) ? 1 : 0;
-                            if (isFRA1 || isFRA2)
-                                nPass += ((isFRA1 ? int.Parse(sFRA1) <= mainForm.ea[i].fakeResistStrategy.nStrategyNum : true) &&
-                                  (isFRA2 ? mainForm.ea[i].fakeResistStrategy.nStrategyNum <= int.Parse(sFRA2) : true)) ? 1 : 0;
-                            if (isFRD1 || isFRD2)
-                                nPass += ((isFRD1 ? int.Parse(sFRD1) <= mainForm.ea[i].fakeResistStrategy.nMinuteLocationCount : true) &&
-                                  (isFRD2 ? mainForm.ea[i].fakeResistStrategy.nMinuteLocationCount <= int.Parse(sFRD2) : true)) ? 1 : 0;
-                            if (isPUA1 || isPUA2)
-                                nPass += ((isPUA1 ? int.Parse(sPUA1) <= mainForm.ea[i].fakeVolatilityStrategy.nStrategyNum : true) &&
-                                  (isPUA2 ? mainForm.ea[i].fakeVolatilityStrategy.nStrategyNum <= int.Parse(sPUA2) : true)) ? 1 : 0;
-                            if (isPUD1 || isPUD2)
-                                nPass += ((isPUD1 ? int.Parse(sPUD1) <= mainForm.ea[i].fakeVolatilityStrategy.nMinuteLocationCount : true) &&
-                                  (isPUD2 ? mainForm.ea[i].fakeVolatilityStrategy.nMinuteLocationCount <= int.Parse(sPUD2) : true)) ? 1 : 0;
-                            if (isPDA1 || isPDA2)
-                                nPass += ((isPDA1 ? int.Parse(sPDA1) <= mainForm.ea[i].fakeDownStrategy.nStrategyNum : true) &&
-                                  (isPDA2 ? mainForm.ea[i].fakeDownStrategy.nStrategyNum <= int.Parse(sPDA2) : true)) ? 1 : 0;
-                            if (isPDD1 || isPDD2)
-                                nPass += ((isPDD1 ? int.Parse(sPDD1) <= mainForm.ea[i].fakeDownStrategy.nMinuteLocationCount : true) &&
-                                  (isPDD2 ? mainForm.ea[i].fakeDownStrategy.nMinuteLocationCount <= int.Parse(sPDD2) : true)) ? 1 : 0;
-                            if (isSFD1 || isSFD2)
-                                nPass += ((isSFD1 ? int.Parse(sSFD1) <= mainForm.ea[i].fakeStrategyMgr.nSharedMinuteLocationCount : true) &&
-                                  (isSFD2 ? mainForm.ea[i].fakeStrategyMgr.nSharedMinuteLocationCount <= int.Parse(sSFD2) : true)) ? 1 : 0;
-                            if (isHIT51 || isHIT52)
-                                nPass += ((isHIT51 ? int.Parse(sHIT51) <= mainForm.ea[i].fakeStrategyMgr.hitDict25.Count : true) &&
-                                  (isHIT52 ? mainForm.ea[i].fakeStrategyMgr.hitDict25.Count <= int.Parse(sHIT52) : true)) ? 1 : 0;
-                            if (isHIT81 || isHIT82)
-                                nPass += ((isHIT81 ? int.Parse(sHIT81) <= mainForm.ea[i].fakeStrategyMgr.hitDict38.Count : true) &&
-                                  (isHIT82 ? mainForm.ea[i].fakeStrategyMgr.hitDict38.Count <= int.Parse(sHIT82) : true)) ? 1 : 0;
-                            if (isHIT101 || isHIT102)
-                                nPass += ((isHIT101 ? int.Parse(sHIT101) <= mainForm.ea[i].fakeStrategyMgr.hitDict410.Count : true) &&
-                                  (isHIT102 ? mainForm.ea[i].fakeStrategyMgr.hitDict410.Count <= int.Parse(sHIT102) : true)) ? 1 : 0;
-                            if (isHIT121 || isHIT122)
-                                nPass += ((isHIT121 ? int.Parse(sHIT121) <= mainForm.ea[i].fakeStrategyMgr.hitDict312.Count : true) &&
-                                  (isHIT122 ? mainForm.ea[i].fakeStrategyMgr.hitDict312.Count <= int.Parse(sHIT122) : true)) ? 1 : 0;
-                            if (isCURFT1 || isCURFT2)
-                                nPass += ((isCURFT1 ? int.Parse(sCURFT1) <= mainForm.ea[i].fakeStrategyMgr.nCurHitType : true) &&
-                                  (isCURFT2 ? mainForm.ea[i].fakeStrategyMgr.nCurHitType <= int.Parse(sCURFT2) : true)) ? 1 : 0;
-                            if (isCURFC1 || isCURFC2)
-                                nPass += ((isCURFC1 ? int.Parse(sCURFC1) <= mainForm.ea[i].fakeStrategyMgr.nCurHitNum : true) &&
-                                  (isCURFC2 ? mainForm.ea[i].fakeStrategyMgr.nCurHitNum <= int.Parse(sCURFC2) : true)) ? 1 : 0;
-                            if (isFABNum1 || isFABNum2)
-                                nPass += ((isFABNum1 ? int.Parse(sFABNum1) <= mainForm.ea[i].fakeAssistantStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum : true) &&
-                                  (isFABNum2 ? mainForm.ea[i].fakeAssistantStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum <= int.Parse(sFABNum2) : true)) ? 1 : 0;
-                            if (isFABPlusNum1 || isFABPlusNum2)
-                                nPass += ((isFABPlusNum1 ? int.Parse(sFABPlusNum1) <= mainForm.ea[i].fakeAssistantStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum / 2 : true) &&
-                                  (isFABPlusNum2 ? mainForm.ea[i].fakeAssistantStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum / 2 <= int.Parse(sFABPlusNum2) : true)) ? 1 : 0;
-                            if (isTradeCompared1 || isTradeCompared2)
-                                nPass += ((isTradeCompared1 ? double.Parse(sTradeCompared1) <= mainForm.ea[i].fTradeRatioCompared : true) &&
-                                  (isTradeCompared2 ? mainForm.ea[i].fTradeRatioCompared <= double.Parse(sTradeCompared2) : true)) ? 1 : 0;
-                            if (isTradeStrength1 || isTradeStrength2)
-                                nPass += ((isTradeStrength1 ? double.Parse(sTradeStrength1) <= mainForm.ea[i].fTs : true) &&
-                                  (isTradeStrength2 ? mainForm.ea[i].fTs <= double.Parse(sTradeStrength2) : true)) ? 1 : 0;
-                            if(isUntilVi1 || isUntilVi2)
-                                nPass += ((isUntilVi1 ? double.Parse(sUntilVi1) <= ((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice) : true) &&
-                                  (isUntilVi2 ? ((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice) <= double.Parse(sUntilVi2) : true)) ? 1 : 0;
+                            if (TFPack.IsChecked() && TFPack.Compare(mainForm.ea[i].fakeStrategyMgr.nTotalFakeCount))
+                                nPass++;
+                            if (SGPack.IsChecked() && SGPack.Compare(mainForm.ea[i].fStartGap))
+                                nPass++;
+                            if (WOGPack.IsChecked() && WOGPack.Compare(mainForm.ea[i].fPowerWithoutGap))
+                                nPass++;
+                            if (CPPack.IsChecked() && CPPack.Compare(mainForm.ea[i].fPower))
+                                nPass++;
+                            if (PDPack.IsChecked() && mainForm.ea[i].nYesterdayEndPrice > 0 && PDPack.Compare((double)(mainForm.ea[i].timeLines1m.nMaxUpFs - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice))
+                                nPass++;
+                            if (RPDPack.IsChecked() && RPDPack.Compare(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower))
+                                nPass++;
+                            if (PJPack.IsChecked() && PJPack.Compare(mainForm.ea[i].fPowerJar)) 
+                                nPass++;
+                            if (UPJPack.IsChecked() && UPJPack.Compare(mainForm.ea[i].fOnlyUpPowerJar))
+                                nPass++;
+                            if (DPJPack.IsChecked() && DPJPack.Compare(mainForm.ea[i].fOnlyDownPowerJar))
+                                nPass++;
+                            if (TTMPack.IsChecked() && TTMPack.Compare(mainForm.ea[i].lTotalTradePrice / 100000000.0))
+                                nPass++;
+                            if (BMPack.IsChecked() && BMPack.Compare(mainForm.ea[i].lOnlyBuyPrice / 100000000.0))
+                                nPass++;
+                            if (SMPack.IsChecked() && SMPack.Compare(mainForm.ea[i].lOnlySellPrice / 100000000.0))
+                                nPass++;
+                            if (TAPack.IsChecked() && TAPack.Compare(mainForm.ea[i].timeLines1m.fTotalMedianAngle))
+                                nPass++;
+                            if (HAPack.IsChecked() && HAPack.Compare(mainForm.ea[i].timeLines1m.fHourMedianAngle))
+                                nPass++;
+                            if (RAPack.IsChecked() && RAPack.Compare(mainForm.ea[i].timeLines1m.fRecentMedianAngle))
+                                nPass++;
+                            if (DAPack.IsChecked() && DAPack.Compare(mainForm.ea[i].timeLines1m.fDAngle))
+                                nPass++;
+                            if (_1PPack.IsChecked() && _1PPack.Compare(mainForm.ea[i].timeLines1m.onePerCandleList.Count))
+                                nPass++;
+                            if (_2PPack.IsChecked() && _2PPack.Compare(mainForm.ea[i].timeLines1m.twoPerCandleList.Count))
+                                nPass++;
+                            if (_3PPack.IsChecked() && _3PPack.Compare(mainForm.ea[i].timeLines1m.threePerCandleList.Count))
+                                nPass++;
+                            if (_4PPack.IsChecked() && _4PPack.Compare(mainForm.ea[i].timeLines1m.fourPerCandleList.Count))
+                                nPass++;
+                            if (VIPack.IsChecked() && VIPack.Compare(mainForm.ea[i].nViCnt))
+                                nPass++;
+                            if (RBPPack.IsChecked() && RBPPack.Compare(mainForm.ea[i].fakeStrategyMgr.nAIPassed))
+                                nPass++;
+                            if (TFPPack.IsChecked() && TFPPack.Compare(mainForm.ea[i].fakeStrategyMgr.nFakeAccumPassed))
+                                nPass++;
+                            if (EPPack.IsChecked() && EPPack.Compare(mainForm.ea[i].fakeStrategyMgr.nEveryAIPassNum))
+                                nPass++;
+                            if (AISPack.IsChecked() && AISPack.Compare(mainForm.ea[i].fakeStrategyMgr.fAIScore))
+                                nPass++;
+                            if (SCPack.IsChecked() && SCPack.Compare(mainForm.ea[i].nStopHogaCnt))
+                                nPass++;
+                            if (SUDCPack.IsChecked() && SUDCPack.Compare(mainForm.ea[i].nStopUpDownCnt))
+                                nPass++;
+                            if (SUPPack.IsChecked() && SUPPack.Compare(mainForm.ea[i].fStopMaxPower))
+                                nPass++;
+                            if (SDPPack.IsChecked() && SDPPack.Compare(mainForm.ea[i].fStopMinPower))
+                                nPass++;
+                            if (SPDPack.IsChecked() && SPDPack.Compare(mainForm.ea[i].fStopMaxMinDiff))
+                                nPass++;
+                            if (ECPack.IsChecked() && ECPack.Compare(mainForm.ea[i].fakeStrategyMgr.nEveryAICount))
+                                nPass++;
+                            if (CMPack.IsChecked() && CMPack.Compare((double)(mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nPrevTimeLineIdx].nLastFs - mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nPrevTimeLineIdx].nStartFs) / mainForm.ea[i].nYesterdayEndPrice))
+                                nPass++;
+                            if (PMPack.IsChecked() && PMPack.Compare((double)(mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nRealDataIdx].nLastFs - mainForm.ea[i].timeLines1m.arrTimeLine[mainForm.ea[i].timeLines1m.nRealDataIdx].nStartFs) / mainForm.ea[i].nYesterdayEndPrice))
+                                nPass++;
+                            if (CCPack.IsChecked() && CCPack.Compare(mainForm.ea[i].nChegyulCnt))
+                                nPass++;
+                            if (CSPack.IsChecked() && CSPack.Compare(mainForm.ea[i].speedStatus.fCur))
+                                nPass++;
+                            if (AMUPack.IsChecked() && AMUPack.Compare(mainForm.ea[i].fPositiveStickPower))
+                                nPass++;
+                            if (AMDPack.IsChecked() && AMDPack.Compare(mainForm.ea[i].fNegativeStickPower))
+                                nPass++;
+                            if (HSPack.IsChecked() && HSPack.Compare(mainForm.ea[i].hogaSpeedStatus.fCur))
+                                nPass++;
+                            if (PSPack.IsChecked() && PSPack.Compare(mainForm.ea[i].priceMoveStatus.fCur))
+                                nPass++;
+                            if (PUSPack.IsChecked() && PUSPack.Compare(mainForm.ea[i].priceUpMoveStatus.fCur))
+                                nPass++;
+                            if (TSPack.IsChecked() && TSPack.Compare(mainForm.ea[i].tradeStatus.fCur))
+                                nPass++;
+                            if (TMAXPack.IsChecked() && TMAXPack.Compare(mainForm.ea[i].fTodayMaxPower))
+                                nPass++;
+                            if (TMINPack.IsChecked() && TMINPack.Compare(mainForm.ea[i].fTodayMinPower))
+                                nPass++;
+                            if (TMDPack.IsChecked() && TMDPack.Compare(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fTodayBottomPower))
+                                nPass++;
+                            if (DUPPack.IsChecked() && DUPPack.Compare(mainForm.ea[i].fPower - mainForm.ea[i].fTodayBottomPower))
+                                nPass++;
+                            if (MRPack.IsChecked() && MRPack.Compare(mainForm.ea[i].rankSystem.nMinuteSummationRanking))
+                                nPass++;
+                            if (TRPack.IsChecked() && TRPack.Compare(mainForm.ea[i].rankSystem.nSummationRanking))
+                                nPass++;
+                            if (RDIFPack.IsChecked() && RDIFPack.Compare(mainForm.ea[i].rankSystem.nSummationMove))
+                                nPass++;
+                            if (AI20TPack.IsChecked() && AI20TPack.Compare(mainForm.ea[i].fakeStrategyMgr.nAI20Time))
+                                nPass++;
+                            if (AI30TPack.IsChecked() && AI30TPack.Compare(mainForm.ea[i].fakeStrategyMgr.nAI30Time))
+                                nPass++;
+                            if (AI50TPack.IsChecked() && AI50TPack.Compare(mainForm.ea[i].fakeStrategyMgr.nAI50Time))
+                                nPass++;
+                            if (CRCPack.IsChecked() && CRCPack.Compare(mainForm.ea[i].crushMinuteManager.nCurCnt))
+                                nPass++;
+                            if (UCRCPack.IsChecked() && UCRCPack.Compare(mainForm.ea[i].crushMinuteManager.nUpCnt))
+                                nPass++;
+                            if (T150Pack.IsChecked() && T150Pack.Compare(mainForm.ea[i].sequenceStrategy.nSpeed150TotalSec))
+                                nPass++;
+                            if (C150Pack.IsChecked() && C150Pack.Compare(mainForm.ea[i].sequenceStrategy.nSpeed150CurSec))
+                                nPass++;
+                            if (RBAPack.IsChecked() && RBAPack.Compare(mainForm.ea[i].paperBuyStrategy.nStrategyNum))
+                                nPass++;
+                            if (RBDPack.IsChecked() && RBDPack.Compare(mainForm.ea[i].paperBuyStrategy.nMinuteLocationCount))
+                                nPass++;
+                            if (FBAPack.IsChecked() && FBAPack.Compare(mainForm.ea[i].fakeBuyStrategy.nStrategyNum))
+                                nPass++;
+                            if (FBDPack.IsChecked() && FBDPack.Compare(mainForm.ea[i].fakeBuyStrategy.nMinuteLocationCount))
+                                nPass++;
+                            if (FAAPack.IsChecked() && FAAPack.Compare(mainForm.ea[i].fakeAssistantStrategy.nStrategyNum))
+                                nPass++;
+                            if (FADPack.IsChecked() && FADPack.Compare(mainForm.ea[i].fakeAssistantStrategy.nMinuteLocationCount))
+                                nPass++;
+                            if (FRAPack.IsChecked() && FRAPack.Compare(mainForm.ea[i].fakeResistStrategy.nStrategyNum))
+                                nPass++;
+                            if (FRDPack.IsChecked() && FRDPack.Compare(mainForm.ea[i].fakeResistStrategy.nMinuteLocationCount))
+                                nPass++;
+                            if (PUAPack.IsChecked() && PUAPack.Compare(mainForm.ea[i].fakeVolatilityStrategy.nStrategyNum))
+                                nPass++;
+                            if (PUDPack.IsChecked() && PUDPack.Compare(mainForm.ea[i].fakeVolatilityStrategy.nMinuteLocationCount))
+                                nPass++;
+                            if (PDAPack.IsChecked() && PDAPack.Compare(mainForm.ea[i].fakeDownStrategy.nStrategyNum))
+                                nPass++;
+                            if (PDDPack.IsChecked() && PDDPack.Compare(mainForm.ea[i].fakeDownStrategy.nMinuteLocationCount))
+                                nPass++;
+                            if (SFDPack.IsChecked() && SFDPack.Compare(mainForm.ea[i].fakeStrategyMgr.nSharedMinuteLocationCount))
+                                nPass++;
+                            if (HIT5Pack.IsChecked() && HIT5Pack.Compare(mainForm.ea[i].fakeStrategyMgr.hitDict25.Count))
+                                nPass++;
+                            if (HIT8Pack.IsChecked() && HIT8Pack.Compare(mainForm.ea[i].fakeStrategyMgr.hitDict38.Count))
+                                nPass++;
+                            if (HIT10Pack.IsChecked() && HIT10Pack.Compare(mainForm.ea[i].fakeStrategyMgr.hitDict410.Count))
+                                nPass++;
+                            if (HIT12Pack.IsChecked() && HIT12Pack.Compare(mainForm.ea[i].fakeStrategyMgr.hitDict312.Count))
+                                nPass++;
+                            if (CURFTPack.IsChecked() && CURFTPack.Compare(mainForm.ea[i].fakeStrategyMgr.nCurHitType))
+                                nPass++;
+                            if (CURFCPack.IsChecked() && CURFCPack.Compare(mainForm.ea[i].fakeStrategyMgr.nCurHitNum))
+                                nPass++;
+                            if (FABNumPack.IsChecked() && FABNumPack.Compare(mainForm.ea[i].fakeAssistantStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum))
+                                nPass++;
+                            if (FABPlusNumPack.IsChecked() && FABPlusNumPack.Compare(mainForm.ea[i].fakeAssistantStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum + mainForm.ea[i].fakeBuyStrategy.nStrategyNum / 2))
+                                nPass++;
+                            if (TradeComparedPack.IsChecked() && TradeComparedPack.Compare(mainForm.ea[i].fTradeRatioCompared))
+                                nPass++;
+                            if (TradeStrengthPack.IsChecked() && TradeStrengthPack.Compare(mainForm.ea[i].fTs))
+                                nPass++;
+                            if (UntilViPack.IsChecked() && UntilViPack.Compare((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice))
+                                nPass++;
 
 
                             isShow = nPass >= nFinalPassNum;

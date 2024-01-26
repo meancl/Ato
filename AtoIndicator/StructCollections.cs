@@ -2367,5 +2367,70 @@ namespace AtoIndicator
             Up
         }
 
+        public class ComparePackage
+        {
+            public bool isLeft;
+            public string sLeft;
+            public double fLeft;
+
+            public bool isRight;
+            public string sRight;
+            public double fRight;
+
+
+            public ComparePackage(string tText1, string tText2)
+            {
+                sLeft = tText1.Trim();
+                isLeft = !sLeft.Equals("");
+
+                sRight = tText2.Trim();
+                isRight = !sRight.Equals("");
+
+                try
+                {
+                    if (isLeft)
+                        fLeft = double.Parse(sLeft);
+
+                    if (isRight)
+                        fRight = double.Parse(sRight);
+                }
+                catch 
+                {
+                    isLeft = isRight = false;
+                    sLeft = sRight = "";
+                    fLeft = fRight = 0;
+                }
+            }
+
+            public bool IsChecked()
+            {
+                return isLeft || isRight;
+            }
+            public bool Compare(double fCompare)
+            {
+                bool isRet = false;
+
+                if(isLeft || isRight)
+                    isRet = (isLeft ? fLeft <= fCompare : true) &&
+                        (isRight ? fRight >= fCompare : true);
+
+                return isRet;
+            }
+
+        }
+
+        public struct StasticResultPackage
+        {
+            public bool isQChecked;
+            public bool isWChecked;
+            public bool isEChecked;
+            public bool isRChecked;
+
+            public ComparePackage jPack;
+            public ComparePackage kPack;
+            public ComparePackage hit38Pack;
+
+        }
+
     }
 }

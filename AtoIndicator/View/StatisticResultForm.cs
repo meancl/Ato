@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using static AtoIndicator.KiwoomLib.TimeLib;
 using static AtoIndicator.Utils.Comparer;
+using static AtoIndicator.MainForm;
 
 namespace AtoIndicator.View.StatisticResult
 {
@@ -18,7 +19,7 @@ namespace AtoIndicator.View.StatisticResult
     {
 
         public MainForm mainForm; // 부모폼의 포인터
-        public MainForm.Statisticer statisticer;
+        public Statisticer statisticer;
         public string NEW_LINE = Environment.NewLine;
 
         // UI 변수들
@@ -38,7 +39,7 @@ namespace AtoIndicator.View.StatisticResult
         // END -- UI 변수들
 
         public double fDenom = 0.0001;
-        public MainForm.StrategyNames strategyNames;
+        public StrategyNames strategyNames;
         public StatisticResultForm(MainForm parentForm)
         {
             InitializeComponent();
@@ -77,14 +78,15 @@ namespace AtoIndicator.View.StatisticResult
         }
 
 
+        public StasticResultPackage sPack;
         /// <summary>
         /// 전략들의 현재상황을 계산하고 폼화면에 출력해준다.
         /// </summary>
         public void CalcAndShowResult()
         {
-            MainForm.StrategyHistory curStrategyHistory;
-            MainForm.PaperTradeSlot curBuyedSlot;
-            MainForm.EachResultTracker curResultTracker;
+            StrategyHistory curStrategyHistory;
+            PaperTradeSlot curBuyedSlot;
+            EachResultTracker curResultTracker;
 
             int nZeroCount; // 0퍼 초과
             int nOneCount; // 1퍼 이상
@@ -95,6 +97,11 @@ namespace AtoIndicator.View.StatisticResult
 
             long lEachSumBuyed; // 한 전략에서 총 매수대금
             long lEachStrategyProfit; // 한 전략에서 총 이익금액
+
+            // 텍스트를 이용한 조건 데이터 가져오기
+
+
+            SetSPack();
 
 
             for (int strategyNum = 0; strategyNum < strategyNames.arrPaperBuyStrategyName.Count; strategyNum++) // 전략별로
@@ -126,25 +133,26 @@ namespace AtoIndicator.View.StatisticResult
                         
                         // qwerjk
                         passNum = 0;
-                        isChecked = qCheckBox.Checked || wCheckBox.Checked || eCheckBox.Checked || 
-                                    rCheckBox.Checked || jCheckBox.Checked || kCheckBox.Checked;
+                        isChecked = sPack.isQChecked || sPack.isWChecked || sPack.isEChecked || sPack.isRChecked || 
+                            sPack.jPack.IsChecked()|| sPack.kPack.IsChecked();
 
-                        if (qCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenQ)
+
+                        if (sPack.isQChecked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenQ)
                             passNum ++;
 
-                        if (wCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenW)
+                        if (sPack.isWChecked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenW)
                             passNum++;
 
-                        if (eCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenE)
+                        if (sPack.isEChecked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenE)
                             passNum ++;
 
-                        if (rCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenR)
+                        if (sPack.isRChecked && mainForm.ea[curStrategyHistory.nEaIdx].manualReserve.isChosenR)
                             passNum ++;
 
-                        if (jCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].nSelectedConditionJ > 0)
-                            passNum ++;
+                        if (sPack.jPack.Compare(mainForm.ea[curStrategyHistory.nEaIdx].nSelectedConditionJ))
+                            passNum++;
 
-                        if (kCheckBox.Checked && mainForm.ea[curStrategyHistory.nEaIdx].nSelectedConditionK > 0)
+                        if (sPack.kPack.Compare(mainForm.ea[curStrategyHistory.nEaIdx].nSelectedConditionK))
                             passNum ++;
 
                         if (isChecked && passNum == 0)
@@ -152,9 +160,9 @@ namespace AtoIndicator.View.StatisticResult
 
                         // 조건
                         conditionPassNum = 0;
-                        isConditionChecked = hit38CheckBox.Checked;
+                        isConditionChecked = sPack.hit38Pack.IsChecked();
 
-                        if (hit38CheckBox.Checked && curBuyedSlot.nHit38Num > 0)
+                        if (sPack.hit38Pack.Compare(curBuyedSlot.nFakeBuyCnt))
                             conditionPassNum++;
 
                         if (isConditionChecked && conditionPassNum == 0)
@@ -472,11 +480,23 @@ namespace AtoIndicator.View.StatisticResult
         {
             try
             {
-                new Thread(() => new EachStrategyForm(mainForm, nCallStrategy, qCheckBox.Checked, wCheckBox.Checked, eCheckBox.Checked,
-                                            rCheckBox.Checked, jCheckBox.Checked, kCheckBox.Checked, hit38CheckBox.Checked).ShowDialog()).Start();
+                SetSPack();
+                new Thread(() => new EachStrategyForm(mainForm, nCallStrategy, sPack).ShowDialog()).Start();
             }
             catch { }
         }
         #endregion
+
+        public void SetSPack()
+        {
+            sPack.isQChecked = qCheckBox.Checked;
+            sPack.isWChecked = wCheckBox.Checked;
+            sPack.isEChecked = eCheckBox.Checked;
+            sPack.isRChecked = rCheckBox.Checked;
+
+            sPack.jPack = new ComparePackage(tJ1.Text, tJ2.Text);
+            sPack.kPack = new ComparePackage(tK1.Text, tK2.Text);
+            sPack.hit38Pack = new ComparePackage(tHit381.Text, tHit382.Text);
+        }
     }
 }
