@@ -1457,7 +1457,7 @@ namespace AtoIndicator.View
                                         if (isDigit)
                                         {
                                             if (mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower <= fCrushValue)
-                                                listViewItem.SubItems[7].BackColor = Color.Yellow;
+                                                listViewItem.SubItems[4].BackColor = Color.Yellow;
                                         }
                                     }
                                     catch
@@ -1474,7 +1474,7 @@ namespace AtoIndicator.View
                                         if (isDigit)
                                         {
                                             if (((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice) <= fViValue)
-                                                listViewItem.SubItems[8].BackColor = Color.Orange;
+                                                listViewItem.SubItems[7].BackColor = Color.Orange;
                                         }
                                     }
                                     catch
