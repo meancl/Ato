@@ -1500,6 +1500,19 @@ namespace AtoIndicator.View
                                     }
                                 }
 
+                                if (downVisualCheckBox.Checked)
+                                {
+                                    try
+                                    {
+                                        bool isDigit = double.TryParse(downVisualTxtBox.Text, out double fDownValue);
+                                        if (isDigit)
+                                        {
+                                            if (mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower >= fDownValue)
+                                                listViewItem.SubItems[4].BackColor = Color.PaleVioletRed;
+                                        }
+                                    }
+                                    catch { }
+                                }
 
 
 
