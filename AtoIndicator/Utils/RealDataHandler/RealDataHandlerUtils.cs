@@ -129,6 +129,9 @@ namespace AtoIndicator
                     return false;
             }
 
+            if (frame.nFakeType == FAKE_DOWN_SIGNAL)
+                ea[nEaIdx].nPriceDownTimeLineIdx = nTimeLineIdx;
+
             #region 공용 파트
             if (ea[nEaIdx].fakeStrategyMgr.nSharedPrevMinuteIdx != nTimeLineIdx)
             {

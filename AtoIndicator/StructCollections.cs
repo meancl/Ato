@@ -201,6 +201,11 @@ namespace AtoIndicator
             public int nSelectedConditionJ; // 해당 종목을 선택하기1
             public int nSelectedConditionK; // 해당 종목을 선택하기2
 
+            public bool isHit38BlueCandleConfirm; // hit 38 이후 음봉이 떳을경우
+            public int nHit38BlueCandleTimeLineIdx; // hit38 이후 음봉이 떳다면 확인용
+
+            public int nPriceDownTimeLineIdx; // 보라색 arrow 확인용
+
             // ------------------------------
             // 오늘 가격
             //-------------------------------

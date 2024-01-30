@@ -1203,6 +1203,15 @@ namespace AtoIndicator
                         } // END ---- 분봉 Sequence Strategy 분기문
                         #endregion
 
+                        if (ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].nLastFs < ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].nStartFs) // 시가 > 종가 => 음봉
+                        {
+                            if (ea[i].isHit38BlueCandleConfirm)
+                            {
+                                ea[i].isHit38BlueCandleConfirm = false;
+                                ea[i].nHit38BlueCandleTimeLineIdx = nTimeLineIdx + 1;
+                            }
+                        }
+
                         #region MA 예약 확인
                         {
 
@@ -2645,6 +2654,7 @@ namespace AtoIndicator
                             if (!ea[nCurIdx].fakeStrategyMgr.hitDict38.ContainsKey(nTimeLineIdx)) // 없다면
                             {
                                 ea[nCurIdx].fakeStrategyMgr.hitDict38[nTimeLineIdx] = ea[nCurIdx].nFs;
+                                ea[nCurIdx].isHit38BlueCandleConfirm = true;
                             }
                         }
 
