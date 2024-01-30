@@ -206,6 +206,9 @@ namespace AtoIndicator
 
             public int nPriceDownTimeLineIdx; // 보라색 arrow 확인용
 
+            public bool isPriceDownConfirm; // 보라색 arrow 확인용
+            public int nPriceDownHit38TimeLineIdx; // 보라색 이후 히트38 확인용
+
             // ------------------------------
             // 오늘 가격
             //-------------------------------

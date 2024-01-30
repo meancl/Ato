@@ -130,7 +130,10 @@ namespace AtoIndicator
             }
 
             if (frame.nFakeType == FAKE_DOWN_SIGNAL)
+            {
                 ea[nEaIdx].nPriceDownTimeLineIdx = nTimeLineIdx;
+                ea[nEaIdx].isPriceDownConfirm = true;
+            }
 
             #region 공용 파트
             if (ea[nEaIdx].fakeStrategyMgr.nSharedPrevMinuteIdx != nTimeLineIdx)

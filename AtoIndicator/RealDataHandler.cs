@@ -2655,6 +2655,12 @@ namespace AtoIndicator
                             {
                                 ea[nCurIdx].fakeStrategyMgr.hitDict38[nTimeLineIdx] = ea[nCurIdx].nFs;
                                 ea[nCurIdx].isHit38BlueCandleConfirm = true;
+
+                                if(ea[nCurIdx].isPriceDownConfirm)
+                                {
+                                    ea[nCurIdx].isPriceDownConfirm = false;
+                                    ea[nCurIdx].nPriceDownHit38TimeLineIdx = nTimeLineIdx;
+                                }
                             }
                         }
 

@@ -1464,6 +1464,13 @@ namespace AtoIndicator.View
                                     {
 
                                     }
+
+                                    try
+                                    {
+                                        if (mainForm.nTimeLineIdx == mainForm.ea[i].nPriceDownHit38TimeLineIdx)
+                                            listViewItem.SubItems[6].BackColor = Color.Tomato; 
+                                    }
+                                    catch { }
                                 }
 
                                 if (viVisualCheckBox.Checked)
@@ -1515,18 +1522,19 @@ namespace AtoIndicator.View
                                     catch { }
 
                                     // 가격다운 페이크의 경우
-                                     try
-                                    {
-                                        if(mainForm.nTimeLineIdx == mainForm.ea[i].nHit38BlueCandleTimeLineIdx)
-                                            listViewItem.SubItems[8].BackColor = Color.Salmon;
-                                    }
-                                    catch { }
-
-                                    // 히트38이후 양봉일 경우
                                     try
                                     {
                                         if (mainForm.nTimeLineIdx == mainForm.ea[i].nPriceDownTimeLineIdx)
                                             listViewItem.SubItems[8].BackColor = Color.SandyBrown;
+                                    }
+                                    catch { }
+
+
+                                    // 히트38이후 음봉일 경우
+                                    try
+                                    {
+                                        if (mainForm.nTimeLineIdx == mainForm.ea[i].nHit38BlueCandleTimeLineIdx)
+                                            listViewItem.SubItems[8].BackColor = Color.Salmon;
                                     }
                                     catch { }
                                 }
