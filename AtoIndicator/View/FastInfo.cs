@@ -1517,6 +1517,20 @@ namespace AtoIndicator.View
 
 
 
+                                if(fdVisualCheckBox.Checked)
+                                {
+                                    try
+                                    {
+                                        if(mainForm.nTimeLineIdx == mainForm.ea[i].nPriceDownTimeLineIdx)
+                                        {
+                                            listViewItem.SubItems[6].BackColor = Color.Chartreuse;
+                                        }
+                                    }
+                                    catch { }
+                                }
+
+
+
                                 listViewItemList.Add(listViewItem);
 
                                 // crush sound alarm 

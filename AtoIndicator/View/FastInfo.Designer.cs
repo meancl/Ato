@@ -38,6 +38,8 @@ namespace AtoIndicator.View
             this.passNumTxtBox = new System.Windows.Forms.TextBox();
             this.passLenLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.downVisualCheckBox = new System.Windows.Forms.CheckBox();
+            this.downVisualTxtBox = new System.Windows.Forms.TextBox();
             this.tDUP2 = new System.Windows.Forms.TextBox();
             this.label73 = new System.Windows.Forms.Label();
             this.tDUP1 = new System.Windows.Forms.TextBox();
@@ -306,8 +308,7 @@ namespace AtoIndicator.View
             this.tTF2 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tTF1 = new System.Windows.Forms.TextBox();
-            this.downVisualTxtBox = new System.Windows.Forms.TextBox();
-            this.downVisualCheckBox = new System.Windows.Forms.CheckBox();
+            this.fdVisualCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -383,6 +384,7 @@ namespace AtoIndicator.View
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.fdVisualCheckBox);
             this.groupBox1.Controls.Add(this.downVisualCheckBox);
             this.groupBox1.Controls.Add(this.downVisualTxtBox);
             this.groupBox1.Controls.Add(this.tDUP2);
@@ -667,6 +669,25 @@ namespace AtoIndicator.View
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             // 
+            // downVisualCheckBox
+            // 
+            this.downVisualCheckBox.AutoSize = true;
+            this.downVisualCheckBox.Location = new System.Drawing.Point(71, 558);
+            this.downVisualCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.downVisualCheckBox.Name = "downVisualCheckBox";
+            this.downVisualCheckBox.Size = new System.Drawing.Size(64, 19);
+            this.downVisualCheckBox.TabIndex = 567;
+            this.downVisualCheckBox.Text = "down";
+            this.downVisualCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // downVisualTxtBox
+            // 
+            this.downVisualTxtBox.Location = new System.Drawing.Point(17, 552);
+            this.downVisualTxtBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.downVisualTxtBox.Name = "downVisualTxtBox";
+            this.downVisualTxtBox.Size = new System.Drawing.Size(49, 25);
+            this.downVisualTxtBox.TabIndex = 566;
+            // 
             // tDUP2
             // 
             this.tDUP2.Location = new System.Drawing.Point(344, 679);
@@ -695,7 +716,7 @@ namespace AtoIndicator.View
             // maVisualCheckBox
             // 
             this.maVisualCheckBox.AutoSize = true;
-            this.maVisualCheckBox.Location = new System.Drawing.Point(71, 588);
+            this.maVisualCheckBox.Location = new System.Drawing.Point(71, 618);
             this.maVisualCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.maVisualCheckBox.Name = "maVisualCheckBox";
             this.maVisualCheckBox.Size = new System.Drawing.Size(48, 19);
@@ -2947,24 +2968,16 @@ namespace AtoIndicator.View
             this.tTF1.Size = new System.Drawing.Size(54, 25);
             this.tTF1.TabIndex = 199;
             // 
-            // downVisualTxtBox
+            // fdVisualCheckBox
             // 
-            this.downVisualTxtBox.Location = new System.Drawing.Point(17, 552);
-            this.downVisualTxtBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.downVisualTxtBox.Name = "downVisualTxtBox";
-            this.downVisualTxtBox.Size = new System.Drawing.Size(49, 25);
-            this.downVisualTxtBox.TabIndex = 566;
-            // 
-            // downVisualCheckBox
-            // 
-            this.downVisualCheckBox.AutoSize = true;
-            this.downVisualCheckBox.Location = new System.Drawing.Point(71, 558);
-            this.downVisualCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.downVisualCheckBox.Name = "downVisualCheckBox";
-            this.downVisualCheckBox.Size = new System.Drawing.Size(64, 19);
-            this.downVisualCheckBox.TabIndex = 567;
-            this.downVisualCheckBox.Text = "down";
-            this.downVisualCheckBox.UseVisualStyleBackColor = true;
+            this.fdVisualCheckBox.AutoSize = true;
+            this.fdVisualCheckBox.Location = new System.Drawing.Point(71, 587);
+            this.fdVisualCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.fdVisualCheckBox.Name = "fdVisualCheckBox";
+            this.fdVisualCheckBox.Size = new System.Drawing.Size(41, 19);
+            this.fdVisualCheckBox.TabIndex = 568;
+            this.fdVisualCheckBox.Text = "fd";
+            this.fdVisualCheckBox.UseVisualStyleBackColor = true;
             // 
             // FastInfo
             // 
@@ -3263,5 +3276,6 @@ namespace AtoIndicator.View
         private System.Windows.Forms.TextBox tDUP1;
         private System.Windows.Forms.TextBox downVisualTxtBox;
         private System.Windows.Forms.CheckBox downVisualCheckBox;
+        private System.Windows.Forms.CheckBox fdVisualCheckBox;
     }
 }

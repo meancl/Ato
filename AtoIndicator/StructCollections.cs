@@ -201,6 +201,7 @@ namespace AtoIndicator
             public int nSelectedConditionJ; // 해당 종목을 선택하기1
             public int nSelectedConditionK; // 해당 종목을 선택하기2
 
+            public int nPriceDownTimeLineIdx;
 
             // ------------------------------
             // 오늘 가격
