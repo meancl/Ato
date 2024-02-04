@@ -1440,10 +1440,10 @@ namespace AtoIndicator.View
                                     try
                                     {
                                         if (mainForm.nTimeLineIdx == mainForm.ea[i].nMaGapFallTimeLineIdx)
-                                            listViewItem.SubItems[11].BackColor = Color.Firebrick;
+                                            listViewItem.SubItems[5].BackColor = Color.Firebrick;
 
                                         if (mainForm.nTimeLineIdx == mainForm.ea[i].nMaGapCrushTimeLineIdx)
-                                            listViewItem.SubItems[13].BackColor = Color.Orchid;
+                                            listViewItem.SubItems[5].BackColor = Color.Orchid;
                                     }
                                     catch
                                     { }
@@ -1514,21 +1514,6 @@ namespace AtoIndicator.View
                                     }
                                     catch { }
                                 }
-
-
-
-                                if(fdVisualCheckBox.Checked)
-                                {
-                                    try
-                                    {
-                                        if(mainForm.nTimeLineIdx == mainForm.ea[i].nPriceDownTimeLineIdx)
-                                        {
-                                            listViewItem.SubItems[6].BackColor = Color.Chartreuse;
-                                        }
-                                    }
-                                    catch { }
-                                }
-
 
 
                                 listViewItemList.Add(listViewItem);

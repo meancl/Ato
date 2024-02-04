@@ -40,6 +40,9 @@ namespace AtoIndicator.View
             if (cUp == 32)
                 isSpacePushed = false;
 
+            if (isSpacePushed && cUp == 'C')
+                CopyStorage();
+
         }
 
         public void KeyDownHandler(object sender, KeyEventArgs e)
@@ -73,6 +76,9 @@ namespace AtoIndicator.View
             try
             {
                 string message = registerTxtBox.Text;
+
+                mainForm.sRegisterBlockForStorage = message; // 메시지 저장
+
                 string[] messageArray = message.Split(new[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
 
                 foreach (string aMessage in messageArray)
@@ -158,6 +164,12 @@ namespace AtoIndicator.View
                 }
             }
             catch { }
+        }
+
+        public void CopyStorage()
+        {
+            if(!mainForm.sRegisterBlockForStorage.Equals(""))
+                registerTxtBox.Text = mainForm.sRegisterBlockForStorage;
         }
     }
 }

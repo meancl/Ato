@@ -65,6 +65,7 @@ namespace AtoIndicator
         public DateTime dFirstForPaper = DateTime.UtcNow;
 
 
+        public string sRegisterBlockForStorage = ""; // 종목선정 메시지 저장용;
 
         #endregion
 

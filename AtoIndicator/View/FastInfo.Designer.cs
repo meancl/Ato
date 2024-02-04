@@ -308,7 +308,6 @@ namespace AtoIndicator.View
             this.tTF2 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tTF1 = new System.Windows.Forms.TextBox();
-            this.fdVisualCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -384,7 +383,6 @@ namespace AtoIndicator.View
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.fdVisualCheckBox);
             this.groupBox1.Controls.Add(this.downVisualCheckBox);
             this.groupBox1.Controls.Add(this.downVisualTxtBox);
             this.groupBox1.Controls.Add(this.tDUP2);
@@ -716,7 +714,7 @@ namespace AtoIndicator.View
             // maVisualCheckBox
             // 
             this.maVisualCheckBox.AutoSize = true;
-            this.maVisualCheckBox.Location = new System.Drawing.Point(71, 618);
+            this.maVisualCheckBox.Location = new System.Drawing.Point(71, 594);
             this.maVisualCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.maVisualCheckBox.Name = "maVisualCheckBox";
             this.maVisualCheckBox.Size = new System.Drawing.Size(48, 19);
@@ -2968,17 +2966,6 @@ namespace AtoIndicator.View
             this.tTF1.Size = new System.Drawing.Size(54, 25);
             this.tTF1.TabIndex = 199;
             // 
-            // fdVisualCheckBox
-            // 
-            this.fdVisualCheckBox.AutoSize = true;
-            this.fdVisualCheckBox.Location = new System.Drawing.Point(71, 587);
-            this.fdVisualCheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.fdVisualCheckBox.Name = "fdVisualCheckBox";
-            this.fdVisualCheckBox.Size = new System.Drawing.Size(41, 19);
-            this.fdVisualCheckBox.TabIndex = 568;
-            this.fdVisualCheckBox.Text = "fd";
-            this.fdVisualCheckBox.UseVisualStyleBackColor = true;
-            // 
             // FastInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -3276,6 +3263,5 @@ namespace AtoIndicator.View
         private System.Windows.Forms.TextBox tDUP1;
         private System.Windows.Forms.TextBox downVisualTxtBox;
         private System.Windows.Forms.CheckBox downVisualCheckBox;
-        private System.Windows.Forms.CheckBox fdVisualCheckBox;
     }
 }

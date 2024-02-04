@@ -203,6 +203,7 @@ namespace AtoIndicator
 
             public int nPriceDownTimeLineIdx;
 
+
             // ------------------------------
             // 오늘 가격
             //-------------------------------
