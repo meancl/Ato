@@ -1393,10 +1393,7 @@ namespace AtoIndicator.View
                                         listViewItem.SubItems[2].BackColor = Color.SkyBlue; // SkyBlue
                                     if (mainForm.ea[i].manualReserve.isChosenR)
                                         listViewItem.SubItems[3].BackColor = Color.GreenYellow; // GreenYellow
-                                    if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx)
-                                        listViewItem.SubItems[4].BackColor = Color.DarkGray;
-                                    if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx)
-                                        listViewItem.SubItems[5].BackColor = Color.LightSlateGray;
+                                   
 
                                     if (mainForm.ea[i].manualReserve.reserveArr[MainForm.UP_RESERVE].isBuyReserved ||
                                               mainForm.ea[i].manualReserve.reserveArr[MainForm.DOWN_RESERVE].isBuyReserved ||
@@ -1514,6 +1511,18 @@ namespace AtoIndicator.View
                                     }
                                     catch { }
                                 }
+
+
+                                // 기본 색칠 2 
+                                // 무조건 제일 상단에 나오게 하려면
+                                try
+                                {
+                                    if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushRealTimeLineIdx)
+                                        listViewItem.SubItems[4].BackColor = Color.DarkGray;
+                                    if (mainForm.nTimeLineIdx == mainForm.ea[i].crushMinuteManager.nCrushTimeLineIdx)
+                                        listViewItem.SubItems[5].BackColor = Color.LightSlateGray;
+                                }
+                                catch { }
 
 
                                 listViewItemList.Add(listViewItem);
