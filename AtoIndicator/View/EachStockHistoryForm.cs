@@ -2583,6 +2583,9 @@ namespace AtoIndicator.View.EachStockHistory
                 return TRADE_MODE.NONE_MODE;
         }
 
+        public bool isRightDirectionUp; // 오른쪽 방향키 두번 연속 눌릴 거 체크하기 위함
+        public const int MAX_RIGHT_X_RANGE = 403; // 전체 minute idx 는 400에 패딩으로 3 총 403
+
         #region 키보드 이벤트 핸들러
         public void KeyUpHandler(object sender, KeyEventArgs e)
         {
@@ -2614,11 +2617,21 @@ namespace AtoIndicator.View.EachStockHistory
                 SetChartViewRange(0, curEa.timeLines1m.nRealDataIdx + 2, curEa.nFs, curEa.nFs, "TotalArea");
                 mainForm.ea[nCurIdx].eventMgr.cancelEachStockFormEventHandler?.Invoke(this, EventArgs.Empty);
             }
+
             if (cUp == 39) // 오른쪽 화살표
             {
                 nXPlus++;
+
+                if (isSpacePushed && isRightDirectionUp) // X축 최대화
+                    nXPlus = MAX_RIGHT_X_RANGE - curEa.timeLines1m.nRealDataIdx;
+
                 SetChartViewRange(0, curEa.timeLines1m.nRealDataIdx + 2, curEa.nFs, curEa.nFs, "TotalArea");
+                
+                isRightDirectionUp = true;
             }
+            else
+                isRightDirectionUp = false;
+
 
 
             if (cUp == 192) // `

@@ -23,7 +23,7 @@ namespace AtoReplayer.Controller
             if (type == "NAME") codeColName = "sCodeName";
             string partitionFormat = $"P{DateTime.Parse(date):yyyyMM}";
 
-            string query = $"SELECT * FROM minutehistories_legacy PARTITION ({partitionFormat}) WHERE sDate='{date}' AND {codeColName} = '{code}' AND compLoc = {compLoc} AND nTime > '85800'";
+            string query = $"SELECT * FROM minutehistories_legacy  WHERE sDate='{date}' AND {codeColName} = '{code}' AND compLoc = {compLoc} AND nTime > '85800'";
             Console.WriteLine(query);
 
             return dbUtil.Query<TimeLine>(1, query);
