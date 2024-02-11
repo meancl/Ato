@@ -1,5 +1,6 @@
 ﻿using AtoReplayer.Models;
 using AtoReplayer.Utils;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,39 @@ namespace AtoReplayer.Controller
             return dbUtil.Query<FakeReport>(2, query);
         }
 
+        public bool InsertRemarkableData(int nCompLoc, string sCodeName, DateTime dTradeTime, int nRegisterNumber, string sRegisterMemo)
+        {
+            string connectionString = "server=221.149.119.60;port=2023;database=MJTradierDB;user=meancl;password=1234";
+
+            // MySQL 데이터베이스 연결 생성
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                bool isRet = false;
+                try
+                {
+                    connection.Open();
+
+                    // INSERT INTO 문 실행
+                    string query = "INSERT INTO replayerremark (nCompLoc, sCodeName, dTradeTime, nRegisterNum, sRegisterMemo) VALUES (@nCompLoc, @sCodeName, @dTradeTime, @nRegisterNum, @sRegisterMemo)";
+
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@nCompLoc", nCompLoc);
+                    command.Parameters.AddWithValue("@sCodeName", sCodeName);
+                    command.Parameters.AddWithValue("@dTradeTime", dTradeTime);
+                    command.Parameters.AddWithValue("@nRegisterNum", nRegisterNumber);
+                    command.Parameters.AddWithValue("@sRegisterMemo", sRegisterMemo);
+
+
+                    // 삽입 결과 확인
+                    isRet = command.ExecuteNonQuery() == 1;
+                }
+                catch (Exception ex)
+                {
+                    isRet = false;
+                }
+                return isRet;
+            }
+        }
     }
 
 

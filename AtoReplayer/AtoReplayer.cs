@@ -163,12 +163,24 @@ namespace AtoReplayer
 
         public bool isAllArrowVisible = true;
 
+        public struct ViewData
+        {
+            public DateTime dTradeTime;
+            public string sCodeName;
+        }
+        public bool isViewSetting;
+        public int nViewIdx;
+        public int nViewPass;
+        public List<ViewData> viewList;
+
         public AtoReplayer()
         {
             InitializeComponent();
 
             initializeDateTimePicker();
             initializeChartDesign();
+
+            viewList = new List<ViewData>();
 
             dataManager = new DataManager();
 
@@ -821,12 +833,14 @@ namespace AtoReplayer
                 dateTimePicker_action(sender);
             }
         }
-
+        public DateTime searchDateTime;
         private async Task dateTimePicker_action(object sender)
         {
             ClearChart();
-            DateTime dt = dateTimePicker1.Value;
-            String sdt = dt.ToString(DATEFORMAT);
+            searchDateTime = dateTimePicker1.Value;
+            searchCode = sCodeTextBox.Text;
+
+            String sdt = searchDateTime.ToString(DATEFORMAT);
             if (searchDate != sdt)
             {
                 searchDate = sdt;
@@ -896,8 +910,6 @@ namespace AtoReplayer
 
         private async void compLocButton_ClickAsync(object sender, EventArgs e)
         {
-            ClearChart();
-
             if (searchCompLoc == 0)
             {
                 searchCompLoc = 1;
@@ -907,8 +919,6 @@ namespace AtoReplayer
                 searchCompLoc = 0;
             }
             compLocButton.Text = searchCompLoc.ToString();
-
-            await InitDrawAsync();
         }
 
         private void back10_Click(object sender, EventArgs e)
@@ -2227,6 +2237,17 @@ namespace AtoReplayer
             {
                 isMouseCursorView = !isMouseCursorView;
             }
+
+            if(cUp == 'N')
+            {
+                RegisterGroupBox.Visible = !RegisterGroupBox.Visible;
+            }
+
+            if(cUp == 'B')
+            {
+                CallThreadRegisterBlockByCode();
+            }
+
             if (cUp == 'Q') // q가 눌렸는데 실매수
             {
                 isPaperBuyArrowVisible = !isPaperBuyArrowVisible;
@@ -2387,6 +2408,21 @@ namespace AtoReplayer
             return gap;
         }
 
+        private void shootBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool isSuccess = dataManager.InsertRemarkableData(searchCompLoc, searchCode, searchDateTime,
+                    int.Parse(nRegisterNumberTxtBox.Text), sRegisterMemoTxtBox.Text);
+
+                if (isSuccess)
+                    MessageBox.Show("DB 삽입 성공");
+                else
+                    MessageBox.Show("DB 삽입 실패");
+            }
+            catch { }                
+        }
+
         public int YIntervalGap(int yValueRange)
         {
             int yIntervalGap = -1;
@@ -2427,6 +2463,34 @@ namespace AtoReplayer
             return yIntervalGap;
         }
 
+        private void confirmBtn_Click(object sender, EventArgs e)
+        {
+            dateTimePicker1.Value = dTradeTimeDateTimePicker.Value;
+            sCodeTextBox.Text = sCodeNameTxtBox.Text;
+
+            dateTimePicker_action(sender);
+        }
+
+        private void rightBtn_Click(object sender, EventArgs e)
+        {
+            if(nViewIdx < nViewPass - 1)
+            {
+                nViewIdx++;
+                sCodeNameTxtBox.Text = viewList[nViewIdx].sCodeName;
+                dTradeTimeDateTimePicker.Value = viewList[nViewIdx].dTradeTime;
+            }
+        }
+
+        private void leftBtn_Click(object sender, EventArgs e)
+        {
+            if (nViewIdx > 0 )
+            {
+                nViewIdx--;
+                sCodeNameTxtBox.Text = viewList[nViewIdx].sCodeName;
+                dTradeTimeDateTimePicker.Value = viewList[nViewIdx].dTradeTime;
+            }
+        }
+
         public static bool IsFirstCharDigit(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -2436,6 +2500,15 @@ namespace AtoReplayer
 
             char firstChar = input[0];
             return char.IsDigit(firstChar);
+        }
+
+        public void CallThreadRegisterBlockByCode()
+        {
+            try
+            {
+                new Thread(() => new RegisterCodeForm(this).ShowDialog()).Start();
+            }
+            catch { }
         }
 
     }

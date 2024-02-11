@@ -29,15 +29,15 @@ namespace AtoReplayer
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.historyChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.sCodeTextBox = new System.Windows.Forms.TextBox();
@@ -105,66 +105,76 @@ namespace AtoReplayer
             this.wheelLabel = new System.Windows.Forms.Label();
             this.reserveChosenLabel = new System.Windows.Forms.Label();
             this.priceViewLabel = new System.Windows.Forms.Label();
+            this.RegisterGroupBox = new System.Windows.Forms.GroupBox();
+            this.confirmBtn = new System.Windows.Forms.Button();
+            this.shootBtn = new System.Windows.Forms.Button();
+            this.sRegisterMemoTxtBox = new System.Windows.Forms.TextBox();
+            this.nRegisterNumberTxtBox = new System.Windows.Forms.TextBox();
+            this.dTradeTimeDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.sCodeNameTxtBox = new System.Windows.Forms.TextBox();
+            this.rightBtn = new System.Windows.Forms.Button();
+            this.leftBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.historyChart)).BeginInit();
             this.loadingPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.RegisterGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // historyChart
             // 
             this.historyChart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.CursorX.IsUserSelectionEnabled = true;
-            chartArea1.Name = "ChartArea1";
-            this.historyChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.historyChart.Legends.Add(legend1);
+            chartArea3.CursorX.IsUserSelectionEnabled = true;
+            chartArea3.Name = "ChartArea1";
+            this.historyChart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.historyChart.Legends.Add(legend3);
             this.historyChart.Location = new System.Drawing.Point(26, 100);
             this.historyChart.Name = "historyChart";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.Legend = "Legend1";
-            series1.Name = "MinuteStick";
-            series1.YValuesPerPoint = 4;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Color = System.Drawing.Color.Red;
-            series2.Legend = "Legend1";
-            series2.Name = "Ma20m";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            series3.Legend = "Legend1";
-            series3.Name = "Ma1h";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Color = System.Drawing.Color.Yellow;
-            series4.Legend = "Legend1";
-            series4.Name = "Ma2h";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Color = System.Drawing.Color.Green;
-            series5.Legend = "Legend1";
-            series5.Name = "Ma20mGap";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            series6.Legend = "Legend1";
-            series6.Name = "Ma1hGap";
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Color = System.Drawing.Color.Purple;
-            series7.Legend = "Legend1";
-            series7.Name = "Ma2hGap";
-            this.historyChart.Series.Add(series1);
-            this.historyChart.Series.Add(series2);
-            this.historyChart.Series.Add(series3);
-            this.historyChart.Series.Add(series4);
-            this.historyChart.Series.Add(series5);
-            this.historyChart.Series.Add(series6);
-            this.historyChart.Series.Add(series7);
+            series15.ChartArea = "ChartArea1";
+            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series15.Legend = "Legend1";
+            series15.Name = "MinuteStick";
+            series15.YValuesPerPoint = 4;
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series16.Color = System.Drawing.Color.Red;
+            series16.Legend = "Legend1";
+            series16.Name = "Ma20m";
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series17.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            series17.Legend = "Legend1";
+            series17.Name = "Ma1h";
+            series18.ChartArea = "ChartArea1";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series18.Color = System.Drawing.Color.Yellow;
+            series18.Legend = "Legend1";
+            series18.Name = "Ma2h";
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series19.Color = System.Drawing.Color.Green;
+            series19.Legend = "Legend1";
+            series19.Name = "Ma20mGap";
+            series20.ChartArea = "ChartArea1";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series20.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            series20.Legend = "Legend1";
+            series20.Name = "Ma1hGap";
+            series21.ChartArea = "ChartArea1";
+            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series21.Color = System.Drawing.Color.Purple;
+            series21.Legend = "Legend1";
+            series21.Name = "Ma2hGap";
+            this.historyChart.Series.Add(series15);
+            this.historyChart.Series.Add(series16);
+            this.historyChart.Series.Add(series17);
+            this.historyChart.Series.Add(series18);
+            this.historyChart.Series.Add(series19);
+            this.historyChart.Series.Add(series20);
+            this.historyChart.Series.Add(series21);
             this.historyChart.Size = new System.Drawing.Size(999, 676);
             this.historyChart.TabIndex = 0;
             this.historyChart.Text = "chart1";
@@ -850,11 +860,101 @@ namespace AtoReplayer
             this.priceViewLabel.Size = new System.Drawing.Size(0, 12);
             this.priceViewLabel.TabIndex = 38;
             // 
+            // RegisterGroupBox
+            // 
+            this.RegisterGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RegisterGroupBox.Controls.Add(this.confirmBtn);
+            this.RegisterGroupBox.Controls.Add(this.shootBtn);
+            this.RegisterGroupBox.Controls.Add(this.sRegisterMemoTxtBox);
+            this.RegisterGroupBox.Controls.Add(this.nRegisterNumberTxtBox);
+            this.RegisterGroupBox.Controls.Add(this.dTradeTimeDateTimePicker);
+            this.RegisterGroupBox.Controls.Add(this.sCodeNameTxtBox);
+            this.RegisterGroupBox.Controls.Add(this.rightBtn);
+            this.RegisterGroupBox.Controls.Add(this.leftBtn);
+            this.RegisterGroupBox.Location = new System.Drawing.Point(1031, 262);
+            this.RegisterGroupBox.Name = "RegisterGroupBox";
+            this.RegisterGroupBox.Size = new System.Drawing.Size(257, 514);
+            this.RegisterGroupBox.TabIndex = 39;
+            this.RegisterGroupBox.TabStop = false;
+            this.RegisterGroupBox.Text = " ";
+            this.RegisterGroupBox.Visible = false;
+            // 
+            // confirmBtn
+            // 
+            this.confirmBtn.Location = new System.Drawing.Point(105, 92);
+            this.confirmBtn.Name = "confirmBtn";
+            this.confirmBtn.Size = new System.Drawing.Size(39, 30);
+            this.confirmBtn.TabIndex = 7;
+            this.confirmBtn.Text = "확인";
+            this.confirmBtn.UseVisualStyleBackColor = true;
+            this.confirmBtn.Click += new System.EventHandler(this.confirmBtn_Click);
+            // 
+            // shootBtn
+            // 
+            this.shootBtn.Location = new System.Drawing.Point(122, 291);
+            this.shootBtn.Name = "shootBtn";
+            this.shootBtn.Size = new System.Drawing.Size(115, 40);
+            this.shootBtn.TabIndex = 6;
+            this.shootBtn.Text = "전송";
+            this.shootBtn.UseVisualStyleBackColor = true;
+            this.shootBtn.Click += new System.EventHandler(this.shootBtn_Click);
+            // 
+            // sRegisterMemoTxtBox
+            // 
+            this.sRegisterMemoTxtBox.Location = new System.Drawing.Point(62, 148);
+            this.sRegisterMemoTxtBox.Multiline = true;
+            this.sRegisterMemoTxtBox.Name = "sRegisterMemoTxtBox";
+            this.sRegisterMemoTxtBox.Size = new System.Drawing.Size(179, 125);
+            this.sRegisterMemoTxtBox.TabIndex = 5;
+            // 
+            // nRegisterNumberTxtBox
+            // 
+            this.nRegisterNumberTxtBox.Location = new System.Drawing.Point(5, 153);
+            this.nRegisterNumberTxtBox.Name = "nRegisterNumberTxtBox";
+            this.nRegisterNumberTxtBox.Size = new System.Drawing.Size(50, 21);
+            this.nRegisterNumberTxtBox.TabIndex = 4;
+            // 
+            // dTradeTimeDateTimePicker
+            // 
+            this.dTradeTimeDateTimePicker.Location = new System.Drawing.Point(21, 53);
+            this.dTradeTimeDateTimePicker.Name = "dTradeTimeDateTimePicker";
+            this.dTradeTimeDateTimePicker.Size = new System.Drawing.Size(200, 21);
+            this.dTradeTimeDateTimePicker.TabIndex = 3;
+            // 
+            // sCodeNameTxtBox
+            // 
+            this.sCodeNameTxtBox.Location = new System.Drawing.Point(21, 20);
+            this.sCodeNameTxtBox.Name = "sCodeNameTxtBox";
+            this.sCodeNameTxtBox.Size = new System.Drawing.Size(200, 21);
+            this.sCodeNameTxtBox.TabIndex = 2;
+            // 
+            // rightBtn
+            // 
+            this.rightBtn.Location = new System.Drawing.Point(160, 88);
+            this.rightBtn.Name = "rightBtn";
+            this.rightBtn.Size = new System.Drawing.Size(81, 42);
+            this.rightBtn.TabIndex = 1;
+            this.rightBtn.Text = "▶";
+            this.rightBtn.UseVisualStyleBackColor = true;
+            this.rightBtn.Click += new System.EventHandler(this.rightBtn_Click);
+            // 
+            // leftBtn
+            // 
+            this.leftBtn.Location = new System.Drawing.Point(6, 88);
+            this.leftBtn.Name = "leftBtn";
+            this.leftBtn.Size = new System.Drawing.Size(83, 42);
+            this.leftBtn.TabIndex = 0;
+            this.leftBtn.Text = "◀";
+            this.leftBtn.UseVisualStyleBackColor = true;
+            this.leftBtn.Click += new System.EventHandler(this.leftBtn_Click);
+            // 
             // AtoReplayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1289, 789);
+            this.Controls.Add(this.RegisterGroupBox);
             this.Controls.Add(this.priceViewLabel);
             this.Controls.Add(this.reserveChosenLabel);
             this.Controls.Add(this.wheelLabel);
@@ -904,6 +1004,8 @@ namespace AtoReplayer
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.RegisterGroupBox.ResumeLayout(false);
+            this.RegisterGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -978,6 +1080,15 @@ namespace AtoReplayer
         private System.Windows.Forms.Label wheelLabel;
         private System.Windows.Forms.Label reserveChosenLabel;
         private System.Windows.Forms.Label priceViewLabel;
+        private System.Windows.Forms.GroupBox RegisterGroupBox;
+        private System.Windows.Forms.TextBox sRegisterMemoTxtBox;
+        private System.Windows.Forms.TextBox nRegisterNumberTxtBox;
+        public System.Windows.Forms.DateTimePicker dTradeTimeDateTimePicker;
+        public System.Windows.Forms.TextBox sCodeNameTxtBox;
+        private System.Windows.Forms.Button rightBtn;
+        private System.Windows.Forms.Button leftBtn;
+        private System.Windows.Forms.Button confirmBtn;
+        private System.Windows.Forms.Button shootBtn;
     }
 }
 
