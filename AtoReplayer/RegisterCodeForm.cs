@@ -27,7 +27,7 @@ namespace AtoReplayer
         {
             char cUp = (char)k.KeyValue;
 
-            if(cUp == 16)
+            if (cUp == 16)
             {
                 mainForm.viewList.Clear();
                 mainForm.nViewIdx = 0;
@@ -44,10 +44,13 @@ namespace AtoReplayer
                         {
                             string[] messages = messageArray[i].Split('\t');
 
+                            DateTime dT = DateTime.Parse(messages[0]);
+                            string sC = messages[1].Split('\r')[0];
+
                             mainForm.viewList.Add(new AtoReplayer.ViewData
                             {
-                                dTradeTime = DateTime.Parse(messages[0]),
-                                sCodeName = messages[1]
+                                dTradeTime = dT,
+                                sCodeName = sC
                             }
                             );
                             mainForm.isViewSetting = true;
@@ -58,26 +61,27 @@ namespace AtoReplayer
                                 {
                                     mainForm.sCodeNameTxtBox.Invoke(new MethodInvoker(delegate
                                     {
-                                        mainForm.sCodeNameTxtBox.Text = messages[1];
-                                        mainForm.dTradeTimeDateTimePicker.Value = DateTime.Parse(messages[0]);
+                                        mainForm.sCodeNameTxtBox.Text = sC;
+                                        mainForm.dTradeTimeDateTimePicker.Value = dT;
                                     }));
                                 }
                                 else
                                 {
-                                    mainForm.sCodeNameTxtBox.Text = messages[1];
-                                    mainForm.dTradeTimeDateTimePicker.Value = DateTime.Parse(messages[0]);
+                                    mainForm.sCodeNameTxtBox.Text = sC;
+                                    mainForm.dTradeTimeDateTimePicker.Value = dT;
                                 }
 
                             }
 
                             mainForm.nViewPass++;
                         }
-                        catch (Exception ex ){
+                        catch (Exception ex)
+                        {
                         }
                     }
                 }
                 catch
-                { 
+                {
 
                 }
                 finally
