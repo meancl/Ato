@@ -47,7 +47,7 @@ namespace AtoReplayer
 
 
 
-            if (isSpacePushed)
+            if (isCtrlPushed)
             {
                 if (cUp == 16)
                 {
@@ -120,6 +120,15 @@ namespace AtoReplayer
                         registerTextBox.Text = mainForm.sRegisterMessage;
                 }
 
+                if(cUp == 'S')
+                {
+                    string [] sDataToShuffle = registerTextBox.Text.Split('\n');
+
+                    ShuffleArray<string>(ref sDataToShuffle);
+
+                    registerTextBox.Text = string.Join("\n", sDataToShuffle);  
+                }
+
             }
 
         }
@@ -149,6 +158,20 @@ namespace AtoReplayer
                 isSpacePushed = true;
             }
 
+        }
+
+        public void ShuffleArray<T>(ref T[] array)
+        {
+            Random rng = new Random();
+            int n = array.Length;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = array[k];
+                array[k] = array[n];
+                array[n] = value;
+            }
         }
     }
 }
