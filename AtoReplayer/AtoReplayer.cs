@@ -163,6 +163,8 @@ namespace AtoReplayer
 
         public bool isAllArrowVisible = true;
 
+        public string sRegisterMessage = "";
+
         public struct ViewData
         {
             public DateTime dTradeTime;
