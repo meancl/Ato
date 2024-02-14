@@ -146,7 +146,7 @@ namespace AtoReplayer
         public System.Timers.Timer timer;
 
         public bool isViewGapMa = true;
-        public bool isViewStartMa = true;
+        public bool isViewStartMa = false;
 
         public bool isBuyArrowVisible = true;
         public bool isSellArrowVisible = true;
@@ -226,6 +226,8 @@ namespace AtoReplayer
             forward5.Click += forward5_Click;
             forward10.Click += forward10_Click;
             forward60.Click += forward60_Click;
+            forwardFull.Click += full_forward_click;
+
             nDelaySecondTextBox.KeyPress += nDelaySecondTextBox_KeyPress;
             // toolTip1.SetToolTip(forward60, "우아앙");
 
@@ -893,6 +895,8 @@ namespace AtoReplayer
 
         private void ViewCurTimerSet(object sender, EventArgs e)
         {
+            this.ActiveControl = historyChart;
+
             if (!timer.Enabled)
             {
                 timer.Enabled = true;
@@ -925,6 +929,8 @@ namespace AtoReplayer
 
         private void back10_Click(object sender, EventArgs e)
         {
+
+            this.ActiveControl = historyChart;
             currentDrawIdx -= 10;
             if (currentDrawIdx < 0)
             {
@@ -935,6 +941,7 @@ namespace AtoReplayer
         }
         private void back5_Click(object sender, EventArgs e)
         {
+            this.ActiveControl = historyChart;
             currentDrawIdx -= 5;
             if (currentDrawIdx < 0)
             {
@@ -945,6 +952,8 @@ namespace AtoReplayer
         }
         private void back60_Click(object sender, EventArgs e)
         {
+
+            this.ActiveControl = historyChart;
             currentDrawIdx -= 60;
             if (currentDrawIdx < 0)
             {
@@ -956,6 +965,8 @@ namespace AtoReplayer
 
         private void forward5_Click(object sender, EventArgs e)
         {
+
+            this.ActiveControl = historyChart;
             currentDrawIdx += 5;
             if (currentDrawIdx >= timelines.Length)
             {
@@ -967,6 +978,8 @@ namespace AtoReplayer
 
         private void forward10_Click(object sender, EventArgs e)
         {
+
+            this.ActiveControl = historyChart;
             currentDrawIdx += 10;
             if (currentDrawIdx >= timelines.Length)
             {
@@ -978,6 +991,8 @@ namespace AtoReplayer
 
         private void forward60_Click(object sender, EventArgs e)
         {
+
+            this.ActiveControl = historyChart;
             currentDrawIdx += 60;
             if (currentDrawIdx >= timelines.Length)
             {
@@ -985,6 +1000,21 @@ namespace AtoReplayer
             }
 
             DrawChartUntilIdx(true);
+        }
+
+        private void full_forward_click(object sender, EventArgs e)
+        {
+
+            this.ActiveControl = historyChart;
+            currentDrawIdx += 500;
+            if (currentDrawIdx >= timelines.Length)
+            {
+                currentDrawIdx = timelines.Length - 1;
+            }
+
+            DrawChartUntilIdx(true);
+
+            ViewCurTimerSet(playButton, e);
         }
 
         private void AddListView(UnTradedInfo info)
@@ -1193,7 +1223,7 @@ namespace AtoReplayer
             isHitView = true;
 
             isViewGapMa = true;
-            isViewStartMa = true;
+            isViewStartMa = false;
             isBuyArrowVisible = true;
             isSellArrowVisible = true;
             isFakeBuyArrowVisible = true;
@@ -1212,7 +1242,6 @@ namespace AtoReplayer
 
             loadingPanel.Visible = false;
             EnableControls(this);
-
 
 
 
