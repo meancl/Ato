@@ -258,6 +258,7 @@ namespace AtoIndicator
                 client.Credentials = new NetworkCredential(ftpUsername, ftpPassword);
                 EachStock curEa;
 
+                PrintLog($"차트 데이터를 삽입 시작합니다.");
                 for (int nStockIdx = 0; nStockIdx < nStockLength; nStockIdx++)
                 {
                     try
@@ -266,7 +267,7 @@ namespace AtoIndicator
 
                         sbEvery1min.Clear();
 
-                        if (curEa.timeLines1m.nRealDataIdx > 0)
+                        if (curEa.timeLines1m.nRealDataIdx > 0 && curEa.fakeBuyStrategy.nStrategyNum >= 10)
                         {
                             // 전체 종목 1분 데이터 삽입
                             for (int nLastMinuteIdx = 0; nLastMinuteIdx <= curEa.timeLines1m.nRealDataIdx; nLastMinuteIdx++)
@@ -314,8 +315,8 @@ namespace AtoIndicator
                                     sbEvery1min.Append($"{NEW_LINE}");
                             }
                             client.UploadString($"{ftpHost}/chart/Every1min/{COMPUTER_LOCATION}-{sToday}-{curEa.sCode}-{curEa.sCodeName}.txt", sbEvery1min.ToString());
-
                         }
+
                     }
                     catch { } // 차트 에러
                 }
