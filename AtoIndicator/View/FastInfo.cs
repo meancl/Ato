@@ -1291,7 +1291,7 @@ namespace AtoIndicator.View
                                 Math.Round(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fPower, 3).ToString(),
                                 Math.Round(mainForm.ea[i].fTodayMaxPower, 3).ToString(),
 
-                                "", // 매수예약
+                                $"{mainForm.ea[i].fakeStrategyMgr.hitDict38.Count}/{mainForm.ea[i].fakeStrategyMgr.hitDict25.Count}", // 매수예약
 
                                 Math.Round((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice, 3).ToString(),
                                 mainForm.ea[i].isViMode.ToString(),

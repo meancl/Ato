@@ -28,7 +28,7 @@ namespace AtoReplayer
 
         private string searchCode = ""; // 주식 코드 or 주식명
         private string searchDate = DateTime.Today.ToString(DATEFORMAT);
-        private int searchCompLoc = 1;
+        public int searchCompLoc = 1;
 
         TimeLine[] timelines = new TimeLine[0];
         FakeReport[] fakereports = new FakeReport[0];
@@ -167,6 +167,9 @@ namespace AtoReplayer
 
         public struct ViewData
         {
+            public string sCode;
+            public int nCompLoc;
+            public int nMaxFakeBuyCnt;
             public DateTime dTradeTime;
             public string sCodeName;
         }
@@ -843,6 +846,7 @@ namespace AtoReplayer
             ClearChart();
             searchDateTime = dateTimePicker1.Value;
             searchCode = sCodeTextBox.Text;
+            searchCompLoc = int.Parse(compLocLabel.Text);
 
             String sdt = searchDateTime.ToString(DATEFORMAT);
             if (searchDate != sdt)
@@ -924,7 +928,9 @@ namespace AtoReplayer
             {
                 searchCompLoc = 0;
             }
+
             compLocButton.Text = searchCompLoc.ToString();
+            await InitDrawAsync();
         }
 
         private void back10_Click(object sender, EventArgs e)
@@ -2498,6 +2504,7 @@ namespace AtoReplayer
         {
             dateTimePicker1.Value = dTradeTimeDateTimePicker.Value;
             sCodeTextBox.Text = sCodeNameTxtBox.Text;
+            compLocButton.Text = compLocLabel.Text; 
 
             dateTimePicker_action(sender);
         }
@@ -2509,6 +2516,7 @@ namespace AtoReplayer
                 nViewIdx++;
                 sCodeNameTxtBox.Text = viewList[nViewIdx].sCodeName;
                 dTradeTimeDateTimePicker.Value = viewList[nViewIdx].dTradeTime;
+                compLocLabel.Text = viewList[nViewIdx].nCompLoc.ToString();
             }
         }
 
@@ -2519,6 +2527,7 @@ namespace AtoReplayer
                 nViewIdx--;
                 sCodeNameTxtBox.Text = viewList[nViewIdx].sCodeName;
                 dTradeTimeDateTimePicker.Value = viewList[nViewIdx].dTradeTime;
+                compLocLabel.Text = viewList[nViewIdx].nCompLoc.ToString();
             }
         }
 

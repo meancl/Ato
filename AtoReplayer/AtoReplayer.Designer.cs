@@ -115,6 +115,7 @@ namespace AtoReplayer
             this.rightBtn = new System.Windows.Forms.Button();
             this.leftBtn = new System.Windows.Forms.Button();
             this.forwardFull = new System.Windows.Forms.Button();
+            this.compLocLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.historyChart)).BeginInit();
             this.loadingPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -878,6 +879,7 @@ namespace AtoReplayer
             // 
             this.RegisterGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.RegisterGroupBox.Controls.Add(this.compLocLabel);
             this.RegisterGroupBox.Controls.Add(this.confirmBtn);
             this.RegisterGroupBox.Controls.Add(this.shootBtn);
             this.RegisterGroupBox.Controls.Add(this.sRegisterMemoTxtBox);
@@ -983,6 +985,14 @@ namespace AtoReplayer
             this.forwardFull.Text = "full";
             this.forwardFull.UseVisualStyleBackColor = true;
             // 
+            // compLocLabel
+            // 
+            this.compLocLabel.AutoSize = true;
+            this.compLocLabel.Location = new System.Drawing.Point(258, 28);
+            this.compLocLabel.Name = "compLocLabel";
+            this.compLocLabel.Size = new System.Drawing.Size(0, 15);
+            this.compLocLabel.TabIndex = 8;
+            // 
             // AtoReplayer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -1053,7 +1063,7 @@ namespace AtoReplayer
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.TextBox sCodeTextBox;
         private System.Windows.Forms.Button playButton;
-        private System.Windows.Forms.Button compLocButton;
+        public System.Windows.Forms.Button compLocButton;
         private System.Windows.Forms.Panel loadingPanel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button back5;
@@ -1126,6 +1136,7 @@ namespace AtoReplayer
         private System.Windows.Forms.Button confirmBtn;
         private System.Windows.Forms.Button shootBtn;
         private System.Windows.Forms.Button forwardFull;
+        public System.Windows.Forms.Label compLocLabel;
     }
 }
 

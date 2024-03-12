@@ -68,13 +68,19 @@ namespace AtoReplayer
                             {
                                 string[] messages = messageArray[i].Split('\t');
 
-                                DateTime dT = DateTime.Parse(messages[0]);
-                                string sC = messages[1].Split('\r')[0];
+                                DateTime dT = DateTime.Parse(messages[1].Split('\r')[0]);
+                                string sC = messages[2].Split('\r')[0];
+                                int nLoc = int.Parse(messages[0].Split('\r')[0]);
+                                string sCode = messages[3].Split('\r')[0];
+                                int nFB = int.Parse(messages[4].Split('\r')[0]);
 
                                 mainForm.viewList.Add(new AtoReplayer.ViewData
                                 {
                                     dTradeTime = dT,
-                                    sCodeName = sC
+                                    sCodeName = sC,
+                                    sCode = sCode,
+                                    nMaxFakeBuyCnt=  nFB,
+                                    nCompLoc = nLoc
                                 }
                                 );
                                 mainForm.isViewSetting = true;
@@ -87,12 +93,16 @@ namespace AtoReplayer
                                         {
                                             mainForm.sCodeNameTxtBox.Text = sC;
                                             mainForm.dTradeTimeDateTimePicker.Value = dT;
+                                            mainForm.compLocButton.Text = nLoc.ToString();
+                                            mainForm.compLocLabel.Text = nLoc.ToString();
                                         }));
                                     }
                                     else
                                     {
                                         mainForm.sCodeNameTxtBox.Text = sC;
                                         mainForm.dTradeTimeDateTimePicker.Value = dT;
+                                        mainForm.compLocButton.Text = nLoc.ToString();
+                                        mainForm.compLocLabel.Text = nLoc.ToString();
                                     }
 
                                 }
