@@ -1264,6 +1264,20 @@ namespace AtoIndicator
 
                         }
                         #endregion
+
+                        #region MA_돌파 확인
+                        if(ea[i].is3PerCheck)
+                        {
+                            if(ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap0)
+                                ea[i].is20mDownAfter3Per = true;
+
+                            if (ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap1)
+                                ea[i].is1hDownAfter3Per = true;
+
+                            if (ea[i].nFs <= ea[i].timeLines1m.arrTimeLine[nTimeLineIdx].fOverMaGap2)
+                                ea[i].is2hDownAfter3Per = true;
+                        }
+                        #endregion
                     }// END ---- 개인구조체 업데이트
                     #endregion
 
@@ -2299,6 +2313,10 @@ namespace AtoIndicator
                     } // END ---- 실시간 전고점
                     #endregion
 
+                    if (ea[nCurIdx].fPower >= 0.03)
+                    {
+                        ea[nCurIdx].is3PerCheck = true;
+                    }
 
                     // 오늘 저점
                     if (ea[nCurIdx].nTodayMinPrice == 0 || ea[nCurIdx].nTodayMinPrice > ea[nCurIdx].nFs)
@@ -2318,6 +2336,13 @@ namespace AtoIndicator
                         ea[nCurIdx].nTodayBottomPrice = ea[nCurIdx].nTodayMaxPrice;
                         ea[nCurIdx].nTodayBottomTime = ea[nCurIdx].nTodayMaxTime;
                         ea[nCurIdx].fTodayBottomPower = ea[nCurIdx].fTodayMaxPower;
+
+                        if(ea[nCurIdx].is3PerCheck)
+                        {
+                            ea[nCurIdx].is20mDownAfter3Per = false;
+                            ea[nCurIdx].is1hDownAfter3Per = false;
+                            ea[nCurIdx].is2hDownAfter3Per = false;
+                        }
                     }
                     // 오늘 고점 후 저점
                     else if (ea[nCurIdx].nTodayBottomPrice > ea[nCurIdx].nFs)

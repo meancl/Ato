@@ -219,6 +219,13 @@ namespace AtoIndicator
             public int nTodayBottomTime;
             public double fTodayBottomPower;
 
+            // 이평선 돌파 확인용
+            public bool is3PerCheck; // 3퍼 도달했는지
+            public bool is20mDownAfter3Per; // 20m이평선 뚤렸는지
+            public bool is1hDownAfter3Per; // 1h이평선 뚤렸는지
+            public bool is2hDownAfter3Per; // 2h이평선 뚤렸는지
+
+
             public void Init()
             {
                 crushMinuteManager.Init();

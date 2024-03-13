@@ -334,10 +334,15 @@ namespace AtoIndicator.View
                         viVisualCheckBox.Checked = false;
                         speedVisualCheckBox.Checked = false;
                         maVisualCheckBox.Checked = false;
+                        downVisualCheckBox.Checked = false;
 
                         crushSoundCheckBox.Checked = false;
                         viSoundCheckBox.Checked = false;
                         upSoundCheckBox.Checked = false;
+
+                        m20CheckBox.Checked = false;
+                        h1CheckBox.Checked = false;
+                        h2CheckBox.Checked = false;
 
                         passNumTxtBox.Text = "";
 
@@ -499,6 +504,10 @@ namespace AtoIndicator.View
                         tUntilVi2.Text = "";
                         tDUP1.Text = "";
                         tDUP2.Text = "";
+                        tCURLOC1.Text = "";
+                        tCURLOC2.Text = "";
+
+
 
                     }
                 }
@@ -783,6 +792,7 @@ namespace AtoIndicator.View
         public ComparePackage TradeStrengthPack;
         public ComparePackage UntilViPack;
         public ComparePackage DUPPack;
+        public ComparePackage CURLOCPack;
 
         // End -- 비교 대상자 변수들
 
@@ -905,7 +915,7 @@ namespace AtoIndicator.View
                     TradeStrengthPack.Set(tTradeStrength1.Text, tTradeStrength2.Text);
                     UntilViPack.Set(tUntilVi1.Text, tUntilVi2.Text);
                     DUPPack.Set(tDUP1.Text, tDUP2.Text);
-
+                    CURLOCPack.Set(tCURLOC1.Text, tCURLOC2.Text);
 
                     nPass = 0; // pass cnt
                     nPassLen = 0;
@@ -989,6 +999,7 @@ namespace AtoIndicator.View
                                                     TradeStrengthPack.IsChecked(),
                                                     UntilViPack.IsChecked(),
                                                     DUPPack.IsChecked(),
+                                                    CURLOCPack.IsChecked(),
                 });
 
                     string sPassNum = passNumTxtBox.Text.Trim();
@@ -1122,6 +1133,8 @@ namespace AtoIndicator.View
                             if (TMDPack.IsChecked() && TMDPack.Compare(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fTodayBottomPower))
                                 nPass++;
                             if (DUPPack.IsChecked() && DUPPack.Compare(mainForm.ea[i].fPower - mainForm.ea[i].fTodayBottomPower))
+                                nPass++;
+                            if (CURLOCPack.IsChecked() && CURLOCPack.Compare((double)(mainForm.ea[i].nFs - mainForm.ea[i].nTodayBottomPrice) / (mainForm.ea[i].nTodayMaxPrice - mainForm.ea[i].nTodayBottomPrice) ))
                                 nPass++;
                             if (MRPack.IsChecked() && MRPack.Compare(mainForm.ea[i].rankSystem.nMinuteSummationRanking))
                                 nPass++;
@@ -1278,6 +1291,43 @@ namespace AtoIndicator.View
 
                             if (rCheckBox.Checked && mainForm.ea[i].manualReserve.isChosenR)
                                 continue;
+
+
+                            if(m20CheckBox.Checked && h1CheckBox.Checked && h2CheckBox.Checked)
+                            {
+                                if ( !(mainForm.ea[i].is20mDownAfter3Per && mainForm.ea[i].is1hDownAfter3Per && mainForm.ea[i].is2hDownAfter3Per) )
+                                    continue;
+                            }
+                            else if(m20CheckBox.Checked && h1CheckBox.Checked)
+                            {
+                                if ( ! (mainForm.ea[i].is20mDownAfter3Per && mainForm.ea[i].is1hDownAfter3Per))
+                                    continue;
+                            }
+                            else if (h1CheckBox.Checked && h2CheckBox.Checked)
+                            {
+                                if (!(mainForm.ea[i].is1hDownAfter3Per && mainForm.ea[i].is2hDownAfter3Per))
+                                    continue;
+                            }
+                            else if (m20CheckBox.Checked && h2CheckBox.Checked)
+                            {
+                                if (! (mainForm.ea[i].is20mDownAfter3Per && mainForm.ea[i].is2hDownAfter3Per))
+                                    continue;
+                            }
+                            else if(m20CheckBox.Checked)
+                            {
+                                if (!mainForm.ea[i].is20mDownAfter3Per)
+                                    continue;
+                            }
+                            else if(h1CheckBox.Checked)
+                            {
+                                if (!mainForm.ea[i].is1hDownAfter3Per)
+                                    continue;
+                            }
+                            else if(h2CheckBox.Checked)
+                            {
+                                if (!mainForm.ea[i].is2hDownAfter3Per)
+                                    continue;
+                            }
 
                             if (isShow && isReserveShow)
                             {
@@ -1980,6 +2030,7 @@ namespace AtoIndicator.View
             for (int i = 0; i < mainForm.nStockLength; i++)
                 targetTimeArr[i] = 0;
         }
+
 
     }
 }
