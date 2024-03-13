@@ -1295,37 +1295,37 @@ namespace AtoIndicator.View
 
                             if(m20CheckBox.Checked && h1CheckBox.Checked && h2CheckBox.Checked)
                             {
-                                if ( !(mainForm.ea[i].is20mDownAfter3Per && mainForm.ea[i].is1hDownAfter3Per && mainForm.ea[i].is2hDownAfter3Per) )
+                                if ( !(mainForm.ea[i].is20mDownAfter3Per || mainForm.ea[i].is1hDownAfter3Per || mainForm.ea[i].is2hDownAfter3Per) )
                                     continue;
                             }
                             else if(m20CheckBox.Checked && h1CheckBox.Checked)
                             {
-                                if ( ! (mainForm.ea[i].is20mDownAfter3Per && mainForm.ea[i].is1hDownAfter3Per))
+                                if ( !(mainForm.ea[i].is20mDownAfter3Per || mainForm.ea[i].is1hDownAfter3Per) || mainForm.ea[i].is2hDownAfter3Per)
                                     continue;
                             }
                             else if (h1CheckBox.Checked && h2CheckBox.Checked)
                             {
-                                if (!(mainForm.ea[i].is1hDownAfter3Per && mainForm.ea[i].is2hDownAfter3Per))
+                                if (!(mainForm.ea[i].is1hDownAfter3Per || mainForm.ea[i].is2hDownAfter3Per) || mainForm.ea[i].is20mDownAfter3Per)
                                     continue;
                             }
                             else if (m20CheckBox.Checked && h2CheckBox.Checked)
                             {
-                                if (! (mainForm.ea[i].is20mDownAfter3Per && mainForm.ea[i].is2hDownAfter3Per))
+                                if (!(mainForm.ea[i].is20mDownAfter3Per || mainForm.ea[i].is2hDownAfter3Per) || mainForm.ea[i].is1hDownAfter3Per)
                                     continue;
                             }
                             else if(m20CheckBox.Checked)
                             {
-                                if (!mainForm.ea[i].is20mDownAfter3Per)
+                                if (!mainForm.ea[i].is20mDownAfter3Per || (mainForm.ea[i].is1hDownAfter3Per || mainForm.ea[i].is2hDownAfter3Per))
                                     continue;
                             }
                             else if(h1CheckBox.Checked)
                             {
-                                if (!mainForm.ea[i].is1hDownAfter3Per)
+                                if (!mainForm.ea[i].is1hDownAfter3Per || (mainForm.ea[i].is20mDownAfter3Per || mainForm.ea[i].is2hDownAfter3Per))
                                     continue;
                             }
                             else if(h2CheckBox.Checked)
                             {
-                                if (!mainForm.ea[i].is2hDownAfter3Per)
+                                if (!mainForm.ea[i].is2hDownAfter3Per || (mainForm.ea[i].is20mDownAfter3Per || mainForm.ea[i].is1hDownAfter3Per))
                                     continue;
                             }
 
