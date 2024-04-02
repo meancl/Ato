@@ -506,8 +506,8 @@ namespace AtoIndicator.View
                         tDUP2.Text = "";
                         tCURLOC1.Text = "";
                         tCURLOC2.Text = "";
-
-
+                        tCRUSHMIN1.Text = "";
+                        tCRUSHMIN2.Text = "";
 
                     }
                 }
@@ -793,6 +793,7 @@ namespace AtoIndicator.View
         public ComparePackage UntilViPack;
         public ComparePackage DUPPack;
         public ComparePackage CURLOCPack;
+        public ComparePackage CRUSHMINPack;
 
         // End -- 비교 대상자 변수들
 
@@ -916,6 +917,7 @@ namespace AtoIndicator.View
                     UntilViPack.Set(tUntilVi1.Text, tUntilVi2.Text);
                     DUPPack.Set(tDUP1.Text, tDUP2.Text);
                     CURLOCPack.Set(tCURLOC1.Text, tCURLOC2.Text);
+                    CRUSHMINPack.Set(tCRUSHMIN1.Text, tCRUSHMIN2.Text);
 
                     nPass = 0; // pass cnt
                     nPassLen = 0;
@@ -1000,6 +1002,7 @@ namespace AtoIndicator.View
                                                     UntilViPack.IsChecked(),
                                                     DUPPack.IsChecked(),
                                                     CURLOCPack.IsChecked(),
+                                                    CRUSHMINPack.IsChecked(),
                 });
 
                     string sPassNum = passNumTxtBox.Text.Trim();
@@ -1133,6 +1136,8 @@ namespace AtoIndicator.View
                             if (TMDPack.IsChecked() && TMDPack.Compare(mainForm.ea[i].fTodayMaxPower - mainForm.ea[i].fTodayBottomPower))
                                 nPass++;
                             if (DUPPack.IsChecked() && DUPPack.Compare(mainForm.ea[i].fPower - mainForm.ea[i].fTodayBottomPower))
+                                nPass++;
+                            if (CRUSHMINPack.IsChecked() && CRUSHMINPack.Compare(mainForm.nTimeLineIdx - mainForm.ea[i].nCrushMinTimeLineIdx))
                                 nPass++;
                             if (CURLOCPack.IsChecked() && CURLOCPack.Compare((double)(mainForm.ea[i].nFs - mainForm.ea[i].nTodayBottomPrice) / (mainForm.ea[i].nTodayMaxPrice - mainForm.ea[i].nTodayBottomPrice) ))
                                 nPass++;

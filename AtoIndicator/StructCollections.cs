@@ -225,6 +225,7 @@ namespace AtoIndicator
             public bool is1hDownAfter3Per; // 1h이평선 뚤렸는지
             public bool is2hDownAfter3Per; // 2h이평선 뚤렸는지
 
+            public int nCrushMinTimeLineIdx; // 돌파 이후 몇분 안을 확인하기 위한 변수
 
             public void Init()
             {

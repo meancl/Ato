@@ -314,6 +314,9 @@ namespace AtoIndicator.View
             this.tTF2 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tTF1 = new System.Windows.Forms.TextBox();
+            this.tCRUSHMIN2 = new System.Windows.Forms.TextBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.tCRUSHMIN1 = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -389,6 +392,9 @@ namespace AtoIndicator.View
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tCRUSHMIN2);
+            this.groupBox1.Controls.Add(this.label81);
+            this.groupBox1.Controls.Add(this.tCRUSHMIN1);
             this.groupBox1.Controls.Add(this.tCURLOC2);
             this.groupBox1.Controls.Add(this.label74);
             this.groupBox1.Controls.Add(this.tCURLOC1);
@@ -3033,6 +3039,31 @@ namespace AtoIndicator.View
             this.tTF1.Size = new System.Drawing.Size(54, 25);
             this.tTF1.TabIndex = 199;
             // 
+            // tCRUSHMIN2
+            // 
+            this.tCRUSHMIN2.Location = new System.Drawing.Point(354, 874);
+            this.tCRUSHMIN2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tCRUSHMIN2.Name = "tCRUSHMIN2";
+            this.tCRUSHMIN2.Size = new System.Drawing.Size(54, 25);
+            this.tCRUSHMIN2.TabIndex = 576;
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(223, 882);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(107, 15);
+            this.label81.TabIndex = 574;
+            this.label81.Text = "돌파 이후 몇분";
+            // 
+            // tCRUSHMIN1
+            // 
+            this.tCRUSHMIN1.Location = new System.Drawing.Point(147, 874);
+            this.tCRUSHMIN1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tCRUSHMIN1.Name = "tCRUSHMIN1";
+            this.tCRUSHMIN1.Size = new System.Drawing.Size(54, 25);
+            this.tCRUSHMIN1.TabIndex = 575;
+            // 
             // FastInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -3336,5 +3367,8 @@ namespace AtoIndicator.View
         private System.Windows.Forms.CheckBox h1CheckBox;
         private System.Windows.Forms.CheckBox h2CheckBox;
         private System.Windows.Forms.CheckBox m20CheckBox;
+        private System.Windows.Forms.TextBox tCRUSHMIN2;
+        private System.Windows.Forms.Label label81;
+        private System.Windows.Forms.TextBox tCRUSHMIN1;
     }
 }

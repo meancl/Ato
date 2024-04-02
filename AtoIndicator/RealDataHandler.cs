@@ -2329,6 +2329,12 @@ namespace AtoIndicator
                     // 오늘 고점
                     if (ea[nCurIdx].nTodayMaxPrice < ea[nCurIdx].nFs)
                     {
+
+                        if(ea[nCurIdx].fTodayMaxPower - ea[nCurIdx].fTodayBottomPower >= 0.025)
+                        {
+                            ea[nCurIdx].nCrushMinTimeLineIdx = nTimeLineIdx;
+                        }
+
                         ea[nCurIdx].nTodayMaxPrice = ea[nCurIdx].nFs;
                         ea[nCurIdx].nTodayMaxTime = nSharedTime;
                         ea[nCurIdx].fTodayMaxPower = ea[nCurIdx].fPower;
