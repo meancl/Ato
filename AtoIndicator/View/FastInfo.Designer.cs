@@ -38,6 +38,9 @@ namespace AtoIndicator.View
             this.passNumTxtBox = new System.Windows.Forms.TextBox();
             this.passLenLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tCRUSHMIN2 = new System.Windows.Forms.TextBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.tCRUSHMIN1 = new System.Windows.Forms.TextBox();
             this.tCURLOC2 = new System.Windows.Forms.TextBox();
             this.label74 = new System.Windows.Forms.Label();
             this.tCURLOC1 = new System.Windows.Forms.TextBox();
@@ -314,9 +317,12 @@ namespace AtoIndicator.View
             this.tTF2 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.tTF1 = new System.Windows.Forms.TextBox();
-            this.tCRUSHMIN2 = new System.Windows.Forms.TextBox();
-            this.label81 = new System.Windows.Forms.Label();
-            this.tCRUSHMIN1 = new System.Windows.Forms.TextBox();
+            this.tVIMIN2 = new System.Windows.Forms.TextBox();
+            this.label86 = new System.Windows.Forms.Label();
+            this.tVIMIN1 = new System.Windows.Forms.TextBox();
+            this.write1Btn = new System.Windows.Forms.Button();
+            this.write2Btn = new System.Windows.Forms.Button();
+            this.write3Btn = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -392,6 +398,12 @@ namespace AtoIndicator.View
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.write3Btn);
+            this.groupBox1.Controls.Add(this.write2Btn);
+            this.groupBox1.Controls.Add(this.write1Btn);
+            this.groupBox1.Controls.Add(this.tVIMIN2);
+            this.groupBox1.Controls.Add(this.label86);
+            this.groupBox1.Controls.Add(this.tVIMIN1);
             this.groupBox1.Controls.Add(this.tCRUSHMIN2);
             this.groupBox1.Controls.Add(this.label81);
             this.groupBox1.Controls.Add(this.tCRUSHMIN1);
@@ -684,6 +696,31 @@ namespace AtoIndicator.View
             this.groupBox1.Size = new System.Drawing.Size(416, 1035);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
+            // 
+            // tCRUSHMIN2
+            // 
+            this.tCRUSHMIN2.Location = new System.Drawing.Point(354, 874);
+            this.tCRUSHMIN2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tCRUSHMIN2.Name = "tCRUSHMIN2";
+            this.tCRUSHMIN2.Size = new System.Drawing.Size(54, 25);
+            this.tCRUSHMIN2.TabIndex = 576;
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(223, 882);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(107, 15);
+            this.label81.TabIndex = 574;
+            this.label81.Text = "돌파 이후 몇분";
+            // 
+            // tCRUSHMIN1
+            // 
+            this.tCRUSHMIN1.Location = new System.Drawing.Point(147, 874);
+            this.tCRUSHMIN1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tCRUSHMIN1.Name = "tCRUSHMIN1";
+            this.tCRUSHMIN1.Size = new System.Drawing.Size(54, 25);
+            this.tCRUSHMIN1.TabIndex = 575;
             // 
             // tCURLOC2
             // 
@@ -1005,7 +1042,7 @@ namespace AtoIndicator.View
             this.timerLabel.Name = "timerLabel";
             this.timerLabel.Size = new System.Drawing.Size(31, 15);
             this.timerLabel.TabIndex = 536;
-            this.timerLabel.Text = "300";
+            this.timerLabel.Text = "500";
             // 
             // timerUpButton
             // 
@@ -3039,30 +3076,60 @@ namespace AtoIndicator.View
             this.tTF1.Size = new System.Drawing.Size(54, 25);
             this.tTF1.TabIndex = 199;
             // 
-            // tCRUSHMIN2
+            // tVIMIN2
             // 
-            this.tCRUSHMIN2.Location = new System.Drawing.Point(354, 874);
-            this.tCRUSHMIN2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tCRUSHMIN2.Name = "tCRUSHMIN2";
-            this.tCRUSHMIN2.Size = new System.Drawing.Size(54, 25);
-            this.tCRUSHMIN2.TabIndex = 576;
+            this.tVIMIN2.Location = new System.Drawing.Point(355, 916);
+            this.tVIMIN2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tVIMIN2.Name = "tVIMIN2";
+            this.tVIMIN2.Size = new System.Drawing.Size(54, 25);
+            this.tVIMIN2.TabIndex = 579;
             // 
-            // label81
+            // label86
             // 
-            this.label81.AutoSize = true;
-            this.label81.Location = new System.Drawing.Point(223, 882);
-            this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(107, 15);
-            this.label81.TabIndex = 574;
-            this.label81.Text = "돌파 이후 몇분";
+            this.label86.AutoSize = true;
+            this.label86.Location = new System.Drawing.Point(239, 924);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(88, 15);
+            this.label86.TabIndex = 577;
+            this.label86.Text = "VI 이후 몇분";
             // 
-            // tCRUSHMIN1
+            // tVIMIN1
             // 
-            this.tCRUSHMIN1.Location = new System.Drawing.Point(147, 874);
-            this.tCRUSHMIN1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tCRUSHMIN1.Name = "tCRUSHMIN1";
-            this.tCRUSHMIN1.Size = new System.Drawing.Size(54, 25);
-            this.tCRUSHMIN1.TabIndex = 575;
+            this.tVIMIN1.Location = new System.Drawing.Point(148, 916);
+            this.tVIMIN1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tVIMIN1.Name = "tVIMIN1";
+            this.tVIMIN1.Size = new System.Drawing.Size(54, 25);
+            this.tVIMIN1.TabIndex = 578;
+            // 
+            // write1Btn
+            // 
+            this.write1Btn.Location = new System.Drawing.Point(124, 952);
+            this.write1Btn.Name = "write1Btn";
+            this.write1Btn.Size = new System.Drawing.Size(52, 24);
+            this.write1Btn.TabIndex = 580;
+            this.write1Btn.Text = "1번";
+            this.write1Btn.UseVisualStyleBackColor = true;
+            this.write1Btn.Click += new System.EventHandler(this.write1Btn_Click);
+            // 
+            // write2Btn
+            // 
+            this.write2Btn.Location = new System.Drawing.Point(218, 952);
+            this.write2Btn.Name = "write2Btn";
+            this.write2Btn.Size = new System.Drawing.Size(52, 24);
+            this.write2Btn.TabIndex = 581;
+            this.write2Btn.Text = "2번";
+            this.write2Btn.UseVisualStyleBackColor = true;
+            this.write2Btn.Click += new System.EventHandler(this.write2Btn_Click);
+            // 
+            // write3Btn
+            // 
+            this.write3Btn.Location = new System.Drawing.Point(319, 952);
+            this.write3Btn.Name = "write3Btn";
+            this.write3Btn.Size = new System.Drawing.Size(52, 24);
+            this.write3Btn.TabIndex = 582;
+            this.write3Btn.Text = "3번";
+            this.write3Btn.UseVisualStyleBackColor = true;
+            this.write3Btn.Click += new System.EventHandler(this.write3Btn_Click);
             // 
             // FastInfo
             // 
@@ -3370,5 +3437,11 @@ namespace AtoIndicator.View
         private System.Windows.Forms.TextBox tCRUSHMIN2;
         private System.Windows.Forms.Label label81;
         private System.Windows.Forms.TextBox tCRUSHMIN1;
+        private System.Windows.Forms.TextBox tVIMIN2;
+        private System.Windows.Forms.Label label86;
+        private System.Windows.Forms.TextBox tVIMIN1;
+        private System.Windows.Forms.Button write3Btn;
+        private System.Windows.Forms.Button write2Btn;
+        private System.Windows.Forms.Button write1Btn;
     }
 }

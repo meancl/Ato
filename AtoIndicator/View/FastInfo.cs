@@ -260,6 +260,207 @@ namespace AtoIndicator.View
             }
         }
 
+        public void ClearConditions()
+        {
+            if (!isUsing)
+            {
+                timer.Enabled = false;
+                timerCheckBox.Checked = false;
+
+                wCheckBox.Checked = false;
+                qCheckBox.Checked = false;
+                eCheckBox.Checked = false;
+                rCheckBox.Checked = false;
+
+                crushVisualTxtBox.Text = "";
+                viVisualTxtBox.Text = "";
+                speedVisualTxtBox.Text = "";
+                downVisualTxtBox.Text = "";
+
+                crushVisualCheckBox.Checked = false;
+                viVisualCheckBox.Checked = false;
+                speedVisualCheckBox.Checked = false;
+                maVisualCheckBox.Checked = false;
+                downVisualCheckBox.Checked = false;
+
+                crushSoundCheckBox.Checked = false;
+                viSoundCheckBox.Checked = false;
+                upSoundCheckBox.Checked = false;
+
+                m20CheckBox.Checked = false;
+                h1CheckBox.Checked = false;
+                h2CheckBox.Checked = false;
+
+                passNumTxtBox.Text = "";
+
+                tTF1.Text = "";
+                tTF2.Text = "";
+                tSG1.Text = "";
+                tSG2.Text = "";
+                tWOG1.Text = "";
+                tWOG2.Text = "";
+                tCP1.Text = "";
+                tCP2.Text = "";
+                tPJ1.Text = "";
+                tPJ2.Text = "";
+                tUPJ1.Text = "";
+                tUPJ2.Text = "";
+                tDPJ1.Text = "";
+                tDPJ2.Text = "";
+                tTTM1.Text = "";
+                tTTM2.Text = "";
+                tBM1.Text = "";
+                tBM2.Text = "";
+                tSM1.Text = "";
+                tSM2.Text = "";
+                tTA1.Text = "";
+                tTA2.Text = "";
+                tHA1.Text = "";
+                tHA2.Text = "";
+                tRA1.Text = "";
+                tRA2.Text = "";
+                tDA1.Text = "";
+                tDA2.Text = "";
+                t1P1.Text = "";
+                t1P2.Text = "";
+                t2P1.Text = "";
+                t2P2.Text = "";
+                t3P1.Text = "";
+                t3P2.Text = "";
+                t4P1.Text = "";
+                t4P2.Text = "";
+                tPD1.Text = "";
+                tPD2.Text = "";
+                tRPD1.Text = "";
+                tRPD2.Text = "";
+                tVI1.Text = "";
+                tVI2.Text = "";
+                tRBP1.Text = "";
+                tRBP2.Text = "";
+                tTFP1.Text = "";
+                tTFP2.Text = "";
+                tEP1.Text = "";
+                tEP2.Text = "";
+                tAIS1.Text = "";
+                tAIS2.Text = "";
+                tSC1.Text = "";
+                tSC2.Text = "";
+                tSUDC1.Text = "";
+                tSUDC2.Text = "";
+                tSUP1.Text = "";
+                tSUP2.Text = "";
+                tSDP1.Text = "";
+                tSDP2.Text = "";
+                tSPD1.Text = "";
+                tSPD2.Text = "";
+                tEC1.Text = "";
+                tEC2.Text = "";
+                tCM1.Text = "";
+                tCM2.Text = "";
+                tPM1.Text = "";
+                tPM2.Text = "";
+                tCC1.Text = "";
+                tCC2.Text = "";
+                tCS1.Text = "";
+                tCS2.Text = "";
+                tAMU1.Text = "";
+                tAMU2.Text = "";
+                tAMD1.Text = "";
+                tAMD2.Text = "";
+                tHS1.Text = "";
+                tHS2.Text = "";
+                tPS1.Text = "";
+                tPS2.Text = "";
+                tPUS1.Text = "";
+                tPUS2.Text = "";
+                tTS1.Text = "";
+                tTS2.Text = "";
+                tTMAX1.Text = "";
+                tTMAX2.Text = "";
+                tTMIN1.Text = "";
+                tTMIN2.Text = "";
+                tTMD1.Text = "";
+                tTMD2.Text = "";
+                tMR1.Text = "";
+                tMR2.Text = "";
+                tTR1.Text = "";
+                tTR2.Text = "";
+                tRDIF1.Text = "";
+                tRDIF2.Text = "";
+                tAI20T1.Text = "";
+                tAI20T2.Text = "";
+                tAI30T1.Text = "";
+                tAI30T2.Text = "";
+                tAI50T1.Text = "";
+                tAI50T2.Text = "";
+                tCRC1.Text = "";
+                tCRC2.Text = "";
+                tUCRC1.Text = "";
+                tUCRC2.Text = "";
+                tT1501.Text = "";
+                tT1502.Text = "";
+                tC1501.Text = "";
+                tC1502.Text = "";
+                tRBA1.Text = "";
+                tRBA2.Text = "";
+                tRBD1.Text = "";
+                tRBD2.Text = "";
+                tFBA1.Text = "";
+                tFBA2.Text = "";
+                tFBD1.Text = "";
+                tFBD2.Text = "";
+                tFAA1.Text = "";
+                tFAA2.Text = "";
+                tFAD1.Text = "";
+                tFAD2.Text = "";
+                tFRA1.Text = "";
+                tFRA2.Text = "";
+                tFRD1.Text = "";
+                tFRD2.Text = "";
+                tPUA1.Text = "";
+                tPUA2.Text = "";
+                tPUD1.Text = "";
+                tPUD2.Text = "";
+                tPDA1.Text = "";
+                tPDA2.Text = "";
+                tPDD1.Text = "";
+                tPDD2.Text = "";
+                tSFD1.Text = "";
+                tSFD2.Text = "";
+                tHIT51.Text = "";
+                tHIT52.Text = "";
+                tHIT81.Text = "";
+                tHIT82.Text = "";
+                tHIT101.Text = "";
+                tHIT102.Text = "";
+                tHIT121.Text = "";
+                tHIT122.Text = "";
+                tCURFT1.Text = "";
+                tCURFT2.Text = "";
+                tCURFC1.Text = "";
+                tCURFC2.Text = "";
+                tFABNum1.Text = "";
+                tFABNum2.Text = "";
+                tFABPlusNum1.Text = "";
+                tFABPlusNum2.Text = "";
+                tTradeCompared1.Text = "";
+                tTradeCompared2.Text = "";
+                tTradeStrength1.Text = "";
+                tTradeStrength2.Text = "";
+                tUntilVi1.Text = "";
+                tUntilVi2.Text = "";
+                tDUP1.Text = "";
+                tDUP2.Text = "";
+                tCURLOC1.Text = "";
+                tCURLOC2.Text = "";
+                tCRUSHMIN1.Text = "";
+                tCRUSHMIN2.Text = "";
+                tVIMIN1.Text = "";
+                tVIMIN2.Text = "";
+
+            }
+        }
+
         public void KeyDownHandler(object sender, KeyEventArgs k)
         {
             char cDown = (char)k.KeyValue;
@@ -316,200 +517,7 @@ namespace AtoIndicator.View
             {
                 if (cUp == 'C')
                 {
-                    if (!isUsing)
-                    {
-                        timer.Enabled = false;
-                        timerCheckBox.Checked = false;
-
-                        wCheckBox.Checked = false;
-                        qCheckBox.Checked = false;
-                        eCheckBox.Checked = false;
-                        rCheckBox.Checked = false;
-
-                        crushVisualTxtBox.Text = "";
-                        viVisualTxtBox.Text = "";
-                        speedVisualTxtBox.Text = "";
-
-                        crushVisualCheckBox.Checked = false;
-                        viVisualCheckBox.Checked = false;
-                        speedVisualCheckBox.Checked = false;
-                        maVisualCheckBox.Checked = false;
-                        downVisualCheckBox.Checked = false;
-
-                        crushSoundCheckBox.Checked = false;
-                        viSoundCheckBox.Checked = false;
-                        upSoundCheckBox.Checked = false;
-
-                        m20CheckBox.Checked = false;
-                        h1CheckBox.Checked = false;
-                        h2CheckBox.Checked = false;
-
-                        passNumTxtBox.Text = "";
-
-                        tTF1.Text = "";
-                        tTF2.Text = "";
-                        tSG1.Text = "";
-                        tSG2.Text = "";
-                        tWOG1.Text = "";
-                        tWOG2.Text = "";
-                        tCP1.Text = "";
-                        tCP2.Text = "";
-                        tPJ1.Text = "";
-                        tPJ2.Text = "";
-                        tUPJ1.Text = "";
-                        tUPJ2.Text = "";
-                        tDPJ1.Text = "";
-                        tDPJ2.Text = "";
-                        tTTM1.Text = "";
-                        tTTM2.Text = "";
-                        tBM1.Text = "";
-                        tBM2.Text = "";
-                        tSM1.Text = "";
-                        tSM2.Text = "";
-                        tTA1.Text = "";
-                        tTA2.Text = "";
-                        tHA1.Text = "";
-                        tHA2.Text = "";
-                        tRA1.Text = "";
-                        tRA2.Text = "";
-                        tDA1.Text = "";
-                        tDA2.Text = "";
-                        t1P1.Text = "";
-                        t1P2.Text = "";
-                        t2P1.Text = "";
-                        t2P2.Text = "";
-                        t3P1.Text = "";
-                        t3P2.Text = "";
-                        t4P1.Text = "";
-                        t4P2.Text = "";
-                        tPD1.Text = "";
-                        tPD2.Text = "";
-                        tRPD1.Text = "";
-                        tRPD2.Text = "";
-                        tVI1.Text = "";
-                        tVI2.Text = "";
-                        tRBP1.Text = "";
-                        tRBP2.Text = "";
-                        tTFP1.Text = "";
-                        tTFP2.Text = "";
-                        tEP1.Text = "";
-                        tEP2.Text = "";
-                        tAIS1.Text = "";
-                        tAIS2.Text = "";
-                        tSC1.Text = "";
-                        tSC2.Text = "";
-                        tSUDC1.Text = "";
-                        tSUDC2.Text = "";
-                        tSUP1.Text = "";
-                        tSUP2.Text = "";
-                        tSDP1.Text = "";
-                        tSDP2.Text = "";
-                        tSPD1.Text = "";
-                        tSPD2.Text = "";
-                        tEC1.Text = "";
-                        tEC2.Text = "";
-                        tCM1.Text = "";
-                        tCM2.Text = "";
-                        tPM1.Text = "";
-                        tPM2.Text = "";
-                        tCC1.Text = "";
-                        tCC2.Text = "";
-                        tCS1.Text = "";
-                        tCS2.Text = "";
-                        tAMU1.Text = "";
-                        tAMU2.Text = "";
-                        tAMD1.Text = "";
-                        tAMD2.Text = "";
-                        tHS1.Text = "";
-                        tHS2.Text = "";
-                        tPS1.Text = "";
-                        tPS2.Text = "";
-                        tPUS1.Text = "";
-                        tPUS2.Text = "";
-                        tTS1.Text = "";
-                        tTS2.Text = "";
-                        tTMAX1.Text = "";
-                        tTMAX2.Text = "";
-                        tTMIN1.Text = "";
-                        tTMIN2.Text = "";
-                        tTMD1.Text = "";
-                        tTMD2.Text = "";
-                        tMR1.Text = "";
-                        tMR2.Text = "";
-                        tTR1.Text = "";
-                        tTR2.Text = "";
-                        tRDIF1.Text = "";
-                        tRDIF2.Text = "";
-                        tAI20T1.Text = "";
-                        tAI20T2.Text = "";
-                        tAI30T1.Text = "";
-                        tAI30T2.Text = "";
-                        tAI50T1.Text = "";
-                        tAI50T2.Text = "";
-                        tCRC1.Text = "";
-                        tCRC2.Text = "";
-                        tUCRC1.Text = "";
-                        tUCRC2.Text = "";
-                        tT1501.Text = "";
-                        tT1502.Text = "";
-                        tC1501.Text = "";
-                        tC1502.Text = "";
-                        tRBA1.Text = "";
-                        tRBA2.Text = "";
-                        tRBD1.Text = "";
-                        tRBD2.Text = "";
-                        tFBA1.Text = "";
-                        tFBA2.Text = "";
-                        tFBD1.Text = "";
-                        tFBD2.Text = "";
-                        tFAA1.Text = "";
-                        tFAA2.Text = "";
-                        tFAD1.Text = "";
-                        tFAD2.Text = "";
-                        tFRA1.Text = "";
-                        tFRA2.Text = "";
-                        tFRD1.Text = "";
-                        tFRD2.Text = "";
-                        tPUA1.Text = "";
-                        tPUA2.Text = "";
-                        tPUD1.Text = "";
-                        tPUD2.Text = "";
-                        tPDA1.Text = "";
-                        tPDA2.Text = "";
-                        tPDD1.Text = "";
-                        tPDD2.Text = "";
-                        tSFD1.Text = "";
-                        tSFD2.Text = "";
-                        tHIT51.Text = "";
-                        tHIT52.Text = "";
-                        tHIT81.Text = "";
-                        tHIT82.Text = "";
-                        tHIT101.Text = "";
-                        tHIT102.Text = "";
-                        tHIT121.Text = "";
-                        tHIT122.Text = "";
-                        tCURFT1.Text = "";
-                        tCURFT2.Text = "";
-                        tCURFC1.Text = "";
-                        tCURFC2.Text = "";
-                        tFABNum1.Text = "";
-                        tFABNum2.Text = "";
-                        tFABPlusNum1.Text = "";
-                        tFABPlusNum2.Text = "";
-                        tTradeCompared1.Text = "";
-                        tTradeCompared2.Text = "";
-                        tTradeStrength1.Text = "";
-                        tTradeStrength2.Text = "";
-                        tUntilVi1.Text = "";
-                        tUntilVi2.Text = "";
-                        tDUP1.Text = "";
-                        tDUP2.Text = "";
-                        tCURLOC1.Text = "";
-                        tCURLOC2.Text = "";
-                        tCRUSHMIN1.Text = "";
-                        tCRUSHMIN2.Text = "";
-
-                    }
+                    ClearConditions();
                 }
 
                 if (cUp == 'A')
@@ -794,6 +802,7 @@ namespace AtoIndicator.View
         public ComparePackage DUPPack;
         public ComparePackage CURLOCPack;
         public ComparePackage CRUSHMINPack;
+        public ComparePackage VIMINPack;
 
         // End -- 비교 대상자 변수들
 
@@ -918,6 +927,7 @@ namespace AtoIndicator.View
                     DUPPack.Set(tDUP1.Text, tDUP2.Text);
                     CURLOCPack.Set(tCURLOC1.Text, tCURLOC2.Text);
                     CRUSHMINPack.Set(tCRUSHMIN1.Text, tCRUSHMIN2.Text);
+                    VIMINPack.Set(tVIMIN1.Text, tVIMIN2.Text);
 
                     nPass = 0; // pass cnt
                     nPassLen = 0;
@@ -1003,6 +1013,7 @@ namespace AtoIndicator.View
                                                     DUPPack.IsChecked(),
                                                     CURLOCPack.IsChecked(),
                                                     CRUSHMINPack.IsChecked(),
+                                                    VIMINPack.IsChecked(),
                 });
 
                     string sPassNum = passNumTxtBox.Text.Trim();
@@ -1139,6 +1150,8 @@ namespace AtoIndicator.View
                                 nPass++;
                             if (CRUSHMINPack.IsChecked() && CRUSHMINPack.Compare(mainForm.nTimeLineIdx - mainForm.ea[i].nCrushMinTimeLineIdx))
                                 nPass++;
+                            if (VIMINPack.IsChecked() && VIMINPack.Compare(mainForm.nTimeLineIdx - mainForm.ea[i].nViTimeLineIdx))
+                                nPass++;
                             if (CURLOCPack.IsChecked() && CURLOCPack.Compare((double)(mainForm.ea[i].nFs - mainForm.ea[i].nTodayBottomPrice) / (mainForm.ea[i].nTodayMaxPrice - mainForm.ea[i].nTodayBottomPrice) ))
                                 nPass++;
                             if (MRPack.IsChecked() && MRPack.Compare(mainForm.ea[i].rankSystem.nMinuteSummationRanking))
@@ -1209,7 +1222,7 @@ namespace AtoIndicator.View
                                 nPass++;
                             if (UntilViPack.IsChecked() && UntilViPack.Compare((double)(mainForm.ea[i].nUpViPrice - mainForm.ea[i].nFs) / mainForm.ea[i].nYesterdayEndPrice))
                                 nPass++;
-
+                            
 
                             isShow = nPass >= nFinalPassNum;
 
@@ -1785,7 +1798,7 @@ namespace AtoIndicator.View
         }
 
 
-        public int nTimerMilliSec = 300;
+        public int nTimerMilliSec = 500;
         public const int TIMER_MOVING = 100;
 
         public void TimerButtonClickHandler(object sender, EventArgs e)
@@ -2036,6 +2049,64 @@ namespace AtoIndicator.View
                 targetTimeArr[i] = 0;
         }
 
+        private void write1Btn_Click(object sender, EventArgs e)
+        {
+            ClearConditions();
 
+            crushVisualCheckBox.Checked = true;
+            viVisualCheckBox.Checked = true;
+            speedVisualCheckBox.Checked = true;
+            downVisualCheckBox.Checked = true;
+            maVisualCheckBox.Checked = true;
+            crushVisualTxtBox.Text = "0.015";
+            viVisualTxtBox.Text = "0.02";
+            speedVisualTxtBox.Text = "350";
+            downVisualTxtBox.Text = "0.02";
+            timerCheckBox.Checked = true;
+
+            tFBA1.Text = "1";
+            tVIMIN1.Text = "0";
+            tVIMIN2.Text = "3";
+        }
+
+        private void write2Btn_Click(object sender, EventArgs e)
+        {
+            ClearConditions();
+
+            crushVisualCheckBox.Checked = true;
+            viVisualCheckBox.Checked = true;
+            speedVisualCheckBox.Checked = true;
+            downVisualCheckBox.Checked = true;
+            maVisualCheckBox.Checked = true;
+            crushVisualTxtBox.Text = "0.015";
+            viVisualTxtBox.Text = "0.02";
+            speedVisualTxtBox.Text = "350";
+            downVisualTxtBox.Text = "0.02";
+            timerCheckBox.Checked = true;
+
+            tFBA1.Text = "1";
+            tCRUSHMIN1.Text = "0";
+            tCRUSHMIN2.Text = "1";
+        }
+
+        private void write3Btn_Click(object sender, EventArgs e)
+        {
+            ClearConditions();
+
+            crushVisualCheckBox.Checked = true;
+            viVisualCheckBox.Checked = true;
+            speedVisualCheckBox.Checked = true;
+            downVisualCheckBox.Checked = true;
+            maVisualCheckBox.Checked = true;
+            crushVisualTxtBox.Text = "0.015";
+            viVisualTxtBox.Text = "0.02";
+            speedVisualTxtBox.Text = "350";
+            downVisualTxtBox.Text = "0.02";
+            timerCheckBox.Checked = true;
+
+            tFBA1.Text = "1";
+            tTMD1.Text = "0.025";
+            tCURLOC1.Text = "0.5";
+        }
     }
 }
