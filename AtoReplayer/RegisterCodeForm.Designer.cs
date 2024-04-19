@@ -36,19 +36,22 @@ namespace AtoReplayer
             // 
             this.registerTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.registerTextBox.Location = new System.Drawing.Point(0, 0);
+            this.registerTextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.registerTextBox.MaxLength = 1048575;
             this.registerTextBox.Multiline = true;
             this.registerTextBox.Name = "registerTextBox";
             this.registerTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.registerTextBox.Size = new System.Drawing.Size(800, 450);
+            this.registerTextBox.Size = new System.Drawing.Size(914, 562);
             this.registerTextBox.TabIndex = 0;
             this.registerTextBox.TabStop = false;
             // 
             // RegisterCodeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(914, 562);
             this.Controls.Add(this.registerTextBox);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "RegisterCodeForm";
             this.Text = "RegisterCodeForm";
             this.ResumeLayout(false);

@@ -106,6 +106,7 @@ namespace AtoReplayer
             this.reserveChosenLabel = new System.Windows.Forms.Label();
             this.priceViewLabel = new System.Windows.Forms.Label();
             this.RegisterGroupBox = new System.Windows.Forms.GroupBox();
+            this.compLocLabel = new System.Windows.Forms.Label();
             this.confirmBtn = new System.Windows.Forms.Button();
             this.shootBtn = new System.Windows.Forms.Button();
             this.sRegisterMemoTxtBox = new System.Windows.Forms.TextBox();
@@ -115,7 +116,6 @@ namespace AtoReplayer
             this.rightBtn = new System.Windows.Forms.Button();
             this.leftBtn = new System.Windows.Forms.Button();
             this.forwardFull = new System.Windows.Forms.Button();
-            this.compLocLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.historyChart)).BeginInit();
             this.loadingPanel.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -126,7 +126,8 @@ namespace AtoReplayer
             // 
             // historyChart
             // 
-            this.historyChart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.historyChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.CursorX.IsUserSelectionEnabled = true;
             chartArea1.Name = "ChartArea1";
@@ -898,6 +899,14 @@ namespace AtoReplayer
             this.RegisterGroupBox.Text = " ";
             this.RegisterGroupBox.Visible = false;
             // 
+            // compLocLabel
+            // 
+            this.compLocLabel.AutoSize = true;
+            this.compLocLabel.Location = new System.Drawing.Point(258, 28);
+            this.compLocLabel.Name = "compLocLabel";
+            this.compLocLabel.Size = new System.Drawing.Size(0, 15);
+            this.compLocLabel.TabIndex = 8;
+            // 
             // confirmBtn
             // 
             this.confirmBtn.Location = new System.Drawing.Point(120, 115);
@@ -984,14 +993,6 @@ namespace AtoReplayer
             this.forwardFull.TabIndex = 40;
             this.forwardFull.Text = "full";
             this.forwardFull.UseVisualStyleBackColor = true;
-            // 
-            // compLocLabel
-            // 
-            this.compLocLabel.AutoSize = true;
-            this.compLocLabel.Location = new System.Drawing.Point(258, 28);
-            this.compLocLabel.Name = "compLocLabel";
-            this.compLocLabel.Size = new System.Drawing.Size(0, 15);
-            this.compLocLabel.TabIndex = 8;
             // 
             // AtoReplayer
             // 

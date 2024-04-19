@@ -58,8 +58,10 @@ namespace AtoIndicator.View
                 isSpacePushed = true;
 
             if (isCtrlPushed && isShiftPushed && isSpacePushed)
+            {
                 RegisterByTxt();
-
+                this.Close();
+            }
         }
 
         const int INIT_NUM = -1;

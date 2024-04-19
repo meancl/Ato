@@ -2053,6 +2053,8 @@ namespace AtoIndicator.View
         {
             ClearConditions();
 
+            viSoundCheckBox.Checked = true;
+
             crushVisualCheckBox.Checked = true;
             viVisualCheckBox.Checked = true;
             speedVisualCheckBox.Checked = true;
