@@ -136,7 +136,7 @@ namespace AtoIndicator.View
 
                             string[] lineArray = stockArray[i].Split('\t');
 
-                            int nCurIdx = mainForm.eachStockNameDict[lineArray[0].Trim()];
+                            int nCurIdx = mainForm.eachStockDict[lineArray[0].Trim()];
 
                             switch (nSpecificNum)
                             {
